@@ -12,8 +12,53 @@ Mark~Everingham, Luc~Van~Gool, Christopher~K.I.Williams, John~Winn, Andrew~Zisse
 \newblock \emph{IJCV}, 2009.
 
 \bibitem{ilsvrc_bib}
-Olga~Russakovsky*, Jia~Deng* and Hao~Su, Jonathan~Krause, Sanjeev~Satheesh, Sean~Ma, Zhiheng~Huang, Andrej~Karpathy, Aditya~Khosla, Michael~Bernstein, Alexander~C.Berg, Li~Fei-Fei
+Olga~Russakovsky*, Jia~Deng* and Hao~Su, Jonathan~Krause, Sanjeev~Satheesh, Sean~Ma, Zhiheng~Huang, Andrej~Karpathy, Aditya~Khosla, Michael~Bernstein, Alexander~C.Berg, Li~Fei-Fei.
 \newblock {\em ImageNet Large Scale Visual Recognition Challenge.}.
 \newblock \emph{IJCV}, 2015.
+
+\bibitem{rcnn_bib}
+Ming~Liang, Xiaolin~Hu.
+\newblock {\em Recurrent Convolutional Neural Network for Object Recognition.}.
+\newblock \emph{IEEE}, 2015.
+
+\bibitem{r_cnn_bib}
+Ross~Girshick, Trevor~Darrell, Jitendra~Malik.
+\newblock {\em Region-based Convolutional Networks for Accurate Object Detection and Segmentation.}.
+\newblock \emph{ICCV}, 2016.
+
+\bibitem{fast_rcnn_bib}
+Ross~Girshick.
+\newblock {\em Fast R-CNN.}.
+\newblock \emph{ICCV}, 2016.
+
+\bibitem{faster_rcnn_bib}
+Shaoqing~Ren, Kaiming~He, Ross{Girshick, Jian~Sun.
+\newblock {\em Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks.}.
+\newblock \emph{IEEE}, 2017.
+
+\bibitem{yolo_bib}
+Joseph~Redmon, Santosh~Divvala, Ross~Girshick, Ali~Farhadi.
+\newblock {\em You Only Look Once: Unified, Real-Time Object Detection.}.
+\newblock \emph{CVPR}, 2016.
+
+\bibitem{ssd_bib}
+Wei~Liu, Dragomir~Anguelov, Dumitru~Erhan, Christian~Szegedy, Scott~Reed, Cheng-Yang~Fu, Alexander~C.Berg.
+\newblock {\em SSD: Single Shot MultiBox Detector.}.
+\newblock \emph{ECCV}, 2016.
+
+\bibitem{rfcn_bib}
+Jifeng~Dai, Yi~Li, Kaiming~He, Jian~Sun.
+\newblock {\em R-FCN: Object Detection via Region-based Fully Convolutional Networks.}.
+\newblock \emph{NIPS}, 2016.
+
+\bibitem{fpn_bib}
+Tsung-Yi~Lin, Piotr~Doll{\'a}r, Ross~Girshick, Kaiming~He, Bharath~Hariharan, Serge~Belongie.
+\newblock {\em Feature Pyramid Networks for Object Detection.}.
+\newblock \emph{CVPR}, 2017.
+
+\bibitem{detection_suite_bib}
+Francisco~Rivas
+\newblock {\em DetectionSuite.}.
+\newblock 2017.
 
 \end{thebibliography}
