@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{12}
 
 \bibitem{coco_bib}
 Tsung-Yi~Lin, Michael~Maire, Serge~Belongie, Lawrence~Zitnick, James~Hays, Pietro~Perona, Lubomir~Bourdev, Deva~Ramanan, Ross~Girshick, Piotr
@@ -50,6 +50,11 @@ Wei~Liu, Dragomir~Anguelov, Dumitru~Erhan, Christian~Szegedy, Scott~Reed, Cheng-
 Jifeng~Dai, Yi~Li, Kaiming~He, Jian~Sun.
 \newblock {\em R-FCN: Object Detection via Region-based Fully Convolutional Networks.}.
 \newblock \emph{NIPS}, 2016.
+
+\bibitem{mask_rcnn_bib}
+Kaiming He, Piotr~Doll{\'a}r, Ross~Girshick, Georgia Gkioxari.
+\newblock {\em Mask R-CNN.}.
+\newblock \emph{CoRR}, 2017.
 
 \bibitem{fpn_bib}
 Tsung-Yi~Lin, Piotr~Doll{\'a}r, Ross~Girshick, Kaiming~He, Bharath~Hariharan, Serge~Belongie.
