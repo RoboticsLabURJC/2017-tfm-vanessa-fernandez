@@ -3,6 +3,9 @@
 \usepackage[spanish, activeacute]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\DeclareUnicodeCharacter{00A0}{~}
+\DeclareUnicodeCharacter{00A0}{-}
+
 
 %% Enter your paper number here for the review copy
 % \bmvcreviewcopy{??}
@@ -76,7 +79,7 @@ La detección de objetos pretende encontrar un determinado objeto en una imagen 
 
 \subsubsection{PASCAL VOC}
 
-El desafío PASCAL Visual Object Classes (VOC) ~\cite{coco_bib} es un punto de referencia en el reconocimiento y detección de objetos, proporcionando a la visión artificial y al \textit{Matching Learning} un conjunto de imágenes estándar y procedimientos de evaluación estándar. Este reto es organizado anualmente desde 2005 hasta el 2012.\\
+El desafío PASCAL Visual Object Classes (VOC) \cite{coco_bib} es un punto de referencia en el reconocimiento y detección de objetos, proporcionando a la visión artificial y al \textit{Matching Learning} un conjunto de imágenes estándar y procedimientos de evaluación estándar. Este reto es organizado anualmente desde 2005 hasta el 2012.\\
 
 Es necesario que los conjuntos de datos contengan variabilidad significativa en términos de tamaño del objeto, orientación, pose, iluminación, posición y oclusión. También es importante que los conjuntos de datos no muestren sesgos sistemáticos, por ejemplo, favoreciendo imágenes con objetos centrados o una buena iluminación. Del mismo modo,
 para garantizar un entrenamiento y una evaluación precisa, es necesario que las anotaciones de imagen sean consistentes, precisas y exhaustivas para las clases especificadas.\\
@@ -93,7 +96,7 @@ En 2007, se llevó a cabo una recolección de imágenes, como las mostradas en l
 
 \subsubsection{COCO}
 
-Microsoft Common Objects in Context (COCO) es un gran conjunto de datos de imágenes diseñado para la detección de objetos, segmentación y generación de subtítulos. En la Figura \ref{fig.coco} podemos ver un ejemplo de estas imágenes. Algunas de las caracterı́sticas principales de este conjunto de datos son: múltiples objetos en cada imagen, más de 300.000 imágenes, más de 2 millones de instancias, 80 categorías de objetos.\\
+Microsoft Common Objects in Context (COCO) es un gran conjunto de datos de imágenes diseñado para la detección de objetos, segmentación y generación de subtítulos. En la Figura \ref{fig.coco_bib} podemos ver un ejemplo de estas imágenes. Algunas de las características principales de este conjunto de datos son: múltiples objetos en cada imagen, más de 300.000 imágenes, más de 2 millones de instancias, 80 categorías de objetos.\\
 
 Se utilizan conjuntos de entrenamiento, prueba y validación con sus correspondientes anotaciones. COCO tiene tres tipos de anotaciones: instancias de objeto, puntos clave de objeto y leyendas de imagen, que se almacenan utilizando el formato de archivo JavaScript Object Notation (JSON) y comparten estructura de datos.\\
 
@@ -167,7 +170,7 @@ En comparación con los sistemas de detección de última generación, YOLO come
 
 \subsubsection{R-FCN}
 
-Region-based Fully Convolutional Networks (R-FCN) es creada para obtener una detección de objetos precisa y eficiente. A diferencia de los detectores anteriores basados ​​en región, como Fast/Faster R-CNN, que aplican una costosa subred por región cientos de veces, en R-FCN el detector basado en la región es completamente convolucional con casi todos los cálculos compartidos en toda la imagen.\\
+Region-based Fully Convolutional Networks (R-FCN) es creada para obtener una detección de objetos precisa y eficiente. A diferencia de los detectores que se basan ​​en región, como Fast o Faster R-CNN, que aplican una costosa subred por región cientos de veces, en R-FCN el detector basado en la región es completamente convolucional con casi todos los cálculos compartidos en toda la imagen.\\
 
 R-FCN comparte el 100\% de los cálculos en cada salida individual. Al ser completamente convolucional, se encontró con un único problema en el diseño del modelo. Por un lado, al realizar la clasificación de un objeto, queremos aprender la invarianza de ubicación en un modelo: independientemente de dónde aparezca el gato en la imagen, queremos clasificarlo como un gato. Por otro lado, cuando realizamos la detección del objeto, queremos aprender la varianza de ubicación: si el gato está en la esquina superior izquierda, queremos dibujar un cuadro en la esquina superior izquierda. Entonces, si estamos tratando de compartir cálculos convolucionales en el 100\% de la red, cómo comprometemos la invarianza de ubicación y la varianza de ubicación.\\
 
@@ -178,10 +181,19 @@ R-FCN funciona de la siguiente manera (Figura \ref{fig.rfcn}): (1) ejecuta una C
 \begin{figure}
 \begin{center}
 	\includegraphics[width=0.8\textwidth]{images/rfcn.png}
-   \caption{Estructura de R-FCN para detección de objetos}.}
+   \caption{Estructura de R-FCN para detección de objetos}
 	\label{fig.rfcn}
 \end{center}
 \end{figure}
+
+\subsubsection{Mask R-CNN}
+
+Mask R-CNN extiende el concepto de Faster R-CNN al agregar una rama para predecir las máscaras de segmentación en cada región de interés (ROI), en paralelo a la rama existente para la regresión de la clasificación y el \textit{bounding box}. La rama de la máscara es una pequeña FCN aplicada
+a cada ROI, prediciendo una máscara de segmentación píxel a píxel.\\
+
+Mask R-CNN es simple de implementar y entrenar dado el marco Faster R-CNN, que facilita una amplia gama de diseños de arquitectura flexible. Adicionalmente, la rama de la máscara solamente agrega una pequeña carga computacional, permitiendo un sistema rápido y una experimentación rápida. En principio, Mask R-CNN es una extensión intuitiva de Faster R-CNN, sin embargo, construir la rama de máscara correctamente es fundamental para obtener buenos resultados.\\
+
+Faster R-CNN no fue diseñado para la alineación de píxel a píxel entre las entradas y salidas de la red. Para corregir la desalineación, Mask R-CNN propone una capa simple, libre de cuantización, llamada RoIAlign, que conserva fielmente las ubicaciones espaciales exactas.\\
 
 \subsubsection{SSD}
 
@@ -239,7 +251,6 @@ Esta herramienta pretende facilitar al usuario el empleo de diferentes \textit{f
 
 
 %-------------------------------------------------------------------------
-\section{Referencias}
 
 \bibliography{egbib}
 \end{document}
