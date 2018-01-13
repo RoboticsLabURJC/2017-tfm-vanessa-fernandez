@@ -45,7 +45,7 @@
 \maketitle
 
 \begin{abstract}
-La detección de objetos es una de las tareas fundamentales en visión artificial. En este documento se presenta el estado del arte para la detección de objetos. Se abordarán bases de datos para detección de objetos como PASCAL VOC, así como diferentes algortimos de Deep Learning empleados para el mismo problema, como pueden ser CNN o RCNN. Además, se presentará una herramienta para aplicaciones de Deep Learning conocida como DetectionSuite.
+La detección de objetos es una de las tareas fundamentales en visión artificial. En este documento se presenta el estado del arte para la detección de objetos. Se abordarán bases de datos para detección de objetos como PASCAL VOC, COCO o IMAGENET, así como diferentes arquitecturas de redes neuronales de Deep Learning empleadas para el mismo problema, como pueden ser SSD o R-CNN. Además, se presentará una herramienta para aplicaciones de Deep Learning conocida como DetectionSuite.
 
 \end{abstract}
 
@@ -54,35 +54,29 @@ La detección de objetos es una de las tareas fundamentales en visión artificia
 \label{sec:intro}
 Los humanos somos capaces de mirar una imagen y saber al instante qué objetos están la imagen, dónde están situados y cómo interactúan entre ellos. Esto quiere decir que aunque no nos demos cuenta el sistema visual humano es preciso y rápido. Sin embargo, este proceso es más complicado para los computadores.\\
 
-Uno de los problemas más estudiados en visión artificial es el de la detección de objetos: el proceso de encontrar instancias de objetos del mundo real en imágenes o vídeos. Los algoritmos de detección de objetos usualmente usan características extraídas y algoritmos de aprendizaje para reconocer instancias de una categoría de objetos. La forma más común de mostrar visualmente la detección de objetos es mediante \textit{bunding box} que encierran los objetos detectados.\\
+Uno de los problemas más estudiados en visión artificial es el de la detección de objetos: el proceso de encontrar instancias de objetos del mundo real en imágenes o vídeos. Los algoritmos de detección de objetos usualmente tiene dos fases: (1) extracción de características y (2) detección de instancias de una categoría de objetos. La forma más común de mostrar visualmente la detección de objetos es mediante \textit{bounding box} (cuadro delimitador) que encierran los objetos detectados.\\
 
-La detección de objetos ha sido ampliamente estudiada en los casos de detección de rostros y detección de peatones. La detección de objetos tiene aplicaciones en muchas áreas de la visión artificial, incluida la recuperación de imágenes y la videovigilancia.\\
+La detección de objetos ha sido ampliamente estudiada en los casos de detección de rostros y de peatones. La detección de objetos tiene aplicaciones en muchas áreas de la visión artificial, incluida la recuperación de imágenes y la videovigilancia.\\
 
 La parte más difícil para la detección de objetos es la gran varianza existente en las imágenes, ya sea por iluminación, deformación no rígida, oclusión y variabilidad intraclase.\\
 
 Algunas técnicas más clásicas, como el algoritmo Discriminatively Trained Part Based Models (DPM) tienen en cuenta estas varianzas. DPM asume que un objeto está construido por sus partes. Así,
-el detector primero encontrará una coincidencia por un filtro raíz más grueso (a media resolución), y luego usará sus modelos de piezas para afinar
-el resultado. Utiliza las características de HOG en niveles de pirámide antes del filtrado, y SVM lineal para el entrenamiento para encontrar los diferentes
-ubicaciones de partes de un objeto.\\
+el detector primero encontrará una coincidencia por un filtro raíz más grueso (a media resolución), y luego usará sus modelos de piezas para afinar el resultado. Utiliza las características de HOG en niveles de pirámide antes del filtrado, y SVM lineal para encontrar las diferentes ubicaciones de partes de un objeto.\\
 
 Otro ejemplo es Integral Channel Features (ICF), que trata de combinar múltiples canales de imágenes registradas calculados mediante transformaciones lineales y no lineales. Esas ocho transformaciones, que incluyen color, gradiente, borde, histograma de gradiente, diferencia de gaussianas, umbralización y el valor absoluto de Gaussiana, todos son invariantes a la traslación, lo que significa que solamente necesitan ser computados una vez. Entrenando estas características mediante el clasificador AdaBoost en cascada, el método es rápido y efectivo en la detección de peatones.\\
 
-Estos métodos pueden tardar mucho tiempo en la detección. Por ello, surgieron algortimos de Deep Learning para la detección de objetos, como CNN o RCNN.\\
-
-
-\section{Estado del arte}
+Estos métodos pueden tardar mucho tiempo en la detección. Por ello, surgieron algortimos de Deep Learning para la detección de objetos, como SSD o R-CNN.\\
 
 En las próximas subsecciones se describirán los diferetes dataset y algoritmos empleados para la detección de objetos, así como la herramienta DetectionSuite.\\
 
-\subsection{Bases de Datos para la detección de objetos}
+\section{Bases de Datos para la detección de objetos}
 La detección de objetos pretende encontrar un determinado objeto en una imagen o en un vídeo. Dado que queremos encontrar el objeto en cuestión bajo diferentes circunstancias, es decir, en diferentes entornos y diferentes iluminaciones, necesitaremos entrenar el modelo con un conjunto de imágenes representativo. Por ello, a lo largo de los últimos años han surgido diferentes datasets con el fin de solucionar este problema.\\
 
-\subsubsection{PASCAL VOC}
+\subsection{PASCAL VOC}
 
-El desafío PASCAL Visual Object Classes (VOC) \cite{coco_bib} es un punto de referencia en el reconocimiento y detección de objetos, proporcionando a la visión artificial y al \textit{Matching Learning} un conjunto de imágenes estándar y procedimientos de evaluación estándar. Este reto es organizado anualmente desde 2005 hasta el 2012.\\
+El desafío PASCAL Visual Object Classes (VOC) es un punto de referencia en el reconocimiento y detección de objetos, proporcionando a la visión artificial y al \textit{Machine Learning} un conjunto de imágenes estándar y procedimientos de evaluación estándar. Este reto es organizado anualmente desde 2005 hasta el 2012.\\
 
-Es necesario que los conjuntos de datos contengan variabilidad significativa en términos de tamaño del objeto, orientación, pose, iluminación, posición y oclusión. También es importante que los conjuntos de datos no muestren sesgos sistemáticos, por ejemplo, favoreciendo imágenes con objetos centrados o una buena iluminación. Del mismo modo,
-para garantizar un entrenamiento y una evaluación precisa, es necesario que las anotaciones de imagen sean consistentes, precisas y exhaustivas para las clases especificadas.\\
+Es necesario que los conjuntos de datos contengan variabilidad significativa en términos de tamaño del objeto, orientación, pose, iluminación, posición y oclusión. También es importante que los conjuntos de datos no muestren sesgos sistemáticos, por ejemplo, favoreciendo imágenes con objetos centrados o una buena iluminación. Del mismo modo, para garantizar un entrenamiento y una evaluación precisa, es necesario que las anotaciones de imagen sean consistentes, precisas y exhaustivas para las clases especificadas.\\
 
 En 2007, se llevó a cabo una recolección de imágenes, como las mostradas en la Figura ~\ref{fig.pascal}, formando el conjunto de datos VOC2007. Este conjunto dispone de dos grandes bases de datos, una de ellas compuesta por un conjunto de validación y otro de entrenamiento, y la otra con un único conjunto de test. Ambas bases de datos contienen alrededor de 5000 imágenes en las que se representan, apróximadamente, 12.000 objetos diferentes, por lo que, en total, este conjunto dispone de unas 10000 imágenes en las que se reperesentan unos 24000 objetos. En el año 2012 se modifica este conjunto, aumentando a 11530 el número de imágenes con representación de 27450 objetos diferentes.\\
 
@@ -94,9 +88,9 @@ En 2007, se llevó a cabo una recolección de imágenes, como las mostradas en l
 \end{center}
 \end{figure}
 
-\subsubsection{COCO}
+\subsection{COCO}
 
-Microsoft Common Objects in Context (COCO) es un gran conjunto de datos de imágenes diseñado para la detección de objetos, segmentación y generación de subtítulos. En la Figura \ref{fig.coco_bib} podemos ver un ejemplo de estas imágenes. Algunas de las características principales de este conjunto de datos son: múltiples objetos en cada imagen, más de 300.000 imágenes, más de 2 millones de instancias, 80 categorías de objetos.\\
+Microsoft Common Objects in Context (COCO) es un gran conjunto de datos de imágenes diseñado para la detección de objetos, segmentación y generación de subtítulos. En la Figura \ref{fig.coco} podemos ver un ejemplo de estas imágenes. Algunas de las características principales de este conjunto de datos son: múltiples objetos en cada imagen, más de 300.000 imágenes, más de 2 millones de instancias, 80 categorías de objetos.\\
 
 Se utilizan conjuntos de entrenamiento, prueba y validación con sus correspondientes anotaciones. COCO tiene tres tipos de anotaciones: instancias de objeto, puntos clave de objeto y leyendas de imagen, que se almacenan utilizando el formato de archivo JavaScript Object Notation (JSON) y comparten estructura de datos.\\
 
@@ -109,7 +103,7 @@ Se utilizan conjuntos de entrenamiento, prueba y validación con sus correspondi
 \end{figure}
 
 
-\subsubsection{ILSVRC}
+\subsection{ILSVRC}
 
 El desafío ImageNet Large Scale Visual Recognition Challenge(ILSVRC) es un punto de referencia en la clasificación y detección de objetos en cientos de categorías de objetos y millones de imágenes. Este reto tiene lugar desde el 2010 hasta el presente.\\
 
@@ -125,24 +119,21 @@ organizado de acuerdo con la jerarquía de WordNet. Cada concepto en WordNet, po
 \end{figure}
 
 
-\subsection{Algoritmos para la detección de objetos}
+\subsection{PlantCLEF}
 
-La detección de objetos no es posible sin un algoritmo. En las próximas secciones se describirán diferentes algoritmos empleados en la detección de objetos.\\
+El conjunto de datos PlantCLEF 2015 se compone de 113,205 fotos pertenecientes a 41,794 observaciones de 1000 especies de árboles, hierbas y helechos que viven en las regiones de Europa occidental. Esta información fue recolectada por 8.960 contribuidores distintos. Cada imagen pertenece a uno y solo uno de los 7 tipos de vistas reportadas en los metadatos (planta entera, fruta, hoja, flor, tallo, rama, escaneo de hojas) y está asociado con un único identificador de observación de planta que permite vincularlo con las otras imágenes de la misma planta individual.\\
 
-\subsubsection{RCNN}
+PlatCLEF tiene las siguientes propiedades: (1) las imágenes de la misma especie provienen de distintas plantas que viven en áreas distintas, (2) las imágenes son tomadas por diferentes usuarios que podrían no utilizar el mismo protocolo de adquisición de imágenes, (3) las imágenes se toman en diferentes períodos del año. Cada imagen del conjunto de datos está asociada a metadatos contextuales (autor, fecha, nombre de la localidad, identificación de la planta) y datos sociales (calificaciones de los usuarios en la calidad de la imagen, nombre de taxón validado colaborativamente, nombre del vernáculo). La geolocalización gps y la configuración del dispositivo están disponibles solamente para algunas de las imágenes. \\
 
-En los últimos años las redes neuronales convolucionales (CNN) han tenido mucho éxito. Las CNN comparten muchas propiedades con el sistema visual del cerebro. Una diferencia importante es que CNN es típicamente una arquitectura de feed-forward mientras que en el sistema visual las conexiones recurrentes son abundantes. \\
 
-Inspirándose en este hecho, se crearon las CNN recurrentes (RCNN) para reconocimiento de objetos incorporando conexiones recurrentes en cada capa convolucional. Aunque la entrada es estática, las actividades de las unidades RCNN evolucionan con el tiempo
-de modo que la actividad de cada unidad se modula por las actividades de sus unidades vecinas. Esta propiedad mejora la capacidad del modelo para integrar la información de contexto, que es importante para el reconocimiento de objetos.\\
+\section{Redes neuronales para la detección de objetos}
 
-Al igual que otras redes neuronales recurrentes, desplegar las RCNN a través del tiempo puede dar lugar a una red arbitrariamente profunda con un número fijo de parámetros. Además, la red desplegada tiene múltiples rutas, lo que puede facilitar el proceso de aprendizaje.\\
+La detección de objetos no es posible sin un algoritmo. En las próximas secciones se describirán diferentes arquitecturas de redes neuronales empleadas en la detección de objetos.\\
 
-Por tanto, las RCNN son capaces de localizar y detectar objetos en imágenes.  El resultado generalmente es un conjunto de cuadros delimitadores que coinciden estrechamente con cada uno de los objetos detectados, así como una salida de clase para cada objeto detectado.\\
 
-\subsubsection{R-CNN, Fast R-CNN y Faster-RCNN}
+\subsection{R-CNN, Fast R-CNN y Faster-RCNN}
 
-El algoritmo Region-based Convolutional Network (R-CNN) logró una gran mejora en el desafío de la detección de objetos. Consta de 3 pasos simples: (1) escaneo de la imagen de entrada para detectar posibles objetos usando un algoritmo llamado Búsqueda selectiva, generando aproximadamente 2000 propuestas de región; (2) ejecución de una red neuronal convolucional (CNN) en la parte superior de cada una de estas propuestas de región; (3) tomar la salida de cada CNN y alimentarla en a) un SVM para clasificar la región y b) un regresor lineal para apretar el cuadro delimitador del objeto, si tal objeto existe.\\
+El algoritmo Region-based Convolutional Network (R-CNN) logró una gran mejora en el desafío de la detección de objetos. Consta de 3 pasos simples: (1) escaneo de la imagen de entrada para detectar posibles objetos usando un algoritmo llamado búsqueda selectiva, generando aproximadamente 2000 propuestas de región; (2) ejecución de una red neuronal convolucional (CNN) en la parte superior de cada una de estas propuestas de región; (3) tomar la salida de cada CNN y alimentarla en a) un SVM para clasificar la región y b) un regresor lineal para apretar el \textit{bounding box} del objeto, si tal objeto existe.\\
 
 El método Fast Region-based Convolutional Network (Fast R-CNN) se basa en Region-based Convolutional Network, el trabajo previo para clasificar de manera eficiente objetos utilizando redes convolucionales profundas.\\
 
@@ -152,9 +143,9 @@ Posteriormente se desarrolló Faster R-CNN. La idea principal de Faster R-CNN fu
 red completamente convolucional que predice simultáneamente límites de objeto y puntuaciones de objetividad en cada posición. Las RPN están entrenadas de extremo a extremo para generar propuestas de la región de calidad, que son utilizadas por Fast R-CNN para la detección. Con una optimización alterna simple, RPN y Fast R-CNN pueden ser entrenados para compartir características convolucionales.\\
 
 
-\subsubsection{YOLO}
+\subsection{YOLO}
 
-You Only Look Once (YOLO) es otro enfoque para la detección de objetos. El trabajo previo a YOLO designa clasificadores para realizar la detección. En cambio, se enmarca la detección de objetos como un problema de regresión en cuadros delimitadores espacialmente separados y probabilidades de clase asociadas. Una red neuronal única predice \textit{bounding box} y probabilidades de clase directamente desde imágenes completas en una evaluación. Desde todo el \textit{pipeline} de la detección es una red única, se puede optimizar de extremo a extremo directamente en el rendimiento de detección.\\
+You Only Look Once (YOLO) es otro enfoque para la detección de objetos. El trabajo previo a YOLO designa clasificadores para realizar la detección. En este trabajo, se enmarca la detección de objetos como un problema de regresión en \textit{bounding boxes} espacialmente separados y probabilidades de clase asociadas. Una red neuronal única predice \textit{bounding box} y probabilidades de clase directamente desde imágenes completas en una evaluación. Como todo el \textit{pipeline} de la detección es una red única, se puede optimizar de extremo a extremo directamente en el rendimiento de detección.\\
 
 La arquitectura unificada de YOLO (Figura \ref{fig.yolo}) es extremadamente rápida, procesando imágenes en tiempo real a 45 \textit{frames} por segundo. Una versión más pequeña de la red, Fast YOLO, procesa 155 \textit{frames} por segundo, logrando duplicar el mAP de otros detectores en tiempo real.\\
 
@@ -168,15 +159,16 @@ En comparación con los sistemas de detección de última generación, YOLO come
 \end{center}
 \end{figure}
 
-\subsubsection{R-FCN}
+\subsection{R-FCN}
 
-Region-based Fully Convolutional Networks (R-FCN) es creada para obtener una detección de objetos precisa y eficiente. A diferencia de los detectores que se basan ​​en región, como Fast o Faster R-CNN, que aplican una costosa subred por región cientos de veces, en R-FCN el detector basado en la región es completamente convolucional con casi todos los cálculos compartidos en toda la imagen.\\
+Region-based Fully Convolutional Networks (R-FCN) es creada para obtener una detección de objetos precisa y eficiente. A diferencia de los detectores que se basan en región, como Fast o Faster R-CNN, que aplican una costosa subred por región cientos de veces, en R-FCN el detector basado en la región es completamente convolucional con casi todos los cálculos compartidos en toda la imagen.\\ 
 
 R-FCN comparte el 100\% de los cálculos en cada salida individual. Al ser completamente convolucional, se encontró con un único problema en el diseño del modelo. Por un lado, al realizar la clasificación de un objeto, queremos aprender la invarianza de ubicación en un modelo: independientemente de dónde aparezca el gato en la imagen, queremos clasificarlo como un gato. Por otro lado, cuando realizamos la detección del objeto, queremos aprender la varianza de ubicación: si el gato está en la esquina superior izquierda, queremos dibujar un cuadro en la esquina superior izquierda. Entonces, si estamos tratando de compartir cálculos convolucionales en el 100\% de la red, cómo comprometemos la invarianza de ubicación y la varianza de ubicación.\\
 
 La solución que aportó R-FCN es usar mapas de puntuación sensibles a la posición. Cada mapa de puntuación sensible a la posición representa una posición relativa de una clase de objeto. Por ejemplo, un mapa de puntuación puede activarse donde detecta la parte superior derecha de un gato. Otro mapa de puntuación puede activarse donde se ve la esquina inferior izquierda de un automóvil. Esencialmente, estos mapas de puntuación son mapas de características convolucionales que han sido entrenados para reconocer ciertas partes de cada objeto.\\
 
-R-FCN funciona de la siguiente manera (Figura \ref{fig.rfcn}): (1) ejecuta una CNN (ResNet) sobre la imagen de entrada; (2) agrega una capa completamente convolucional para generar un banco de puntuación de los "mapas de puntuación sensibles a la posición" antes mencionados (debería haber mapas de puntuación k² (C + 1), con k² representando el número de posiciones relativas para dividir un objeto y C + 1 representa el número de clases más el fondo); (3) ejecuta una red de propuesta de región completamente convolucional (RPN) para generar regiones de interés (ROI); (4) para cada ROI, la divide en los mismos k² "bins" o subregiones que los mapas de puntuación; (5) para cada bin, verifica el banco de puntuaciones para ver si ese bin coincide con la posición correspondiente de algún objeto y repite el proceso para cada clase; (6) una vez que cada uno de los k² bins tiene un valor de "coincidencia de objetos" para cada clase, promedia los bins para obtener una puntuación individual por clase; (7) clasifica la ROI con una softmax sobre el vector dimensional C + 1 restante. Como resultado, R-FCN es varias veces más rápido que Faster R-CNN, y logra una precisión comparable.\\
+R-FCN funciona de la siguiente manera (Figura \ref{fig.rfcn}): (1) ejecuta una CNN (ResNet) sobre la imagen de entrada; (2) agrega una capa completamente convolucional para generar un banco de puntuación de los ``mapas de puntuación sensibles a la posición'' antes mencionados (debería haber mapas de puntuación $k^{2}$(C+1), con $k^{2}$ representando el número de posiciones relativas para dividir un objeto y C+1 representa el número de clases más el fondo); (3) ejecuta una red de propuesta de región completamente convolucional (RPN) para generar regiones de interés (ROI); (4) para cada ROI, la divide en los mismos $k^{2}$ ``bins'' o subregiones que los mapas de puntuación; (5) para cada bin, verifica el banco de puntuaciones para ver si ese bin coincide con la posición correspondiente de algún objeto y repite el proceso para cada clase; (6) una vez que cada uno de los $k^{2}$ bins tiene un valor de ``coincidencia de objetos'' para cada clase, promedia los bins para obtener una puntuación individual por clase; (7) clasifica la ROI con una softmax sobre el vector dimensional C+1 restante. Como resultado, R-FCN es varias veces más rápido que Faster R-CNN, y logra una precisión comparable.\\
+
 
 \begin{figure}
 \begin{center}
@@ -186,27 +178,19 @@ R-FCN funciona de la siguiente manera (Figura \ref{fig.rfcn}): (1) ejecuta una C
 \end{center}
 \end{figure}
 
-\subsubsection{Mask R-CNN}
 
-Mask R-CNN extiende el concepto de Faster R-CNN al agregar una rama para predecir las máscaras de segmentación en cada región de interés (ROI), en paralelo a la rama existente para la regresión de la clasificación y el \textit{bounding box}. La rama de la máscara es una pequeña FCN aplicada
-a cada ROI, prediciendo una máscara de segmentación píxel a píxel.\\
+\subsection{SSD}
 
-Mask R-CNN es simple de implementar y entrenar dado el marco Faster R-CNN, que facilita una amplia gama de diseños de arquitectura flexible. Adicionalmente, la rama de la máscara solamente agrega una pequeña carga computacional, permitiendo un sistema rápido y una experimentación rápida. En principio, Mask R-CNN es una extensión intuitiva de Faster R-CNN, sin embargo, construir la rama de máscara correctamente es fundamental para obtener buenos resultados.\\
-
-Faster R-CNN no fue diseñado para la alineación de píxel a píxel entre las entradas y salidas de la red. Para corregir la desalineación, Mask R-CNN propone una capa simple, libre de cuantización, llamada RoIAlign, que conserva fielmente las ubicaciones espaciales exactas.\\
-
-\subsubsection{SSD}
-
-Single-Shot Detector(SSD) es un método para detectar objetos en imágenes usando una sola
+Single-Shot Detector (SSD) es un método para detectar objetos en imágenes usando una sola
 red neuronal profunda. SSD proporciona una gran ganancia de velocidad frente a Faster R-CNN.\\
 
-Faster R-CNN realiza propuestas de región y clasificaciones de región en dos pasos separados. Primero, usa una red de propuesta de región para generar regiones de interés; luego, usar capas conectadas completamente o capas convolucionales sensibles a la posición para clasificar esas regiones. SSD (Figura \ref{fig.ssd}) lleva a cabo estos dos pasos en uno solo, prediciendo simultáneamente el cuadro delimitador y la clase a medida que procesa la imagen.\\
+Faster R-CNN realiza propuestas de región y clasificaciones de región en dos pasos separados. Primero, usa una red de propuesta de región para generar regiones de interés; luego, usa capas conectadas completamente o capas convolucionales sensibles a la posición para clasificar esas regiones. SSD (Figura \ref{fig.ssd}) lleva a cabo estos dos pasos en uno solo, prediciendo simultáneamente el cuadro delimitador y la clase a medida que procesa la imagen.\\
 
-Concretamente, dada una imagen de entrada y un conjunto de etiquetas de \textit{ground truth}, SSD hace lo siguiente: (1) pasa la imagen a través de una serie de capas convolucionales, produciendo varios conjuntos de mapas de características a diferentes escalas; (2) para cada ubicación en cada uno de estos mapas de características, usa un filtro convolucional de 3x3 para evaluar un pequeño conjunto de cuadros delimitadores por defecto; (3) para cada recuadro, predice simultáneamente a) el desplazamiento del cuadro delimitador y b) las probabilidades de clase; (4) curante el entrenamiento, hace coincidir la caja (\textit{box}) de ground truth con estas cajas predichas según IoU. La mejor caja pronosticada se etiquetará como "positiva", junto con todas las demás cajas que tengan una Id con \textit{truth}> 0.5.\\
+Concretamente, dada una imagen de entrada y un conjunto de etiquetas de \textit{ground truth}, SSD hace lo siguiente: (1) pasa la imagen a través de una serie de capas convolucionales, produciendo varios conjuntos de mapas de características a diferentes escalas; (2) para cada ubicación en cada uno de estos mapas de características, usa un filtro convolucional de 3x3 para evaluar un pequeño conjunto de cuadros delimitadores por defecto; (3) para cada recuadro, predice simultáneamente a) el desplazamiento del cuadro delimitador y b) las probabilidades de clase; (4) durante el entrenamiento, hace coincidir la (\textit{bounding box}) de ground truth con estas cajas predichas según IoU. La mejor (\textit{bounding box}) pronosticada se etiquetará como "positiva", junto con todas las demás (\textit{bounding boxes}) que tengan una Id con \textit{truth}> 0.5.\\
 
-SSD suena sencillo, pero el entrenamiento tiene un desafío único. Clasificamos y dibujamos cuadros delimitadores desde cada posición en la imagen, usando múltiples formas diferentes, en diferentes escalas. Como resultado, generamos un número mucho mayor de cuadros delimitadores que en otros modelos, y casi todos ellos son ejemplos negativos.\\
+SSD suena sencillo, pero el entrenamiento tiene un desafío único. Clasificamos y estimamos (\textit{bounding boxes}) desde cada posición en la imagen, usando múltiples formas diferentes, en diferentes escalas. Como resultado, generamos un número mucho mayor de cuadros delimitadores que en otros modelos, y casi todos ellos son ejemplos negativos.\\
 
-Para solucionar este desequilibrio, SSD hace dos cosas. En primer lugar, utiliza la \textit{non-maximum suppression} (NMS) para agrupar cuadros altamente superpuestos en un solo cuadro. En otras palabras, si cuatro cajas de formas, tamaños, etc. similares contienen el mismo perro, el NMS conservará el que tenga la mayor confianza y descartará el resto. En segundo lugar, el modelo usa una técnica llamada minería negativa negativa para equilibrar las clases durante el entrenamiento. En la minería negativa dura, solo se utiliza un subconjunto de los ejemplos negativos con la mayor pérdida de entrenamiento (es decir, falsos positivos) en cada iteración de entrenamiento. SSD mantiene una relación de 3: 1 de negativos a positivos.\\
+Para solucionar este desequilibrio, SSD hace dos cosas. En primer lugar, utiliza la \textit{non-maximum suppression} (NMS) para agrupar cuadros altamente superpuestos en un solo cuadro. En otras palabras, si cuatro cajas de formas, tamaños, etc. similares contienen el mismo perro, el NMS conservará el que tenga la mayor confianza y descartará el resto. En segundo lugar, el modelo usa una técnica llamada minería negativa para equilibrar las clases durante el entrenamiento. En la minería negativa dura, solo se utiliza un subconjunto de los ejemplos negativos con la mayor pérdida de entrenamiento (es decir, falsos positivos) en cada iteración de entrenamiento. SSD mantiene una relación de 3: 1 de negativos a positivos.\\
 
 \begin{figure}
 \begin{center}
@@ -216,26 +200,35 @@ Para solucionar este desequilibrio, SSD hace dos cosas. En primer lugar, utiliza
 \end{center}
 \end{figure}
 
-\subsubsection{FPN}
 
-Las pirámides de características son un componente básico en los sistemas de reconocimiento para detectar objetos a diferentes escalas. Pero reciente los detectores de objetos de \textit{Deep Learning} han evitado la representación de pirámides, en parte porque son de cálculo y memoria intensivos. \\
+\subsection{Mask R-CNN}
 
-Feature Pyramid Network (FPN) explota la multi-escala inherente, jerarquía piramidal de redes convolucionales profundas para construir pirámides de características con un costo adicional marginal. Es una arquitectura top-down con conexiones laterales, que se desarrolla para construir mapas semánticos de características de alto nivel en todas las escalas.\\
+Mask R-CNN extiende el concepto de Faster R-CNN al agregar una rama para predecir las máscaras de segmentación en cada región de interés (ROI), en paralelo a la rama existente para la regresión de la clasificación y el \textit{bounding box}. La rama de la máscara es una pequeña FCN aplicada
+a cada ROI, prediciendo una máscara de segmentación píxel a píxel. La generación de máscaras para cada clase se realiza de forma que las clases no compitan entre ellas. Esto permite separar la máscara y la predicción de la clase del objeto.\\
 
-FPN toma una imagen de una escala de un tamaño arbitrario como entrada, y genera mapas de características de tamaño proporcional en múltiples niveles, de forma totalmente convolucional. Este proceso es independiente de las arquitecturas convolucionales de \textit{backbone}, y se usan ResNets. La construcción de la pirámide implica un camino \textit{bottom-up}, un camino \textit{top-down} y conexiones laterales.\\
+Mask R-CNN es simple de implementar y entrenar dado el marco Faster R-CNN, que facilita una amplia gama de diseños de arquitectura flexible. Adicionalmente, la rama de la máscara solamente agrega una pequeña carga computacional, permitiendo un sistema rápido y una experimentación rápida. En principio, Mask R-CNN es una extensión intuitiva de Faster R-CNN, sin embargo, construir la rama de máscara correctamente es fundamental para obtener buenos resultados.\\
 
-El camino de \textit{bottom-up} es el cálculo \textit{feed-forward} de la red troncal ConvNet, que calcula una jerarquía de características que consiste en mapas de características a varias escalas con un paso de escalado de 2. Para la pirámide característica, se define un nivel de pirámide para cada etapa. Se elige la salida de la última capa de cada etapa como el conjunto de referencia de mapas de características, que se enriquece para crear nuestra pirámide.\\
+Faster R-CNN no fue diseñado para la alineación de píxel a píxel entre las entradas y salidas de la red. Para corregir la desalineación, Mask R-CNN propone una capa simple, libre de cuantización, llamada RoIAlign, que conserva fielmente las ubicaciones espaciales exactas.\\
 
-El camino \textit{top-down} obtiene características de mayor resolución por \textit{upsampling} espacial, pero semánticamente más fuertes, cuentan con mapas de niveles de pirámides más altos. Estas características son después mejoradas con características de la ruta \textit{bottom-up} a través de conexiones laterales. Cada conexión lateral combina mapas de características del mismo tamaño espacial del camino \textit{bottom-up} y el camino \textit{top-down}. El mapa de características \textit{bottom-up} es de semántica de nivel inferior, pero sus activaciones se localizan con mayor precisión ya que se submuestreó menos veces.\\
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.9\textwidth]{images/maskRcnn.png}
+   \caption{Resultados de Mask R-CNN.}
+	\label{fig.maskRcnn}
+\end{center}
+\end{figure}
+
 
 %-------------------------------------------------------------------------
-\subsection{DetectionSuite}
+\section{DetectionSuite}
 
 DeepLearning Suite es un conjunto de herramientas de JdeRobot que simplifica la evaluación de los conjuntos de datos de detección de objetos más comunes con varias redes neuronales de detección de objetos.\\
 
 La idea de esta herramienta es ofrecer una infraestructura genérica para evaluar los algoritmos de detección de objetos contra un conjunto de datos y calcular las estadísticas más comunes: \textit{Intersecion Over Union}, \textit{precision}, \textit{recall}.\\
 
-DeepLearning Suite soporta los formatos de dataset: YOLO, \textit{Jderobot recorder logs}, \textit{Princeton RGB dataset}, \textit{Spinello dataset}. Además, soporta los \textit{frameworks}/algoritmos de detección de objetos: YOLO (darknet), y \textit{Background substraction}.\\
+DetectionSuite tiene 5 funcionalidades principales: (1) generación y etiquetado de muestras, (2) importar datasets variados, (3) ejecutar una red, (4) entrenar una red, y (5) evaluar una red mediante el cálculo de estadísticos de su calidad y rendimiento.\\
+
+DeepLearning Suite soporta los formatos de dataset: YOLO, \textit{Jderobot recorder logs}, \textit{Princeton RGB dataset}, \textit{Spinello dataset}. Además, soporta los \textit{frameworks}/algoritmos de detección de objetos: YOLO (darknet), y \textit{Background Substraction}.\\
 
 Esta herramienta cuenta con Sample Generation Tool, que ha sido desarrollado para simplificar el proceso de generación de muestras para conjuntos de datos enfocados en la detección de objetos. Las herramientas proporcionan algunas características para reducir el tiempo de etiquetado de objetos como rectángulos.\\
 
@@ -244,9 +237,9 @@ Esta herramienta cuenta con Sample Generation Tool, que ha sido desarrollado par
 
 En el estado del arte hemos visto diferentes \textit{datasets}, así como diferentes algoritmos empleados para la detección de objetos. Unos obtendrán mejores resultados que otros en determinadas imágenes o con determinados objetos, así como unos tendrán mayor velocidad de cómputo que otros. Además, hemos visto una herramienta de JdeRobot, que soporta algún dataset y el \textit{framework} de YOLO.\\
 
-El TFM que se propone es la mejora de la herramienta DetectionSuite. En concreto, se pretende que esta herramienta sea válidad para numerosos conjuntos de datos como pueden ser COCO, PASCAL VOC, etc; así como se pretende que la herramienta se pueda usar con otros \textit{frameworks} como pueden ser Keras, Caffe, TensorFlow, etc. Además, el objetivo es que la herramienta cuente con numerosas méticas de evaluación.\\
+El TFM que se propone es la mejora de la herramienta DetectionSuite. En concreto, se pretende que esta herramienta sea válida para numerosos conjuntos de datos como pueden ser COCO, PASCAL VOC, etc; así como se pretende que la herramienta se pueda usar con otros \textit{frameworks} como pueden ser Keras, Caffe, TensorFlow, etc. Además, el objetivo es que la herramienta cuente con numerosas métricas de evaluación.\\
 
-Esta herramienta pretende facilitar al usuario el empleo de diferentes \textit{frameworks} de Deep Learning para la detección de objetos. Por ahora la herramienta ha sido probada para la detección de personas, por lo que se podría emplear en un sistema de seguridad, así como probarla con más objetos.\\
+Esta herramienta pretende facilitar al usuario el empleo de diferentes \textit{frameworks} de Deep Learning para la detección de objetos. Por ahora, la herramienta ha sido probada para la detección de personas, por lo que se podría emplear en un sistema de seguridad, así como probarla con más objetos.\\
 
 
 
