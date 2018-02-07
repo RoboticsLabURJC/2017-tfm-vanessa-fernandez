@@ -26,7 +26,7 @@ class Detection_Network():
 		NUM_CLASSES = len(self.voc_classes) + 1
 		input_shape=(300, 300, 3)
 		self.model = SSD300(input_shape, num_classes=NUM_CLASSES)
-		self.model.load_weights('/home/vanejessi/Documentos/Pruebas/dl_detection/Net/weights_SSD300.hdf5', by_name=True)
+		self.model.load_weights('/home/vanejessi/Escritorio/Vanessa/2017-tfm-vanessa-fernandez/dl_objectdetector/Net/weights_SSD300.hdf5', by_name=True)
 		self.bbox_util = BBoxUtility(NUM_CLASSES)
 
 		self.lock = threading.Lock()
