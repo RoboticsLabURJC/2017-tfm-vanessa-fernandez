@@ -76,6 +76,9 @@ class Detection_Network():
 
 		    if label_name == 'Person':
 		        cv2.rectangle(img,(xmin, ymin),(xmax, ymax),(0, 255, 0), 4)
+		        cv2.rectangle(img,(xmin, ymin-20),(xmin+90, ymin),(0, 255, 0), -1)
+		        font = cv2.FONT_HERSHEY_SIMPLEX
+		        cv2.putText(img,'Person',(xmin,ymin-1), font, 0.8,(255,255,255),2,cv2.LINE_AA)
 		return img
 
 
