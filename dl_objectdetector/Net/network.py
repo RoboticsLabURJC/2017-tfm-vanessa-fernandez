@@ -24,9 +24,11 @@ class Detection_Network():
                             'Dog', 'Horse','Motorbike', 'Person', 'Pottedplant',
                             'Sheep', 'Sofa', 'Train', 'Tvmonitor']
 		NUM_CLASSES = len(self.voc_classes) + 1
-		input_shape=(300, 300, 3)
+		input_shape = (300, 300, 3)
 		self.model = SSD300(input_shape, num_classes=NUM_CLASSES)
 		self.model.load_weights('/home/vanejessi/Escritorio/Vanessa/2017-tfm-vanessa-fernandez/dl_objectdetector/Net/weights_SSD300.hdf5', by_name=True)
+		self.model._make_predict_function()        
+		self.graph = tf.get_default_graph()
 		self.bbox_util = BBoxUtility(NUM_CLASSES)
 
 		self.lock = threading.Lock()
@@ -38,7 +40,10 @@ class Detection_Network():
 	def detection(self, img):
 		dst = cv2.resize(img, (300, 300), interpolation = cv2.INTER_AREA)
 		inputs = preprocess_input(np.array([image.img_to_array(dst).copy()]))
-		preds = self.model.predict(inputs, batch_size=1, verbose=1)
+
+		with self.graph.as_default():
+			preds = self.model.predict(inputs, batch_size=1, verbose=1)
+
 		results = self.bbox_util.detection_out(preds)
 
 		# Parse the outputs.
@@ -67,10 +72,10 @@ class Detection_Network():
 
 		    score = top_conf[i]
 		    label = int(top_label_indices[i])
-		    label_name = voc_classes[label - 1]
+		    label_name = self.voc_classes[label - 1]
 
 		    if label_name == 'Person':
-		        cv2.rectangle(img,(xmin, ymin),(xmax, ymax),(255, 0, 0), 4)
+		        cv2.rectangle(img,(xmin, ymin),(xmax, ymax),(0, 255, 0), 4)
 		return img
 
 
@@ -81,8 +86,9 @@ class Detection_Network():
 			image_np = self.detection(image_np)
 		else:
 			image_np = np.zeros((360, 240), dtype=np.int32)
-		self.output_image = image_np
+		return image_np
 
 
 	def update(self):
 		self.output_image = self.predict()
+
