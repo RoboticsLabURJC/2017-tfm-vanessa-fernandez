@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/vanejessi/Escritorio/Vanessa/2017-tfm-vanessa-fernandez/Tutorials c++/Hello/hello.cpp
+iostream
+-
+
