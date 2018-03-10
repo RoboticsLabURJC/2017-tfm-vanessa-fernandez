@@ -28,8 +28,24 @@
 #include <jderobot/comm/communicator.hpp>
 #include <jderobot/comm/cameraClient.hpp>
 #include <jderobot/types/image.h>
+#include <python2.7/Python.h>
+#include <dlfcn.h> 
 
 int main(int argc, char** argv){
+
+	//dlopen("libpython2.7.so", RTLD_LAZY | RTLD_GLOBAL);
+	PyObject *pName, *pModule, *pDict, *pFunc, *pValue;
+
+    // Initialize the Python Interpreter
+    Py_Initialize();
+	// Build the name object
+    pName = PyString_FromString("hello");
+    // Load the module object
+    pModule = PyImport_Import(pName);
+	// pDict is a borrowed reference 
+    pDict = PyModule_GetDict(pModule);
+    // pFunc is also a borrowed reference 
+    pFunc = PyDict_GetItemString(pDict, "helloWorld");
 
 	objectdetector::Viewer viewer;
 	
@@ -49,9 +65,24 @@ int main(int argc, char** argv){
 		rgb = camRGB->getImage();
 		viewer.display(rgb.data);
 		viewer.displayFrameRate(0);
+
+		if (PyCallable_Check(pFunc)) 
+		{
+		    PyObject_CallObject(pFunc, NULL);
+		} else 
+		{
+		    PyErr_Print();
+		}
 	}
 
 	delete jdrc;
+
+	// Clean up
+    Py_DECREF(pModule);
+    Py_DECREF(pName);
+
+    // Finish the Python Interpreter
+    Py_Finalize();
 
 	return 0;
 }
