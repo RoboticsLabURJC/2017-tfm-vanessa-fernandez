@@ -2,6 +2,10 @@ SET( SOURCE_FILES objectdetector.cpp viewer.cpp)
 
 add_definitions(-DGLADE_DIR="${gladedir}")
 
+SET(PYTHON_LIBRARY "-L/usr/lib/python2.7/config-x86_64-linux-gnu/")
+find_package( PythonInterp 2.7 REQUIRED )
+find_package( PythonLibs 2.7 REQUIRED )
+
 include_directories(
     ${INTERFACES_CPP_DIR}
     ${LIBS_DIR}
@@ -15,6 +19,7 @@ include_directories(
     ${comm_INCLUDE_DIRS}
     ${config_INCLUDE_DIRS}
     ${roscpp_INCLUDE_DIRS}
+	${PYTHON_INCLUDE_DIRS}
 )
 link_directories(
 	${resourcelocator_LIBRARY_DIRS}
@@ -36,6 +41,7 @@ TARGET_LINK_LIBRARIES(objectdetector
     ${CMAKE_THREAD_LIBS_INIT}
 	${resourcelocator_LIBRARIES}
     ${catkin_LIBRARIES}
+	${PYTHON_LIBRARIES}
     ${comm_LIBRARIES}
     ${config_LIBRARIES}
 		${GLOG_LIBRARIES}
@@ -49,5 +55,5 @@ install(TARGETS objectdetector
     )
 
 
-INSTALL (FILES ${CMAKE_CURRENT_SOURCE_DIR}/objectdetector.glade DESTINATION ${CMAKE_INSTALL_PREFIX}/share/jderobot/glade COMPONENT cameraview)
-INSTALL (FILES ${CMAKE_CURRENT_SOURCE_DIR}/objectdetector.yml DESTINATION ${CMAKE_INSTALL_PREFIX}/share/jderobot/conf COMPONENT cameraview)
+INSTALL (FILES ${CMAKE_CURRENT_SOURCE_DIR}/objectdetector.glade DESTINATION ${CMAKE_INSTALL_PREFIX}/share/jderobot/glade COMPONENT objectdetector)
+INSTALL (FILES ${CMAKE_CURRENT_SOURCE_DIR}/objectdetector.yml DESTINATION ${CMAKE_INSTALL_PREFIX}/share/jderobot/conf COMPONENT objectdetector)
