@@ -1,3 +1,10 @@
+"""
+
+LSTM example
+Code from tutorial: https://www.knowledgemapper.com/knowmap/knowbook/jasdeepchhabra94@gmail.comUnderstandingLSTMinTensorflow(MNISTdataset)
+
+"""
+
 import tensorflow as tf
 from tensorflow.contrib import rnn
 
@@ -71,8 +78,8 @@ with tf.Session() as sess:
 
         iter=iter+1
 
-	# Calculating test accuracy
-	test_data = mnist.test.images[:128].reshape((-1, time_steps, n_input))
-	test_label = mnist.test.labels[:128]
-	print("Testing Accuracy:", sess.run(accuracy, feed_dict={x: test_data, y: test_label}))
+    # Calculating test accuracy
+    test_data = mnist.test.images[:128].reshape((-1, time_steps, n_input))
+    test_label = mnist.test.labels[:128]
+    print("Testing Accuracy:", sess.run(accuracy, feed_dict={x: test_data, y: test_label}))
 
