@@ -1,3 +1,0 @@
-/home/vanejessi/Escritorio/Vanessa/2017-tfm-vanessa-fernandez/Tutorials c++/Hello/CMakeFiles/edit_cache.dir
-/home/vanejessi/Escritorio/Vanessa/2017-tfm-vanessa-fernandez/Tutorials c++/Hello/CMakeFiles/rebuild_cache.dir
-/home/vanejessi/Escritorio/Vanessa/2017-tfm-vanessa-fernandez/Tutorials c++/Hello/CMakeFiles/hello.dir
