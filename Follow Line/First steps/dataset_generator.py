@@ -45,8 +45,6 @@ if __name__ == '__main__':
 		# We save the image
 		number = i + 1
 		name_image = folder_images + '/' + str(number) + '.png'
-
-		cv2.line(img,((pt1[0] + pt2[0])/2, pt1[1]),((pt3[0] + pt4[0])/2, pt3[1]),(0,0,255),1)
 		cv2.imwrite(name_image,img)
 
 		# We calculate the line's angle
