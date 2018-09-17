@@ -1,3 +1,7 @@
+"""
+	Based on: https://github.com/navoshta/behavioral-cloning/blob/master/model.py
+"""
+
 import os
 import cv2
 import pandas as pd
@@ -37,40 +41,45 @@ def process_txt(txt):
 	return data
 
 
-def neural_net_model(X_data, input_dim):
+def cnn_model(features, labels, mode):
 	"""
-	This function applys 2 hidden layer feed forward neural net.
-	Weights and biases are abberviated as W_1,W_2 and b_1, b_2 
-	These are variables with will be updated during training.
+	Model function for CNN
 	"""
 
-	number_of_nodes_in_layer = 10
+	# Input Layer
+	# Reshape X to 4-D tensor: [batch_size, width, height, channels]
+	input_layer = tf.reshape(features["x"], [-1, 320, 239, 3])
 
-	# tf.Variable will create a variable of which value will be changing during optimization steps
-	# tf.random_uniform will generate random number of uniform distribution of dimension specified ([input_dim,number_of_nodes_in_layer])
-	W_1 = tf.Variable(tf.random_uniform([input_dim, number_of_nodes_in_layer]))
-	# tf.zeros will create zeros of dimension specified (vector of (1,number_of_hidden_node))
-	b_1 = tf.Variable(tf.zeros([number_of_nodes_in_layer]))
-	# tf.add() will add two parameters
-	# tf.matmul() will multiply two matrices (Weight matrix and input data matrix)
-	layer_1 = tf.add(tf.matmul(X_data,W_1), b_1)
-	# tf.nn.relu() is an activation function  that after multiplication and addition of weights and biases we apply activation function
-	layer_1 = tf.nn.relu(layer_1)
+	# Convolutional Layer 1
+	conv1 = tf.layers.conv2d(inputs=input_layer,
+		filters=16,	kernel_size=[3, 3], padding="same",
+		activation=tf.nn.relu)
 
-	# layer 1 multiplying and adding bias then activation function
-	W_2 = tf.Variable(tf.random_uniform([number_of_nodes_in_layer, number_of_nodes_in_layer]))
-	b_2 = tf.Variable(tf.zeros([number_of_nodes_in_layer]))
-	layer_2 = tf.add(tf.matmul(layer_1,W_2), b_2)
-	layer_2 = tf.nn.relu(layer_2)
+	# Pooling Layer 1
+	pool1 = tf.layers.max_pooling2d(inputs=conv1, pool_size=[2, 2], strides=2)
 
-	# layer 2 multiplying and adding bias then activation function
-	W_O = tf.Variable(tf.random_uniform([number_of_nodes_in_layer, 1]))
-	b_O = tf.Variable(tf.zeros([1]))
-	output = tf.add(tf.matmul(layer_2,W_O), b_O)
+	# Convolutional Layer 2
+	conv2 = tf.layers.conv2d(inputs=pool1,
+		filters=32, kernel_size=[3, 3], padding="same",
+		activation=tf.nn.relu)
 
-	# O/p layer multiplying and adding bias then activation function
-	# notice output layer has one node only since performing #regression
-	return output
+	# Pooling Layer 2
+	pool2 = tf.layers.max_pooling2d(inputs=conv2, pool_size=[2, 2], strides=2
+
+	# Flatten tensor into a batch of vectors
+	pool2_flat = tf.reshape(pool2, [-1, 5 * 5 * 32])
+
+	# Dense Layer
+	dense = tf.layers.dense(inputs=pool2_flat, units=500, activation=tf.nn.relu)
+
+	# Add dropout operation; 0.6 probability that element will be kept
+	dropout = tf.layers.dropout(inputs=dense, rate=0.5,
+		training=mode == tf.estimator.ModeKeys.TRAIN)
+
+	# Logits Layer
+	# Input Tensor Shape: [batch_size, 500]
+	# Output Tensor Shape: [batch_size, 100]
+	logits = tf.layers.dense(inputs=dropout, units=100)
 
 
 if __name__ == '__main__':
@@ -85,70 +94,4 @@ if __name__ == '__main__':
 	x_test = data_img[int(0.6*len(data_img)):]
 	y_train = data_txt[:int(0.6*len(data_txt))]
 	y_test = data_txt[int(0.6*len(data_txt)):]
-	# For normalizing dataset
-	scaler = MinMaxScaler()
 
-	# We want to predict angle(txt) value
-	# y is output and x is features
-	X_train = scaler.fit_transform(x_train.reshape(-1, 1))
-	y_train = scaler.fit_transform(np.array(y_train).reshape(-1, 1))
-	X_test = scaler.fit_transform(x_test.reshape(-1, 1))
-	y_test = scaler.fit_transform(np.array(y_test).reshape(-1, 1))
-
-	print(x_test[0])
-	print(x_train.shape)
-	print(X_train.shape)
-	print(x_test.shape)
-	print(X_test.shape)
-	print(y_train.shape)
-	print(y_test.shape)
-	print(X_test[0])
-
-	# tf.placeholder() will define gateway for data to graph
-	xs = tf.placeholder("float")
-	ys = tf.placeholder("float")
-
-	output = neural_net_model(xs, 1)
-
-	# Mean squared error cost function
-	cost = tf.reduce_mean(tf.square(output-ys))
-
-	# Gradient Descent optimiztion for updating weights and biases
-	train = tf.train.GradientDescentOptimizer(0.001).minimize(cost)
-
-	# Cost of training at each iteration
-	c_t = []
-	# Cost of testing at each iteration
-	c_test = []
-
-	with tf.Session() as sess:
-		# Initiate session and initialize all vaiables
-		sess.run(tf.global_variables_initializer())
-		saver = tf.train.Saver()
-		for i in range(100):
-			for j in range(X_train.shape[0]):
-				# Run cost and train with each sample
-				sess.run([cost,train],feed_dict={xs:X_train[j,:].reshape(1,1), ys:y_train[j]})
-
-			c_t.append(sess.run(cost, feed_dict={xs:X_train,ys:y_train}))
-			c_test.append(sess.run(cost, feed_dict={xs:X_test,ys:y_test}))
-			print('Epoch :',i,'Cost :',c_t[i])
-
-		# Predict output of test data after training
-		pred = sess.run(output, feed_dict={xs:X_test})
-
-		print('Cost :',sess.run(cost, feed_dict={xs:X_test,ys:y_test}))
-
-		# Show results
-		plt.plot(range(y_test.shape[0]),y_test,label="Original Data")
-		plt.plot(range(y_test.shape[0]),pred,label="Predicted Data")
-		plt.legend(loc='best')
-		plt.ylabel('Angle Value')
-		plt.xlabel('Image')
-		plt.title('Angles')
-		plt.show()
-
-		if raw_input('Save model ? [Y/N]: ') == 'Y':
-			# Save model
-			saver.save(sess,'./model.ckpt')
-			print('Model Saved')
