@@ -1,6 +1,7 @@
 import os
 import glob
 import json
+import cv2
 
 def create_dataset():
 	# We check if dataset exists
@@ -28,6 +29,7 @@ def check_empty_directory(directory):
 	# We check if the directory is empty
 	empty = False
 	for dirName, subdirList, fileList in os.walk(directory):
+		print(len(fileList))
 		if len(fileList) == 0:
 			empty = True
 
@@ -38,7 +40,7 @@ def get_number_image(path):
 	list_images = glob.glob(path + '*')
 	sort_images = sorted(list_images, key=lambda x: int(x.split('/')[2].split('.png')[0]))
 	last_number = sort_images[len(sort_images)-1].split('/')[2].split('.png')[0]
-	number = int(last_number)
+	number = int(last_number) + 1
 	return number
 
 
@@ -46,6 +48,7 @@ def save_image(img):
 	# We save images
 	folder_images = 'Dataset/Images/'
 	empty = check_empty_directory(folder_images)
+	print(empty)
 	if empty:
 		number = 1
 	else:
