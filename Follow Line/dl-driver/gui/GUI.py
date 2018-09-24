@@ -7,13 +7,6 @@ from PyQt5 import QtGui
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtWidgets import QMainWindow
-#from gui.form import Ui_MainWindow
-from gui.widgets.cameraWidget import CameraWidget
-from gui.widgets.logoWidget import LogoWidget
-
-
 
 class MainWindow(QtWidgets.QWidget):
 
@@ -24,25 +17,64 @@ class MainWindow(QtWidgets.QWidget):
         preview the live video as well as the results of the real-time
         driving.
         '''
+
         QtWidgets.QWidget.__init__(self, parent)
-        #self.setupUi(self)
-        self.teleop=TeleopWidget(self)
-        self.tlLayout.addWidget(self.teleop)
-        self.teleop.setVisible(True)
-        self.logo = LogoWidget(self)
-        self.logoLayout.addWidget(self.logo)
-        self.logo.setVisible(True)
+        self.resize(1200, 500)
+        self.move(150, 50)
+        self.setWindowIcon(QtGui.QIcon('gui/resources/jderobot.png'))
 
-        self.pushButton.clicked.connect(self.playClicked)
-        self.pushButton.setCheckable(True)
+        #self.pushButton.clicked.connect(self.playClicked)
+        #self.pushButton.setCheckable(True)
         self.updGUI.connect(self.updateGUI)
-        self.camera1=CameraWidget(self)
 
-        self.stopButton.clicked.connect(self.stopClicked)
+        # Original image label.
+        self.camera1 = QtWidgets.QLabel(self)
+        self.camera1.resize(450, 350)
+        self.camera1.move(25, 50)
+        self.camera1.show()
+
+        # Play button
+
+        # Stop button
+
+        # Prediction speeds label
+        self.predict_v_label = QtWidgets.QLabel(self)
+        self.predict_v_label.move(700, 100)
+        self.predict_v_label.resize(100, 90)
+        self.predict_v_label.show()
+
+        self.predict_w_label = QtWidgets.QLabel(self)
+        self.predict_w_label.move(700, 150)
+        self.predict_w_label.resize(100, 90)
+        self.predict_w_label.show()
+
+        #self.stopButton.clicked.connect(self.stopClicked)
+
+        # Logo
+        self.logo_label = QtWidgets.QLabel(self)
+        self.logo_label.resize(150, 150)
+        self.logo_label.move(1020, 300)
+        self.logo_label.setScaledContents(True)
+
+        logo_img = QtGui.QImage()
+        logo_img.load('gui/resources/jderobot.png')
+        self.logo_label.setPixmap(QtGui.QPixmap.fromImage(logo_img))
+        self.logo_label.show()
 
     def updateGUI(self):
-        #print 'update gui'
-        self.camera1.updateImage()
+        ''' Updates the GUI for every time the thread change '''
+        # We get the original image and display it.
+
+        self.im_prev = self.camera.getImage()
+        im = QtGui.QImage(self.im_prev.data, self.im_prev.data.shape[1], self.im_prev.data.shape[0],
+                          QtGui.QImage.Format_RGB888)
+        self.im_scaled = im.scaled(self.camera1.size())
+
+        self.camera1.setPixmap(QtGui.QPixmap.fromImage(self.im_scaled))
+
+        # We get the v and w
+        self.predict_v_label.setText("%d v" % (50))
+        self.predict_w_label.setText("%d w" % (2))
 
     def getCamera(self):
         return self.camera
