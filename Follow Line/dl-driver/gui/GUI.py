@@ -1,4 +1,4 @@
-from gui.widgets.teleopWidget import TeleopWidget
+#from gui.widgets.teleopWidget import TeleopWidget
 
 __author__ = 'frivas'
 
@@ -19,12 +19,10 @@ class MainWindow(QtWidgets.QWidget):
         '''
 
         QtWidgets.QWidget.__init__(self, parent)
-        self.resize(1200, 500)
+        self.resize(900, 700)
         self.move(150, 50)
         self.setWindowIcon(QtGui.QIcon('gui/resources/jderobot.png'))
 
-        #self.pushButton.clicked.connect(self.playClicked)
-        #self.pushButton.setCheckable(True)
         self.updGUI.connect(self.updateGUI)
 
         # Original image label.
@@ -32,10 +30,6 @@ class MainWindow(QtWidgets.QWidget):
         self.camera1.resize(450, 350)
         self.camera1.move(25, 50)
         self.camera1.show()
-
-        # Play button
-
-        # Stop button
 
         # Prediction speeds label
         self.predict_v_label = QtWidgets.QLabel(self)
@@ -48,12 +42,27 @@ class MainWindow(QtWidgets.QWidget):
         self.predict_w_label.resize(100, 90)
         self.predict_w_label.show()
 
-        #self.stopButton.clicked.connect(self.stopClicked)
+        # Play button
+        self.pushButton = QtWidgets.QPushButton(self)
+        self.pushButton.move(50, 500)
+        self.pushButton.resize(300,50)
+        self.pushButton.setText('Play Code')
+        self.pushButton.clicked.connect(self.playClicked)
+        self.pushButton.setCheckable(True)
+
+        # Stop button
+        icon = QtGui.QIcon('gui/resources/stop.png')
+        self.stopButton = QtWidgets.QPushButton(self)
+        self.stopButton.move(50, 600)
+        self.pushButton.resize(300, 50)
+        self.stopButton.setIcon(icon)
+        self.stopButton.setText('Stop')
+        self.stopButton.clicked.connect(self.stopClicked)
 
         # Logo
         self.logo_label = QtWidgets.QLabel(self)
-        self.logo_label.resize(150, 150)
-        self.logo_label.move(1020, 300)
+        self.logo_label.resize(100, 100)
+        self.logo_label.move(700, 500)
         self.logo_label.setScaledContents(True)
 
         logo_img = QtGui.QImage()
@@ -98,7 +107,7 @@ class MainWindow(QtWidgets.QWidget):
             self.pushButton.setStyleSheet("background-color: #ec7063")
             self.algorithm.stop()
 
-    def setAlgorithm(self, algorithm ):
+    def setAlgorithm(self, algorithm):
         self.algorithm=algorithm
 
     def getAlgorithm(self):
@@ -115,7 +124,7 @@ class MainWindow(QtWidgets.QWidget):
     def stopClicked(self):
         self.motors.sendV(0)
         self.motors.sendW(0)
-        self.teleop.returnToOrigin()
+        #self.teleop.returnToOrigin()
 
     def closeEvent(self, event):
         self.algorithm.kill()
