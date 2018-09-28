@@ -1,6 +1,6 @@
-#from gui.widgets.teleopWidget import TeleopWidget
 
-__author__ = 'frivas'
+# Based on @frivas
+__author__ = 'vmartinezf'
 
 
 from PyQt5 import QtGui
@@ -11,6 +11,7 @@ from PyQt5 import QtWidgets
 class MainWindow(QtWidgets.QWidget):
 
     updGUI = QtCore.pyqtSignal()
+    stopSIG = QtCore.pyqtSignal()
 
     def __init__(self, parent=None):
         ''' GUI class creates the GUI that we're going to use to
@@ -50,6 +51,20 @@ class MainWindow(QtWidgets.QWidget):
         self.pushButton.clicked.connect(self.playClicked)
         self.pushButton.setCheckable(True)
 
+        # Teleoperator
+        self.line = QtCore.QPointF(0, 0)
+        self.qimage = QtGui.QImage()
+        self.qimage.load('gui/resources/ball.png')
+        self.stopSIG.connect(self.stop)
+        layout = QtWidgets.QGridLayout()
+        self.setLayout(layout)
+        self.setAutoFillBackground(True)
+        p = self.palette()
+        p.setColor(self.backgroundRole(), QtCore.Qt.black)
+        self.setPalette(p)
+        self.resize(300, 300)
+        self.setMinimumSize(300, 300)
+
         # Stop button
         icon = QtGui.QIcon('gui/resources/stop.png')
         self.stopButton = QtWidgets.QPushButton(self)
@@ -82,8 +97,8 @@ class MainWindow(QtWidgets.QWidget):
         self.camera1.setPixmap(QtGui.QPixmap.fromImage(self.im_scaled))
 
         # We get the v and w
-        self.predict_v_label.setText("%d v" % (50))
-        self.predict_w_label.setText("%d w" % (2))
+        self.predict_v_label.setText("%d v" % (0))
+        self.predict_w_label.setText("%d w" % (0))
 
     def getCamera(self):
         return self.camera
@@ -96,6 +111,75 @@ class MainWindow(QtWidgets.QWidget):
 
     def setMotors(self,motors):
         self.motors=motors
+
+    def stop(self):
+        self.line = QtCore.QPointF(0, 0)
+        self.repaint()
+
+    def mouseMoveEvent(self, e):
+        if e.buttons() == QtCore.Qt.LeftButton:
+            x = e.x() - self.width() / 2
+            y = e.y() - self.height() / 2
+            self.line = QtCore.QPointF(x, y)
+            self.repaint()
+
+    def returnToOrigin(self):
+        x = 0
+        y = 0
+        self.line = QtCore.QPointF(x, y)
+        self.repaint()
+
+    def paintEvent(self, e):
+        _width = self.width()
+        _height = self.height()
+
+        width = 2
+
+        painter = QtGui.QPainter(self)
+
+        pen = QtGui.QPen(QtCore.Qt.blue, width)
+        painter.setPen(pen)
+
+        # Widget's center
+        painter.translate(QtCore.QPoint(_width / 2, _height / 2))
+
+        # eje
+        painter.drawLine(QtCore.QPointF(-_width, 0),
+                         QtCore.QPointF(_width, 0))
+
+        painter.drawLine(QtCore.QPointF(0, -_height),
+                         QtCore.QPointF(0, _height))
+
+        # With mouse
+        pen = QtGui.QPen(QtCore.Qt.red, width)
+        painter.setPen(pen)
+
+        # We check if mouse is in the limits
+        if abs(self.line.x() * 2) >= self.size().width():
+            if self.line.x() >= 0:
+                self.line.setX(self.size().width() / 2)
+            elif self.line.x() < 0:
+                self.line.setX((-self.size().width() / 2) + 1)
+
+        if abs(self.line.y() * 2) >= self.size().height():
+            if self.line.y() >= 0:
+                self.line.setY(self.size().height() / 2)
+            elif self.line.y() < 0:
+                self.line.setY((-self.size().height() / 2) + 1)
+
+        painter.drawLine(QtCore.QPointF(self.line.x(), -_height),
+                         QtCore.QPointF(self.line.x(), _height))
+
+        painter.drawLine(QtCore.QPointF(-_width, self.line.y()),
+                         QtCore.QPointF(_width, self.line.y()))
+
+        v_normalized = (1.0 / (self.size().height() / 2)) * self.line.y()
+        v_normalized = float("{0:.2f}".format(v_normalized))
+        w_normalized = (1.0 / (self.size().width() / 2)) * self.line.x()
+        w_normalized = float("{0:.2f}".format(w_normalized))
+
+        self.setXYValues(w_normalized, v_normalized)
+        painter.drawImage(self.line.x() - self.qimage.width() / 2, self.line.y() - self.qimage.height() / 2, self.qimage)
 
     def playClicked(self):
         if self.pushButton.isChecked():
@@ -114,7 +198,6 @@ class MainWindow(QtWidgets.QWidget):
         return self.algorithm
 
     def setXYValues(self,newX,newY):
-        #print ("newX: %f, newY: %f" % (newX, newY) )
         myW=-newX*self.motors.getMaxW()
         myV=-newY*self.motors.getMaxV()
         self.motors.sendV(myV)
@@ -124,7 +207,7 @@ class MainWindow(QtWidgets.QWidget):
     def stopClicked(self):
         self.motors.sendV(0)
         self.motors.sendW(0)
-        #self.teleop.returnToOrigin()
+        self.returnToOrigin()
 
     def closeEvent(self, event):
         self.algorithm.kill()
