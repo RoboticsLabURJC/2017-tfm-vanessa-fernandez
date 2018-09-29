@@ -172,11 +172,11 @@ class MainWindow(QtWidgets.QWidget):
             elif self.line.y() < 0:
                 self.line.setY((-self.heightTeleop / 2) + 1)
 
-        painter.drawLine(QtCore.QPointF(self.line.x(), -_height/2),
-                         QtCore.QPointF(self.line.x(), _height/2))
+        painter.drawLine(QtCore.QPointF(self.line.x(), -_width/2),
+                         QtCore.QPointF(self.line.x(), _width/2))
 
-        painter.drawLine(QtCore.QPointF(-_width/2, self.line.y()),
-                         QtCore.QPointF(_width/2, self.line.y()))
+        painter.drawLine(QtCore.QPointF(-_height/2, self.line.y()),
+                         QtCore.QPointF(_height/2, self.line.y()))
 
         v_normalized = (1.0 / (self.heightTeleop / 2)) * self.line.y()
         v_normalized = float("{0:.2f}".format(v_normalized))
