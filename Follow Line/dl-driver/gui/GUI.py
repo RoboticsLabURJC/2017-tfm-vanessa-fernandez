@@ -120,8 +120,8 @@ class MainWindow(QtWidgets.QWidget):
 
     def mouseMoveEvent(self, e):
         if e.buttons() == QtCore.Qt.LeftButton:
-            x = e.x() - self.widthTeleop / 2
-            y = e.y() - self.heightTeleop / 2
+            x = e.x() - self.pointxTeleop - self.widthTeleop / 2
+            y = e.y() - self.pointyTeleop - self.heightTeleop / 2
             self.line = QtCore.QPointF(x, y)
             self.repaint()
 
