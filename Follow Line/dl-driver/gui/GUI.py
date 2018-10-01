@@ -36,11 +36,16 @@ class MainWindow(QtWidgets.QWidget):
         self.predict_v_label = QtWidgets.QLabel(self)
         self.predict_v_label.move(600, 100)
         self.predict_v_label.resize(100, 90)
+        newfont = QtGui.QFont("Times", 18, QtGui.QFont.Bold)
+        self.predict_v_label.setFont(newfont)
+        self.predict_v_label.setText("%d v" % (0))
         self.predict_v_label.show()
 
         self.predict_w_label = QtWidgets.QLabel(self)
         self.predict_w_label.move(600, 150)
         self.predict_w_label.resize(100, 90)
+        self.predict_w_label.setFont(newfont)
+        self.predict_w_label.setText("%d w" % (0.0))
         self.predict_w_label.show()
 
         # Play button
@@ -96,11 +101,8 @@ class MainWindow(QtWidgets.QWidget):
         self.camera1.setPixmap(QtGui.QPixmap.fromImage(self.im_scaled))
 
         # We get the v and w
-        newfont = QtGui.QFont("Times", 18, QtGui.QFont.Bold)
-        self.predict_v_label.setFont(newfont)
-        self.predict_w_label.setFont(newfont)
-        self.predict_v_label.setText("%d v" % (0))
-        self.predict_w_label.setText("%d w" % (0))
+        self.predict_v_label.setText('{0:0.2f}'.format(self.motors.v) + " v")
+        self.predict_w_label.setText('{0:0.2f}'.format(self.motors.w) + " w")
 
     def getCamera(self):
         return self.camera
