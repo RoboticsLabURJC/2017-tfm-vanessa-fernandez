@@ -36,7 +36,7 @@ from interfaces.motors import PublisherMotors
 if __name__ == "__main__":
 
     camera = ListenerCamera("/F1ROS/cameraL/image_raw")
-    motors = PublisherMotors("/F1ROS/cmd_vel", 4, 0.3)
+    motors = PublisherMotors("/F1ROS/cmd_vel", 4, 0.3, 0, 0)
     algorithm=MyAlgorithm(camera, motors)
 
     app = QApplication(sys.argv)
