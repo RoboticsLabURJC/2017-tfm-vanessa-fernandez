@@ -228,6 +228,7 @@ class MainWindow(QtWidgets.QWidget):
     def removeDataset(self):
         if os.path.exists('Net/Dataset'):
             shutil.rmtree('Net/Dataset')
+        self.save = False
 
     def setAlgorithm(self, algorithm):
         self.algorithm=algorithm
