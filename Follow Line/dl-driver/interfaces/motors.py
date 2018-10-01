@@ -30,6 +30,8 @@ class CMDVel ():
         self.ay = 0 # angular vel in X axis [rad/s]
         self.az = 0 # angular vel in Z axis [rad/s] (use this for W in wheeled robots)
         self.timeStamp = 0 # Time stamp [s]
+        self.v = 0 # vel[m/s]
+        self.w = 0 # angular vel [rad/s]
 
 
     def __str__(self):
@@ -41,10 +43,12 @@ class CMDVel ():
 
 class PublisherMotors:
  
-    def __init__(self, topic, maxV, maxW):
+    def __init__(self, topic, maxV, maxW, v, w):
 
         self.maxW = maxW
         self.maxV = maxV
+        self.v = v
+        self.w = w
 
         self.topic = topic
         self.data = CMDVel()
@@ -93,6 +97,7 @@ class PublisherMotors:
     def sendV(self, v):
 
         self.sendVX(v)
+        self.v = v
 
     def sendL(self, l):
 
@@ -101,6 +106,7 @@ class PublisherMotors:
     def sendW(self, w):
 
         self.sendAZ(w)
+        self.w = w
 
     def sendVX(self, vx):
 
