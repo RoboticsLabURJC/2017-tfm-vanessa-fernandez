@@ -2,10 +2,13 @@
 # Based on @frivas
 __author__ = 'vmartinezf'
 
+import shutil
+import os
 
 from PyQt5 import QtGui
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
+from Net.generator import *
 
 
 class MainWindow(QtWidgets.QWidget):
@@ -78,6 +81,21 @@ class MainWindow(QtWidgets.QWidget):
         self.stopButton.setText('Stop')
         self.stopButton.clicked.connect(self.stopClicked)
 
+        # Save button
+        self.save = False
+        self.saveButton = QtWidgets.QPushButton(self)
+        self.saveButton.move(550, 300)
+        self.saveButton.resize(200, 50)
+        self.saveButton.setText('Save Dataset')
+        self.saveButton.clicked.connect(self.saveDataset)
+
+        # Remove button
+        self.removeButton = QtWidgets.QPushButton(self)
+        self.removeButton.move(550, 400)
+        self.removeButton.resize(200, 50)
+        self.removeButton.setText('Remove Dataset')
+        self.removeButton.clicked.connect(self.removeDataset)
+
         # Logo
         self.logo_label = QtWidgets.QLabel(self)
         self.logo_label.resize(100, 100)
@@ -103,6 +121,11 @@ class MainWindow(QtWidgets.QWidget):
         # We get the v and w
         self.predict_v_label.setText('{0:0.2f}'.format(self.motors.v) + " v")
         self.predict_w_label.setText('{0:0.2f}'.format(self.motors.w) + " w")
+
+        if self.save:
+            img = cv2.cvtColor(self.im_prev.data, cv2.COLOR_RGB2BGR)
+            save_image(img)
+            save_json(self.motors.v, self.motors.w)
 
     def getCamera(self):
         return self.camera
@@ -197,6 +220,14 @@ class MainWindow(QtWidgets.QWidget):
             self.pushButton.setText('Play Code')
             self.pushButton.setStyleSheet("background-color: #ec7063")
             self.algorithm.stop()
+
+    def saveDataset(self):
+        create_dataset()
+        self.save = True
+
+    def removeDataset(self):
+        if os.path.exists('Net/Dataset'):
+            shutil.rmtree('Net/Dataset')
 
     def setAlgorithm(self, algorithm):
         self.algorithm=algorithm
