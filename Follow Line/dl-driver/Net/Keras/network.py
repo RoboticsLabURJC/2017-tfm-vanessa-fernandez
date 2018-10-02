@@ -33,7 +33,7 @@ def get_images(list_images):
 
 def adapt_array(array):
     new_array = []
-    num_array = 200
+    num_array = 300
     for i in range(0, num_array):
         if i == 0:
             array_split = array[:len(array)/num_array]
@@ -72,8 +72,8 @@ if __name__ == "__main__":
     array_y_test = adapt_array(y_test)
 
     # Variables
-    batch_size = 128
-    nb_epoch = 20
+    batch_size = 32
+    nb_epoch = 15
     img_shape = (480, 640, 3)
 
     # Get model
