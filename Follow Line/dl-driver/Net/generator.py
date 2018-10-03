@@ -11,14 +11,25 @@ def create_dataset():
 	if not os.path.exists(folder_images): os.makedirs(folder_images)
 
 
+def get_classification(w):
+	if w == '-':
+		classification = 'right'
+	else:
+		classification = 'left'
+	return classification
+
+
 def save_json(v, w):
 	# We save the speed data
 
 	file_name = 'Net/Dataset/data.json'
 
+	classification = get_classification(w)
+
 	data = {
     	'v': v,
-    	'w': w
+    	'w': w,
+		'classification': classification
 	}
 
 	with open(file_name, 'a') as file:
