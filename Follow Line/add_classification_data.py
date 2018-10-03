@@ -2,8 +2,8 @@
 
 
 def get_classification(data):
-	v = d.split('"v":')[1]
-	d_parse = d.split(', "v":')[0]
+	v = data.split('"v":')[1]
+	d_parse = data.split(', "v":')[0]
 	w = d_parse.split((': '))[1]
 	if w[0] == '-':
 		classification = 'right'
@@ -18,11 +18,13 @@ if __name__ == "__main__":
 
 	with open(filename, "r+") as f:
 		data = f.read()
-		data_parse = data.split('}')[:-1]
+		data_parse = data.split('{')[1:]
+
 		for d in data_parse:
 			classification = get_classification(d)
-			output = output + d + ', "classification": ' + classification + '}'
-			f.seek(0)
-			f.write(output)
-			f.truncate()
+			output = output + '{"classification": ' + classification + ', ' + d
+
+		f.seek(0)
+		f.write(output)
+		f.truncate()
 
