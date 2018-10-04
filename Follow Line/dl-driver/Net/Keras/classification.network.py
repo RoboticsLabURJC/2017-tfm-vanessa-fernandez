@@ -2,6 +2,7 @@ import glob
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
+import keras
 
 from sklearn.model_selection import train_test_split
 from models.classification_model import cnn_model
@@ -41,6 +42,16 @@ def remove_values_aprox_zero(list_imgs, list_data, list_w):
     return list_imgs, list_data
 
 
+def adapt_labels(array_labels):
+    for i in range(0, len(array_labels)):
+        if array_labels[i] == 'left':
+            array_labels[i] = 0
+        else:
+            array_labels[i] = 1
+
+    return array_labels
+
+
 def adapt_array(array):
     new_array = []
     num_array = 100
@@ -73,6 +84,9 @@ if __name__ == "__main__":
     # We delete values close to zero
     x_train, y_train = remove_values_aprox_zero(x, y, array_w)
 
+    # We adapt string labels to int labels
+    y_train = adapt_labels(y_train)
+
     # Split data into 80% for train and 20% for validation
     X_train, X_validation, y_train, y_validation = train_test_split(x_train, y_train, test_size=0.20, random_state=42)
 
@@ -83,14 +97,13 @@ if __name__ == "__main__":
     array_y_validation = adapt_array(y_validation)
 
     # Variables
-    batch_size = 128
-    num_classes = 2
+    batch_size = 32
     nb_epochs = 12
     img_shape = (240, 320, 3)
 
 
     # Get model
-    model = cnn_model(num_classes, img_shape)
+    model = cnn_model(img_shape)
 
     for i in range(0, len(array_x_train)):
         # We adapt the data
@@ -100,8 +113,8 @@ if __name__ == "__main__":
         y_validation = np.stack(array_y_validation[i], axis=0)
 
         #  We train
-        model_history = model.fit(X_train, y_train, epochs=nb_epochs, validation_data=(X_validation, y_validation),
-                                  batch_size=batch_size)
+        model_history = model.fit(X_train, y_train, epochs=nb_epochs, batch_size=batch_size, verbose=2,
+                                    validation_data = (X_validation, y_validation))
 
         # We evaluate the model
         score = model.evaluate(X_validation, y_validation, verbose=0)
