@@ -133,6 +133,7 @@ if __name__ == "__main__":
     plt.xlabel('Epochs ', fontsize=16)
     plt.ylabel('Loss', fontsize=16)
     plt.title('Loss Curves', fontsize=16)
+    plt.show()
 
     # Accuracy Curves
     plt.figure(figsize=[8, 6])
@@ -142,3 +143,4 @@ if __name__ == "__main__":
     plt.xlabel('Epochs ', fontsize=16)
     plt.ylabel('Accuracy', fontsize=16)
     plt.title('Accuracy Curves', fontsize=16)
+    plt.show()
