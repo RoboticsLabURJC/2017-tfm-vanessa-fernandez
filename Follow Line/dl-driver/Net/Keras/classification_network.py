@@ -44,26 +44,12 @@ def remove_values_aprox_zero(list_imgs, list_data, list_w):
 
 def adapt_labels(array_labels):
     for i in range(0, len(array_labels)):
-        if array_labels[i] == 'left':
+        if array_labels[i] == '"left"':
             array_labels[i] = 0
         else:
             array_labels[i] = 1
 
     return array_labels
-
-
-def adapt_array(array):
-    new_array = []
-    num_array = 100
-    for i in range(0, num_array):
-        if i == 0:
-            array_split = array[:len(array)/num_array]
-        elif i == num_array - 1:
-            array_split = array[i*len(array)/num_array:]
-        else:
-            array_split = array[i*len(array)/num_array:len(array)*(i+1)/num_array]
-        new_array.append(array_split)
-    return new_array
 
 
 if __name__ == "__main__":
@@ -90,12 +76,6 @@ if __name__ == "__main__":
     # Split data into 80% for train and 20% for validation
     X_train, X_validation, y_train, y_validation = train_test_split(x_train, y_train, test_size=0.20, random_state=42)
 
-    # Split a array in a array with small arrays
-    array_x_train = adapt_array(X_train)
-    array_y_train = adapt_array(y_train)
-    array_x_validation = adapt_array(X_validation)
-    array_y_validation = adapt_array(y_validation)
-
     # Variables
     batch_size = 32
     nb_epochs = 12
@@ -105,23 +85,20 @@ if __name__ == "__main__":
     # Get model
     model = cnn_model(img_shape)
 
-    for i in range(0, len(array_x_train)):
-        # We adapt the data
-        X_train = np.stack(array_x_train[i], axis=0)
-        y_train = np.stack(array_y_train[i], axis=0)
-        X_validation = np.stack(array_x_validation[i], axis=0)
-        y_validation = np.stack(array_y_validation[i], axis=0)
+    X_train = np.stack(X_train, axis=0)
+    y_train = np.stack(y_train, axis=0)
+    X_validation = np.stack(X_validation, axis=0)
+    y_validation = np.stack(y_validation, axis=0)
 
-        #  We train
-        model_history = model.fit(X_train, y_train, epochs=nb_epochs, batch_size=batch_size, verbose=2,
-                                    validation_data = (X_validation, y_validation))
+    #  We train
+    model_history = model.fit(X_train, y_train, epochs=nb_epochs, batch_size=batch_size, verbose=2,
+                                   validation_data = (X_validation, y_validation))
 
-        # We evaluate the model
-        score = model.evaluate(X_validation, y_validation, verbose=0)
-        print('Test loss:', score[0])
-        print('Test accuracy:', score[1])
+    # We evaluate the model
+    score = model.evaluate(X_validation, y_validation, verbose=0)
+    print('Test loss:', score[0])
+    print('Test accuracy:', score[1])
 
-    # We save the model
     model.save('models/model_classification.h5')
 
 
