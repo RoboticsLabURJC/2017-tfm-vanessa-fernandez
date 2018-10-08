@@ -4,16 +4,21 @@
 
 import cv2
 import numpy as np
+import tensorflow as tf
 
 from keras.models import load_model
 
 
 class ClassificationNetwork():
     def __init__(self, net_model):
+        # Load model
         self.model_file = 'Net/Keras/' + net_model['Model']
         self.model = load_model(self.model_file)
 
-        # the Keras network works on 320x240
+        # Obtain the graph
+        self.graph = tf.get_default_graph()
+
+        # The Keras network works on 320x240
         self.img_height = 240
         self.img_width = 320
 
@@ -41,8 +46,10 @@ class ClassificationNetwork():
         # We adapt the image
         input_img = np.stack([img_resized], axis=0)
 
-        # Make prediction
-        prediction = self.model.predict(input_img)
+        # While predicting, use the same graph
+        with self.graph.as_default():
+            # Make prediction
+            prediction = self.model.predict(input_img)
         y_pred = int(prediction[0])
 
         # Convert int prediction to corresponded label
