@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 #
-#  Copyright (C) 1997-2016 JDE Developers Team
+#  Copyright (C) 1997-2018 JDE Developers Team
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -15,15 +15,16 @@
 #  You should have received a copy of the GNU General Public License
 #  along with this program.  If not, see http://www.gnu.org/licenses/.
 #  Authors :
-#       Aitor Martinez Fernandez <aitor.martinez.fernandez@gmail.com>
-#       Francisco Miguel Rivas Montero <franciscomiguel.rivas@urjc.es>
-#  Rosified by:
-#       Francisco Perez Salgado <f.perez475@gmail.com>
+#       Vanessa Fernandez Martinez <vanessa_1895@msn.com>
+#  Based on:
+#       Follow line code: https://github.com/JdeRobot/Academy/tree/master/exercises/follow_line
+#       and @naxvm code: https://github.com/JdeRobot/dl-objectdetector
 #
 
 
 # General imports
 import sys
+import yaml
 
 # Practice imports
 from gui.GUI import MainWindow
@@ -32,12 +33,53 @@ from MyAlgorithm import MyAlgorithm
 from PyQt5.QtWidgets import QApplication
 from interfaces.camera import ListenerCamera
 from interfaces.motors import PublisherMotors
+from Net.threadNetwork import ThreadNetwork
+
+
+def readConfig():
+    try:
+        with open(sys.argv[1], 'r') as stream:
+            return yaml.safe_load(stream)
+    except yaml.YAMLError as exc:
+        print(exc)
+        raise SystemExit('Error: Cannot read/parse YML file. Check YAML syntax.')
+    except:
+        raise SystemExit('\n\tUsage: python2 driver.py driver.yml\n')
+
+
+def selectNetwork(cfg):
+    """
+    :param cfg: configuration
+    :return net_prop, DetectionNetwork: network properties and Network class
+    :raise SystemExit in case of invalid network
+    """
+    net_prop = cfg['Driver']['Network']
+    framework = net_prop['Framework']
+    if framework == 'Tensorflow' or framework.lower() == 'tensorflow':
+        from Net.TensorFlow.network import ClassificationNetwork
+    elif framework == 'Keras' or framework.lower() == 'keras':
+        sys.path.append('Net/Keras')
+        from Net.Keras.classification_network import ClassificationNetwork
+    else:
+        raise SystemExit(('%s not supported! Supported frameworks: Keras, TensorFlow') % (framework))
+    return net_prop, ClassificationNetwork
+
 
 if __name__ == "__main__":
 
+    cfg = readConfig()
+    net_prop, ClassificationNetwork = selectNetwork(cfg)
+
+    network = ClassificationNetwork(net_prop)
+
     camera = ListenerCamera("/F1ROS/cameraL/image_raw")
     motors = PublisherMotors("/F1ROS/cmd_vel", 4, 0.3, 0, 0)
-    algorithm=MyAlgorithm(camera, motors)
+
+    network.setCamera(camera)
+    t_network = ThreadNetwork(network)
+    t_network.start()
+
+    algorithm=MyAlgorithm(camera, motors, network)
 
     app = QApplication(sys.argv)
     myGUI = MainWindow()
