@@ -4,7 +4,7 @@ __author__ = 'vmartinezf'
 import threading, time
 from datetime import datetime
 
-time_cycle = 100 #ms
+time_cycle = 50 #ms
 
 class ThreadNetwork(threading.Thread):
     def __init__(self, network):
