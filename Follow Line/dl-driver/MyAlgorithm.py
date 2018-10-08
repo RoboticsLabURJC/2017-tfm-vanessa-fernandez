@@ -13,9 +13,10 @@ time_cycle = 80
 
 class MyAlgorithm(threading.Thread):
 
-    def __init__(self, camera, motors):
+    def __init__(self, camera, motors, network):
         self.camera = camera
         self.motors = motors
+        self.network = network
         self.threshold_image = np.zeros((640,360,3), np.uint8)
         self.color_image = np.zeros((640,360,3), np.uint8)
         self.stop_event = threading.Event()
@@ -91,9 +92,18 @@ class MyAlgorithm(threading.Thread):
         # Add your code here
         print "Runing"
 
+        prediction = self.network.prediction
+
         #EXAMPLE OF HOW TO SEND INFORMATION TO THE ROBOT ACTUATORS
         #self.motors.setV(10)
         #self.motors.setW(5)
+
+        self.motors.sendV(6)
+
+        if prediction == "left":
+            self.motors.sendW(1.3)
+        elif prediction == "right":
+            self.motors.sendW(-1.3)
 
         #SHOW THE FILTERED IMAGE ON THE GUI
         self.set_threshold_image(image)
