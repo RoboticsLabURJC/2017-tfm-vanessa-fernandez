@@ -10,7 +10,7 @@ from keras.applications.mobilenet import MobileNet
 from models.classification_model import cnn_model
 
 
-def parse_json(data):
+def parse_json_2_classes(data):
     array_class = []
     array_w = []
     # We process json
@@ -22,6 +22,29 @@ def parse_json(data):
         array_class.append(classification)
         array_w.append(w)
 
+    return array_class, array_w
+
+
+def parse_json_7_classes(data):
+    array_class = []
+    array_w = []
+    # We process json
+    data_parse = data.split('"class2": ')[1:]
+    for d in data_parse:
+        classification = d.split(', "classification":')[0]
+        d_parse = d.split(', "w": ')[1]
+        w = float(d_parse.split(', "v":')[0])
+        array_class.append(classification)
+        array_w.append(w)
+
+    return array_class, array_w
+
+
+def parse_json(data, num_classes):
+    if num_classes == 2:
+        array_class, array_w = parse_json_2_classes(data)
+    elif num_classes == 7:
+        array_class, array_w = parse_json_7_classes(data)
     return array_class, array_w
 
 
@@ -90,7 +113,7 @@ if __name__ == "__main__":
     # We preprocess images
     x = get_images(images)
     # We preprocess json
-    y, array_w = parse_json(data)
+    y, array_w = parse_json(data, num_classes)
 
     # We delete values close to zero
     x_train, y_train = remove_values_aprox_zero(x, y, array_w)
@@ -110,18 +133,11 @@ if __name__ == "__main__":
     # Get model
     model, model_file, model_png = choose_model(name_model, img_shape, num_classes)
 
-    # Get model
-    # model = cnn_model(img_shape)
-    #
+    # We adapt the data
     X_train = np.stack(X_train, axis=0)
     y_train = np.stack(y_train, axis=0)
     X_validation = np.stack(X_validation, axis=0)
     y_validation = np.stack(y_validation, axis=0)
-
-    print('x shape', X_train.shape)
-    print('y shape', y_train.shape)
-    print('x validation shape', X_validation.shape)
-    print('y validation shape', y_validation.shape)
 
     # Print layers
     print(model.summary())
