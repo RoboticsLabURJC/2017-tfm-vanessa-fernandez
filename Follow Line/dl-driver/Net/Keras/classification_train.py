@@ -56,13 +56,20 @@ def adapt_labels(array_labels):
 
 def choose_model(name, input_shape, num_classes):
     if name == "mobilenet":
-        model = MobileNet(weights=None, include_top=False, input_shape=input_shape, classes=num_classes)
+        base_model = MobileNet(weights=None, include_top='avg', input_shape=input_shape, classes=num_classes)
+        # model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+        # x = keras.layers.AveragePooling2D((7, 7))(base_model.output)
+        x = keras.layers.Dropout(0.3)(base_model.output)
+        output = keras.layers.Dense(1)(x)
+        model = keras.models.Model(inputs=[base_model.input], outputs=[output])
         model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+        model_png = 'models/model_mobilenet.png'
         model_file = 'models/model_mobilenet.h5'
     elif name == "other":
-        model = "other"
+        model = cnn_model(input_shape)
+        model_png = 'models/model_classification.png'
         model_file = 'models/model_classification.h5'
-    return model, model_file
+    return model, model_file, model_png
 
 
 if __name__ == "__main__":
@@ -99,8 +106,9 @@ if __name__ == "__main__":
     nb_epochs = 12
     img_shape = (240, 320, 3)
 
-    #model, model_file = choose_model(name_model, img_shape, num_classes)
 
+    # Get model
+    model, model_file, model_png = choose_model(name_model, img_shape, num_classes)
 
     # Get model
     # model = cnn_model(img_shape)
@@ -115,53 +123,40 @@ if __name__ == "__main__":
     print('x validation shape', X_validation.shape)
     print('y validation shape', y_validation.shape)
 
-    # https://github.com/qubvel/classification_models
-
-    base_model = MobileNet(weights=None, include_top='avg', input_shape=img_shape, classes=num_classes)
-    #model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
-    #x = keras.layers.AveragePooling2D((7, 7))(base_model.output)
-    x = keras.layers.Dropout(0.3)(base_model.output)
-    output = keras.layers.Dense(1)(x)
-    model = keras.models.Model(inputs=[base_model.input], outputs=[output])
-    # train
-    model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+    # Print layers
     print(model.summary())
+    # Plot layers of model
+    plot_model(model, to_file=model_png)
 
-    plot_model(model, to_file='modelito.png')
-
-    #model.compile(optimizer='SGD', loss='categorical_crossentropy', metrics=['accuracy'])
+    #  We train
     model_history = model.fit(X_train, y_train, epochs=nb_epochs, batch_size=batch_size, verbose=2,
                                    validation_data = (X_validation, y_validation))
 
+    # We evaluate the model
+    score = model.evaluate(X_validation, y_validation, verbose=0)
+    print('Test loss:', score[0])
+    print('Test accuracy:', score[1])
 
-    #  We train
-    # model_history = model.fit(X_train, y_train, epochs=nb_epochs, batch_size=batch_size, verbose=2,
-    #                                validation_data = (X_validation, y_validation))
-    #
-    # # We evaluate the model
-    # score = model.evaluate(X_validation, y_validation, verbose=0)
-    # print('Test loss:', score[0])
-    # print('Test accuracy:', score[1])
-    #
-    # model.save(model_file)
-    #
-    #
-    # # Loss Curves
-    # plt.figure(figsize=[8, 6])
-    # plt.plot(model_history.history['loss'], 'r', linewidth=3.0)
-    # plt.plot(model_history.history['val_loss'], 'b', linewidth=3.0)
-    # plt.legend(['Training loss', 'Validation Loss'], fontsize=18)
-    # plt.xlabel('Epochs ', fontsize=16)
-    # plt.ylabel('Loss', fontsize=16)
-    # plt.title('Loss Curves', fontsize=16)
-    # plt.show()
-    #
-    # # Accuracy Curves
-    # plt.figure(figsize=[8, 6])
-    # plt.plot(model_history.history['acc'], 'r', linewidth=3.0)
-    # plt.plot(model_history.history['val_acc'], 'b', linewidth=3.0)
-    # plt.legend(['Training Accuracy', 'Validation Accuracy'], fontsize=18)
-    # plt.xlabel('Epochs ', fontsize=16)
-    # plt.ylabel('Accuracy', fontsize=16)
-    # plt.title('Accuracy Curves', fontsize=16)
-    # plt.show()
+    # We save the model
+    model.save(model_file)
+
+
+    # Loss Curves
+    plt.figure(figsize=[8, 6])
+    plt.plot(model_history.history['loss'], 'r', linewidth=3.0)
+    plt.plot(model_history.history['val_loss'], 'b', linewidth=3.0)
+    plt.legend(['Training loss', 'Validation Loss'], fontsize=18)
+    plt.xlabel('Epochs ', fontsize=16)
+    plt.ylabel('Loss', fontsize=16)
+    plt.title('Loss Curves', fontsize=16)
+    plt.show()
+
+    # Accuracy Curves
+    plt.figure(figsize=[8, 6])
+    plt.plot(model_history.history['acc'], 'r', linewidth=3.0)
+    plt.plot(model_history.history['val_acc'], 'b', linewidth=3.0)
+    plt.legend(['Training Accuracy', 'Validation Accuracy'], fontsize=18)
+    plt.xlabel('Epochs ', fontsize=16)
+    plt.ylabel('Accuracy', fontsize=16)
+    plt.title('Accuracy Curves', fontsize=16)
+    plt.show()
