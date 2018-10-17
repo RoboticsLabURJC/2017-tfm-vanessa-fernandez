@@ -55,8 +55,8 @@ def get_images(list_images):
     array_imgs = []
     for name in list_images:
         img = cv2.imread(name)
-        img = cv2.resize(img, (img.shape[1]/2, img.shape[0]/2))
-        #img = img_to_array(img)
+        #img = cv2.resize(img, (img.shape[1]/2, img.shape[0]/2))
+        img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
         array_imgs.append(img)
 
     return array_imgs
@@ -130,7 +130,7 @@ def choose_model(name, input_shape, num_classes):
         model = lenet5(input_shape, num_classes)
         model_png = 'models/model_lenet5_7classes.png'
         model_file = 'models/model_lenet5_7classes.h5'
-        batch_size = 128
+        batch_size = 64
         nb_epochs = 20
     elif name == "other":
         model = cnn_model(input_shape)
@@ -162,7 +162,9 @@ if __name__ == "__main__":
     y, array_w = parse_json(data, num_classes)
 
     # We delete values close to zero
-    x_train, y_train = remove_values_aprox_zero(x, y, array_w)
+    #x_train, y_train = remove_values_aprox_zero(x, y, array_w)
+    x_train = x
+    y_train = y
 
     # We adapt string labels to int labels
     y_train = adapt_labels(y_train, num_classes)
@@ -196,7 +198,8 @@ if __name__ == "__main__":
     # Variables
     #batch_size = 32
     #nb_epochs = 12
-    img_shape = (240, 320, 3)
+    #img_shape = (240, 320, 3)
+    img_shape = (120, 160, 3)
 
 
     # Get model
