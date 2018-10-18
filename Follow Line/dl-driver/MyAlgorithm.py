@@ -101,19 +101,19 @@ class MyAlgorithm(threading.Thread):
         self.motors.sendV(5)
 
         if prediction == "radically_left":
-            self.motors.sendW(1.3)
+            self.motors.sendW(1.5)
         elif prediction == "moderately_left":
-            self.motors.sendW(0.75)
+            self.motors.sendW(0.8)
         elif prediction == "slightly_left":
-            self.motors.sendW(0.25)
+            self.motors.sendW(0.3)
         elif prediction == "slight":
             self.motors.sendW(0)
         elif prediction == "slightly_right":
-            self.motors.sendW(-0.25)
+            self.motors.sendW(-0.3)
         elif prediction == "moderately_right":
-            self.motors.sendW(-0.75)
+            self.motors.sendW(-0.8)
         elif prediction == "radically_right":
-            self.motors.sendW(-1.3)
+            self.motors.sendW(-1.5)
 
         # if prediction == "left":
         #     self.motors.sendW(1.0)
