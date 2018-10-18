@@ -8,8 +8,7 @@ from sklearn.model_selection import train_test_split
 from keras.utils import plot_model, np_utils
 from keras.preprocessing.image import img_to_array
 from keras.applications.mobilenet import MobileNet
-from models.classification_model import cnn_model
-from models.lenet5 import lenet5
+from models.classification_model import cnn_model,lenet5
 
 
 def parse_json_2_classes(data):
@@ -96,23 +95,6 @@ def adapt_labels(array_labels, num_classes):
     return array_labels
 
 
-# def adapt_data(x_train, y_train):
-#     num = 16
-#     for i in range(0, 3):
-#         d2 = np.array(x_train[i*(len(x_train)/num):(i+1)*len(x_train)/num]).astype(np.float32) / 255.0
-#         d4 = np.array(y_train[i*(len(y_train)/num):(i+1)*len(y_train)/num])
-#         if i != 0:
-#             new_x_train = np.hstack((d1, d2))
-#             new_y_train = np.hstack((d3, d4))
-#             d1 = new_x_train
-#             d3 = new_y_train
-#         else:
-#             d1 = d2
-#             d3 = d4
-#
-#     return new_x_train, new_y_train
-
-
 def choose_model(name, input_shape, num_classes):
     if name == "mobilenet":
         base_model = MobileNet(weights=None, include_top='avg', input_shape=input_shape, classes=num_classes)
@@ -169,23 +151,7 @@ if __name__ == "__main__":
     # We adapt string labels to int labels
     y_train = adapt_labels(y_train, num_classes)
 
-    # We adapt the data
-    # print(len(x_train), len(y_train))
-    # print(type(x_train))
-    #
-    # x_train, y_train = adapt_data(x_train, y_train)
-    # print(len(x_train), len(y_train))
-
     # https://www.pyimagesearch.com/2017/12/11/image-classification-with-keras-and-deep-learning/
-
-    # d1 = np.array(x_train[:len(x_train)/4]).astype(np.float32) / 255.0
-    # d2 = np.array(x_train[len(x_train)/4:len(x_train)/2]).astype(np.float32) / 255.0
-    # d3 = np.array(x_train[len(x_train)/2:len(x_train)*3/4]).astype(np.float32) / 255.0
-    # d4 = np.array(x_train[len(x_train)*3/4:]).astype(np.float32) / 255.0
-    # y_train = np.array(y_train)
-    # x_train = np.hstack(d1, d2, d3, d4)
-    #x_train = np.array(x_train)
-    #y_train = np.array(y_train)
 
     # Split data into 80% for train and 20% for validation
     X_train, X_validation, y_train, y_validation = train_test_split(x_train, y_train, test_size=0.20, random_state=42)
