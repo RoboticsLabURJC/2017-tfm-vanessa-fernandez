@@ -98,12 +98,27 @@ class MyAlgorithm(threading.Thread):
         #self.motors.setV(10)
         #self.motors.setW(5)
 
-        self.motors.sendV(6)
+        self.motors.sendV(5)
 
-        if prediction == "left":
+        if prediction == "radically_left":
             self.motors.sendW(1.3)
-        elif prediction == "right":
+        elif prediction == "moderately_left":
+            self.motors.sendW(0.75)
+        elif prediction == "slightly_left":
+            self.motors.sendW(0.25)
+        elif prediction == "slight":
+            self.motors.sendW(0)
+        elif prediction == "slightly_right":
+            self.motors.sendW(-0.25)
+        elif prediction == "moderately_right":
+            self.motors.sendW(-0.75)
+        elif prediction == "radically_right":
             self.motors.sendW(-1.3)
+
+        # if prediction == "left":
+        #     self.motors.sendW(1.0)
+        # elif prediction == "right":
+        #     self.motors.sendW(-1.0)
 
         #SHOW THE FILTERED IMAGE ON THE GUI
         self.set_threshold_image(image)
