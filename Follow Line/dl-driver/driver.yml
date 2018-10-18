@@ -17,7 +17,7 @@ Driver:
 
   Network:
     Framework: Keras  # Currently supported: "Keras" or "TensorFlow"
-    Model: models/model_classification.h5
+    Model: models/model_smaller_vgg.h5
     #Model: ssdlite_mobilenet_v2_coco_2018_05_29.pb
     Dataset: Net/Dataset
 NodeName: Driver
