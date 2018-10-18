@@ -6,9 +6,8 @@ import keras
 
 from sklearn.model_selection import train_test_split
 from keras.utils import plot_model, np_utils
-from keras.preprocessing.image import img_to_array
 from keras.applications.mobilenet import MobileNet
-from models.classification_model import cnn_model,lenet5
+from models.classification_model import cnn_model, lenet5, SmallerVGGNet
 
 
 def parse_json_2_classes(data):
@@ -114,6 +113,12 @@ def choose_model(name, input_shape, num_classes):
         model_file = 'models/model_lenet5_7classes.h5'
         batch_size = 64
         nb_epochs = 20
+    elif name == "smaller_vgg":
+        model = SmallerVGGNet(input_shape, num_classes)
+        model_png = 'models/model_smaller_vgg.png'
+        model_file = 'models/model_smaller_vgg.h5'
+        batch_size = 64
+        nb_epochs = 20
     elif name == "other":
         model = cnn_model(input_shape)
         model_png = 'models/model_classification.png'
@@ -127,7 +132,7 @@ if __name__ == "__main__":
 
     # Choose options
     num_classes = int(input('Choose one of the two options for the number of classes: 2 or 7: '))
-    name_model = raw_input('Choose the model you want to use: mobilenet, lenet, or other: ')
+    name_model = raw_input('Choose the model you want to use: mobilenet, lenet, smaller_vgg or other: ')
     print('Your choice: ' + str(num_classes) + ' and ' + name_model)
 
     # Load data
