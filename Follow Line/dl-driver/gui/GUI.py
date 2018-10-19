@@ -148,6 +148,11 @@ class MainWindow(QtWidgets.QWidget):
             x = e.x() - self.pointxTeleop - self.widthTeleop / 2
             y = e.y() - self.pointyTeleop - self.heightTeleop / 2
             self.line = QtCore.QPointF(x, y)
+            v_normalized = (1.0 / (self.heightTeleop / 2)) * self.line.y()
+            v_normalized = float("{0:.2f}".format(v_normalized))
+            w_normalized = (1.0 / (self.widthTeleop / 2)) * self.line.x()
+            w_normalized = float("{0:.2f}".format(w_normalized))
+            self.setXYValues(w_normalized, v_normalized)
             self.repaint()
 
     def returnToOrigin(self):
@@ -203,12 +208,6 @@ class MainWindow(QtWidgets.QWidget):
         painter.drawLine(QtCore.QPointF(-_height/2, self.line.y()),
                          QtCore.QPointF(_height/2, self.line.y()))
 
-        v_normalized = (1.0 / (self.heightTeleop / 2)) * self.line.y()
-        v_normalized = float("{0:.2f}".format(v_normalized))
-        w_normalized = (1.0 / (self.widthTeleop / 2)) * self.line.x()
-        w_normalized = float("{0:.2f}".format(w_normalized))
-
-        self.setXYValues(w_normalized, v_normalized)
         painter.drawImage(self.line.x() - self.qimage.width() / 2, self.line.y() - self.qimage.height() / 2, self.qimage)
 
     def playClicked(self):
