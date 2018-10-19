@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 
 from keras.models import load_model
 from keras.utils import np_utils
+from keras.metrics import top_k_categorical_accuracy
 from sklearn import metrics
 
 
@@ -102,6 +103,15 @@ def make_predictions(data):
     return np.array(predicted)
 
 
+def top_k_accuracy(labels, y_predict, k):
+    top_k = 0
+    for i in range(0, len(labels)):
+        if (labels[i] -(k-1)) <= y_predict[i] and y_predict[i] <= (labels[i] + (k-1)):
+            top_k += 1
+    top_k = top_k * 100 / len(labels)
+    return top_k
+
+
 def plot_confusion_matrix(cm, cmap=plt.cm.Blues):
     """
     Function to plot the confusion matrix
@@ -169,6 +179,10 @@ if __name__ == "__main__":
     # Test loss and accuracy
     print('Test loss:', score[0])
     print('Test accuracy:', score[1])
+
+    # We calculate top 2 accuracy
+    top_2_accuracy = top_k_accuracy(labels, y_predict, 2)
+    print('Top 2 accuracy: ' + str(top_2_accuracy) +'%')
 
     # Precision, recall, F1 score for each class
     print("Evaluation's metrics: ")
