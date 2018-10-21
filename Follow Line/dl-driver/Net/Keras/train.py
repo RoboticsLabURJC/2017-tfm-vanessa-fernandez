@@ -116,7 +116,7 @@ if __name__ == "__main__":
     #     print('Test accuracy:', score[1])
 
     # We save the model
-    model.save('models/model_nvidia.h5')
+    model.save('models/model_pilotnet.h5')
 
     # Plot the training and validation loss for each epoch
     plt.plot(model_history.history['loss'])
