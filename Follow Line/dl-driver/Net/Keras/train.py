@@ -15,7 +15,6 @@ def parse_json(data):
         v = d.split('"v": ')[1]
         d_parse = d.split(', "v":')[0]
         w = d_parse.split(('"w": '))[1]
-        print(w)
         #array.append([float(v), float(w)])
         array.append(float(w))
 
