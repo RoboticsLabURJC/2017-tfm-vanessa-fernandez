@@ -86,7 +86,7 @@ def choose_model(name):
     elif name == "smaller_vgg":
         model_file = 'models/model_smaller_vgg.h5'
     elif name == "other":
-        model_file = 'models/model_classification.h5'
+        model_file = 'models/model_binary_classification.h5'
     return model_file
 
 
