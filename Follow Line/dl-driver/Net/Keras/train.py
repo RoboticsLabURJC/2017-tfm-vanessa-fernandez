@@ -97,6 +97,7 @@ if __name__ == "__main__":
 
     # We evaluate the model
     score = model.evaluate(X_validation, y_validation, verbose=0)
+    print(score)
     print('Test loss:', score[0])
     print('Test accuracy:', score[1])
 
