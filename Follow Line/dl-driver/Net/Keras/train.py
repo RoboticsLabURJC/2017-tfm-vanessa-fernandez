@@ -89,14 +89,14 @@ if __name__ == "__main__":
 
     # We evaluate the model
     score = model_v.evaluate(X_validation_v, y_validation_v, verbose=0)
-    print(score)
+    print('Evaluatin v')
     print('Test loss: ', score[0])
     print('Test accuracy: ', score[1])
     print('Test mean squared error: ', score[2])
     print('Test mean absolute error: ', score[3])
 
     score = model_w.evaluate(X_validation_w, y_validation_w, verbose=0)
-    print(score)
+    print('Evaluating w')
     print('Test loss:', score[0])
     print('Test accuracy:', score[1])
     print('Test mean squared error: ', score[2])
