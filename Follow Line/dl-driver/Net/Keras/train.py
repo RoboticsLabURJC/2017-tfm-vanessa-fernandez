@@ -1,8 +1,9 @@
 import glob
 import numpy as np
 import cv2
-import matplotlib.pyplot as plt
-
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
 from keras.utils import plot_model
 from models.model_nvidia import pilotnet_model
@@ -72,8 +73,8 @@ if __name__ == "__main__":
     # array_y_test = adapt_array(y_validation)
 
     # Variables
-    batch_size = 16
-    nb_epoch = 20
+    batch_size = 64
+    nb_epoch = 200
     img_shape = (120, 160, 3)
 
     # Get model
