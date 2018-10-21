@@ -100,14 +100,14 @@ def choose_model(name, input_shape, num_classes):
         # model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
         # x = keras.layers.AveragePooling2D((7, 7))(base_model.output)
         x = keras.layers.Dropout(0.3)(base_model.output)
-        output = keras.layers.Dense(1)(x)
+        output = keras.layers.Dense(num_classes)(x)
         model = keras.models.Model(inputs=[base_model.input], outputs=[output])
         model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
         model_png = 'models/model_mobilenet.png'
         model_file = 'models/model_mobilenet.h5'
         batch_size = 128
         nb_epochs = 20
-    elif name == "lenet":
+    elif name == "lenet" and num_classes == 7:
         model = lenet5(input_shape, num_classes)
         model_png = 'models/model_lenet5_7classes.png'
         model_file = 'models/model_lenet5_7classes.h5'
@@ -119,10 +119,10 @@ def choose_model(name, input_shape, num_classes):
         model_file = 'models/model_smaller_vgg.h5'
         batch_size = 64
         nb_epochs = 20
-    elif name == "other":
+    elif name == "other" and num_classes == 2:
         model = cnn_model(input_shape)
-        model_png = 'models/model_classification.png'
-        model_file = 'models/model_classification.h5'
+        model_png = 'models/model_binary_classification.png'
+        model_file = 'models/model_binary_classification.h5'
         batch_size = 32
         nb_epochs = 12
     return model, model_file, model_png, batch_size, nb_epochs
