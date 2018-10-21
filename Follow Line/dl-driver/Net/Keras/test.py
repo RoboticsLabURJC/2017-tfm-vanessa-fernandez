@@ -8,17 +8,18 @@ from sklearn import metrics
 
 
 def parse_json(data):
-    array = []
+    array_v = []
+    array_w = []
     # We process json
     data_parse = data.split('}')[:-1]
     for d in data_parse:
         v = d.split('"v": ')[1]
         d_parse = d.split(', "v":')[0]
         w = d_parse.split(('"w": '))[1]
-        #array.append([int(v), float(w)])
-        array.append(float(w))
+        array_v.append(float(v))
+        array_w.append(float(w))
 
-    return array
+    return array_v, array_w
 
 
 def get_images(list_images):
@@ -26,13 +27,13 @@ def get_images(list_images):
     array_imgs = []
     for name in list_images:
         img = cv2.imread(name)
-        img = cv2.resize(img, (img.shape[1] / 2, img.shape[0] / 2))
+        img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
         array_imgs.append(img)
 
     return array_imgs
 
 
-def make_predictions(data):
+def make_predictions(data, model):
     """
     Function to make the predictions over a data set
     :param data: np.array - Images to predict
@@ -74,41 +75,37 @@ if __name__ == "__main__":
     # We preprocess images
     x_test = get_images(images)
     # We preprocess json
-    y_test = parse_json(data)
+    y_test_v, y_test_w = parse_json(data)
 
     # We adapt the data
     X_test = np.stack(x_test, axis=0)
-    y_test = np.stack(y_test, axis=0)
+    y_test_v = np.stack(y_test_v, axis=0)
+    y_test_w = np.stack(y_test_w, axis=0)
 
     # Load model
     print('Loading model...')
-    model = load_model('models/model_pilotnet.h5')
+    model_v = load_model('models/model_pilotnet_v.h5')
+    model_w = load_model('models/model_pilotnet_w.h5')
 
     # Make predictions
     print('Making predictions...')
-    y_predict = make_predictions(X_test)
-
-    for i in range(0, len(y_predict)):
-        print('test', y_test[i])
-        print('predict', y_predict[i])
+    y_predict_v = make_predictions(X_test, model_v)
+    y_predict_w = make_predictions(X_test, model_w)
 
     # Evaluation
     print('Making evaluation...')
-    score = model.evaluate(X_test, y_test)
+    score_v = model_v.evaluate(X_test, y_test_v)
+    score_w = model_v.evaluate(X_test, y_test_w)
 
-    #evaluation = metrics.classification_report(y_test, y_predict)
+    # Test loss, accuracy, mse and mae
+    print('Evaluation v:')
+    print('Test loss:', score_v[0])
+    print('Test accuracy:', score_v[1])
+    print('Test mean squared error: ', score_v[2])
+    print('Test mean absolute error: ', score_v[3])
 
-    # Test loss and accuracy
-    print('Test loss:', score[0])
-    print('Test accuracy:', score[1])
-
-    # Precision, recall, F1 score for each class
-    print("Evaluation's metrics: ")
-    #print(evaluation)
-
-    # Confusion matrix
-    #conf_matrix = metrics.confusion_matrix(y_test, y_predict)
-    #conf_matrix = conf_matrix.astype('float') / conf_matrix.sum(axis=1)[:, np.newaxis]
-
-    # Plot confusion matrix
-    #plot_confusion_matrix(conf_matrix)
+    print('Evaluation w:')
+    print('Test loss:', score_w[0])
+    print('Test accuracy:', score_w[1])
+    print('Test mean squared error: ', score_w[2])
+    print('Test mean absolute error: ', score_w[3])
