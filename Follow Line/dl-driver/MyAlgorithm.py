@@ -90,30 +90,44 @@ class MyAlgorithm(threading.Thread):
         image = self.getImage()
 
         # Add your code here
-        print "Runing"
+        print("Runing")
 
         prediction = self.network.prediction
 
         #EXAMPLE OF HOW TO SEND INFORMATION TO THE ROBOT ACTUATORS
-        #self.motors.setV(10)
-        #self.motors.setW(5)
+        #self.motors.sendV(10)
+        #self.motors.sendW(5)
 
-        self.motors.sendV(5)
+        #self.motors.sendV(5)
+        self.motors.sendV(3)
 
         if prediction == "radically_left":
-            self.motors.sendW(1.5)
+            #self.motors.sendW(1.5)
+            self.motors.sendW(1.3)
+            #self.motors.sendV(2)
         elif prediction == "moderately_left":
-            self.motors.sendW(0.8)
+            #self.motors.sendW(0.9)
+            self.motors.sendW(0.85)
+            #self.motors.sendV(5)
         elif prediction == "slightly_left":
-            self.motors.sendW(0.3)
+            #self.motors.sendW(0.3)
+            self.motors.sendW(0.25)
+            #self.motors.sendV(7)
         elif prediction == "slight":
             self.motors.sendW(0)
+            #self.motors.sendV(12)
         elif prediction == "slightly_right":
-            self.motors.sendW(-0.3)
+            #self.motors.sendW(-0.3)
+            self.motors.sendW(-0.25)
+            #self.motors.sendV(7)
         elif prediction == "moderately_right":
-            self.motors.sendW(-0.8)
+            #self.motors.sendW(-0.9)
+            self.motors.sendW(-0.85)
+            #self.motors.sendV(5)
         elif prediction == "radically_right":
-            self.motors.sendW(-1.5)
+            #self.motors.sendW(-1.5)
+            self.motors.sendW(-1.3)
+            #self.motors.sendV(2)
 
         # if prediction == "left":
         #     self.motors.sendW(1.0)
