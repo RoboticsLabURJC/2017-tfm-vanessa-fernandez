@@ -78,6 +78,7 @@ if __name__ == "__main__":
 
     # Get model
     model = pilotnet_model(img_shape)
+    model_png = 'models/model_pilotnet.png'
 
     X_train = np.stack(X_train, axis=0)
     y_train = np.stack(y_train, axis=0)
