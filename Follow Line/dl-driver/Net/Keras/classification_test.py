@@ -1,11 +1,12 @@
 import glob
 import numpy as np
 import cv2
-import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
+from matplotlib import pyplot as plt
 
 from keras.models import load_model
 from keras.utils import np_utils
-from keras.metrics import top_k_categorical_accuracy
 from sklearn import metrics
 
 
