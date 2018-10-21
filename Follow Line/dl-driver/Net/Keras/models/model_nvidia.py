@@ -15,7 +15,7 @@ def pilotnet_model(img_shape):
     model.add(Conv2D(64, (3, 3), strides=(1, 1), activation="relu"))
     model.add(Conv2D(64, (3, 3), strides=(1, 1), activation="relu"))
     model.add(Flatten())
-    #model.add(Dense(1164, activation="relu"))
+    model.add(Dense(1164, activation="relu"))
     model.add(Dense(100, activation="relu"))
     model.add(Dense(50, activation="relu"))
     model.add(Dense(10, activation="relu"))
