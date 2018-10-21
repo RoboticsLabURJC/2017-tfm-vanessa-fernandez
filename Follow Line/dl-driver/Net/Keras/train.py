@@ -4,6 +4,7 @@ import cv2
 import matplotlib.pyplot as plt
 
 from sklearn.model_selection import train_test_split
+from keras.utils import plot_model
 from models.model_nvidia import pilotnet_model
 
 
@@ -71,7 +72,7 @@ if __name__ == "__main__":
     # array_y_test = adapt_array(y_validation)
 
     # Variables
-    batch_size = 32
+    batch_size = 16
     nb_epoch = 2000
     img_shape = (120, 160, 3)
 
@@ -82,6 +83,11 @@ if __name__ == "__main__":
     y_train = np.stack(y_train, axis=0)
     X_validation = np.stack(X_validation, axis=0)
     y_validation = np.stack(y_validation, axis=0)
+
+    # Print layers
+    print(model.summary())
+    # Plot layers of model
+    plot_model(model, to_file=model_png)
 
     #  We train
     model_history = model.fit(X_train, y_train, epochs=nb_epoch, batch_size=batch_size, verbose=2,
