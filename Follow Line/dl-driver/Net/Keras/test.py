@@ -82,7 +82,7 @@ if __name__ == "__main__":
 
     # Load model
     print('Loading model...')
-    model = load_model('models/model_nvidia.h5')
+    model = load_model('models/model_pilotnet.h5')
 
     # Make predictions
     print('Making predictions...')
