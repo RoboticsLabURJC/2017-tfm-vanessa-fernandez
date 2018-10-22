@@ -2,6 +2,7 @@
 
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Conv2D, BatchNormalization
+from keras.optimizers import Adam
 
 
 def pilotnet_model(img_shape):
