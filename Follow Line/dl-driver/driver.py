@@ -56,21 +56,26 @@ def selectNetwork(cfg):
     net_prop = cfg['Driver']['Network']
     framework = net_prop['Framework']
     if framework == 'Tensorflow' or framework.lower() == 'tensorflow':
-        from Net.TensorFlow.network import ClassificationNetwork
+        #from Net.TensorFlow.network import ClassificationNetwork
+        from Net.TensorFlow.network import RegressionNetwork
     elif framework == 'Keras' or framework.lower() == 'keras':
         sys.path.append('Net/Keras')
-        from Net.Keras.classification_network import ClassificationNetwork
+        #from Net.Keras.classification_network import ClassificationNetwork
+        from Net.Keras.regression_network import RegressionNetwork
     else:
         raise SystemExit(('%s not supported! Supported frameworks: Keras, TensorFlow') % (framework))
-    return net_prop, ClassificationNetwork
+    #return net_prop, ClassificationNetwork
+    return net_prop, RegressionNetwork
 
 
 if __name__ == "__main__":
 
     cfg = readConfig()
-    net_prop, ClassificationNetwork = selectNetwork(cfg)
+    #net_prop, ClassificationNetwork = selectNetwork(cfg)
+    net_prop, RegressionNetwork = selectNetwork(cfg)
 
-    network = ClassificationNetwork(net_prop)
+    #network = ClassificationNetwork(net_prop)
+    network = RegressionNetwork(net_prop)
 
     camera = ListenerCamera("/F1ROS/cameraL/image_raw")
     motors = PublisherMotors("/F1ROS/cmd_vel", 4, 0.3, 0, 0)
