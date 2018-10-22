@@ -3,13 +3,13 @@
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Conv2D, BatchNormalization
 from keras.optimizers import Adam
-import keras
+import keras.backend as K
 
 
 def myAccuracy(y_true, y_pred):
-    diff = keras.abs(y_true-y_pred) #absolute difference between correct and predicted values
-    correct = keras.less(diff,0.05) #tensor with 0 for false values and 1 for true values
-    return keras.mean(correct)
+    diff = K.abs(y_true-y_pred) #absolute difference between correct and predicted values
+    correct = K.less(diff,0.05) #tensor with 0 for false values and 1 for true values
+    return K.mean(correct)
 
 
 def pilotnet_model(img_shape):
