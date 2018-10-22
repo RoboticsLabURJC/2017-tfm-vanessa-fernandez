@@ -1,7 +1,7 @@
 # Based on: https://arxiv.org/pdf/1604.07316.pdf
 
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Conv2D
+from keras.layers import Flatten, Dense, Conv2D, BatchNormalization
 
 
 def pilotnet_model(img_shape):
@@ -9,7 +9,8 @@ def pilotnet_model(img_shape):
     Model of End to End Learning for Self-Driving Cars (NVIDIA)
     '''
     model = Sequential()
-    model.add(Conv2D(24, (5, 5), strides=(2, 2), activation="relu", input_shape=img_shape))
+    model.add(BatchNormalization(epsilon=0.001, mode=2, axis=1, input_shape=img_shape))
+    model.add(Conv2D(24, (5, 5), strides=(2, 2), activation="relu"))
     model.add(Conv2D(36, (5, 5), strides=(2, 2), activation="relu"))
     model.add(Conv2D(48, (5, 5), strides=(2, 2), activation="relu"))
     model.add(Conv2D(64, (3, 3), strides=(1, 1), activation="relu"))
