@@ -51,61 +51,73 @@ if __name__ == "__main__":
     y_v, y_w = parse_json(data)
 
     # Split data into 80% for train and 20% for validation
-    X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
-    X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
+    X_train, X_validation, y_train_v, y_validation_v, y_train_w, y_validation_w = train_test_split(x, y_v, y_w, test_size=0.20, random_state=42)
+    # X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
+    # X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
 
     # Variables
     batch_size = 64
     nb_epoch_v = 75
-    nb_epoch_w = 180
+    nb_epoch_w = 80
     img_shape = (120, 160, 3)
 
     # Get model
-    model_v = pilotnet_model(img_shape)
-    model_w = pilotnet_model(img_shape)
+    model = pilotnet_model(img_shape)
+    # model_v = pilotnet_model(img_shape)
+    # model_w = pilotnet_model(img_shape)
     model_png = 'models/model_pilotnet.png'
 
     # We adapt the data
-    X_train_v = np.stack(X_train_v, axis=0)
+    X_train = np.stack(X_train, axis=0)
     y_train_v = np.stack(y_train_v, axis=0)
-    X_validation_v = np.stack(X_validation_v, axis=0)
-    y_validation_v = np.stack(y_validation_v, axis=0)
-
-    X_train_w = np.stack(X_train_w, axis=0)
     y_train_w = np.stack(y_train_w, axis=0)
-    X_validation_w = np.stack(X_validation_w, axis=0)
+    X_validation = np.stack(X_validation, axis=0)
+    y_validation_v = np.stack(y_validation_v, axis=0)
     y_validation_w = np.stack(y_validation_w, axis=0)
+    # X_train_v = np.stack(X_train_v, axis=0)
+    # y_train_v = np.stack(y_train_v, axis=0)
+    # X_validation_v = np.stack(X_validation_v, axis=0)
+    # y_validation_v = np.stack(y_validation_v, axis=0)
+    #
+    # X_train_w = np.stack(X_train_w, axis=0)
+    # y_train_w = np.stack(y_train_w, axis=0)
+    # X_validation_w = np.stack(X_validation_w, axis=0)
+    # y_validation_w = np.stack(y_validation_w, axis=0)
 
     # Print layers
-    print(model_v.summary())
-    # Plot layers of model
-    plot_model(model_v, to_file=model_png)
+    print(model.summary())
+    # print(model_v.summary())
+    # # Plot layers of model
+    plot_model(model, to_file=model_png)
 
     #  We train
-    model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size, verbose=2,
-                              validation_data=(X_validation_v, y_validation_v))
-
-    model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size, verbose=2,
-                                  validation_data=(X_validation_w, y_validation_w))
+    model_history = model.fit(X_train, [y_train_v, y_train_w], epochs=nb_epoch_v, batch_size=batch_size, verbose=2,
+                               validation_data=(X_validation, [y_validation_v, y_validation_w]))
+    # model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size, verbose=2,
+    #                           validation_data=(X_validation_v, y_validation_v))
+    #
+    # model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size, verbose=2,
+    #                               validation_data=(X_validation_w, y_validation_w))
 
     # We evaluate the model
-    score = model_v.evaluate(X_validation_v, y_validation_v, verbose=0)
-    print('Evaluating v')
-    print('Test loss: ', score[0])
-    print('Test accuracy: ', score[1])
-    print('Test mean squared error: ', score[2])
-    print('Test mean absolute error: ', score[3])
-
-    score = model_w.evaluate(X_validation_w, y_validation_w, verbose=0)
-    print('Evaluating w')
-    print('Test loss:', score[0])
-    print('Test accuracy:', score[1])
-    print('Test mean squared error: ', score[2])
-    print('Test mean absolute error: ', score[3])
+    score = model.evaluate(X_validation, [y_validation_v, y_validation_w])
+    # score = model_v.evaluate(X_validation_v, y_validation_v, verbose=0)
+    # print('Evaluating v')
+    # print('Test loss: ', score[0])
+    # print('Test accuracy: ', score[1])
+    # print('Test mean squared error: ', score[2])
+    # print('Test mean absolute error: ', score[3])
+    #
+    # score = model_w.evaluate(X_validation_w, y_validation_w, verbose=0)
+    # print('Evaluating w')
+    # print('Test loss:', score[0])
+    # print('Test accuracy:', score[1])
+    # print('Test mean squared error: ', score[2])
+    # print('Test mean absolute error: ', score[3])
 
     # We save the model
     #model_v.save('models/model_pilotnet_v.h5')
-    model_w.save('models/model_pilotnet_w.h5')
+    #model_w.save('models/model_pilotnet_w.h5')
 
     # Plot the training and validation loss for each epoch
     # plt.plot(model_history.history['loss'])
