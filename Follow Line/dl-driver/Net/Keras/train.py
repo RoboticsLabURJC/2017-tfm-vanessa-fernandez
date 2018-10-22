@@ -57,7 +57,7 @@ if __name__ == "__main__":
     # Variables
     batch_size = 64
     nb_epoch_v = 75
-    nb_epoch_w = 80
+    nb_epoch_w = 180
     img_shape = (120, 160, 3)
 
     # Get model
@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
     # We evaluate the model
     score = model_v.evaluate(X_validation_v, y_validation_v, verbose=0)
-    print('Evaluatin v')
+    print('Evaluating v')
     print('Test loss: ', score[0])
     print('Test accuracy: ', score[1])
     print('Test mean squared error: ', score[2])
@@ -104,7 +104,7 @@ if __name__ == "__main__":
     print('Test mean absolute error: ', score[3])
 
     # We save the model
-    model_v.save('models/model_pilotnet_v.h5')
+    #model_v.save('models/model_pilotnet_v.h5')
     model_w.save('models/model_pilotnet_w.h5')
 
     # Plot the training and validation loss for each epoch
