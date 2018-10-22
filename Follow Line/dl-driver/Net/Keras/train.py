@@ -57,7 +57,7 @@ if __name__ == "__main__":
     # Variables
     batch_size = 64
     nb_epoch_v = 75
-    nb_epoch_w = 40
+    nb_epoch_w = 800
     img_shape = (120, 160, 3)
 
     # Get model
