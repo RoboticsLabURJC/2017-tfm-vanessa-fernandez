@@ -104,7 +104,7 @@ if __name__ == "__main__":
     print('Test mean absolute error: ', score[3])
 
     # We save the model
-    #model_v.save('models/model_pilotnet_v.h5')
+    model_v.save('models/model_pilotnet_v.h5')
     model_w.save('models/model_pilotnet_w.h5')
 
     # Plot the training and validation loss for each epoch
