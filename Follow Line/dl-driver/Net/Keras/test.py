@@ -61,7 +61,6 @@ def plot_confusion_matrix(cm, cmap=plt.cm.Blues):
     plt.show()
 
 
-
 if __name__ == "__main__":
 
     # Load data
@@ -95,7 +94,7 @@ if __name__ == "__main__":
     # Evaluation
     print('Making evaluation...')
     score_v = model_v.evaluate(X_test, y_test_v)
-    score_w = model_v.evaluate(X_test, y_test_w)
+    score_w = model_w.evaluate(X_test, y_test_w)
 
     # Test loss, accuracy, mse and mae
     print('Evaluation v:')
