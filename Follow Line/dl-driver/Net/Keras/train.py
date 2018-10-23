@@ -3,9 +3,11 @@ import numpy as np
 import cv2
 import matplotlib
 matplotlib.use('Agg')
+
 from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
 from keras.utils import plot_model
+from keras.callbacks import TensorBoard
 from models.model_nvidia import pilotnet_model
 
 
@@ -85,8 +87,10 @@ if __name__ == "__main__":
     model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size, verbose=2,
                               validation_data=(X_validation_v, y_validation_v))
 
+    tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+
     model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size, verbose=2,
-                                  validation_data=(X_validation_w, y_validation_w))
+                                  validation_data=(X_validation_w, y_validation_w), callbacks=[tensorboard])
 
     # We evaluate the model
     score = model_v.evaluate(X_validation_v, y_validation_v, verbose=0)
