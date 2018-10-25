@@ -57,7 +57,8 @@ if __name__ == "__main__":
     X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
 
     # Variables
-    batch_size = 64
+    batch_size_v = 16
+    batch_size_w = 64
     nb_epoch_v = 785 #75
     nb_epoch_w = 100 #80
     img_shape = (120, 160, 3)
@@ -84,12 +85,12 @@ if __name__ == "__main__":
     plot_model(model_v, to_file=model_png)
 
     #  We train
-    model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size, verbose=2,
+    model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
                               validation_data=(X_validation_v, y_validation_v))
 
     #tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
-    model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size, verbose=2,
+    model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size_w, verbose=2,
                                   validation_data=(X_validation_w, y_validation_w))
 
     # We evaluate the model
