@@ -87,7 +87,7 @@ if __name__ == "__main__":
     model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size, verbose=2,
                               validation_data=(X_validation_v, y_validation_v))
 
-    tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+    #tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
     model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size, verbose=2,
                                   validation_data=(X_validation_w, y_validation_w), callbacks=[tensorboard])
