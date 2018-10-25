@@ -37,6 +37,15 @@ def get_images(list_images):
     return array_imgs
 
 
+def myAccuracy_regression(y_true, y_pred):
+    # Absolute difference between correct and predicted values
+    diff = K.abs(y_true-y_pred)
+    # Tensor with 0 for false values and 1 for true values
+    correct = K.less(diff,0.05)
+    # Sum all 1's and divide by the total
+    return K.mean(correct)
+
+
 if __name__ == "__main__":
 
     # Load data
