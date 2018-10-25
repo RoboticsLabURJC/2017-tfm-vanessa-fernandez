@@ -58,8 +58,8 @@ if __name__ == "__main__":
 
     # Variables
     batch_size = 64
-    nb_epoch_v = 75
-    nb_epoch_w = 80
+    nb_epoch_v = 1000 #75
+    nb_epoch_w = 1000 #80
     img_shape = (120, 160, 3)
 
     # Get model
@@ -109,7 +109,7 @@ if __name__ == "__main__":
 
     # We save the model
     #model_v.save('models/model_pilotnet_v.h5')
-    model_w.save('models/model_pilotnet_w.h5')
+    #model_w.save('models/model_pilotnet_w.h5')
 
     # Plot the training and validation loss for each epoch
     # plt.plot(model_history.history['loss'])
