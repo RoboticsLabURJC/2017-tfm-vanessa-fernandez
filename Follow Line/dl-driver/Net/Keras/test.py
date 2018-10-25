@@ -45,6 +45,16 @@ def make_predictions(data, model):
     return np.array(predicted)
 
 
+def myAccuracy_regression(y_true, y_pred):
+    # Absolute difference between correct and predicted values
+    diff = K.abs(y_true-y_pred)
+    # Tensor with 0 for false values and 1 for true values
+    correct = K.less(diff,0.05)
+    # Sum all 1's and divide by the total
+    return K.mean(correct)
+
+
+
 def plot_confusion_matrix(cm, cmap=plt.cm.Blues):
     """
     Function to plot the confusion matrix
@@ -83,8 +93,8 @@ if __name__ == "__main__":
 
     # Load model
     print('Loading model...')
-    model_v = load_model('models/model_pilotnet_v.h5')
-    model_w = load_model('models/model_pilotnet_w.h5')
+    model_v = load_model('models/model_pilotnet_v.h5', custom_objects={'myAccuracy_regression': myAccuracy_regression})
+    model_w = load_model('models/model_pilotnet_w.h5', custom_objects={'myAccuracy_regression': myAccuracy_regression})
 
     # Make predictions
     print('Making predictions...')
