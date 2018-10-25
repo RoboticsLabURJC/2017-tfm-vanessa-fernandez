@@ -64,8 +64,8 @@ if __name__ == "__main__":
     img_shape = (120, 160, 3)
 
     # Get model
-    model_v = pilotnet_model(img_shape)
-    model_w = pilotnet_model(img_shape)
+    model_v = pilotnet_model(img_shape, 'accuracy')
+    model_w = pilotnet_model(img_shape, myAccuracy_regression)
     model_png = 'models/model_pilotnet.png'
 
     # We adapt the data
