@@ -15,7 +15,7 @@ def myAccuracy_regression(y_true, y_pred):
     return K.mean(correct)
 
 
-def pilotnet_model(img_shape, name_accuracy):
+def pilotnet_model(img_shape):
     '''
     Model of End to End Learning for Self-Driving Cars (NVIDIA)
     '''
@@ -33,5 +33,5 @@ def pilotnet_model(img_shape, name_accuracy):
     model.add(Dense(10, activation="relu"))
     model.add(Dense(1))
     adam = Adam(lr=0.0001)
-    model.compile(optimizer=adam, loss="mse", metrics=[name_accuracy, 'mse', 'mae'])
+    model.compile(optimizer=adam, loss="mse", metrics=[myAccuracy_regression, 'mse', 'mae'])
     return model
