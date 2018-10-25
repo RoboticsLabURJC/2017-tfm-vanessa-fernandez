@@ -58,7 +58,7 @@ if __name__ == "__main__":
 
     # Variables
     batch_size = 64
-    nb_epoch_v = 1000 #75
+    nb_epoch_v = 775 #75
     nb_epoch_w = 1000 #80
     img_shape = (120, 160, 3)
 
@@ -90,7 +90,7 @@ if __name__ == "__main__":
     #tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
     model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size, verbose=2,
-                                  validation_data=(X_validation_w, y_validation_w), callbacks=[tensorboard])
+                                  validation_data=(X_validation_w, y_validation_w))
 
     # We evaluate the model
     score = model_v.evaluate(X_validation_v, y_validation_v, verbose=0)
@@ -108,8 +108,8 @@ if __name__ == "__main__":
     print('Test mean absolute error: ', score[3])
 
     # We save the model
-    #model_v.save('models/model_pilotnet_v.h5')
-    #model_w.save('models/model_pilotnet_w.h5')
+    model_v.save('models/model_pilotnet_v.h5')
+    model_w.save('models/model_pilotnet_w.h5')
 
     # Plot the training and validation loss for each epoch
     # plt.plot(model_history.history['loss'])
