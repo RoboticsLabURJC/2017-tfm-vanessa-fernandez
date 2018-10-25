@@ -20,7 +20,7 @@ def parse_json(data):
         v = d.split('"v": ')[1]
         d_parse = d.split(', "v":')[0]
         w = d_parse.split(('"w": '))[1]
-        array_v.append(float(v))
+        array_v.append(int(v))
         array_w.append(float(w))
 
     return array_v, array_w
@@ -58,7 +58,7 @@ if __name__ == "__main__":
 
     # Variables
     batch_size = 64
-    nb_epoch_v = 925 #75
+    nb_epoch_v = 785 #75
     nb_epoch_w = 100 #80
     img_shape = (120, 160, 3)
 
@@ -109,7 +109,7 @@ if __name__ == "__main__":
 
     # We save the model
     model_v.save('models/model_pilotnet_v.h5')
-    model_w.save('models/model_pilotnet_w.h5')
+    #model_w.save('models/model_pilotnet_w.h5')
 
     # Plot the training and validation loss for each epoch
     # plt.plot(model_history.history['loss'])
