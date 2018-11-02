@@ -12,7 +12,7 @@ from keras.applications.mobilenet import MobileNet
 from models.classification_model import cnn_model, lenet5, SmallerVGGNet
 
 
-def parse_json_2_classes(data):
+def parse_json_2_classes_w(data):
     array_class = []
     array_w = []
     # We process json
@@ -27,7 +27,7 @@ def parse_json_2_classes(data):
     return array_class, array_w
 
 
-def parse_json_7_classes(data):
+def parse_json_other_classes_w(data):
     array_class = []
     array_w = []
     # We process json
@@ -42,11 +42,28 @@ def parse_json_7_classes(data):
     return array_class, array_w
 
 
-def parse_json(data, num_classes):
-    if num_classes == 2:
-        array_class, array_w = parse_json_2_classes(data)
-    elif num_classes == 7:
-        array_class, array_w = parse_json_7_classes(data)
+def parse_json_other_classes_v(data):
+    array_class = []
+    array_w = []
+    # We process json
+    data_parse = data.split('"class3": ')[1:]
+    for d in data_parse:
+        classification = d.split(', "class2":')[0]
+        d_parse = d.split(', "w": ')[1]
+        w = float(d_parse.split(', "v":')[0])
+        array_class.append(classification)
+        array_w.append(w)
+
+    return array_class, array_w
+
+
+def parse_json(data, num_classes, name_variable):
+    if num_classes == 2 and name_variable == 'w':
+        array_class, array_w = parse_json_2_classes_w(data)
+    elif name_variable == 'w':
+        array_class, array_w = parse_json_other_classes_w(data)
+    elif name_variable == 'v':
+        array_class, array_w = parse_json_other_classes_v(data)
     return array_class, array_w
 
 
@@ -55,7 +72,6 @@ def get_images(list_images):
     array_imgs = []
     for name in list_images:
         img = cv2.imread(name)
-        #img = cv2.resize(img, (img.shape[1]/2, img.shape[0]/2))
         img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
         array_imgs.append(img)
 
@@ -70,55 +86,53 @@ def remove_values_aprox_zero(list_imgs, list_data, list_w):
     return list_imgs, list_data
 
 
-def adapt_labels(array_labels, num_classes):
+def adapt_labels(array_labels, num_classes, name_variable):
     for i in range(0, len(array_labels)):
-        if num_classes == 2:
-            if array_labels[i] == '"left"':
-                array_labels[i] = 0
-            else:
-                array_labels[i] = 1
-        elif num_classes == 7:
-            if array_labels[i] == 'radically_left':
-                array_labels[i] = 0
-            elif array_labels[i] == 'moderately_left':
-                array_labels[i] = 1
-            elif array_labels[i] == 'slightly_left':
-                array_labels[i] = 2
-            elif array_labels[i] == 'slight':
-                array_labels[i] = 3
-            elif array_labels[i] == 'slightly_right':
-                array_labels[i] = 4
-            elif array_labels[i] == 'moderately_right':
-                array_labels[i] = 5
-            elif array_labels[i] == 'radically_right':
-                array_labels[i] = 6
+        if name_variable == 'w':
+            if num_classes == 2:
+                if array_labels[i] == '"left"':
+                    array_labels[i] = 0
+                else:
+                    array_labels[i] = 1
+            elif num_classes == 7:
+                if array_labels[i] == 'radically_left':
+                    array_labels[i] = 0
+                elif array_labels[i] == 'moderately_left':
+                    array_labels[i] = 1
+                elif array_labels[i] == 'slightly_left':
+                    array_labels[i] = 2
+                elif array_labels[i] == 'slight':
+                    array_labels[i] = 3
+                elif array_labels[i] == 'slightly_right':
+                    array_labels[i] = 4
+                elif array_labels[i] == 'moderately_right':
+                    array_labels[i] = 5
+                elif array_labels[i] == 'radically_right':
+                    array_labels[i] = 6
 
+        elif name_variable == 'v':
+            if array_labels[i] == 'slow':
+                array_labels[i] = 0
+            elif array_labels[i] == 'moderate':
+                array_labels[i] = 1
+            elif array_labels[i] == 'fast':
+                array_labels[i] = 2
+            elif array_labels[i] == 'very_fast':
+                array_labels[i] = 3
     return array_labels
 
 
-def choose_model(name, input_shape, num_classes):
-    if name == "mobilenet":
-        base_model = MobileNet(weights=None, include_top='avg', input_shape=input_shape, classes=num_classes)
-        # model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
-        # x = keras.layers.AveragePooling2D((7, 7))(base_model.output)
-        x = keras.layers.Dropout(0.3)(base_model.output)
-        output = keras.layers.Dense(num_classes)(x)
-        model = keras.models.Model(inputs=[base_model.input], outputs=[output])
-        model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
-        model_png = 'models/model_mobilenet.png'
-        model_file = 'models/model_mobilenet.h5'
-        batch_size = 128
-        nb_epochs = 20
-    elif name == "lenet" and num_classes == 7:
+def choose_model(name, input_shape, num_classes, name_variable):
+    if name == "lenet":
         model = lenet5(input_shape, num_classes)
-        model_png = 'models/model_lenet5_7classes.png'
-        model_file = 'models/model_lenet5_7classes.h5'
+        model_png = 'models/model_lenet5.png'
+        model_file = 'models/model_lenet5_' + str(num_classes) + 'classes_ ' + name_variable + '.h5'
         batch_size = 64
         nb_epochs = 20
     elif name == "smaller_vgg":
         model = SmallerVGGNet(input_shape, num_classes)
         model_png = 'models/model_smaller_vgg.png'
-        model_file = 'models/model_smaller_vgg.h5'
+        model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + name_variable + '.h5'
         batch_size = 64
         nb_epochs = 20
     elif name == "other" and num_classes == 2:
@@ -133,9 +147,10 @@ def choose_model(name, input_shape, num_classes):
 if __name__ == "__main__":
 
     # Choose options
-    num_classes = int(input('Choose one of the two options for the number of classes: 2 or 7: '))
+    num_classes = int(input('Choose one of the two options for the number of classes: '))
+    name_variable = raw_input('Choose the variable you want to train: v or w: ')
     name_model = raw_input('Choose the model you want to use: mobilenet, lenet, smaller_vgg or other: ')
-    print('Your choice: ' + str(num_classes) + ' and ' + name_model)
+    print('Your choice: ' + str(num_classes) + ', ' + name_variable + ' and ' + name_model)
 
     # Load data
     list_images = glob.glob('../Dataset/Train/Images/' + '*')
@@ -148,7 +163,7 @@ if __name__ == "__main__":
     # We preprocess images
     x = get_images(images)
     # We preprocess json
-    y, array_w = parse_json(data, num_classes)
+    y, array_w = parse_json(data, num_classes, name_variable)
 
     # We delete values close to zero
     #x_train, y_train = remove_values_aprox_zero(x, y, array_w)
@@ -156,7 +171,7 @@ if __name__ == "__main__":
     y_train = y
 
     # We adapt string labels to int labels
-    y_train = adapt_labels(y_train, num_classes)
+    y_train = adapt_labels(y_train, num_classes, name_variable)
 
     # https://www.pyimagesearch.com/2017/12/11/image-classification-with-keras-and-deep-learning/
 
@@ -169,14 +184,11 @@ if __name__ == "__main__":
 
 
     # Variables
-    #batch_size = 32
-    #nb_epochs = 12
-    #img_shape = (240, 320, 3)
     img_shape = (120, 160, 3)
 
 
     # Get model
-    model, model_file, model_png, batch_size, nb_epochs = choose_model(name_model, img_shape, num_classes)
+    model, model_file, model_png, batch_size, nb_epochs = choose_model(name_model, img_shape, num_classes, name_variable)
 
     # We adapt the data
     X_train = np.stack(X_train, axis=0)
@@ -188,7 +200,7 @@ if __name__ == "__main__":
     print('y train',  y_train.shape)
     print('X validation',  X_validation.shape)
     print('y val',  y_validation.shape)
-
+    
 
     # Print layers
     print(model.summary())
