@@ -20,17 +20,17 @@ def get_classification(w):
 
 
 def get_classification_w(w):
-	if w[0] == '-' and abs(float(w)) >= 1.0:
+	if w < 0 and abs(w) >= 1.0:
 		classification = 'radically_right'
-	elif w[0] == '-' and abs(float(w)) >= 0.5:
+	elif w < 0 and abs(w) >= 0.5:
 		classification = 'moderately_right'
-	elif w[0] == '-' and abs(float(w)) >= 0.1:
+	elif w < 0 and abs(w) >= 0.1:
 		classification = 'slightly_right'
-	elif abs(float(w)) >= 1.0:
+	elif abs(w) >= 1.0:
 		classification = 'radically_left'
-	elif abs(float(w)) >= 0.5:
+	elif abs(w) >= 0.5:
 		classification = 'moderately_left'
-	elif abs(float(w)) >= 0.1:
+	elif abs(w) >= 0.1:
 		classification = 'slightly_left'
 	else:
 		classification = 'slight'
