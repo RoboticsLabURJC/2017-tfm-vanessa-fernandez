@@ -4,11 +4,11 @@ import cv2
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-import keras
 
+from time import time
 from sklearn.model_selection import train_test_split
 from keras.utils import plot_model, np_utils
-from keras.applications.mobilenet import MobileNet
+from keras.callbacks import TensorBoard
 from models.classification_model import cnn_model, lenet5, SmallerVGGNet
 
 
@@ -149,7 +149,7 @@ if __name__ == "__main__":
     # Choose options
     num_classes = int(input('Choose one of the two options for the number of classes: '))
     name_variable = raw_input('Choose the variable you want to train: v or w: ')
-    name_model = raw_input('Choose the model you want to use: mobilenet, lenet, smaller_vgg or other: ')
+    name_model = raw_input('Choose the model you want to use: lenet, smaller_vgg or other: ')
     print('Your choice: ' + str(num_classes) + ', ' + name_variable + ' and ' + name_model)
 
     # Load data
@@ -200,16 +200,18 @@ if __name__ == "__main__":
     print('y train',  y_train.shape)
     print('X validation',  X_validation.shape)
     print('y val',  y_validation.shape)
-    
+
 
     # Print layers
     print(model.summary())
     # Plot layers of model
     plot_model(model, to_file=model_png)
 
+    # Tensorboard
+    tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
     #  We train
     model_history = model.fit(X_train, y_train, epochs=nb_epochs, batch_size=batch_size, verbose=2,
-                                   validation_data = (X_validation, y_validation))
+                                   validation_data = (X_validation, y_validation), callbacks=[tensorboard])
 
     # We evaluate the model
     score = model.evaluate(X_validation, y_validation, verbose=0)
