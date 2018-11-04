@@ -12,7 +12,7 @@ from keras.models import load_model
 class ClassificationNetwork():
     def __init__(self, net_model):
         # Load model
-        self.model_file = 'Net/Keras/' + net_model['Model']
+        self.model_file = 'Net/Keras/' + net_model['Model_Classification']
         self.model = load_model(self.model_file)
 
         # Obtain the graph
