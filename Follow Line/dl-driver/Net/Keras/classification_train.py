@@ -151,7 +151,7 @@ def choose_model(name, input_shape, num_classes, name_variable):
 if __name__ == "__main__":
 
     # Choose options
-    num_classes = int(input('Choose one of the two options for the number of classes: '))
+    num_classes = int(input('Choose one of the options for the number of classes: '))
     name_variable = raw_input('Choose the variable you want to train: v or w: ')
     name_model = raw_input('Choose the model you want to use: lenet, smaller_vgg or other: ')
     print('Your choice: ' + str(num_classes) + ', ' + name_variable + ' and ' + name_model)
