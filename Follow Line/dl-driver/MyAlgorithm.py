@@ -93,46 +93,53 @@ class MyAlgorithm(threading.Thread):
         print("Runing")
 
         prediction = self.network.prediction
+        #prediction_v = self.network.prediction_v
+        #prediction_w = self.network.prediction_w
+
+        #print(prediction_v, prediction_w)
 
         #EXAMPLE OF HOW TO SEND INFORMATION TO THE ROBOT ACTUATORS
         #self.motors.sendV(10)
         #self.motors.sendW(5)
 
+        #self.motors.sendV(prediction_v)
+        #self.motors.sendW(prediction_w)
+
         #self.motors.sendV(5)
-        self.motors.sendV(3)
+        self.motors.sendV(4)
 
         if prediction == "radically_left":
             #self.motors.sendW(1.5)
-            self.motors.sendW(1.3)
-            #self.motors.sendV(2)
+            self.motors.sendW(1.7)
+            #self.motors.sendV(3)
         elif prediction == "moderately_left":
-            #self.motors.sendW(0.9)
-            self.motors.sendW(0.85)
+            #self.motors.sendW(0.55)
+            self.motors.sendW(0.75)
             #self.motors.sendV(5)
         elif prediction == "slightly_left":
             #self.motors.sendW(0.3)
             self.motors.sendW(0.25)
-            #self.motors.sendV(7)
+            #self.motors.sendV(6)
         elif prediction == "slight":
             self.motors.sendW(0)
-            #self.motors.sendV(12)
+            #self.motors.sendV(8)
         elif prediction == "slightly_right":
             #self.motors.sendW(-0.3)
             self.motors.sendW(-0.25)
-            #self.motors.sendV(7)
+            #self.motors.sendV(6)
         elif prediction == "moderately_right":
-            #self.motors.sendW(-0.9)
-            self.motors.sendW(-0.85)
+            #self.motors.sendW(-0.55)
+            self.motors.sendW(-0.75)
             #self.motors.sendV(5)
         elif prediction == "radically_right":
             #self.motors.sendW(-1.5)
-            self.motors.sendW(-1.3)
-            #self.motors.sendV(2)
+            self.motors.sendW(-1.7)
+            #self.motors.sendV(3)
 
         # if prediction == "left":
-        #     self.motors.sendW(1.0)
+        #     self.motors.sendW(0.25)
         # elif prediction == "right":
-        #     self.motors.sendW(-1.0)
+        #     self.motors.sendW(-0.25)
 
         #SHOW THE FILTERED IMAGE ON THE GUI
         self.set_threshold_image(image)
