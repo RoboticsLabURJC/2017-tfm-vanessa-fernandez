@@ -133,8 +133,12 @@ def choose_model(name, input_shape, num_classes, name_variable):
         model = SmallerVGGNet(input_shape, num_classes)
         model_png = 'models/model_smaller_vgg.png'
         model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + name_variable + '.h5'
-        batch_size = 64
-        nb_epochs = 20
+        if num_classes == 7:
+            batch_size = 64
+            nb_epochs = 20
+        else:
+            batch_size = 32
+            nb_epochs = 23
     elif name == "other" and num_classes == 2:
         model = cnn_model(input_shape)
         model_png = 'models/model_binary_classification.png'
