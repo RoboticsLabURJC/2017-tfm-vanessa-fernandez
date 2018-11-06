@@ -4,6 +4,7 @@ import cv2
 import matplotlib
 matplotlib.use('Agg')
 
+from time import time
 from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
 from keras.utils import plot_model
@@ -85,13 +86,15 @@ if __name__ == "__main__":
     plot_model(model_v, to_file=model_png)
 
     #  We train
+    tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+    
     model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
-                              validation_data=(X_validation_v, y_validation_v))
+                              validation_data=(X_validation_v, y_validation_v), callbacks=[tensorboard])
 
-    #tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+    tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
     model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size_w, verbose=2,
-                                  validation_data=(X_validation_w, y_validation_w))
+                                  validation_data=(X_validation_w, y_validation_w), callbacks=[tensorboard])
 
     # We evaluate the model
     score = model_v.evaluate(X_validation_v, y_validation_v, verbose=0)
