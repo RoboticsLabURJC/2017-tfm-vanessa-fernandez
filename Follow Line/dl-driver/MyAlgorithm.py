@@ -92,9 +92,9 @@ class MyAlgorithm(threading.Thread):
         # Add your code here
         print("Runing")
 
-        prediction = self.network.prediction
-        #prediction_v = self.network.prediction_v
-        #prediction_w = self.network.prediction_w
+        #prediction = self.network.prediction
+        prediction_v = self.network.prediction_v
+        prediction_w = self.network.prediction_w
 
         #print(prediction_v, prediction_w)
 
@@ -105,40 +105,43 @@ class MyAlgorithm(threading.Thread):
         #self.motors.sendV(prediction_v)
         #self.motors.sendW(prediction_w)
 
-        #self.motors.sendV(5)
-        self.motors.sendV(4)
+        #self.motors.sendV(4)
 
-        if prediction == "radically_left":
-            #self.motors.sendW(1.5)
+        if prediction_v == "slow":
+            self.motors.sendV(6)
+        elif prediction_v == "moderate":
+            self.motors.sendV(8)
+        elif prediction_v == "fast":
+            self.motors.sendV(10)
+        elif prediction_v == "very_fast":
+            self.motors.sendV(12)
+
+
+        if prediction_w == "radically_left":
+            #self.motors.sendW(1.7)
             self.motors.sendW(1.7)
-            #self.motors.sendV(3)
-        elif prediction == "moderately_left":
-            #self.motors.sendW(0.55)
+        elif prediction_w == "moderately_left":
+            #self.motors.sendW(0.75)
             self.motors.sendW(0.75)
-            #self.motors.sendV(5)
-        elif prediction == "slightly_left":
-            #self.motors.sendW(0.3)
+        elif prediction_w == "slightly_left":
+            #self.motors.sendW(0.25)
             self.motors.sendW(0.25)
-            #self.motors.sendV(6)
-        elif prediction == "slight":
+        elif prediction_w == "slight":
+            #self.motors.sendW(0)
             self.motors.sendW(0)
-            #self.motors.sendV(8)
-        elif prediction == "slightly_right":
-            #self.motors.sendW(-0.3)
+        elif prediction_w == "slightly_right":
+            #self.motors.sendW(-0.25)
             self.motors.sendW(-0.25)
-            #self.motors.sendV(6)
-        elif prediction == "moderately_right":
-            #self.motors.sendW(-0.55)
+        elif prediction_w == "moderately_right":
+            #self.motors.sendW(-0.75)
             self.motors.sendW(-0.75)
-            #self.motors.sendV(5)
-        elif prediction == "radically_right":
-            #self.motors.sendW(-1.5)
+        elif prediction_w == "radically_right":
+            #self.motors.sendW(-1.7)
             self.motors.sendW(-1.7)
-            #self.motors.sendV(3)
 
-        # if prediction == "left":
+        # if prediction_w == "left":
         #     self.motors.sendW(0.25)
-        # elif prediction == "right":
+        # elif prediction_w == "right":
         #     self.motors.sendW(-0.25)
 
         #SHOW THE FILTERED IMAGE ON THE GUI
