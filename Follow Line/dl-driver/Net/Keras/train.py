@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     #  We train
     tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
-    
+
     model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
                               validation_data=(X_validation_v, y_validation_v), callbacks=[tensorboard])
 
@@ -113,7 +113,7 @@ if __name__ == "__main__":
 
     # We save the model
     model_v.save('models/model_pilotnet_v.h5')
-    #model_w.save('models/model_pilotnet_w.h5')
+    model_w.save('models/model_pilotnet_w.h5')
 
     # Plot the training and validation loss for each epoch
     # plt.plot(model_history.history['loss'])
