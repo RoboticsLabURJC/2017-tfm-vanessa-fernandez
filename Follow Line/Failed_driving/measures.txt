@@ -1,0 +1,5 @@
+Image_max_mse Image_min_mse Mean_mse Image_max_ssim Image_min_ssim Mean_ssim
+Dataset/Train/Images/224.png Dataset/Train/Images/741.png 2274.164766363552 Dataset/Train/Images/317.png Dataset/Train/Images/224.png 0.6720415175413674
+Dataset/Train/Images/224.png Dataset/Train/Images/572.png 1898.2435306329578 Dataset/Train/Images/2086.png Dataset/Train/Images/224.png 0.6675299464162386
+Dataset/Train/Images/224.png Dataset/Train/Images/2949.png 2920.4830108741658 Dataset/Train/Images/1406.png Dataset/Train/Images/224.png 0.6460614059802671
+Dataset/Train/Images/224.png Dataset/Train/Images/2949.png 2920.4830108741658 Dataset/Train/Images/1406.png Dataset/Train/Images/224.png 0.6460614059802671
