@@ -1,7 +1,6 @@
 import cv2
 import glob
 import numpy as np
-import matplotlib.pyplot as plt
 from skimage.measure import compare_ssim, compare_mse
 
 
