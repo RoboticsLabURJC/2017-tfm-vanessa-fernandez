@@ -61,11 +61,11 @@ if __name__ == "__main__":
 	list_images_dataset = glob.glob('Dataset/Train/Images/' + '*')
 	images_dataset = sorted(list_images_dataset, key=lambda x: int(x.split('/')[3].split('.png')[0]))
 
-	file_txt = open('Failed_driving/measures.txt', 'a')
-	file_txt.write('Image_max_mse Image_min_mse Mean_mse Image_max_ssim Image_min_ssim Mean_ssim\n')
-	file_txt.close()
+	#file_txt = open('Failed_driving/measures.txt', 'a')
+	#file_txt.write('Image_max_mse Image_min_mse Mean_mse Image_max_ssim Image_min_ssim Mean_ssim\n')
+	#file_txt.close()
 
-	for i in range(0, len(images_driving)):
+	for i in range(4, len(images_driving)):
 		img_driving = cv2.imread(images_driving[i])
 		img_driving = cv2.cvtColor(img_driving, cv2.COLOR_BGR2RGB)
 		name_max_mse, name_min_mse, mean_mse, name_max_ssim, name_min_ssim, mean_ssim = compare_images(images_dataset, img_driving)
