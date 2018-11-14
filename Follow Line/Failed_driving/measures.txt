@@ -14,3 +14,17 @@ Dataset/Train/Images/224.png Dataset/Train/Images/1011.png 873.0661236349325 Dat
 Dataset/Train/Images/224.png Dataset/Train/Images/2949.png 1369.8800078088454 Dataset/Train/Images/1406.png Dataset/Train/Images/224.png 0.7743955131105996
 Dataset/Train/Images/224.png Dataset/Train/Images/2949.png 1369.8800078088454 Dataset/Train/Images/1406.png Dataset/Train/Images/224.png 0.7743955131105996
 Dataset/Train/Images/224.png Dataset/Train/Images/1339.png 1037.49206276068 Dataset/Train/Images/2086.png Dataset/Train/Images/224.png 0.7682688150046768
+Dataset/Train/Images/224.png Dataset/Train/Images/2806.png 909.6299522250486 Dataset/Train/Images/2806.png Dataset/Train/Images/224.png 0.7722206583735263
+Dataset/Train/Images/224.png Dataset/Train/Images/2806.png 909.6299522250486 Dataset/Train/Images/2806.png Dataset/Train/Images/224.png 0.7722206583735263
+Dataset/Train/Images/224.png Dataset/Train/Images/2086.png 889.9342581373402 Dataset/Train/Images/2086.png Dataset/Train/Images/346.png 0.780159197916238
+Dataset/Train/Images/224.png Dataset/Train/Images/2086.png 889.9342581373402 Dataset/Train/Images/2086.png Dataset/Train/Images/346.png 0.780159197916238
+Dataset/Train/Images/224.png Dataset/Train/Images/572.png 1176.5682365221646 Dataset/Train/Images/2086.png Dataset/Train/Images/346.png 0.7647997325302597
+Dataset/Train/Images/224.png Dataset/Train/Images/572.png 1176.5682365221646 Dataset/Train/Images/2086.png Dataset/Train/Images/346.png 0.7647997325302597
+Dataset/Train/Images/224.png Dataset/Train/Images/572.png 1176.5682365221646 Dataset/Train/Images/2086.png Dataset/Train/Images/346.png 0.7647997325302597
+Dataset/Train/Images/224.png Dataset/Train/Images/572.png 1396.6629863015569 Dataset/Train/Images/272.png Dataset/Train/Images/346.png 0.769767445429417
+Dataset/Train/Images/224.png Dataset/Train/Images/572.png 1396.6629863015569 Dataset/Train/Images/272.png Dataset/Train/Images/346.png 0.769767445429417
+Dataset/Train/Images/224.png Dataset/Train/Images/572.png 1368.3773404102506 Dataset/Train/Images/272.png Dataset/Train/Images/346.png 0.7699008515881995
+Dataset/Train/Images/224.png Dataset/Train/Images/572.png 1368.3773404102506 Dataset/Train/Images/272.png Dataset/Train/Images/346.png 0.7699008515881995
+Dataset/Train/Images/224.png Dataset/Train/Images/3210.png 943.028541073656 Dataset/Train/Images/2086.png Dataset/Train/Images/224.png 0.7680323675080294
+Dataset/Train/Images/224.png Dataset/Train/Images/3210.png 943.028541073656 Dataset/Train/Images/2086.png Dataset/Train/Images/224.png 0.7680323675080294
+Dataset/Train/Images/224.png Dataset/Train/Images/642.png 1278.3397916087633 Dataset/Train/Images/642.png Dataset/Train/Images/224.png 0.7606651252494365
