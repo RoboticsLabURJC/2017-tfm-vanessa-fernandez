@@ -65,12 +65,12 @@ if __name__ == "__main__":
 	#file_txt.write('Image_max_mse Image_min_mse Mean_mse Image_max_ssim Image_min_ssim Mean_ssim\n')
 	#file_txt.close()
 
-	for i in range(114, len(images_driving)):
+	for i in range(1451, len(images_driving)):
 		img_driving = cv2.imread(images_driving[i])
 		img_driving = cv2.cvtColor(img_driving, cv2.COLOR_BGR2RGB)
 		name_max_mse, name_min_mse, mean_mse, name_max_ssim, name_min_ssim, mean_ssim = compare_images(images_dataset, img_driving)
 
-		file_txt = open('Failed_driving/measures.txt', 'a')
+		file_txt = open('Failed_driving/measures2.txt', 'a')
 		file_txt.write(name_max_mse + ' ' + name_min_mse + ' ' + str(mean_mse) + ' ' + name_max_ssim + ' ' + name_min_ssim + ' ' + str(mean_ssim) + '\n')
 		file_txt.close()
 
