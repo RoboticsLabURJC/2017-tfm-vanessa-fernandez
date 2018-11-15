@@ -65,7 +65,7 @@ if __name__ == "__main__":
 	#file_txt.write('Image_max_mse Image_min_mse Mean_mse Image_max_ssim Image_min_ssim Mean_ssim\n')
 	#file_txt.close()
 
-	for i in range(64, len(images_driving)):
+	for i in range(92, len(images_driving)):
 		img_driving = cv2.imread(images_driving[i])
 		img_driving = cv2.cvtColor(img_driving, cv2.COLOR_BGR2RGB)
 		name_max_mse, name_min_mse, mean_mse, name_max_ssim, name_min_ssim, mean_ssim = compare_images(images_dataset, img_driving)
