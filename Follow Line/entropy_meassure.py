@@ -40,14 +40,14 @@ def calculate_position_vectors(img):
     return position_x_down, position_x_middle, position_x_above
 
 
-def calculate_position_points(positionx):
+def calculate_centroid(positionx):
     if (len(positionx[0]) > 1):
-        x_points = [positionx[0][0], positionx[0][len(positionx[0])-1]]
+        x_point = (positionx[0][0] + positionx[0][len(positionx[0]) - 1]) / 2
         not_found = False
     else:
-        x_points = [None, None]
+        x_point = None
         not_found = True
-    return x_points, not_found
+    return x_point, not_found
 
 
 def get_dataset_vectors(array_images):
@@ -59,25 +59,31 @@ def get_dataset_vectors(array_images):
         position_x_down, position_x_middle, position_x_above = calculate_position_vectors(img)
 
         # We see that white pixels have been located and we look if the vector is located
-        x_middle_down, not_found_down = calculate_position_points(position_x_down)
-        x_middle_middle, not_found_middle = calculate_position_points(position_x_middle)
-        x_middle_above, not_found_above = calculate_position_points(position_x_above)
+        x_middle_down, not_found_down = calculate_centroid(position_x_down)
+        x_middle_middle, not_found_middle = calculate_centroid(position_x_middle)
+        x_middle_above, not_found_above = calculate_centroid(position_x_above)
 
-        dataset.append([x_middle_down[0], x_middle_down[1], x_middle_middle[0], x_middle_middle[1], x_middle_above[0], x_middle_above[1]])
+        dataset.append([x_middle_down, x_middle_middle, x_middle_above])
 
     return dataset
 
 
 def calculate_shannon_entropy(dataset):
     numEntries = len(dataset)
-    labelCounts = {}
+    labels = []
+    counts = []
     for featVec in dataset: #the the number of unique elements and their occurance
-        currentLabel = featVec[-1]
-        if currentLabel not in labelCounts.keys(): labelCounts[currentLabel] = 0 
-        labelCounts[currentLabel] += 1
+        found = False
+        for i in range(0, len(labels)):
+            if featVec == labels[i]:
+                found = True
+                counts[i] += 1
+        if not found:
+            labels.append(featVec)
+            counts.append(0)
     shannonEnt = 0.0
-    for key in labelCounts:
-        prob = float(labelCounts[key])/numEntries
+    for num in counts:
+        prob = float(num)/numEntries
         shannonEnt -= prob * log(prob,2) #log base 2
 	return shannonEnt
 
