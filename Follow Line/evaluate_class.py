@@ -81,7 +81,7 @@ def plot_histogram(array_num):
 
 if __name__ == "__main__":
 	# Load data
-	file = open('Dataset/Train/train.json', 'r')
+	file = open('Dataset1/Train/train.json', 'r')
 	data_dataset = file.read()
 	file.close()
 
