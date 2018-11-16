@@ -76,7 +76,7 @@ def draw_centroids(array_images, marker, ax1, ax2, ax3):
 
 if __name__ == "__main__":
     # Load data
-    list_images_dataset = glob.glob('Dataset/Train/Images/' + '*')
+    list_images_dataset = glob.glob('Dataset1/Train/Images/' + '*')
     images_dataset = sorted(list_images_dataset, key=lambda x: int(x.split('/')[3].split('.png')[0]))
     list_images_driving = glob.glob('Failed_driving/Images/' + '*')
     images_driving = sorted(list_images_driving, key=lambda x: int(x.split('/')[2].split('.png')[0]))
