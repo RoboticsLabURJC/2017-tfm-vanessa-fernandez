@@ -15,7 +15,7 @@ def parse_json_2_classes_w(data):
     # We process json
     data_parse = data.split('"classification": ')[1:]
     for d in data_parse:
-        classification = d.split(', "w":')[0]
+        classification = d.split(', "class2":')[0]
         array_class.append(classification)
 
     return array_class
@@ -26,7 +26,7 @@ def parse_json_other_classes_w(data):
     # We process json
     data_parse = data.split('"class2": ')[1:]
     for d in data_parse:
-        classification = d.split(', "classification":')[0]
+        classification = d.split(', "class3":')[0]
         array_class.append(classification)
 
     return array_class
@@ -74,19 +74,19 @@ def adapt_labels(array_labels, num_classes, name_variable):
                 else:
                     array_labels[i] = 1
             elif num_classes == 7:
-                if array_labels[i] == 'radically_left':
+                if array_labels[i] == '"radically_left"':
                     array_labels[i] = 0
-                elif array_labels[i] == 'moderately_left':
+                elif array_labels[i] == '"moderately_left"':
                     array_labels[i] = 1
-                elif array_labels[i] == 'slightly_left':
+                elif array_labels[i] == '"slightly_left"':
                     array_labels[i] = 2
-                elif array_labels[i] == 'slight':
+                elif array_labels[i] == '"slight"':
                     array_labels[i] = 3
-                elif array_labels[i] == 'slightly_right':
+                elif array_labels[i] == '"slightly_right"':
                     array_labels[i] = 4
-                elif array_labels[i] == 'moderately_right':
+                elif array_labels[i] == '"moderately_right"':
                     array_labels[i] = 5
-                elif array_labels[i] == 'radically_right':
+                elif array_labels[i] == '"radically_right"':
                     array_labels[i] = 6
 
         elif name_variable == 'v':
