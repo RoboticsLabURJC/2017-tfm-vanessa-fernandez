@@ -135,7 +135,7 @@ def choose_model(name, input_shape, num_classes, name_variable):
         model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + name_variable + '.h5'
         if num_classes == 7:
             batch_size = 64
-            nb_epochs = 20
+            nb_epochs = 40
         else:
             batch_size = 32
             nb_epochs = 20
