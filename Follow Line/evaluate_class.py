@@ -7,7 +7,7 @@ def parse_dataset_json(data):
     # We process json
 	data_parse = data.split('"class2": ')[1:]
 	for d in data_parse:
-		classification = d.split(', "classification":')[0]
+		classification = d.split(', "class3":')[0]
 		array_class.append(classification)
 
 	return array_class
@@ -44,19 +44,19 @@ def count_classes(array_data):
 	# num_slightly_right, num_moderately_rigth, num_radically_right]
 	array_num_classes = np.zeros(7)
 	for class_w in array_data:
-		if class_w == 'radically_left':
+		if class_w == 'radically_left' or class_w == '"radically_left"':
 			array_num_classes[0] = array_num_classes[0] + 1
-		elif class_w == 'moderately_left':
+		elif class_w == 'moderately_left' or class_w == '"moderately_left"':
 			array_num_classes[1] = array_num_classes[1] + 1
-		elif class_w == 'slightly_left':
+		elif class_w == 'slightly_left' or class_w == '"slightly_left"':
 			array_num_classes[2] = array_num_classes[2] + 1
-		elif class_w == 'slight':
+		elif class_w == 'slight' or class_w == '"slight"':
 			array_num_classes[3] = array_num_classes[3] + 1
-		elif class_w == 'slightly_right':
+		elif class_w == 'slightly_right' or class_w == '"slightly_right"':
 			array_num_classes[4] = array_num_classes[4] + 1
-		elif class_w == 'moderately_right':
+		elif class_w == 'moderately_right' or class_w == '"moderately_right"':
 			array_num_classes[5] = array_num_classes[5] + 1
-		elif class_w == 'radically_right':
+		elif class_w == 'radically_right' or class_w == '"radically_right"':
 			array_num_classes[6] = array_num_classes[6] + 1
 	return array_num_classes
 
@@ -81,7 +81,7 @@ def plot_histogram(array_num):
 
 if __name__ == "__main__":
 	# Load data
-	file = open('Dataset1/Train/train.json', 'r')
+	file = open('dl-driver/Net/Dataset/Train/train.json', 'r')
 	data_dataset = file.read()
 	file.close()
 
