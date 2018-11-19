@@ -90,13 +90,13 @@ def adapt_labels(array_labels, num_classes, name_variable):
                     array_labels[i] = 6
 
         elif name_variable == 'v':
-            if array_labels[i] == 'slow':
+            if array_labels[i] == '"slow"':
                 array_labels[i] = 0
-            elif array_labels[i] == 'moderate':
+            elif array_labels[i] == '"moderate"':
                 array_labels[i] = 1
-            elif array_labels[i] == 'fast':
+            elif array_labels[i] == '"fast"':
                 array_labels[i] = 2
-            elif array_labels[i] == 'very_fast':
+            elif array_labels[i] == '"very_fast"':
                 array_labels[i] = 3
 
     return array_labels
