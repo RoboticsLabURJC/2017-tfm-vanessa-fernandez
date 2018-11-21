@@ -33,7 +33,8 @@ def parse_json_other_classes_w(data):
     # We process json
     data_parse = data.split('"class2": ')[1:]
     for d in data_parse:
-        classification = d.split(', "class3":')[0]
+        #classification = d.split(', "class3":')[0]
+        classification = d.split(', "classification":')[0]
         d_parse = d.split(', "w": ')[1]
         w = float(d_parse.split(', "v":')[0])
         array_class.append(classification)
