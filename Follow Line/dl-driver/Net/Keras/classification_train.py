@@ -32,6 +32,7 @@ def parse_json_other_classes_w(data):
     array_w = []
     # We process json
     data_parse = data.split('"class2": ')[1:]
+    data_parse = data_parse[:6580]
     for d in data_parse:
         classification = d.split(', "class3":')[0]
         d_parse = d.split(', "w": ')[1]
@@ -132,7 +133,7 @@ def choose_model(name, input_shape, num_classes, name_variable):
     elif name == "smaller_vgg":
         model = SmallerVGGNet(input_shape, num_classes)
         model_png = 'models/model_smaller_vgg.png'
-        model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + name_variable + '.h5'
+        model_file = 'models/model_smaller_vgg_simple_circuit' + str(num_classes) + 'classes_' + name_variable + '.h5'
         if num_classes == 7:
             batch_size = 64
             nb_epochs = 35
@@ -157,10 +158,13 @@ if __name__ == "__main__":
     print('Your choice: ' + str(num_classes) + ', ' + name_variable + ' and ' + name_model)
 
     # Load data
-    list_images = glob.glob('../Dataset/Train/Images/' + '*')
-    images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
+    #list_images = glob.glob('../Dataset/Train/Images/' + '*')
+    #images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
+    list_images = glob.glob('../Dataset/Images/' + '*')
+    images = sorted(list_images, key=lambda x: int(x.split('/')[3].split('.png')[0]))[:6580]
 
-    file = open('../Dataset/Train/train.json', 'r')
+    #file = open('../Dataset/Train/train.json', 'r')
+    file = open('../Dataset/data.json', 'r')
     data = file.read()
     file.close()
 
