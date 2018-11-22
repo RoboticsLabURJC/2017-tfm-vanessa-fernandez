@@ -74,7 +74,8 @@ class ClassificationNetwork():
         input_image = self.camera.getImage()
 
         # Preprocessing
-        img_resized = cv2.resize(input_image.data, (self.img_width, self.img_height))
+        img = cv2.cvtColor(input_image.data, cv2.COLOR_RGB2BGR)
+        img_resized = cv2.resize(img, (self.img_width, self.img_height))
 
         # We adapt the image
         input_img = np.stack([img_resized], axis=0)
