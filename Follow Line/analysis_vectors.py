@@ -100,6 +100,7 @@ def get_color_v(data_v):
         color = 'go'
     elif data_v == '"very_fast"':
         color = 'mo'
+    return color
 
 
 def draw_centroids(array_images, array_v, marker, ax1, ax2, ax3):
