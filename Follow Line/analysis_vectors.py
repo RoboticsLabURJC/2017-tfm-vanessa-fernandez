@@ -102,7 +102,7 @@ def get_color_v(data_v):
         color = 'mo'
 
 
-def draw_centroids(array_images, array_w, marker, ax1, ax2, ax3):
+def draw_centroids(array_images, array_v, marker, ax1, ax2, ax3):
     for i in range(0, len(array_images)):
         img = filter_image(array_images[i])
     
@@ -114,7 +114,7 @@ def draw_centroids(array_images, array_w, marker, ax1, ax2, ax3):
         x_middle_above, not_found_above = calculate_centroid(position_x_above)
 
         print(x_middle_down, not_found_down, x_middle_above, not_found_above)
-        marker = get_color_w(array_w[i])
+        marker = get_color_v(array_v[i])
 
         if not_found_down:
             ax3.plot([0.5], [x_middle_above], marker)
@@ -147,7 +147,7 @@ if __name__ == "__main__":
     # We create the figure and subplots
     fig = plt.figure()
     #plt.suptitle('Datatset against Driving')
-    plt.suptitle('Dataset w')
+    plt.suptitle('Dataset v')
 
     gs = gridspec.GridSpec(2, 2, width_ratios=[4, 1], height_ratios=[1, 4])
 
@@ -162,7 +162,7 @@ if __name__ == "__main__":
 
     #ax1, ax2, ax3 = draw_centroids(array_images_dataset, 'ro', ax1, ax2, ax3)
     #ax1, ax2, ax3 = draw_centroids(array_images_driving, 'bx', ax1, ax2, ax3)
-    ax1, ax2, ax3 = draw_centroids(array_images_dataset, array_w, 'ro', ax1, ax2, ax3)
+    ax1, ax2, ax3 = draw_centroids(array_images_dataset, array_v, 'ro', ax1, ax2, ax3)
 
     ax1.axis([0, 640, 0, 1])
     ax2.axis([0, 640, 0, 640])
@@ -172,17 +172,17 @@ if __name__ == "__main__":
     ax4.axis([0, 1, 0, 1])
     #ax4.plot([-1], [-1], 'ro', label='Dataset')
     #ax4.plot([-1], [-1], 'bx', label='Driving')
-    ax4.plot([-1], [-1], 'ro', label='radically_left')
-    ax4.plot([-1], [-1], 'bo', label='moderately_left')
-    ax4.plot([-1], [-1], 'go', label='slightly_left')
-    ax4.plot([-1], [-1], 'co', label='slight')
-    ax4.plot([-1], [-1], 'mo', label='slightly_right')
-    ax4.plot([-1], [-1], 'yo', label='moderately_right')
-    ax4.plot([-1], [-1], 'ko', label='radically_right')
-    #ax4.plot([-1], [-1], 'ro', label='slow')
-    #ax4.plot([-1], [-1], 'bo', label='moderate')
-    #ax4.plot([-1], [-1], 'go', label='fast')
-    #ax4.plot([-1], [-1], 'mo', label='very_fast')
+    #ax4.plot([-1], [-1], 'ro', label='radically_left')
+    #ax4.plot([-1], [-1], 'bo', label='moderately_left')
+    #ax4.plot([-1], [-1], 'go', label='slightly_left')
+    #ax4.plot([-1], [-1], 'co', label='slight')
+    #ax4.plot([-1], [-1], 'mo', label='slightly_right')
+    #ax4.plot([-1], [-1], 'yo', label='moderately_right')
+    #ax4.plot([-1], [-1], 'ko', label='radically_right')
+    ax4.plot([-1], [-1], 'ro', label='slow')
+    ax4.plot([-1], [-1], 'bo', label='moderate')
+    ax4.plot([-1], [-1], 'go', label='fast')
+    ax4.plot([-1], [-1], 'mo', label='very_fast')
     plt.legend()
     plt.show()
 
