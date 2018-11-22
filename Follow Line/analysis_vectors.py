@@ -19,6 +19,28 @@ def get_images(list_images):
     return array_imgs
 
 
+def parse_json_w(data):
+    array_class = []
+    # We process json
+    data_parse = data.split('"class2": ')[1:]
+    for d in data_parse:
+        classification = d.split(', "class3":')[0]
+        array_class.append(classification)
+
+    return array_class
+
+
+def parse_json_v(data):
+    array_class = []
+    # We process json
+    data_parse = data.split('"class3": ')[1:]
+    for d in data_parse:
+        classification = d.split(', "w":')[0]
+        array_class.append(classification)
+
+    return array_class
+
+
 def filter_image(image):
     # RGB model change to HSV
     image_HSV = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)
@@ -51,7 +73,36 @@ def calculate_centroid(positionx):
     return x_middle, not_found
 
 
-def draw_centroids(array_images, marker, ax1, ax2, ax3):
+def get_color_w(data_w):
+    if data_w == '"radically_left"':
+        color = 'ro'
+    elif data_w == '"moderately_left"':
+        color = 'bo'
+    elif data_w == '"slightly_left"':
+        color = 'go'
+    elif data_w == '"slight"':
+        color = 'co'
+    elif data_w == '"slightly_right"':
+        color = 'mo'
+    elif data_w == '"moderately_right"':
+        color = 'yo'
+    elif data_w == '"radically_right"':
+        color = 'ko'
+    return color
+
+
+def get_color_v(data_v):
+    if data_v == '"slow"':
+        color = 'ro'
+    elif data_v == '"moderate"':
+        color = 'bo'
+    elif data_v == '"fast"':
+        color = 'go'
+    elif data_v == '"very_fast"':
+        color = 'mo'
+
+
+def draw_centroids(array_images, array_w, marker, ax1, ax2, ax3):
     for i in range(0, len(array_images)):
         img = filter_image(array_images[i])
     
@@ -63,6 +114,7 @@ def draw_centroids(array_images, marker, ax1, ax2, ax3):
         x_middle_above, not_found_above = calculate_centroid(position_x_above)
 
         print(x_middle_down, not_found_down, x_middle_above, not_found_above)
+        marker = get_color_w(array_w[i])
 
         if not_found_down:
             ax3.plot([0.5], [x_middle_above], marker)
@@ -78,16 +130,24 @@ if __name__ == "__main__":
     # Load data
     list_images_dataset = glob.glob('dl-driver/Net/Dataset/Train/Images/' + '*')
     images_dataset = sorted(list_images_dataset, key=lambda x: int(x.split('/')[5].split('.png')[0]))
-    list_images_driving = glob.glob('Failed_driving/Images/' + '*')
-    images_driving = sorted(list_images_driving, key=lambda x: int(x.split('/')[2].split('.png')[0]))
+    #list_images_driving = glob.glob('Failed_driving/Images/' + '*')
+    #images_driving = sorted(list_images_driving, key=lambda x: int(x.split('/')[2].split('.png')[0]))
+
+    file = open('dl-driver/Net/Dataset/Train/train.json', 'r')
+    data = file.read()
+    file.close()
 
 	# We preprocess images
     array_images_dataset = get_images(images_dataset)
-    array_images_driving = get_images(images_driving)
+    #array_images_driving = get_images(images_driving)
+    # We preprocess json
+    array_w = parse_json_w(data)
+    array_v = parse_json_v(data)
 
     # We create the figure and subplots
     fig = plt.figure()
-    plt.suptitle('Datatset against Driving')
+    #plt.suptitle('Datatset against Driving')
+    plt.suptitle('Dataset w')
 
     gs = gridspec.GridSpec(2, 2, width_ratios=[4, 1], height_ratios=[1, 4])
 
@@ -100,8 +160,9 @@ if __name__ == "__main__":
     ax3.set_title('Nan values of L2')
     ax4.set_title('Legend')
 
-    ax1, ax2, ax3 = draw_centroids(array_images_dataset, 'ro', ax1, ax2, ax3)
-    ax1, ax2, ax3 = draw_centroids(array_images_driving, 'bx', ax1, ax2, ax3)
+    #ax1, ax2, ax3 = draw_centroids(array_images_dataset, 'ro', ax1, ax2, ax3)
+    #ax1, ax2, ax3 = draw_centroids(array_images_driving, 'bx', ax1, ax2, ax3)
+    ax1, ax2, ax3 = draw_centroids(array_images_dataset, array_w, 'ro', ax1, ax2, ax3)
 
     ax1.axis([0, 640, 0, 1])
     ax2.axis([0, 640, 0, 640])
@@ -109,8 +170,19 @@ if __name__ == "__main__":
     ax2.set_ylabel('L1 (Row 260)')
     ax3.axis([0, 1, 0, 640])
     ax4.axis([0, 1, 0, 1])
-    ax4.plot([-1], [-1], 'ro', label='Dataset')
-    ax4.plot([-1], [-1], 'bx', label='Driving')
+    #ax4.plot([-1], [-1], 'ro', label='Dataset')
+    #ax4.plot([-1], [-1], 'bx', label='Driving')
+    ax4.plot([-1], [-1], 'ro', label='radically_left')
+    ax4.plot([-1], [-1], 'bo', label='moderately_left')
+    ax4.plot([-1], [-1], 'go', label='slightly_left')
+    ax4.plot([-1], [-1], 'co', label='slight')
+    ax4.plot([-1], [-1], 'mo', label='slightly_right')
+    ax4.plot([-1], [-1], 'yo', label='moderately_right')
+    ax4.plot([-1], [-1], 'ko', label='radically_right')
+    #ax4.plot([-1], [-1], 'ro', label='slow')
+    #ax4.plot([-1], [-1], 'bo', label='moderate')
+    #ax4.plot([-1], [-1], 'go', label='fast')
+    #ax4.plot([-1], [-1], 'mo', label='very_fast')
     plt.legend()
     plt.show()
 
