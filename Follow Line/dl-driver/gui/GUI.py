@@ -172,6 +172,8 @@ class MainWindow(QtWidgets.QWidget):
         self.predict_v_label.setText('{0:0.2f}'.format(self.motors.v) + " v")
         self.predict_w_label.setText('{0:0.2f}'.format(self.motors.w) + " w")
 
+        self.turn_on_off_leds()
+
         if self.save:
             img = cv2.cvtColor(self.im_prev.data, cv2.COLOR_RGB2BGR)
             save_image(img)
@@ -269,6 +271,43 @@ class MainWindow(QtWidgets.QWidget):
             self.pushButton.setText('Play Code')
             self.pushButton.setStyleSheet("background-color: #ec7063")
             self.algorithm.stop()
+
+    def turn_on_off_leds(self):
+        self.led_w_1.value = False
+        self.led_w_2.value = False
+        self.led_w_3.value = False
+        self.led_w_4.value = False
+        self.led_w_5.value = False
+        self.led_w_6.value = False
+        self.led_w_7.value = False
+        self.led_v_1.value = False
+        self.led_v_2.value = False
+        self.led_v_3.value = False
+        self.led_v_4.value = False
+
+        if self.motors.w <= -1.0:
+            self.led_w_1.value = True
+        elif -1 < self.motors.w and self.motors.w <= -0.5:
+            self.led_w_2.value =  True
+        elif -0.5 < self.motors.w and self.motors.w <= -0.1:
+            self.led_w_3.value = True
+        elif -0.1 < self.motors.w and self.motors.w < 0.1:
+            self.led_w_4.value = True
+        elif 0.1 <= self.motors.w and self.motors.w < 0.5:
+            self.led_w_5.value = True
+        elif 0.5 <= self.motors.w and self.motors.w < 1:
+            self.led_w_6.value = True
+        elif self.motors.w >= 1:
+            self.led_w_7.value = True
+
+        if self.motors.v <= 7:
+            self.led_v_4.value = True
+        elif self.motors.v > 7 and self.motors.v <= 9:
+            self.led_v_3.value = True
+        elif self.motors.v > 9 and self.motors.v <= 11:
+            self.led_v_2.value = True
+        elif self.motors > 11:
+            self.led_v_1.value = True
 
     def saveDataset(self):
         create_dataset()
