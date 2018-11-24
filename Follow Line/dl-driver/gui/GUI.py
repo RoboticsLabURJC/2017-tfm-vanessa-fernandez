@@ -3,11 +3,11 @@
 __author__ = 'vmartinezf'
 
 import shutil
-import os
 
 from PyQt5 import QtGui
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
+from QLed import QLed
 from Net.generator import *
 
 
@@ -51,9 +51,59 @@ class MainWindow(QtWidgets.QWidget):
         self.predict_w_label.setText("%d w" % (0.0))
         self.predict_w_label.show()
 
+        # Leds for w
+        self.w_label = QtWidgets.QLabel(self)
+        self.w_label.move(50, 410)
+        newfont = QtGui.QFont("Times", 16, QtGui.QFont.Bold)
+        self.w_label.setFont(newfont)
+        self.w_label.setText("w")
+        self.w_label.show()
+
+        self.led_w_1 = QLed(self, onColour=QLed.Green, shape=QLed.Circle)
+        self.led_w_1.move(70, 410)
+        self.led_w_1.value = False
+        self.led_w_2 = QLed(self, onColour=QLed.Green, shape=QLed.Circle)
+        self.led_w_2.move(130, 410)
+        self.led_w_2.value = False
+        self.led_w_3 = QLed(self, onColour=QLed.Green, shape=QLed.Circle)
+        self.led_w_3.move(190, 410)
+        self.led_w_3.value = False
+        self.led_w_4 = QLed(self, onColour=QLed.Green, shape=QLed.Circle)
+        self.led_w_4.move(250, 410)
+        self.led_w_4.value = False
+        self.led_w_5 = QLed(self, onColour=QLed.Green, shape=QLed.Circle)
+        self.led_w_5.move(310, 410)
+        self.led_w_5.value = False
+        self.led_w_6 = QLed(self, onColour=QLed.Green, shape=QLed.Circle)
+        self.led_w_6.move(370, 410)
+        self.led_w_6.value = False
+        self.led_w_7 = QLed(self, onColour=QLed.Green, shape=QLed.Circle)
+        self.led_w_7.move(430, 410)
+        self.led_w_7.value = False
+
+        # Leds for v
+        self.v_label = QtWidgets.QLabel(self)
+        self.v_label.move(525, 50)
+        self.v_label.setFont(newfont)
+        self.v_label.setText("v")
+        self.v_label.show()
+
+        self.led_v_1 = QLed(self, onColour=QLed.Green, shape=QLed.Circle)
+        self.led_v_1.move(510, 90)
+        self.led_v_1.value = False
+        self.led_v_2 = QLed(self, onColour=QLed.Green, shape=QLed.Circle)
+        self.led_v_2.move(510, 150)
+        self.led_v_2.value = False
+        self.led_v_3 = QLed(self, onColour=QLed.Green, shape=QLed.Circle)
+        self.led_v_3.move(510, 210)
+        self.led_v_3.value = False
+        self.led_v_4 = QLed(self, onColour=QLed.Green, shape=QLed.Circle)
+        self.led_v_4.move(510, 270)
+        self.led_v_4.value = False
+
         # Play button
         self.pushButton = QtWidgets.QPushButton(self)
-        self.pushButton.move(50, 450)
+        self.pushButton.move(50, 470)
         self.pushButton.resize(450,50)
         self.pushButton.setText('Play Code')
         self.pushButton.clicked.connect(self.playClicked)
@@ -84,14 +134,14 @@ class MainWindow(QtWidgets.QWidget):
         # Save button
         self.save = False
         self.saveButton = QtWidgets.QPushButton(self)
-        self.saveButton.move(550, 300)
+        self.saveButton.move(550, 400)
         self.saveButton.resize(200, 50)
         self.saveButton.setText('Save Dataset')
         self.saveButton.clicked.connect(self.saveDataset)
 
         # Remove button
         self.removeButton = QtWidgets.QPushButton(self)
-        self.removeButton.move(550, 400)
+        self.removeButton.move(550, 500)
         self.removeButton.resize(200, 50)
         self.removeButton.setText('Remove Dataset')
         self.removeButton.clicked.connect(self.removeDataset)
