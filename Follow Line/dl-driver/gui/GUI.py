@@ -286,19 +286,19 @@ class MainWindow(QtWidgets.QWidget):
         self.led_v_4.value = False
 
         if self.motors.w <= -1.0:
-            self.led_w_1.value = True
+            self.led_w_7.value = True
         elif -1 < self.motors.w and self.motors.w <= -0.5:
-            self.led_w_2.value =  True
+            self.led_w_6.value =  True
         elif -0.5 < self.motors.w and self.motors.w <= -0.1:
-            self.led_w_3.value = True
+            self.led_w_5.value = True
         elif -0.1 < self.motors.w and self.motors.w < 0.1:
             self.led_w_4.value = True
         elif 0.1 <= self.motors.w and self.motors.w < 0.5:
-            self.led_w_5.value = True
+            self.led_w_3.value = True
         elif 0.5 <= self.motors.w and self.motors.w < 1:
-            self.led_w_6.value = True
+            self.led_w_2.value = True
         elif self.motors.w >= 1:
-            self.led_w_7.value = True
+            self.led_w_1.value = True
 
         if self.motors.v <= 7:
             self.led_v_4.value = True
