@@ -165,6 +165,8 @@ def adapt_labels(array_labels, num_classes, name_variable):
                     array_labels[i] = 1
             elif num_classes == 7:
                 array_labels[i] = adapt_label_7_w(array_labels[i])
+            elif num_classes == 9:
+                array_labels[i] = adapt_label_9_w(array_labels[i])
         elif name_variable == 'v':
             array_labels[i] = adapt_label_4_v(array_labels[i])
     return array_labels
