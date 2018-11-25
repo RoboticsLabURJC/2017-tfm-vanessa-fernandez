@@ -48,7 +48,7 @@ def parse_json_9_classes_w(data):
     # We process json
     data_parse = data.split('"class_w_9": ')[1:]
     for d in data_parse:
-        classification = d.split(', "classifiction":')[0]
+        classification = d.split(', "classification":')[0]
         d_parse = d.split(', "w": ')[1]
         w = float(d_parse.split(', "v":')[0])
         array_class.append(classification)
