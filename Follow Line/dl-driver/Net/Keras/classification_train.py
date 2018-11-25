@@ -183,9 +183,12 @@ def choose_model(name, input_shape, num_classes, name_variable):
         model = SmallerVGGNet(input_shape, num_classes)
         model_png = 'models/model_smaller_vgg.png'
         model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + name_variable + '.h5'
-        if num_classes == 7 or num_classes == 9:
+        if num_classes == 7:
             batch_size = 64
             nb_epochs = 35
+        elif num_classes == 9:
+            batch_size = 64
+            nb_epochs = 24
         else:
             batch_size = 32
             nb_epochs = 35
