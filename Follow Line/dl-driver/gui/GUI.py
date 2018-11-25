@@ -88,16 +88,16 @@ class MainWindow(QtWidgets.QWidget):
         self.v_label.setText("v")
         self.v_label.show()
 
-        self.led_v_1 = QLed(self, onColour=QLed.Green, shape=QLed.Circle)
+        self.led_v_1 = QLed(self, onColour=QLed.Blue, shape=QLed.Circle)
         self.led_v_1.move(510, 90)
         self.led_v_1.value = False
-        self.led_v_2 = QLed(self, onColour=QLed.Green, shape=QLed.Circle)
+        self.led_v_2 = QLed(self, onColour=QLed.Blue, shape=QLed.Circle)
         self.led_v_2.move(510, 150)
         self.led_v_2.value = False
-        self.led_v_3 = QLed(self, onColour=QLed.Green, shape=QLed.Circle)
+        self.led_v_3 = QLed(self, onColour=QLed.Blue, shape=QLed.Circle)
         self.led_v_3.move(510, 210)
         self.led_v_3.value = False
-        self.led_v_4 = QLed(self, onColour=QLed.Green, shape=QLed.Circle)
+        self.led_v_4 = QLed(self, onColour=QLed.Blue, shape=QLed.Circle)
         self.led_v_4.move(510, 270)
         self.led_v_4.value = False
 
