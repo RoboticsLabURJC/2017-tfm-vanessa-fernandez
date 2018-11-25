@@ -13,14 +13,18 @@ def get_v(data):
 	return v
 
 def get_classification_w(w):
-	if w[0] == '-' and abs(float(w)) >= 1.0:
+	if w[0] == '-' and abs(float(w)) >= 2.0:
 		classification = 'radically_right'
+	if w[0] == '-' and abs(float(w)) >= 1.0:
+		classification = 'strongly_right'
 	elif w[0] == '-' and abs(float(w)) >= 0.5:
 		classification = 'moderately_right'
 	elif w[0] == '-' and abs(float(w)) >= 0.1:
 		classification = 'slightly_right'
-	elif abs(float(w)) >= 1.0:
+	elif abs(float(w)) >= 2.0:
 		classification = 'radically_left'
+	elif abs(float(w)) >= 1.0:
+		classification = 'strongly_left'
 	elif abs(float(w)) >= 0.5:
 		classification = 'moderately_left'
 	elif abs(float(w)) >= 0.1:
@@ -43,7 +47,7 @@ def get_classification_v(v):
 
 
 if __name__ == "__main__":
-	filename = 'Dataset/data.json'
+	filename = 'dl-driver/Net/Dataset/data.json'
 	output = ''
 
 	with open(filename, "r+") as f:
@@ -51,9 +55,9 @@ if __name__ == "__main__":
 		data_parse = data.split('{')[1:]
 
 		for d in data_parse:
-			v = get_v(d)
-			classification = get_classification_v(v)
-			output = output + '{"class3": ' + classification + ', ' + d
+			w = get_w(d)
+			classification = get_classification_w(w)
+			output = output + '{"class_w_9": ' + classification + ', ' + d
 
 		f.seek(0)
 		f.write(output)
