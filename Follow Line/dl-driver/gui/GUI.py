@@ -306,7 +306,7 @@ class MainWindow(QtWidgets.QWidget):
             self.led_v_3.value = True
         elif self.motors.v > 9 and self.motors.v <= 11:
             self.led_v_2.value = True
-        elif self.motors > 11:
+        elif self.motors.v > 11:
             self.led_v_1.value = True
 
     def saveDataset(self):
