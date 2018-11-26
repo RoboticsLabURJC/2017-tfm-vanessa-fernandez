@@ -1,7 +1,10 @@
-# Based on: https://arxiv.org/pdf/1604.07316.pdf
+#  Based on: https://arxiv.org/pdf/1604.07316.pdf
+#
+#  Authors :
+#       Vanessa Fernandez Martinez <vanessa_1895@msn.com>
 
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Conv2D, BatchNormalization
+from keras.layers import Flatten, Dense, Conv2D, BatchNormalization, Dropout
 from keras.optimizers import Adam
 import keras.backend as K
 
@@ -29,6 +32,21 @@ def pilotnet_model(img_shape):
     model.add(Flatten())
     model.add(Dense(1164, activation="relu"))
     model.add(Dense(100, activation="relu"))
+    model.add(Dense(50, activation="relu"))
+    model.add(Dense(10, activation="relu"))
+    model.add(Dense(1))
+    adam = Adam(lr=0.001)
+    model.compile(optimizer=adam, loss="mse", metrics=['accuracy', 'mse', 'mae'])
+    return model
+
+
+def tinypilotnet_model(img_shape):
+    model = Sequential()
+    model.add(BatchNormalization(epsilon=0.001, axis=-1, input_shape=img_shape))
+    model.add(Conv2D(8, (3, 3), strides=(2, 2), activation="relu"))
+    model.add(Conv2D(8, (3, 3), strides=(2, 2), activation="relu"))
+    model.add(Dropout(0.25))
+    model.add(Flatten())
     model.add(Dense(50, activation="relu"))
     model.add(Dense(10, activation="relu"))
     model.add(Dense(1))
