@@ -55,6 +55,25 @@ class ClassificationNetwork():
                 string_label = "moderately_right"
             elif label == 6:
                 string_label = "radically_right"
+        elif self.num_classes_w == 9:
+            if label == 0:
+                string_label = "radically_left"
+            elif label == 1:
+                string_label = "strongly_left"
+            elif label == 2:
+                string_label = "moderately_left"
+            elif label == 3:
+                string_label = "slightly_left"
+            elif label == 4:
+                string_label = "slight"
+            elif label == 5:
+                string_label = "slightly_right"
+            elif label == 6:
+                string_label = "moderately_right"
+            elif label == 7:
+                string_label = "strongly_right"
+            elif label == 8:
+                string_label = "radically_right"
         return string_label
 
 
