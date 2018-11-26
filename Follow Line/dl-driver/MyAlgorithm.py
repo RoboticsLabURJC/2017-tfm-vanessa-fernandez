@@ -92,52 +92,48 @@ class MyAlgorithm(threading.Thread):
         # Add your code here
         print("Runing")
 
-        #prediction = self.network.prediction
         prediction_v = self.network.prediction_v
         prediction_w = self.network.prediction_w
-
-        #print(prediction_v, prediction_w)
 
         #EXAMPLE OF HOW TO SEND INFORMATION TO THE ROBOT ACTUATORS
         #self.motors.sendV(10)
         #self.motors.sendW(5)
 
-        #self.motors.sendV(prediction_v)
-        #self.motors.sendW(prediction_w)
+        self.motors.sendV(prediction_v)
+        self.motors.sendW(prediction_w)
 
         #self.motors.sendV(4)
 
-        if prediction_v == "slow":
-            self.motors.sendV(6)
-        elif prediction_v == "moderate":
-            self.motors.sendV(8)
-        elif prediction_v == "fast":
-            self.motors.sendV(10)
-        elif prediction_v == "very_fast":
-            self.motors.sendV(12)
-
-
-        if prediction_w == "radically_left":
-            #self.motors.sendW(1.7)
-            self.motors.sendW(1.7)
-        elif prediction_w == "moderately_left":
-            #self.motors.sendW(0.75)
-            self.motors.sendW(0.75)
-        elif prediction_w == "slightly_left":
-            #self.motors.sendW(0.25)
-            self.motors.sendW(0.25)
-        elif prediction_w == "slight":
-            #self.motors.sendW(0)
-            self.motors.sendW(0)
-        elif prediction_w == "slightly_right":
-            #self.motors.sendW(-0.25)
-            self.motors.sendW(-0.25)
-        elif prediction_w == "moderately_right":
-            #self.motors.sendW(-0.75)
-            self.motors.sendW(-0.75)
-        elif prediction_w == "radically_right":
-            #self.motors.sendW(-1.7)
-            self.motors.sendW(-1.7)
+        # if prediction_v == "slow":
+        #     self.motors.sendV(6)
+        # elif prediction_v == "moderate":
+        #     self.motors.sendV(8)
+        # elif prediction_v == "fast":
+        #     self.motors.sendV(10)
+        # elif prediction_v == "very_fast":
+        #     self.motors.sendV(12)
+        #
+        #
+        # if prediction_w == "radically_left":
+        #     self.motors.sendW(1.7)
+        #     #self.motors.sendW(2.1)
+        # elif prediction_w == "moderately_left":
+        #     self.motors.sendW(0.75)
+        #     #self.motors.sendW(1)
+        # elif prediction_w == "slightly_left":
+        #     self.motors.sendW(0.25)
+        #     #self.motors.sendW(0.5)
+        # elif prediction_w == "slight":
+        #     self.motors.sendW(0)
+        # elif prediction_w == "slightly_right":
+        #     self.motors.sendW(-0.25)
+        #     #self.motors.sendW(-0.5)
+        # elif prediction_w == "moderately_right":
+        #     self.motors.sendW(-0.75)
+        #     #self.motors.sendW(-1)
+        # elif prediction_w == "radically_right":
+        #     self.motors.sendW(-1.7)
+        #     #self.motors.sendW(-2.1)
 
         # if prediction_w == "left":
         #     self.motors.sendW(0.25)
