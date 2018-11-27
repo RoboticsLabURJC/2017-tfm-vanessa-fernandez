@@ -35,7 +35,7 @@ def pilotnet_model(img_shape):
     model.add(Dense(50, activation="relu"))
     model.add(Dense(10, activation="relu"))
     model.add(Dense(1))
-    adam = Adam(lr=0.00001)
+    adam = Adam(lr=0.000001)
     model.compile(optimizer=adam, loss="mse", metrics=['accuracy', 'mse', 'mae'])
     return model
 
@@ -45,7 +45,7 @@ def tinypilotnet_model(img_shape):
     model.add(BatchNormalization(epsilon=0.001, axis=-1, input_shape=img_shape))
     model.add(Conv2D(8, (3, 3), strides=(2, 2), activation="relu"))
     model.add(Conv2D(8, (3, 3), strides=(2, 2), activation="relu"))
-    model.add(Dropout(0.25))
+    model.add(Dropout(0.5))
     model.add(Flatten())
     model.add(Dense(50, activation="relu"))
     model.add(Dense(10, activation="relu"))
