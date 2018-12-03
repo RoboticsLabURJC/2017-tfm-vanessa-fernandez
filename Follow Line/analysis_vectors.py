@@ -131,7 +131,7 @@ if __name__ == "__main__":
     # Load data
     list_images_dataset = glob.glob('dl-driver/Net/Dataset/Train/Images/' + '*')
     images_dataset = sorted(list_images_dataset, key=lambda x: int(x.split('/')[5].split('.png')[0]))
-    list_images_driving = glob.glob('Failed_driving/7w/Images/' + '*')
+    list_images_driving = glob.glob('Failed_driving/4v_7w/Images/' + '*')
     images_driving = sorted(list_images_driving, key=lambda x: int(x.split('/')[3].split('.png')[0]))
 
     file = open('dl-driver/Net/Dataset/Train/train.json', 'r')
