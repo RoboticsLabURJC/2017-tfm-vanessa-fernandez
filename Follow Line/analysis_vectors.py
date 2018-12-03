@@ -115,7 +115,7 @@ def draw_centroids(array_images, array_v, marker, ax1, ax2, ax3):
         x_middle_above, not_found_above = calculate_centroid(position_x_above)
 
         print(x_middle_down, not_found_down, x_middle_above, not_found_above)
-        marker = get_color_v(array_v[i])
+        #marker = get_color_v(array_v[i])
 
         if not_found_down:
             ax3.plot([0.5], [x_middle_above], marker)
@@ -131,8 +131,8 @@ if __name__ == "__main__":
     # Load data
     list_images_dataset = glob.glob('dl-driver/Net/Dataset/Train/Images/' + '*')
     images_dataset = sorted(list_images_dataset, key=lambda x: int(x.split('/')[5].split('.png')[0]))
-    #list_images_driving = glob.glob('Failed_driving/Images/' + '*')
-    #images_driving = sorted(list_images_driving, key=lambda x: int(x.split('/')[2].split('.png')[0]))
+    list_images_driving = glob.glob('Failed_driving/7w/Images/' + '*')
+    images_driving = sorted(list_images_driving, key=lambda x: int(x.split('/')[3].split('.png')[0]))
 
     file = open('dl-driver/Net/Dataset/Train/train.json', 'r')
     data = file.read()
@@ -140,15 +140,15 @@ if __name__ == "__main__":
 
 	# We preprocess images
     array_images_dataset = get_images(images_dataset)
-    #array_images_driving = get_images(images_driving)
+    array_images_driving = get_images(images_driving)
     # We preprocess json
     array_w = parse_json_w(data)
     array_v = parse_json_v(data)
 
     # We create the figure and subplots
     fig = plt.figure()
-    #plt.suptitle('Datatset against Driving')
-    plt.suptitle('Dataset v')
+    plt.suptitle('Datatset against Driving')
+    #plt.suptitle('Dataset v')
 
     gs = gridspec.GridSpec(2, 2, width_ratios=[4, 1], height_ratios=[1, 4])
 
@@ -161,9 +161,9 @@ if __name__ == "__main__":
     ax3.set_title('Nan values of L2')
     ax4.set_title('Legend')
 
-    #ax1, ax2, ax3 = draw_centroids(array_images_dataset, 'ro', ax1, ax2, ax3)
-    #ax1, ax2, ax3 = draw_centroids(array_images_driving, 'bx', ax1, ax2, ax3)
-    ax1, ax2, ax3 = draw_centroids(array_images_dataset, array_v, 'ro', ax1, ax2, ax3)
+    ax1, ax2, ax3 = draw_centroids(array_images_dataset, 'ro', ax1, ax2, ax3)
+    ax1, ax2, ax3 = draw_centroids(array_images_driving, 'bx', ax1, ax2, ax3)
+    #ax1, ax2, ax3 = draw_centroids(array_images_dataset, array_v, 'ro', ax1, ax2, ax3)
 
     ax1.axis([0, 640, 0, 1])
     ax2.axis([0, 640, 0, 640])
@@ -171,8 +171,8 @@ if __name__ == "__main__":
     ax2.set_ylabel('L1 (Row 260)')
     ax3.axis([0, 1, 0, 640])
     ax4.axis([0, 1, 0, 1])
-    #ax4.plot([-1], [-1], 'ro', label='Dataset')
-    #ax4.plot([-1], [-1], 'bx', label='Driving')
+    ax4.plot([-1], [-1], 'ro', label='Dataset')
+    ax4.plot([-1], [-1], 'bx', label='Driving')
     #ax4.plot([-1], [-1], 'ro', label='radically_left')
     #ax4.plot([-1], [-1], 'bo', label='moderately_left')
     #ax4.plot([-1], [-1], 'go', label='slightly_left')
@@ -180,10 +180,10 @@ if __name__ == "__main__":
     #ax4.plot([-1], [-1], 'mo', label='slightly_right')
     #ax4.plot([-1], [-1], 'yo', label='moderately_right')
     #ax4.plot([-1], [-1], 'ko', label='radically_right')
-    ax4.plot([-1], [-1], 'ro', label='slow')
-    ax4.plot([-1], [-1], 'bo', label='moderate')
-    ax4.plot([-1], [-1], 'go', label='fast')
-    ax4.plot([-1], [-1], 'mo', label='very_fast')
+    #ax4.plot([-1], [-1], 'ro', label='slow')
+    #ax4.plot([-1], [-1], 'bo', label='moderate')
+    #ax4.plot([-1], [-1], 'go', label='fast')
+    #ax4.plot([-1], [-1], 'mo', label='very_fast')
     plt.legend()
     plt.show()
 
