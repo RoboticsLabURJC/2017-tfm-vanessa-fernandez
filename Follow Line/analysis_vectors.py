@@ -161,8 +161,8 @@ if __name__ == "__main__":
     ax3.set_title('Nan values of L2')
     ax4.set_title('Legend')
 
-    ax1, ax2, ax3 = draw_centroids(array_images_dataset, 'ro', ax1, ax2, ax3)
-    ax1, ax2, ax3 = draw_centroids(array_images_driving, 'bx', ax1, ax2, ax3)
+    ax1, ax2, ax3 = draw_centroids(array_images_dataset, array_v, 'ro', ax1, ax2, ax3)
+    ax1, ax2, ax3 = draw_centroids(array_images_driving, array_v, 'bx', ax1, ax2, ax3)
     #ax1, ax2, ax3 = draw_centroids(array_images_dataset, array_v, 'ro', ax1, ax2, ax3)
 
     ax1.axis([0, 640, 0, 1])
