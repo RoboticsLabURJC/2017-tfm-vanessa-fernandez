@@ -179,6 +179,7 @@ def choose_model(name, input_shape, num_classes, name_variable):
         model_file = 'models/model_lenet5_' + str(num_classes) + 'classes_ ' + name_variable + '.h5'
         batch_size = 64
         nb_epochs = 20
+        class_weight = {0: 3., 1: 2., 2: 1., 3: 1., 4: 1., 5: 2., 6: 3.}
     elif name == "smaller_vgg":
         model = SmallerVGGNet(input_shape, num_classes)
         model_png = 'models/model_smaller_vgg.png'
@@ -186,19 +187,23 @@ def choose_model(name, input_shape, num_classes, name_variable):
         if num_classes == 7:
             batch_size = 64
             nb_epochs = 35
+            class_weight = {0: 3., 1: 2., 2: 1., 3: 1., 4:1., 5: 2., 6: 3.}
         elif num_classes == 9:
             batch_size = 64
             nb_epochs = 24
+            class_weight = {0: 3., 1: 3., 2: 2., 3: 1., 4: 1., 5: 1., 6: 2., 7: 3., 8: 3.}
         else:
             batch_size = 32
             nb_epochs = 35
+            class_weight = {0: 1., 1: 1.}
     elif name == "other" and num_classes == 2:
         model = cnn_model(input_shape)
         model_png = 'models/model_binary_classification.png'
         model_file = 'models/model_binary_classification.h5'
         batch_size = 32
         nb_epochs = 12
-    return model, model_file, model_png, batch_size, nb_epochs
+        class_weight = {0: 1., 1: 1.}
+    return model, model_file, model_png, batch_size, nb_epochs, class_weight
 
 
 if __name__ == "__main__":
@@ -245,7 +250,8 @@ if __name__ == "__main__":
 
 
     # Get model
-    model, model_file, model_png, batch_size, nb_epochs = choose_model(name_model, img_shape, num_classes, name_variable)
+    model, model_file, model_png, batch_size, nb_epochs, class_weight = choose_model(name_model, img_shape,
+                                                                                     num_classes, name_variable)
 
     # We adapt the data
     X_train = np.stack(X_train, axis=0)
@@ -268,7 +274,8 @@ if __name__ == "__main__":
     tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
     #  We train
     model_history = model.fit(X_train, y_train, epochs=nb_epochs, batch_size=batch_size, verbose=2,
-                                   validation_data = (X_validation, y_validation), callbacks=[tensorboard])
+                              class_weight=class_weight, validation_data = (X_validation, y_validation),
+                              callbacks=[tensorboard])
 
     # We evaluate the model
     score = model.evaluate(X_validation, y_validation, verbose=0)
