@@ -102,62 +102,67 @@ class MyAlgorithm(threading.Thread):
         #self.motors.sendV(prediction_v)
         #self.motors.sendW(prediction_w)
 
+        # REGRESSION NETWORK (PILOTNET) FOR W AND CONSTANT V
         #self.motors.sendV(3)
+        #self.motors.sendW(prediction_w)
 
-        # if prediction_v == "slow":
-        #     self.motors.sendV(4)
-        # elif prediction_v == "moderate":
-        #     self.motors.sendV(8)
-        # elif prediction_v == "fast":
-        #     self.motors.sendV(10)
-        # elif prediction_v == "very_fast":
-        #     self.motors.sendV(12)
 
         # CLASSIFICATION NETWORK 7 CLASSES FOR W AND CONSTANT V
-        self.motors.sendV(5)
-
-        if prediction_w == "radically_left":
-            self.motors.sendW(1.7)
-        elif prediction_w == "moderately_left":
-            self.motors.sendW(0.75)
-        elif prediction_w == "slightly_left":
-            self.motors.sendW(0.25)
-        elif prediction_w == "slight":
-            self.motors.sendW(0)
-        elif prediction_w == "slightly_right":
-            self.motors.sendW(-0.25)
-        elif prediction_w == "moderately_right":
-            self.motors.sendW(-0.75)
-        elif prediction_w == "radically_right":
-            self.motors.sendW(-1.7)
-
-
-        # #if prediction_w == "radically_left":
-        # #    self.motors.sendW(2.4)
+        # self.motors.sendV(5)
+        #
         # if prediction_w == "radically_left":
-        # #elif prediction_w == "strongly_left":
         #     self.motors.sendW(1.7)
-        #     #self.motors.sendW(2.1)
         # elif prediction_w == "moderately_left":
         #     self.motors.sendW(0.75)
-        #     #self.motors.sendW(1)
         # elif prediction_w == "slightly_left":
         #     self.motors.sendW(0.25)
-        #     #self.motors.sendW(0.5)
         # elif prediction_w == "slight":
         #     self.motors.sendW(0)
         # elif prediction_w == "slightly_right":
         #     self.motors.sendW(-0.25)
-        #     #self.motors.sendW(-0.5)
         # elif prediction_w == "moderately_right":
         #     self.motors.sendW(-0.75)
-        #     #self.motors.sendW(-1)
         # elif prediction_w == "radically_right":
-        # #elif prediction_w == "strongly_right":
         #     self.motors.sendW(-1.7)
-        # #elif prediction_w == "radically_right":
-        # #    self.motors.sendW(-2.4)
-        #     #self.motors.sendW(-2.1)
+
+
+        # CLASSIFICATION NETWORK 7 CLASSES FOR W AND 4 FOR V
+        if prediction_v == "slow":
+            self.motors.sendV(5)
+        elif prediction_v == "moderate":
+            self.motors.sendV(7)
+        elif prediction_v == "fast":
+            self.motors.sendV(10)
+        elif prediction_v == "very_fast":
+            self.motors.sendV(12)
+
+        if prediction_w == "radically_left":
+            self.motors.sendW(2.4)
+        #if prediction_w == "radically_left":
+        elif prediction_w == "strongly_left":
+            self.motors.sendW(1.9)
+            #self.motors.sendW(2.1)
+        elif prediction_w == "moderately_left":
+            #self.motors.sendW(0.95)
+            self.motors.sendW(0.75)
+        elif prediction_w == "slightly_left":
+            self.motors.sendW(0.25)
+            #self.motors.sendW(0.5)
+        elif prediction_w == "slight":
+            self.motors.sendW(0)
+        elif prediction_w == "slightly_right":
+            self.motors.sendW(-0.25)
+            #self.motors.sendW(-0.5)
+        elif prediction_w == "moderately_right":
+            #self.motors.sendW(-0.95)
+            self.motors.sendW(-0.75)
+        #elif prediction_w == "radically_right":
+        elif prediction_w == "strongly_right":
+            self.motors.sendW(-1.9)
+        #    self.motors.sendW(-2.1)
+        elif prediction_w == "radically_right":
+            self.motors.sendW(-2.4)
+            #self.motors.sendW(-2.1)
 
 
         #SHOW THE FILTERED IMAGE ON THE GUI
