@@ -191,7 +191,7 @@ def choose_model(name, input_shape, num_classes, name_variable):
         elif num_classes == 9:
             batch_size = 64
             nb_epochs = 24
-            class_weight = {0: 6., 1: 3., 2: 2., 3: 1., 4: 1., 5: 1., 6: 2., 7: 3., 8: 6.}
+            class_weight = {0: 6., 1: 5., 2: 2., 3: 1., 4: 1., 5: 1., 6: 2., 7: 5., 8: 6.}
         else:
             batch_size = 32
             nb_epochs = 35
