@@ -99,22 +99,43 @@ class MyAlgorithm(threading.Thread):
         #self.motors.sendV(10)
         #self.motors.sendW(5)
 
-        self.motors.sendV(prediction_v)
-        self.motors.sendW(prediction_w)
+        #self.motors.sendV(prediction_v)
+        #self.motors.sendW(prediction_w)
 
-        #self.motors.sendV(4)
+        #self.motors.sendV(3)
 
         # if prediction_v == "slow":
-        #     self.motors.sendV(6)
+        #     self.motors.sendV(4)
         # elif prediction_v == "moderate":
         #     self.motors.sendV(8)
         # elif prediction_v == "fast":
         #     self.motors.sendV(10)
         # elif prediction_v == "very_fast":
         #     self.motors.sendV(12)
-        #
-        #
+
+        # CLASSIFICATION NETWORK 7 CLASSES FOR W AND CONSTANT V
+        self.motors.sendV(5)
+
+        if prediction_w == "radically_left":
+            self.motors.sendW(1.7)
+        elif prediction_w == "moderately_left":
+            self.motors.sendW(0.75)
+        elif prediction_w == "slightly_left":
+            self.motors.sendW(0.25)
+        elif prediction_w == "slight":
+            self.motors.sendW(0)
+        elif prediction_w == "slightly_right":
+            self.motors.sendW(-0.25)
+        elif prediction_w == "moderately_right":
+            self.motors.sendW(-0.75)
+        elif prediction_w == "radically_right":
+            self.motors.sendW(-1.7)
+
+
+        # #if prediction_w == "radically_left":
+        # #    self.motors.sendW(2.4)
         # if prediction_w == "radically_left":
+        # #elif prediction_w == "strongly_left":
         #     self.motors.sendW(1.7)
         #     #self.motors.sendW(2.1)
         # elif prediction_w == "moderately_left":
@@ -132,13 +153,12 @@ class MyAlgorithm(threading.Thread):
         #     self.motors.sendW(-0.75)
         #     #self.motors.sendW(-1)
         # elif prediction_w == "radically_right":
+        # #elif prediction_w == "strongly_right":
         #     self.motors.sendW(-1.7)
+        # #elif prediction_w == "radically_right":
+        # #    self.motors.sendW(-2.4)
         #     #self.motors.sendW(-2.1)
 
-        # if prediction_w == "left":
-        #     self.motors.sendW(0.25)
-        # elif prediction_w == "right":
-        #     self.motors.sendW(-0.25)
 
         #SHOW THE FILTERED IMAGE ON THE GUI
         self.set_threshold_image(image)
