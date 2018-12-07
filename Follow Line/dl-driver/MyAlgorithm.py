@@ -136,15 +136,15 @@ class MyAlgorithm(threading.Thread):
         elif prediction_v == "very_fast":
             self.motors.sendV(12)
 
-        if prediction_w == "radically_left":
-            self.motors.sendW(2.4)
         #if prediction_w == "radically_left":
-        elif prediction_w == "strongly_left":
-            self.motors.sendW(1.9)
+        #    self.motors.sendW(2.4)
+        if prediction_w == "radically_left":
+        #elif prediction_w == "strongly_left":
+            self.motors.sendW(2.1)
             #self.motors.sendW(2.1)
         elif prediction_w == "moderately_left":
             #self.motors.sendW(0.95)
-            self.motors.sendW(0.75)
+            self.motors.sendW(0.85)
         elif prediction_w == "slightly_left":
             self.motors.sendW(0.25)
             #self.motors.sendW(0.5)
@@ -155,13 +155,13 @@ class MyAlgorithm(threading.Thread):
             #self.motors.sendW(-0.5)
         elif prediction_w == "moderately_right":
             #self.motors.sendW(-0.95)
-            self.motors.sendW(-0.75)
-        #elif prediction_w == "radically_right":
-        elif prediction_w == "strongly_right":
-            self.motors.sendW(-1.9)
-        #    self.motors.sendW(-2.1)
+            self.motors.sendW(-0.85)
         elif prediction_w == "radically_right":
-            self.motors.sendW(-2.4)
+        #elif prediction_w == "strongly_right":
+            self.motors.sendW(-2.1)
+        #    self.motors.sendW(-2.1)
+        #elif prediction_w == "radically_right":
+        #    self.motors.sendW(-2.4)
             #self.motors.sendW(-2.1)
 
 
