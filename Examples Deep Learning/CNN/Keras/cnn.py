@@ -17,7 +17,7 @@ def CNN(num_classes, input_shape, ngpus):
 	model.add(Dropout(0.5))
 	model.add(Dense(num_classes, activation='softmax'))
 	#model = make_parallel(model,ngpus)
-	model = multi_gpu_model(model, gpus=2)
+	#model = multi_gpu_model(model, gpus=1)
 	model.compile(loss=keras.losses.categorical_crossentropy, optimizer=keras.optimizers.Adadelta(), metrics=['accuracy'])
 
 	return model
