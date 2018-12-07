@@ -104,6 +104,10 @@ if __name__ == "__main__":
     y_predict_v = make_predictions(X_test, model_v)
     y_predict_w = make_predictions(X_test, model_w)
 
+    for i in range(0, len(y_predict_w)):
+        print('w: ', y_test_w[i], y_predict_w[i])
+        print('v: ', y_test_v[i], y_predict_v[i])
+
     # Evaluation
     print('Making evaluation...')
     score_v = model_v.evaluate(X_test, y_test_v)
