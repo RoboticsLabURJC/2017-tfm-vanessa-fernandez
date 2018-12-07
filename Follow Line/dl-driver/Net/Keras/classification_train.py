@@ -195,7 +195,7 @@ def choose_model(name, input_shape, num_classes, name_variable):
         else:
             batch_size = 32
             nb_epochs = 35
-            class_weight = {0: 1., 1: 1., 2: 1., 3: 1.}
+            class_weight = {0: 4., 1: 3., 2: 2., 3: 1.}
     elif name == "other" and num_classes == 2:
         model = cnn_model(input_shape)
         model_png = 'models/model_binary_classification.png'
