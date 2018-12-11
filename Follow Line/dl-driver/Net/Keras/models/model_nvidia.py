@@ -54,6 +54,7 @@ def lstm_tinypilotnet_model(img_shape):
     print(model.summary())
     model.add(Reshape((1, 14, 19, 32)))
     model.add(ConvLSTM2D(nb_filter=40, nb_row=3, nb_col=3, border_mode='same', return_sequences=True))
+    print(model.summary())
     model.add(Reshape((14, 19, 32)))
     model.add(Conv2D(1, (3, 3), strides=(2, 2), activation="relu"))
     model.add(Flatten())
