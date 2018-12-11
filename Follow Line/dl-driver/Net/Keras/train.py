@@ -65,8 +65,10 @@ if __name__ == "__main__":
     img_shape = (120, 160, 3)
 
     # Get model
-    model_v = pilotnet_model(img_shape)
-    model_w = pilotnet_model(img_shape)
+    #model_v = pilotnet_model(img_shape)
+    #model_w = pilotnet_model(img_shape)
+    model_v = lstm_tinypilotnet_model(img_shape)
+    model_w = lstm_tinypilotnet_model(img_shape)
     #model_png = 'models/model_pilotnet.png'
     model_png = 'models/model_lstm_tinypilotnet.png'
 
