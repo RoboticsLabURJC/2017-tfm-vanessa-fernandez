@@ -58,8 +58,10 @@ if __name__ == "__main__":
     X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
 
     # Variables
-    batch_size_v = 16
-    batch_size_w = 64
+    #batch_size_v = 16
+    #batch_size_w = 64
+    batch_size_v = 12
+    batch_size_w = 12
     nb_epoch_v = 400#223
     nb_epoch_w = 400#212
     img_shape = (120, 160, 3)
