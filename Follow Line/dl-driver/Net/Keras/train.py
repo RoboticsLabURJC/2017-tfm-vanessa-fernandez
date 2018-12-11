@@ -9,7 +9,7 @@ from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
 from keras.utils import plot_model
 from keras.callbacks import TensorBoard
-from models.model_nvidia import pilotnet_model
+from models.model_nvidia import *
 
 
 def parse_json(data):
@@ -67,7 +67,8 @@ if __name__ == "__main__":
     # Get model
     model_v = pilotnet_model(img_shape)
     model_w = pilotnet_model(img_shape)
-    model_png = 'models/model_pilotnet.png'
+    #model_png = 'models/model_pilotnet.png'
+    model_png = 'models/model_lstm_tinypilotnet.png'
 
     # We adapt the data
     X_train_v = np.stack(X_train_v, axis=0)
@@ -112,8 +113,10 @@ if __name__ == "__main__":
     print('Test mean absolute error: ', score[3])
 
     # We save the model
-    model_v.save('models/model_pilotnet_v.h5')
-    model_w.save('models/model_pilotnet_w.h5')
+    #model_v.save('models/model_pilotnet_v.h5')
+    #model_w.save('models/model_pilotnet_w.h5')
+    model_v.save('models/model_lstm_tinypilotnet_v.h5')
+    model_w.save('models/model_lstm_tinypilotnet_w.h5')
 
     # Plot the training and validation loss for each epoch
     # plt.plot(model_history.history['loss'])
