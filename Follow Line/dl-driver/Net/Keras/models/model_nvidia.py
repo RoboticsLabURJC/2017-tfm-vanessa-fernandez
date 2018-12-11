@@ -47,8 +47,8 @@ def tinypilotnet_model(img_shape):
 
 def lstm_tinypilotnet_model(img_shape):
     model = Sequential()
-    model.add(BatchNormalization(epsilon=0.001, axis=-1, input_shape=img_shape))
-    model.add(Conv2D(8, (3, 3), strides=(2, 2), activation="relu"))
+    #model.add(BatchNormalization(epsilon=0.001, axis=-1, input_shape=img_shape))
+    model.add(Conv2D(8, (3, 3), strides=(2, 2), input_shape=img_shape, activation="relu"))
     model.add(Conv2D(16, (3, 3), strides=(2, 2), activation="relu"))
     model.add(Conv2D(32, (3, 3), strides=(2, 2), activation="relu"))
     model.add(Reshape((1, 14, 19, 32)))
