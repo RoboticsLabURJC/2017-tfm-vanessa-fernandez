@@ -43,16 +43,20 @@ def calculate_accuracy(labels, y_predict):
 
 if __name__ == "__main__":
     # Load data
-    file = open('Failed_driving/data.json', 'r')
+    file = open('Failed_driving/7w/data.json', 'r')
     data = file.read()
     file.close()
-    file= open('Failed_driving/corrected_data.json', 'r')
+    file= open('Failed_driving/7w/corrected_data.json', 'r')
     data_corrected = file.read()
     file.close()
     
     # We preprocess json
     array_w, array_v = parse_json(data)
     array_w_corrected, array_v_corrected = parse_json(data_corrected)
+
+    list_images = glob.glob('Failed_driving/7w/Images/' + '*')
+    images = sorted(list_images, key=lambda x: int(x.split('/')[3].split('.png')[0]))
+    li = get_images(images)
 
     accuracy = calculate_accuracy(array_w_corrected, array_w)
     print('Accuracy: ' + str(accuracy) + '%')
