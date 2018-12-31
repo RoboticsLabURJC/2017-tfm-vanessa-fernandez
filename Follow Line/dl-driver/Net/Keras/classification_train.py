@@ -229,7 +229,7 @@ if __name__ == "__main__":
     name_variable = raw_input('Choose the variable you want to train: v or w: ')
     type_net = raw_input('Choose the type of network you want: normal, biased or balanced: ')
     name_model = raw_input('Choose the model you want to use: lenet, smaller_vgg or other: ')
-    print('Your choice: ' + str(num_classes) + ', ' + name_variable + ' and ' + name_model)
+    print('Your choice: ' + str(num_classes) + ', ' + name_variable + ', ' + type_net + ' and ' + name_model)
 
     # Load data
     list_images = glob.glob('../Dataset/Train/Images/' + '*')
