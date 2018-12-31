@@ -291,9 +291,15 @@ if __name__ == "__main__":
     # Tensorboard
     tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
     #  We train
-    model_history = model.fit(X_train, y_train, epochs=nb_epochs, batch_size=batch_size, verbose=2,
-                              class_weight=class_weight, validation_data = (X_validation, y_validation),
-                              steps_per_epoch= 15, validation_steps = 120, callbacks=[tensorboard])
+    #model_history = model.fit(X_train, y_train, epochs=nb_epochs, batch_size=batch_size, verbose=2,
+    #                          class_weight=class_weight, validation_data=(X_validation, y_validation),
+    #                          callbacks=[tensorboard])
+
+    step_epoch = len(X_train) / batch_size
+
+    model_history = model.fit(X_train, y_train, epochs=nb_epochs, verbose=2, class_weight=class_weight,
+                              validation_data = (X_validation, y_validation), steps_per_epoch= step_epoch,
+                              validation_steps = 120, callbacks=[tensorboard])
 
 
     # We evaluate the model
