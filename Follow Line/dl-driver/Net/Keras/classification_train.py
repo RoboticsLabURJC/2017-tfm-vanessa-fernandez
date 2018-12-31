@@ -172,14 +172,17 @@ def adapt_labels(array_labels, num_classes, name_variable):
     return array_labels
 
 
-def choose_model(name, input_shape, num_classes, name_variable):
+def choose_model(name, input_shape, num_classes, name_variable, type_net):
     if name == "lenet":
         model = lenet5(input_shape, num_classes)
         model_png = 'models/model_lenet5.png'
         model_file = 'models/model_lenet5_' + str(num_classes) + 'classes_ ' + name_variable + '.h5'
         batch_size = 64
         nb_epochs = 20
-        class_weight = {0: 3., 1: 2., 2: 1., 3: 1., 4: 1., 5: 2., 6: 3.}
+        if type_net == "biased":
+            class_weight = {0: 3., 1: 2., 2: 1., 3: 1., 4: 1., 5: 2., 6: 3.}
+        else:
+            class_weight = None
     elif name == "smaller_vgg":
         model = SmallerVGGNet(input_shape, num_classes)
         model_png = 'models/model_smaller_vgg.png'
@@ -187,22 +190,34 @@ def choose_model(name, input_shape, num_classes, name_variable):
         if num_classes == 7:
             batch_size = 64
             nb_epochs = 35
-            class_weight = {0: 3., 1: 2., 2: 2., 3: 1., 4:2., 5: 2., 6: 3.}
+            if type_net == "biased":
+                class_weight = {0: 3., 1: 2., 2: 2., 3: 1., 4:2., 5: 2., 6: 3.}
+            else:
+                class_weight = None
         elif num_classes == 9:
             batch_size = 64
             nb_epochs = 34
-            class_weight = {0: 6., 1: 5., 2: 2., 3: 1., 4: 1., 5: 1., 6: 2., 7: 5., 8: 6.}
+            if type_net == "biased":
+                class_weight = {0: 6., 1: 5., 2: 2., 3: 1., 4: 1., 5: 1., 6: 2., 7: 5., 8: 6.}
+            else:
+                class_weight = None
         else:
             batch_size = 32
             nb_epochs = 35
-            class_weight = {0: 2., 1: 1., 2: 1., 3: 1.}
+            if type_net == "biased":
+                class_weight = {0: 2., 1: 1., 2: 1., 3: 1.}
+            else:
+                class_weight = None
     elif name == "other" and num_classes == 2:
         model = cnn_model(input_shape)
         model_png = 'models/model_binary_classification.png'
         model_file = 'models/model_binary_classification.h5'
         batch_size = 32
         nb_epochs = 12
-        class_weight = {0: 1., 1: 1.}
+        if type_net == "biased":
+            class_weight = {0: 1., 1: 1.}
+        else:
+            class_weight = None
     return model, model_file, model_png, batch_size, nb_epochs, class_weight
 
 
@@ -211,6 +226,7 @@ if __name__ == "__main__":
     # Choose options
     num_classes = int(input('Choose one of the options for the number of classes: '))
     name_variable = raw_input('Choose the variable you want to train: v or w: ')
+    type_net = raw_input('Choose the type of network you want: normal, biased or balanced')
     name_model = raw_input('Choose the model you want to use: lenet, smaller_vgg or other: ')
     print('Your choice: ' + str(num_classes) + ', ' + name_variable + ' and ' + name_model)
 
@@ -251,7 +267,8 @@ if __name__ == "__main__":
 
     # Get model
     model, model_file, model_png, batch_size, nb_epochs, class_weight = choose_model(name_model, img_shape,
-                                                                                     num_classes, name_variable)
+                                                                                     num_classes, name_variable,
+                                                                                     type_net)
 
     # We adapt the data
     X_train = np.stack(X_train, axis=0)
@@ -275,7 +292,8 @@ if __name__ == "__main__":
     #  We train
     model_history = model.fit(X_train, y_train, epochs=nb_epochs, batch_size=batch_size, verbose=2,
                               class_weight=class_weight, validation_data = (X_validation, y_validation),
-                              callbacks=[tensorboard])
+                              steps_per_epoch= 15, callbacks=[tensorboard])
+
 
     # We evaluate the model
     score = model.evaluate(X_validation, y_validation, verbose=0)
