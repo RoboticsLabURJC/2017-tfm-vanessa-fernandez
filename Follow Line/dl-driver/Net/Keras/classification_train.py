@@ -176,7 +176,7 @@ def choose_model(name, input_shape, num_classes, name_variable, type_net):
     if name == "lenet":
         model = lenet5(input_shape, num_classes)
         model_png = 'models/model_lenet5.png'
-        model_file = 'models/model_lenet5_' + str(num_classes) + 'classes_ ' + name_variable + '.h5'
+        model_file = 'models/model_lenet5_' + str(num_classes) + 'classes_' + type_net + '_' + name_variable + '.h5'
         batch_size = 64
         nb_epochs = 20
         if type_net == "biased":
@@ -186,7 +186,8 @@ def choose_model(name, input_shape, num_classes, name_variable, type_net):
     elif name == "smaller_vgg":
         model = SmallerVGGNet(input_shape, num_classes)
         model_png = 'models/model_smaller_vgg.png'
-        model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + name_variable + '.h5'
+        model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + type_net + '_' + \
+                     name_variable + '.h5'
         if num_classes == 7:
             batch_size = 64
             nb_epochs = 35
@@ -226,7 +227,7 @@ if __name__ == "__main__":
     # Choose options
     num_classes = int(input('Choose one of the options for the number of classes: '))
     name_variable = raw_input('Choose the variable you want to train: v or w: ')
-    type_net = raw_input('Choose the type of network you want: normal, biased or balanced')
+    type_net = raw_input('Choose the type of network you want: normal, biased or balanced: ')
     name_model = raw_input('Choose the model you want to use: lenet, smaller_vgg or other: ')
     print('Your choice: ' + str(num_classes) + ', ' + name_variable + ' and ' + name_model)
 
@@ -292,7 +293,7 @@ if __name__ == "__main__":
     #  We train
     model_history = model.fit(X_train, y_train, epochs=nb_epochs, batch_size=batch_size, verbose=2,
                               class_weight=class_weight, validation_data = (X_validation, y_validation),
-                              steps_per_epoch= 15, callbacks=[tensorboard])
+                              steps_per_epoch= 15, validation_steps = 120, callbacks=[tensorboard])
 
 
     # We evaluate the model
