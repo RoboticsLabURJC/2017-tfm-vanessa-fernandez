@@ -299,7 +299,7 @@ if __name__ == "__main__":
 
     model_history = model.fit(X_train, y_train, epochs=nb_epochs, verbose=2, class_weight=class_weight,
                               validation_data = (X_validation, y_validation), steps_per_epoch= step_epoch,
-                              validation_steps = 120, callbacks=[tensorboard])
+                              validation_steps = 15, callbacks=[tensorboard])
 
 
     # We evaluate the model
