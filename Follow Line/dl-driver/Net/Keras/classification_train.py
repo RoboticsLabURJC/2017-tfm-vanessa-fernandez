@@ -295,7 +295,7 @@ if __name__ == "__main__":
     #                          class_weight=class_weight, validation_data=(X_validation, y_validation),
     #                          callbacks=[tensorboard])
 
-    step_epoch = 40
+    step_epoch = 70
 
     model_history = model.fit(X_train, y_train, epochs=nb_epochs, verbose=2, class_weight=class_weight,
                               validation_data = (X_validation, y_validation), steps_per_epoch= step_epoch,
