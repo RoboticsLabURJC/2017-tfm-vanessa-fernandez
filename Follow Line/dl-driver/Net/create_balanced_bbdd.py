@@ -77,8 +77,8 @@ def save_image(img, folder_images):
         number = 1
     else:
         number = get_number_image(folder_images)
-        name_image = folder_images + str(number) + '.png'
-        cv2.imwrite(name_image, img)
+    name_image = folder_images + str(number) + '.png'
+    cv2.imwrite(name_image, img)
 
 
 def count_classes_w(class_w, array_num_classes):
@@ -141,7 +141,6 @@ def create_balanced_data_w(data, array_class_w, array_images):
             if array_num_classes[index] <= max_num:
                 output = output + '{' + data_parse[i]
                 save_image(array_images[i], 'Dataset/Train_balanced_bbdd_w/Images/')
-                print(i)
 
         f.seek(0)
         f.write(output)
