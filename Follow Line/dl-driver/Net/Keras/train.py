@@ -125,8 +125,10 @@ if __name__ == "__main__":
     # We save the model
     #model_v.save('models/model_pilotnet_v.h5')
     #model_w.save('models/model_pilotnet_w.h5')
-    model_v.save('models/model_lstm_tinypilotnet_v.h5')
-    model_w.save('models/model_lstm_tinypilotnet_w.h5')
+    #model_v.save('models/model_lstm_tinypilotnet_v.h5')
+    #model_w.save('models/model_lstm_tinypilotnet_w.h5')
+    model_v.save('models/model_lstm_v.h5')
+    model_w.save('models/model_lstm_w.h5')
 
     # Plot the training and validation loss for each epoch
     # plt.plot(model_history.history['loss'])
