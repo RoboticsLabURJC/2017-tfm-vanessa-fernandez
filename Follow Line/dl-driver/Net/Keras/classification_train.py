@@ -232,12 +232,25 @@ if __name__ == "__main__":
     print('Your choice: ' + str(num_classes) + ', ' + name_variable + ', ' + type_net + ' and ' + name_model)
 
     # Load data
-    list_images = glob.glob('../Dataset/Train/Images/' + '*')
-    images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
-
-    file = open('../Dataset/Train/train.json', 'r')
-    data = file.read()
-    file.close()
+    if type_net == 'balanced':
+        if name_variable == 'w':
+            list_images = glob.glob('../Dataset/Train_balanced_bbdd_w/Images/' + '*')
+            images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
+            file = open('../Dataset/Train_balanced_bbdd_w/train.json', 'r')
+            data = file.read()
+            file.close()
+        elif name_variable == 'v':
+            list_images = glob.glob('../Dataset/Train_balanced_bbdd_v/Images/' + '*')
+            images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
+            file = open('../Dataset/Train_balanced_bbdd_v/train.json', 'r')
+            data = file.read()
+            file.close()
+    else:
+        list_images = glob.glob('../Dataset/Train/Images/' + '*')
+        images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
+        file = open('../Dataset/Train/train.json', 'r')
+        data = file.read()
+        file.close()
 
     # We preprocess images
     x = get_images(images)
@@ -255,7 +268,13 @@ if __name__ == "__main__":
     # https://www.pyimagesearch.com/2017/12/11/image-classification-with-keras-and-deep-learning/
 
     # Split data into 80% for train and 20% for validation
-    X_train, X_validation, y_train, y_validation = train_test_split(x_train, y_train, test_size=0.20, random_state=42)
+    if type_net == 'balanced':
+        X_train = x_train
+        y_train = y_train
+        X_t, X_validation, y_t, y_validation = train_test_split(x_train, y_train, test_size=0.20, random_state=42)
+    else:
+        X_train, X_validation, y_train, y_validation = train_test_split(x_train, y_train, test_size=0.20,
+                                                                        random_state=42)
 
     # Convert the labels from integers to vectors
     y_train = np_utils.to_categorical(y_train, num_classes)
