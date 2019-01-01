@@ -65,9 +65,10 @@ def lstm_tinypilotnet_model(img_shape):
     return model
 
 
-def lstm_model(img_shape):
+def lstm_model(img_shape, len_train):
     # https://github.com/udacity/self-driving-car/blob/master/steering-models/community-models/chauffeur/models.py
     # https://www.kdnuggets.com/2018/11/keras-long-short-term-memory-lstm-model-predict-stock-prices.html
+    img_shape = (1, len_train, img_shape[0], img_shape[1], img_shape[2])
     model = Sequential()
     model.add(LSTM(units = 50, return_sequences = True, input_shape = img_shape))
     model.add(Dropout(0.2))
