@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import os
 import glob
+import json
 
 def create_dataset():
     # We check if dataset exists
@@ -13,6 +14,10 @@ def create_dataset():
     if not os.path.exists(foldername): os.makedirs(foldername)
     folder_images = foldername + '/' + 'Images'
     if not os.path.exists(folder_images): os.makedirs(folder_images)
+    with open('Dataset/Train_balanced_bbdd_w/train.json', 'a') as file:
+        json.dump('', file)
+    with open('Dataset/Train_balanced_bbdd_v/train.json', 'a') as file:
+        json.dump('', file)
 
 
 def get_images(list_images):
