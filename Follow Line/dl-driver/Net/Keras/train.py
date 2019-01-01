@@ -72,13 +72,13 @@ if __name__ == "__main__":
     # Get model
     #model_v = pilotnet_model(img_shape)
     #model_w = pilotnet_model(img_shape)
-    #model_v = lstm_tinypilotnet_model(img_shape)
-    #model_w = lstm_tinypilotnet_model(img_shape)
-    model_v = lstm_model(img_shape, 13872)
-    model_w = lstm_model(img_shape, 13872)
-    #model_png = 'models/model_pilotnet.png'
-    #model_png = 'models/model_lstm_tinypilotnet.png'
-    model_png = 'models/model_lstm.png'
+    model_v = lstm_tinypilotnet_model(img_shape)
+    model_w = lstm_tinypilotnet_model(img_shape)
+    #model_v = lstm_model(img_shape)
+    #model_w = lstm_model(img_shape)
+    model_png = 'models/model_pilotnet.png'
+    model_png = 'models/model_lstm_tinypilotnet.png'
+    #model_png = 'models/model_lstm.png'
 
     # We adapt the data
     X_train_v = np.stack(X_train_v, axis=0)
@@ -125,10 +125,10 @@ if __name__ == "__main__":
     # We save the model
     #model_v.save('models/model_pilotnet_v.h5')
     #model_w.save('models/model_pilotnet_w.h5')
-    #model_v.save('models/model_lstm_tinypilotnet_v.h5')
-    #model_w.save('models/model_lstm_tinypilotnet_w.h5')
-    model_v.save('models/model_lstm_v.h5')
-    model_w.save('models/model_lstm_w.h5')
+    model_v.save('models/model_lstm_tinypilotnet_v.h5')
+    model_w.save('models/model_lstm_tinypilotnet_w.h5')
+    #model_v.save('models/model_lstm_v.h5')
+    #model_w.save('models/model_lstm_w.h5')
 
     # Plot the training and validation loss for each epoch
     # plt.plot(model_history.history['loss'])
