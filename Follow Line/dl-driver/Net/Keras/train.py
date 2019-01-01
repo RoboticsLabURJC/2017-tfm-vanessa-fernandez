@@ -74,8 +74,8 @@ if __name__ == "__main__":
     #model_w = pilotnet_model(img_shape)
     #model_v = lstm_tinypilotnet_model(img_shape)
     #model_w = lstm_tinypilotnet_model(img_shape)
-    model_v = lstm_model(img_shape)
-    model_w = lstm_model(img_shape)
+    model_v = lstm_model(img_shape, 13872)
+    model_w = lstm_model(img_shape, 13872)
     #model_png = 'models/model_pilotnet.png'
     #model_png = 'models/model_lstm_tinypilotnet.png'
     model_png = 'models/model_lstm.png'
