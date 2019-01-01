@@ -41,10 +41,12 @@ def get_images(list_images):
 if __name__ == "__main__":
 
     # Load data
-    list_images = glob.glob('../Dataset/Train/Images/' + '*')
+    #list_images = glob.glob('../Dataset/Train/Images/' + '*')
+    list_images = glob.glob('../Dataset/Images/' + '*')
     images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
 
-    file = open('../Dataset/Train/train.json', 'r')
+    #file = open('../Dataset/Train/train.json', 'r')
+    file = open('../Dataset/data.json', 'r')
     data = file.read()
     file.close()
 
@@ -62,17 +64,20 @@ if __name__ == "__main__":
     #batch_size_w = 64
     batch_size_v = 12
     batch_size_w = 12
-    nb_epoch_v = 400#223
-    nb_epoch_w = 400#212
+    nb_epoch_v = 250#223
+    nb_epoch_w = 250#212
     img_shape = (120, 160, 3)
 
     # Get model
     #model_v = pilotnet_model(img_shape)
     #model_w = pilotnet_model(img_shape)
-    model_v = lstm_tinypilotnet_model(img_shape)
-    model_w = lstm_tinypilotnet_model(img_shape)
+    #model_v = lstm_tinypilotnet_model(img_shape)
+    #model_w = lstm_tinypilotnet_model(img_shape)
+    model_v = lstm_model(img_shape)
+    model_w = lstm_model(img_shape)
     #model_png = 'models/model_pilotnet.png'
-    model_png = 'models/model_lstm_tinypilotnet.png'
+    #model_png = 'models/model_lstm_tinypilotnet.png'
+    model_png = 'models/model_lstm.png'
 
     # We adapt the data
     X_train_v = np.stack(X_train_v, axis=0)
