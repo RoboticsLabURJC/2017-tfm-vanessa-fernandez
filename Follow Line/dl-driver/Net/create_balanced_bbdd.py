@@ -141,6 +141,7 @@ def create_balanced_data_w(data, array_class_w, array_images):
             if array_num_classes[index] <= max_num:
                 output = output + '{' + data_parse[i]
                 save_image(array_images[i], 'Dataset/Train_balanced_bbdd_w/Images/')
+                print(i)
 
         f.seek(0)
         f.write(output)
@@ -191,4 +192,3 @@ if __name__ == "__main__":
     create_balanced_data_w(data, array_class_w, array_images)
     # Create balanced bbdd for v
     create_balanced_data_v(data, array_class_v, array_images)
-
