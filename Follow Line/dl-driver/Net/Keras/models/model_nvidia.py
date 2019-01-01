@@ -5,7 +5,10 @@
 
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Conv2D, BatchNormalization, Dropout, ConvLSTM2D, Reshape
+from keras.layers.recurrent import LSTM
+from keras.layers.wrappers import TimeDistributed
 from keras.optimizers import Adam
+from keras.regularizers import l2
 
 
 def pilotnet_model(img_shape):
@@ -59,4 +62,29 @@ def lstm_tinypilotnet_model(img_shape):
     model.add(Dense(1))
     adam = Adam(lr=0.0001)
     model.compile(optimizer=adam, loss="mse", metrics=['accuracy', 'mse', 'mae'])
+    return model
+
+
+def lstm_model(img_shape):
+    # https://github.com/udacity/self-driving-car/blob/master/steering-models/community-models/chauffeur/models.py
+    # https://www.kdnuggets.com/2018/11/keras-long-short-term-memory-lstm-model-predict-stock-prices.html
+    model = Sequential()
+    model.add(TimeDistributed(Conv2D(24, (5, 5), init="he_normal", activation='relu', subsample=(5, 4),
+                                     border_mode='valid'), input_shape=img_shape))
+    model.add(TimeDistributed(Conv2D(32, (5, 5), init="he_normal", activation='relu', subsample=(3, 2),
+                                     border_mode='valid')))
+    model.add(TimeDistributed(Conv2D(48, (3, 3), init="he_normal", activation='relu', subsample=(1, 2),
+                                     border_mode='valid')))
+    model.add(TimeDistributed(Conv2D(64, (3, 3), init="he_normal", activation='relu', border_mode='valid')))
+    model.add(TimeDistributed(Conv2D(128, (3, 3), init="he_normal", activation='relu', subsample=(1, 2),
+                                     border_mode='valid')))
+    model.add(TimeDistributed(Flatten()))
+    model.add(LSTM(64, dropout_W=0.2, dropout_U=0.2, return_sequences=True))
+    model.add(LSTM(64, dropout_W=0.2, dropout_U=0.2, return_sequences=True))
+    model.add(LSTM(64, dropout_W=0.2, dropout_U=0.2))
+    model.add(Dropout(0.2))
+    model.add(Dense(output_dim=256, init='he_normal', activation='relu', W_regularizer=l2(0.001)))
+    model.add(Dropout(0.2))
+    model.add(Dense(output_dim=1, init='he_normal', W_regularizer=l2(0.001)))
+    model.compile(loss="mse", optimizer='adadelta', metrics=['accuracy', 'mse', 'mae'])
     return model
