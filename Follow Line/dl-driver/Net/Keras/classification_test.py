@@ -149,11 +149,11 @@ def adapt_labels(array_labels, num_classes, name_variable):
     return array_labels
 
 
-def choose_model(name, num_classes, name_variable):
+def choose_model(name, num_classes, name_var, type_net):
     if name == "lenet":
         model_file = 'models/model_lenet5_7classes.h5'
     elif name == "smaller_vgg":
-        model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + name_variable + '.h5'
+        model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + type_net + '_'+ name_var + '.h5'
     elif name == "other":
         model_file = 'models/model_binary_classification.h5'
     return model_file
@@ -202,8 +202,9 @@ if __name__ == "__main__":
     # Choose options
     num_classes = int(input('Choose the number of classes: '))
     name_variable = raw_input('Choose the variable you want to train: v or w: ')
+    type_net = raw_input('Choose the type of network you want: normal, biased or balanced: ')
     name_model = raw_input('Choose the model you want to use: mobilenet, lenet, smaller_vgg or other: ')
-    print('Your choice: ' + str(num_classes) + ', ' + name_variable + ' and ' + name_model)
+    print('Your choice: ' + str(num_classes) + ', ' + name_variable + ', ' + type_net + ' and ' + name_model)
 
     # Load data
     list_images = glob.glob('../Dataset/Test/Images/' + '*')
@@ -230,7 +231,7 @@ if __name__ == "__main__":
     y_test = np.stack(y_test, axis=0)
 
     # Get model
-    model_file = choose_model(name_model, num_classes, name_variable)
+    model_file = choose_model(name_model, num_classes, name_variable, type_net)
 
     # Load model
     print('Loading model...')
