@@ -206,7 +206,7 @@ def choose_model(name, input_shape, num_classes, name_variable, type_net):
             batch_size = 32
             nb_epochs = 35
             if type_net == "biased":
-                class_weight = {0: 2., 1: 1., 2: 1., 3: 1.}
+                class_weight = {0: 2., 1: 3., 2: 3., 3: 3.}
             else:
                 class_weight = None
     elif name == "other" and num_classes == 2:
