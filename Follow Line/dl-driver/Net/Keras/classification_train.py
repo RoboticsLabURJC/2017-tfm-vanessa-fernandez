@@ -190,7 +190,7 @@ def choose_model(name, input_shape, num_classes, name_variable, type_net):
                      name_variable + '.h5'
         if num_classes == 7:
             batch_size = 64
-            nb_epochs = 35
+            nb_epochs = 30
             if type_net == "biased":
                 class_weight = {0: 4., 1: 2., 2: 2., 3: 1., 4:2., 5: 2., 6: 4.}
             else:
