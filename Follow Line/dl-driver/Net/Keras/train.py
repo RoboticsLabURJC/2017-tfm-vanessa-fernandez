@@ -74,7 +74,7 @@ if __name__ == "__main__":
     nb_epoch_v = 250#223
     nb_epoch_w = 250#212
     img_shape = (120, 160, 3)
-    img_shape = (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2])
+    img_shape = (len(X_train_v), 10, img_shape[2], img_shape[0], img_shape[])
 
     # Get model
     #model_v = pilotnet_model(img_shape)
