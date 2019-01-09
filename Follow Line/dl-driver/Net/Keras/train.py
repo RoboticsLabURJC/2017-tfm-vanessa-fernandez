@@ -83,11 +83,11 @@ if __name__ == "__main__":
     y_validation_v = np.stack(y_validation_v, axis=0)
     print(X_train_v.shape)
     # print(type(X_train_v))
-    X_train_v = np.reshape(X_train_v, (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2]))
-    y_train_v = np.reshape(y_train_v, (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2]))
-    X_validation_v = np.reshape(X_validation_v, (len(X_validation_v), 10, img_shape[0], img_shape[1], img_shape[2]))
-    y_validation_v = np.reshape(y_validation_v, (len(X_validation_v), 10, img_shape[0], img_shape[1], img_shape[2]))
-    print(X_train_v.shape)
+    # X_train_v = np.reshape(X_train_v, (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2]))
+    # y_train_v = np.reshape(y_train_v, (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2]))
+    # X_validation_v = np.reshape(X_validation_v, (len(X_validation_v), 10, img_shape[0], img_shape[1], img_shape[2]))
+    # y_validation_v = np.reshape(y_validation_v, (len(X_validation_v), 10, img_shape[0], img_shape[1], img_shape[2]))
+    # print(X_train_v.shape)
 
 
     X_train_w = np.stack(X_train_w, axis=0)
