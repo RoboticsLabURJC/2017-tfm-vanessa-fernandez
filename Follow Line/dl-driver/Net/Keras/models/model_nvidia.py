@@ -4,7 +4,7 @@
 #       Vanessa Fernandez Martinez <vanessa_1895@msn.com>
 
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Conv2D, BatchNormalization, Dropout, ConvLSTM2D, Reshape, MaxPooling2D
+from keras.layers import Flatten, Dense, Conv2D, BatchNormalization, Dropout, ConvLSTM2D, Reshape, Lambda, MaxPooling2D
 from keras.layers.recurrent import LSTM, GRU
 from keras.layers.wrappers import TimeDistributed
 from keras.optimizers import Adam
@@ -68,6 +68,8 @@ def lstm_tinypilotnet_model(img_shape):
 def lstm_model(img_shape):
     # https://github.com/udacity/self-driving-car/blob/master/steering-models/community-models/chauffeur/models.py
     # https://www.kdnuggets.com/2018/11/keras-long-short-term-memory-lstm-model-predict-stock-prices.html
+    # https://github.com/BoltzmannBrain/self-driving
+
     model = Sequential()
     #model.add(LSTM(units = 50, return_sequences = True, input_shape = img_shape))
     #model.add(Dropout(0.2))
@@ -103,15 +105,20 @@ def lstm_model(img_shape):
 
     #mg_shape = (17341, 10, img_shape[0], img_shape[1], img_shape[2])
     #model.add(Reshape((17341, 10, img_shape[0], img_shape[1], img_shape[2])))
-    from keras.models import Model
-    from keras.layers import Input
-    x_input = Input(shape=(None, img_shape[0], img_shape[1], img_shape[2]))
-    x_output = Conv2D(24, (5, 5), init="he_normal", activation='relu', subsample=(5, 4),
-                                            border_mode='valid')(x_input)
-    base_model = Model(x_input, x_output)
-    model.add(TimeDistributed(base_model, input_shape=base_model.input_shape))
-    #model.add(TimeDistributed(Conv2D(24, (5, 5), init="he_normal", activation='relu', subsample=(5, 4),
-    #                                 border_mode='valid'), input_shape=img_shape))
+    # from keras.models import Model
+    # from keras.layers import Input
+    # x_input = Input(shape=(10, img_shape[0], img_shape[1], img_shape[2]))
+    # x_output = Conv2D(24, (5, 5), init="he_normal", activation='relu', subsample=(5, 4),
+    #                                         border_mode='valid')(x_input)
+    # base_model = Model(x_input, x_output)
+    # model.add(TimeDistributed(base_model, input_shape=base_model.input_shape))
+
+    model.add(Lambda(
+        lambda x: x / 127.5 - 1.,
+        batch_input_shape=(32, 10, img_shape[0], img_shape[1], img_shape[2]),
+    )
+    model.add(TimeDistributed(Conv2D(24, (5, 5), init="he_normal", activation='relu', subsample=(5, 4),
+                                     border_mode='valid'), input_shape=img_shape))
     model.add(TimeDistributed(Conv2D(32, (5, 5), init="he_normal", activation='relu', subsample=(3, 2),
                                      border_mode='valid')))
     model.add(TimeDistributed(Conv2D(48, (3, 3), init="he_normal", activation='relu', subsample=(1, 2),
