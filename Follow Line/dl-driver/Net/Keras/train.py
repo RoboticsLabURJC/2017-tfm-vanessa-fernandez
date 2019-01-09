@@ -99,7 +99,7 @@ if __name__ == "__main__":
     # X_validation_w = np.reshape(X_validation_w, (len(X_validation_w), 10, img_shape[0], img_shape[1], img_shape[2]))
     # y_validation_w = np.reshape(y_validation_w, (len(X_validation_w), 10, img_shape[0], img_shape[1], img_shape[2]))
 
-    img_shape = (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2])
+    #img_shape = (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2])
 
     # Get model
     #model_v = pilotnet_model(img_shape)
