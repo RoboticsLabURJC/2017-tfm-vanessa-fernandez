@@ -86,7 +86,6 @@ def lstm_model(img_shape):
     model.add(Conv2D(36, (5, 5), strides=(2, 2), activation="relu"))
     model.add(Conv2D(48, (5, 5), strides=(2, 2), activation="relu"))
     model.add(Conv2D(64, (3, 3), strides=(1, 1), activation="relu"))
-    model.add(Conv2D(64, (3, 3), strides=(1, 1), activation="relu"))
     model.add(Flatten())
     model.add(Dropout(0.25))
     model.add(Reshape((6656,1)))
