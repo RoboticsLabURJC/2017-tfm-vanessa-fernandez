@@ -74,6 +74,7 @@ if __name__ == "__main__":
     nb_epoch_v = 250#223
     nb_epoch_w = 250#212
     img_shape = (120, 160, 3)
+    img_shape = (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2])
 
     # Get model
     #model_v = pilotnet_model(img_shape)
@@ -87,11 +88,19 @@ if __name__ == "__main__":
     model_png = 'models/model_lstm.png'
 
     # We adapt the data
+    X_train_v = np.reshape(X_train_v, (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2]))
+    y_train_v = np.reshape(y_train_v, (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2]))
+    X_validation_v = np.reshape(X_validation_v, (len(X_validation_v), 10, img_shape[0], img_shape[1], img_shape[2]))
+    y_validation_v = np.reshape(y_validation_v, (len(X_validation_v), 10, img_shape[0], img_shape[1], img_shape[2]))
     X_train_v = np.stack(X_train_v, axis=0)
     y_train_v = np.stack(y_train_v, axis=0)
     X_validation_v = np.stack(X_validation_v, axis=0)
     y_validation_v = np.stack(y_validation_v, axis=0)
 
+    X_train_w = np.reshape(X_train_w, (len(X_train_w), 10, img_shape[0], img_shape[1], img_shape[2]))
+    y_train_w = np.reshape(y_train_w, (len(X_train_w), 10, img_shape[0], img_shape[1], img_shape[2]))
+    X_validation_w = np.reshape(X_validation_w, (len(X_validation_w), 10, img_shape[0], img_shape[1], img_shape[2]))
+    y_validation_w = np.reshape(y_validation_w, (len(X_validation_w), 10, img_shape[0], img_shape[1], img_shape[2]))
     X_train_w = np.stack(X_train_w, axis=0)
     y_train_w = np.stack(y_train_w, axis=0)
     X_validation_w = np.stack(X_validation_w, axis=0)
