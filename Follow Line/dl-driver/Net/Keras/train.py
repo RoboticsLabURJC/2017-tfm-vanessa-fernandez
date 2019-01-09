@@ -98,7 +98,7 @@ if __name__ == "__main__":
     y_validation_w = np.stack(y_validation_w, axis=0)
 
     # Print layers
-    #print(model_v.summary())
+    print(model_v.summary())
     # Plot layers of model
     plot_model(model_v, to_file=model_png)
 
