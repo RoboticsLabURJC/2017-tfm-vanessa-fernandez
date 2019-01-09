@@ -4,8 +4,8 @@
 #       Vanessa Fernandez Martinez <vanessa_1895@msn.com>
 
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Conv2D, BatchNormalization, Dropout, ConvLSTM2D, Reshape
-from keras.layers.recurrent import LSTM
+from keras.layers import Flatten, Dense, Conv2D, BatchNormalization, Dropout, ConvLSTM2D, Reshape, MaxPooling2D
+from keras.layers.recurrent import LSTM, GRU
 from keras.layers.wrappers import TimeDistributed
 from keras.optimizers import Adam
 from keras.regularizers import l2
@@ -69,15 +69,34 @@ def lstm_model(img_shape):
     # https://github.com/udacity/self-driving-car/blob/master/steering-models/community-models/chauffeur/models.py
     # https://www.kdnuggets.com/2018/11/keras-long-short-term-memory-lstm-model-predict-stock-prices.html
     model = Sequential()
-    model.add(LSTM(units = 50, return_sequences = True, input_shape = img_shape))
-    model.add(Dropout(0.2))
-    model.add(LSTM(units = 50, return_sequences = True))
-    model.add(Dropout(0.2))
-    model.add(LSTM(units=50, return_sequences=True))
-    model.add(Dropout(0.2))
-    model.add(LSTM(units=50))
-    model.add(Dropout(0.2))
-    model.add(Dense(units=1))
+    #model.add(LSTM(units = 50, return_sequences = True, input_shape = img_shape))
+    #model.add(Dropout(0.2))
+    #model.add(LSTM(units = 50, return_sequences = True))
+    #model.add(Dropout(0.2))
+    #model.add(LSTM(units=50, return_sequences=True))
+    #model.add(Dropout(0.2))
+    #model.add(LSTM(units=50))
+    #model.add(Dropout(0.2))
+    #model.add(Dense(units=1))
+    input_shape = (None, img_shape[0], img_shape[1], img_shape[2])
+
+    model.add(TimeDistributed(Conv2D(2, (1, 1), padding='same', activation='elu', kernel_regularizer='l2'),
+                              input_shape=input_shape))
+    model.add(TimeDistributed(Conv2D(8, (3, 3), padding='same', activation='elu', kernel_regularizer='l2')))
+    model.add(TimeDistributed(MaxPooling2D(padding='same')))
+    model.add(TimeDistributed(Conv2D(4, (3, 3), padding='same', activation='elu', kernel_regularizer='l2')))
+    model.add(TimeDistributed(MaxPooling2D(padding='same')))
+    model.add(TimeDistributed(Conv2D(2, (3, 3), padding='same', activation='elu', kernel_regularizer='l2')))
+    model.add(TimeDistributed(MaxPooling2D(padding='same')))
+    model.add(TimeDistributed(Conv2D(1, (3, 3), padding='same', activation='elu', kernel_regularizer='l2')))
+    model.add(TimeDistributed(MaxPooling2D(padding='same')))
+
+    model.add(TimeDistributed(Flatten()))
+    model.add(GRU(12))
+    model.add(Dense(32, activation='elu', kernel_regularizer='l2'))
+    model.add(Dense(1, activation=None))
+
+    #model.compile(loss='mse', optimizer=optimizers.Adam())
     adam = Adam(lr=0.0001)
     model.compile(optimizer=adam, loss="mse", metrics=['accuracy', 'mse', 'mae'])
     # img_shape = (None, img_shape[0], img_shape[1], img_shape[2])
