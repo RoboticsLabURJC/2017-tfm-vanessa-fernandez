@@ -83,19 +83,19 @@ def lstm_model(img_shape):
     #
     img_shape = (17341, 10, img_shape[0], img_shape[1], img_shape[2])
     model.add(Reshape((17341, 10, img_shape[0], img_shape[1], img_shape[2])))
-    model.add(TimeDistributed(Conv2D(2, (1, 1), padding='same', activation='elu', kernel_regularizer='l2'),
-                              input_shape=img_shape))
-    model.add(TimeDistributed(Conv2D(8, (3, 3), padding='same', activation='elu', kernel_regularizer='l2')))
-    model.add(TimeDistributed(MaxPooling2D(padding='same')))
-    model.add(TimeDistributed(Conv2D(4, (3, 3), padding='same', activation='elu', kernel_regularizer='l2')))
-    model.add(TimeDistributed(MaxPooling2D(padding='same')))
-    model.add(TimeDistributed(Conv2D(2, (3, 3), padding='same', activation='elu', kernel_regularizer='l2')))
-    model.add(TimeDistributed(MaxPooling2D(padding='same')))
-    model.add(TimeDistributed(Conv2D(1, (3, 3), padding='same', activation='elu', kernel_regularizer='l2')))
-    model.add(TimeDistributed(MaxPooling2D(padding='same')))
-
-    model.add(TimeDistributed(Flatten()))
-    model.add(GRU(12))
+    # model.add(TimeDistributed(Conv2D(2, (1, 1), padding='same', activation='elu', kernel_regularizer='l2'),
+    #                           input_shape=img_shape))
+    # model.add(TimeDistributed(Conv2D(8, (3, 3), padding='same', activation='elu', kernel_regularizer='l2')))
+    # model.add(TimeDistributed(MaxPooling2D(padding='same')))
+    # model.add(TimeDistributed(Conv2D(4, (3, 3), padding='same', activation='elu', kernel_regularizer='l2')))
+    # model.add(TimeDistributed(MaxPooling2D(padding='same')))
+    # model.add(TimeDistributed(Conv2D(2, (3, 3), padding='same', activation='elu', kernel_regularizer='l2')))
+    # model.add(TimeDistributed(MaxPooling2D(padding='same')))
+    # model.add(TimeDistributed(Conv2D(1, (3, 3), padding='same', activation='elu', kernel_regularizer='l2')))
+    # model.add(TimeDistributed(MaxPooling2D(padding='same')))
+    #
+    # model.add(TimeDistributed(Flatten()))
+    # model.add(GRU(12))
     model.add(Dense(32, activation='elu', kernel_regularizer='l2'))
     model.add(Dense(1, activation=None))
     adam = Adam(lr=0.0001)
