@@ -117,4 +117,5 @@ def lstm_model(img_shape):
     model.add(Dropout(0.2))
     model.add(Dense(output_dim=1, init='he_normal', W_regularizer=l2(0.001)))
     model.compile(loss="mse", optimizer='adadelta', metrics=['accuracy', 'mse', 'mae'])
+    print(model.summary())
     return model
