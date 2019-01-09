@@ -88,6 +88,7 @@ if __name__ == "__main__":
     y_train_v = np.stack(y_train_v, axis=0)
     X_validation_v = np.stack(X_validation_v, axis=0)
     y_validation_v = np.stack(y_validation_v, axis=0)
+    print(X_train_v.shape)
 
     X_train_w = np.reshape(X_train_w, (len(X_train_w), 10, img_shape[0], img_shape[1], img_shape[2]))
     y_train_w = np.reshape(y_train_w, (len(X_train_w), 10, img_shape[0], img_shape[1], img_shape[2]))
