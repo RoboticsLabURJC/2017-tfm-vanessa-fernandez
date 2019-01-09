@@ -101,8 +101,10 @@ def lstm_model(img_shape):
     # adam = Adam(lr=0.0001)
     # model.compile(optimizer=adam, loss="mse", metrics=['accuracy', 'mse', 'mae'])
 
-    #img_shape = (17341, 10, img_shape[0], img_shape[1], img_shape[2])
-    ###model.add(Reshape((17341, 10, img_shape[0], img_shape[1], img_shape[2])))
+    #mg_shape = (17341, 10, img_shape[0], img_shape[1], img_shape[2])
+    model.add(Reshape((17341, 10, img_shape[0], img_shape[1], img_shape[2]),
+                      input_shape=(17341, img_shape[0], img_shape[1], img_shape[2])))
+    #model.add(Reshape((17341, 10, img_shape[0], img_shape[1], img_shape[2])))
     model.add(TimeDistributed(Conv2D(24, (5, 5), init="he_normal", activation='relu', subsample=(5, 4),
                                      border_mode='valid'), input_shape=img_shape))
     model.add(TimeDistributed(Conv2D(32, (5, 5), init="he_normal", activation='relu', subsample=(3, 2),
