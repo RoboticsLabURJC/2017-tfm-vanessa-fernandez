@@ -88,7 +88,6 @@ def lstm_model(img_shape):
     model.add(Conv2D(64, (3, 3), strides=(1, 1), activation="relu"))
     model.add(Flatten())
     model.add(Dropout(0.25))
-    print(model.summary())
     model.add(LSTM(64))
     model.add(Dense(50, activation="relu"))
     model.add(Dense(10, activation="relu"))
