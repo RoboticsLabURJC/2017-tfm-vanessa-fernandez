@@ -78,10 +78,10 @@ def lstm_model(img_shape):
     #model.add(LSTM(units=50))
     #model.add(Dropout(0.2))
     #model.add(Dense(units=1))
-    input_shape = (None, img_shape[0], img_shape[1], img_shape[2])
+    #img_shape = (None, img_shape[0], img_shape[1], img_shape[2])
 
     model.add(TimeDistributed(Conv2D(2, (1, 1), padding='same', activation='elu', kernel_regularizer='l2'),
-                              input_shape=input_shape))
+                              input_shape=img_shape))
     model.add(TimeDistributed(Conv2D(8, (3, 3), padding='same', activation='elu', kernel_regularizer='l2')))
     model.add(TimeDistributed(MaxPooling2D(padding='same')))
     model.add(TimeDistributed(Conv2D(4, (3, 3), padding='same', activation='elu', kernel_regularizer='l2')))
