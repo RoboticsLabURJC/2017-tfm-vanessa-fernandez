@@ -103,7 +103,7 @@ def lstm_model(img_shape):
     # adam = Adam(lr=0.0001)
     # model.compile(optimizer=adam, loss="mse", metrics=['accuracy', 'mse', 'mae'])
 
-    img_shape = (None, 17341, img_shape[2], img_shape[0], img_shape[1])
+    #img_shape = (None, 17341, img_shape[0], img_shape[1], img_shape[2])
     #model.add(Reshape((17341, 10, img_shape[0], img_shape[1], img_shape[2])))
     # from keras.models import Model
     # from keras.layers import Input
