@@ -105,7 +105,7 @@ def lstm_model(img_shape):
     #model.add(Reshape((17341, 10, img_shape[0], img_shape[1], img_shape[2])))
     from keras.models import Model
     from keras.layers import Input
-    x_input = Input(shape=img_shape)
+    x_input = Input(shape=(17341, 10, img_shape[0], img_shape[1], img_shape[2]))
     x_output = Conv2D(24, (5, 5), init="he_normal", activation='relu', subsample=(5, 4),
                                             border_mode='valid')(x_input)
     base_model = Model(x_input, x_output)
