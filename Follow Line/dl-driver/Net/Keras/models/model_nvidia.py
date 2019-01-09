@@ -95,7 +95,7 @@ def lstm_model(img_shape):
     model.add(TimeDistributed(MaxPooling2D(padding='same')))
 
     model.add(TimeDistributed(Flatten()))
-    model.add(LSTM(12))
+    model.add(GRU(12))
     model.add(Dense(32, activation='elu', kernel_regularizer='l2'))
     model.add(Dense(1, activation=None))
     adam = Adam(lr=0.0001)
