@@ -57,8 +57,14 @@ if __name__ == "__main__":
     y_v, y_w = parse_json(data)
 
     # Split data into 80% for train and 20% for validation
-    X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
-    X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
+    #X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
+    #X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
+    X_train_v = x
+    X_train_w = x
+    y_train_v = y_v
+    y_train_w = y_w
+    X_t_v, X_validation_v, y_t_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
+    X_t_w, X_validation_w, y_t_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
 
     # Variables
     #batch_size_v = 16
@@ -72,13 +78,13 @@ if __name__ == "__main__":
     # Get model
     #model_v = pilotnet_model(img_shape)
     #model_w = pilotnet_model(img_shape)
-    model_v = lstm_tinypilotnet_model(img_shape)
-    model_w = lstm_tinypilotnet_model(img_shape)
-    #model_v = lstm_model(img_shape)
-    #model_w = lstm_model(img_shape)
-    model_png = 'models/model_pilotnet.png'
-    model_png = 'models/model_lstm_tinypilotnet.png'
-    #model_png = 'models/model_lstm.png'
+    #model_v = lstm_tinypilotnet_model(img_shape)
+    #model_w = lstm_tinypilotnet_model(img_shape)
+    model_v = lstm_model(img_shape)
+    model_w = lstm_model(img_shape)
+    #model_png = 'models/model_pilotnet.png'
+    #model_png = 'models/model_lstm_tinypilotnet.png'
+    model_png = 'models/model_lstm.png'
 
     # We adapt the data
     X_train_v = np.stack(X_train_v, axis=0)
@@ -125,10 +131,10 @@ if __name__ == "__main__":
     # We save the model
     #model_v.save('models/model_pilotnet_v.h5')
     #model_w.save('models/model_pilotnet_w.h5')
-    model_v.save('models/model_lstm_tinypilotnet_v.h5')
-    model_w.save('models/model_lstm_tinypilotnet_w.h5')
-    #model_v.save('models/model_lstm_v.h5')
-    #model_w.save('models/model_lstm_w.h5')
+    #model_v.save('models/model_lstm_tinypilotnet_v.h5')
+    #model_w.save('models/model_lstm_tinypilotnet_w.h5')
+    model_v.save('models/model_lstm_v.h5')
+    model_w.save('models/model_lstm_w.h5')
 
     # Plot the training and validation loss for each epoch
     # plt.plot(model_history.history['loss'])
