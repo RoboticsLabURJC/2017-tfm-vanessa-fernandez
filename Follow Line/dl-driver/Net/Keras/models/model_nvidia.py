@@ -120,8 +120,10 @@ def lstm_model(img_shape):
     img_shape = [17341, img_shape[0], img_shape[1], img_shape[2]]
     model.add(TimeDistributed(Conv2D(24, (5, 5), init="he_normal", activation='relu', subsample=(5, 4),
                                      border_mode='valid'), input_shape=img_shape))
+    print(model.summary())
     model.add(TimeDistributed(Conv2D(32, (5, 5), init="he_normal", activation='relu', subsample=(3, 2),
                                      border_mode='valid')))
+    print(model.summary())
     model.add(TimeDistributed(Conv2D(48, (3, 3), init="he_normal", activation='relu', subsample=(1, 2),
                                      border_mode='valid')))
     model.add(TimeDistributed(Conv2D(64, (3, 3), init="he_normal", activation='relu', border_mode='valid')))
