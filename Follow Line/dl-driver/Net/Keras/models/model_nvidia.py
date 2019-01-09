@@ -102,11 +102,16 @@ def lstm_model(img_shape):
     # model.compile(optimizer=adam, loss="mse", metrics=['accuracy', 'mse', 'mae'])
 
     #mg_shape = (17341, 10, img_shape[0], img_shape[1], img_shape[2])
-    model.add(Reshape((1, img_shape[0], img_shape[1], img_shape[2]),
-                      input_shape=(17341, img_shape[0], img_shape[1], img_shape[2])))
     #model.add(Reshape((17341, 10, img_shape[0], img_shape[1], img_shape[2])))
-    model.add(TimeDistributed(Conv2D(24, (5, 5), init="he_normal", activation='relu', subsample=(5, 4),
-                                     border_mode='valid'), input_shape=img_shape))
+    from keras.models import Model
+    from keras.layers import Input
+    x_input = Input(shape=img_shape)
+    x_output = Conv2D(24, (5, 5), init="he_normal", activation='relu', subsample=(5, 4),
+                                            border_mode='valid')(x_input)
+    base_model = Model(x_input, x_output)
+    model.add(TimeDistributed(base_model, input_shape=base_model.input_shape))
+    #model.add(TimeDistributed(Conv2D(24, (5, 5), init="he_normal", activation='relu', subsample=(5, 4),
+    #                                 border_mode='valid'), input_shape=img_shape))
     model.add(TimeDistributed(Conv2D(32, (5, 5), init="he_normal", activation='relu', subsample=(3, 2),
                                      border_mode='valid')))
     model.add(TimeDistributed(Conv2D(48, (3, 3), init="he_normal", activation='relu', subsample=(1, 2),
