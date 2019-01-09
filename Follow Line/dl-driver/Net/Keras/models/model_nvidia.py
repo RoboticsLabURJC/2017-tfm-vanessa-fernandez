@@ -85,7 +85,7 @@ def lstm_model(img_shape):
     #
     #img_shape = (17341, 10, img_shape[0], img_shape[1], img_shape[2])
     #####model.add(Reshape((17341, 10, img_shape[0], img_shape[1], img_shape[2])))
-    img_shape = (17341, img_shape[2], img_shape[1], img_shape[0])
+    #img_shape = (17341, img_shape[2], img_shape[1], img_shape[0])
     model.add(TimeDistributed(Conv2D(2, (1, 1), padding='same', activation='elu', kernel_regularizer='l2'),
                               input_shape=img_shape))
     print(model.summary())
