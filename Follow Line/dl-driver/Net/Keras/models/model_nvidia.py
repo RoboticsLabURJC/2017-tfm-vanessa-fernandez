@@ -116,7 +116,7 @@ def lstm_model(img_shape):
     model.add(Lambda(
         lambda x: x / 127.5 - 1.,
         batch_input_shape=(32, 10, img_shape[0], img_shape[1], img_shape[2]),
-    )
+    ))
     model.add(TimeDistributed(Conv2D(24, (5, 5), init="he_normal", activation='relu', subsample=(5, 4),
                                      border_mode='valid'), input_shape=img_shape))
     model.add(TimeDistributed(Conv2D(32, (5, 5), init="he_normal", activation='relu', subsample=(3, 2),
