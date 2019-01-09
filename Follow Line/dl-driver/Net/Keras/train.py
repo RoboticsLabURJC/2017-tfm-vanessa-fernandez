@@ -32,7 +32,8 @@ def get_images(list_images):
     array_imgs = []
     for name in list_images:
         img = cv2.imread(name)
-        img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
+        #img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
+        img = cv2.resize(img, (img.shape[1] / 8, img.shape[0] / 8))
         array_imgs.append(img)
 
     return array_imgs
@@ -73,7 +74,8 @@ if __name__ == "__main__":
     batch_size_w = 8 #12
     nb_epoch_v = 200#223
     nb_epoch_w = 200#212
-    img_shape = (120, 160, 3)
+    #img_shape = (120, 160, 3)
+    img_shape = (60, 80, 3)
 
 
     # We adapt the data
