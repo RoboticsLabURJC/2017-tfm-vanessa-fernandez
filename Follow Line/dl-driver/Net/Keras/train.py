@@ -78,6 +78,7 @@ if __name__ == "__main__":
 
 
     # We adapt the data
+    print(X_train_v.shape)
     X_train_v = np.reshape(X_train_v, (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2]))
     y_train_v = np.reshape(y_train_v, (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2]))
     X_validation_v = np.reshape(X_validation_v, (len(X_validation_v), 10, img_shape[0], img_shape[1], img_shape[2]))
@@ -96,7 +97,7 @@ if __name__ == "__main__":
     y_train_w = np.stack(y_train_w, axis=0)
     X_validation_w = np.stack(X_validation_w, axis=0)
     y_validation_w = np.stack(y_validation_w, axis=0)
-    
+
 
     # Get model
     #model_v = pilotnet_model(img_shape)
