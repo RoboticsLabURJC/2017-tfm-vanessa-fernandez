@@ -74,18 +74,8 @@ if __name__ == "__main__":
     nb_epoch_v = 250#223
     nb_epoch_w = 250#212
     img_shape = (120, 160, 3)
-    img_shape = (len(X_train_v), 10, img_shape[2], img_shape[0], img_shape[1])
+    img_shape = (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2])
 
-    # Get model
-    #model_v = pilotnet_model(img_shape)
-    #model_w = pilotnet_model(img_shape)
-    #model_v = lstm_tinypilotnet_model(img_shape)
-    #model_w = lstm_tinypilotnet_model(img_shape)
-    model_v = lstm_model(img_shape)
-    model_w = lstm_model(img_shape)
-    #model_png = 'models/model_pilotnet.png'
-    #model_png = 'models/model_lstm_tinypilotnet.png'
-    model_png = 'models/model_lstm.png'
 
     # We adapt the data
     X_train_v = np.reshape(X_train_v, (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2]))
@@ -106,6 +96,18 @@ if __name__ == "__main__":
     y_train_w = np.stack(y_train_w, axis=0)
     X_validation_w = np.stack(X_validation_w, axis=0)
     y_validation_w = np.stack(y_validation_w, axis=0)
+    
+
+    # Get model
+    #model_v = pilotnet_model(img_shape)
+    #model_w = pilotnet_model(img_shape)
+    #model_v = lstm_tinypilotnet_model(img_shape)
+    #model_w = lstm_tinypilotnet_model(img_shape)
+    model_v = lstm_model(img_shape)
+    model_w = lstm_model(img_shape)
+    #model_png = 'models/model_pilotnet.png'
+    #model_png = 'models/model_lstm_tinypilotnet.png'
+    model_png = 'models/model_lstm.png'
 
     # Print layers
     print(model_v.summary())
