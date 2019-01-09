@@ -81,6 +81,7 @@ def lstm_model(img_shape):
     #model.add(Dropout(0.2))
     #model.add(Dense(units=1))
 
+    model.add(BatchNormalization(epsilon=0.001, axis=-1, input_shape=img_shape))
     model.add(Conv2D(24, (5, 5), strides=(2, 2), activation="relu"))
     model.add(Conv2D(36, (5, 5), strides=(2, 2), activation="relu"))
     model.add(Conv2D(48, (5, 5), strides=(2, 2), activation="relu"))
@@ -88,6 +89,7 @@ def lstm_model(img_shape):
     model.add(Conv2D(64, (3, 3), strides=(1, 1), activation="relu"))
     model.add(Flatten())
     model.add(Dropout(0.25))
+    print(model.summary())
     model.add(LSTM(64))
     model.add(Dense(50, activation="relu"))
     model.add(Dense(10, activation="relu"))
