@@ -32,8 +32,8 @@ def get_images(list_images):
     array_imgs = []
     for name in list_images:
         img = cv2.imread(name)
-        #img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
-        img = cv2.resize(img, (img.shape[1] / 8, img.shape[0] / 8))
+        img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
+        #img = cv2.resize(img, (img.shape[1] / 8, img.shape[0] / 8))
         array_imgs.append(img)
 
     return array_imgs
@@ -70,12 +70,12 @@ if __name__ == "__main__":
     # Variables
     #batch_size_v = 16
     #batch_size_w = 64
-    batch_size_v = 8 #12
-    batch_size_w = 8 #12
+    batch_size_v = 12 #8
+    batch_size_w = 12 #8
     nb_epoch_v = 200#223
     nb_epoch_w = 200#212
-    #img_shape = (120, 160, 3)
-    img_shape = (60, 80, 3)
+    img_shape = (120, 160, 3)
+    #img_shape = (60, 80, 3)
 
 
     # We adapt the data
@@ -106,13 +106,13 @@ if __name__ == "__main__":
     # Get model
     #model_v = pilotnet_model(img_shape)
     #model_w = pilotnet_model(img_shape)
-    #model_v = lstm_tinypilotnet_model(img_shape)
-    #model_w = lstm_tinypilotnet_model(img_shape)
-    model_v = lstm_model(img_shape)
-    model_w = lstm_model(img_shape)
+    model_v = lstm_tinypilotnet_model(img_shape)
+    model_w = lstm_tinypilotnet_model(img_shape)
+    #model_v = lstm_model(img_shape)
+    #model_w = lstm_model(img_shape)
     #model_png = 'models/model_pilotnet.png'
-    #model_png = 'models/model_lstm_tinypilotnet.png'
-    model_png = 'models/model_lstm.png'
+    model_png = 'models/model_lstm_tinypilotnet.png'
+    #model_png = 'models/model_lstm.png'
 
     # Print layers
     print(model_v.summary())
@@ -148,10 +148,10 @@ if __name__ == "__main__":
     # We save the model
     #model_v.save('models/model_pilotnet_v.h5')
     #model_w.save('models/model_pilotnet_w.h5')
-    #model_v.save('models/model_lstm_tinypilotnet_v.h5')
-    #model_w.save('models/model_lstm_tinypilotnet_w.h5')
-    model_v.save('models/model_lstm_v.h5')
-    model_w.save('models/model_lstm_w.h5')
+    model_v.save('models/model_lstm_tinypilotnet_v.h5')
+    model_w.save('models/model_lstm_tinypilotnet_w.h5')
+    #model_v.save('models/model_lstm_v.h5')
+    #model_w.save('models/model_lstm_w.h5')
 
     # Plot the training and validation loss for each epoch
     # plt.plot(model_history.history['loss'])
