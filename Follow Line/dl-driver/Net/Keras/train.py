@@ -72,8 +72,8 @@ if __name__ == "__main__":
     #batch_size_w = 64
     batch_size_v = 12 #8
     batch_size_w = 12 #8
-    nb_epoch_v = 300#223
-    nb_epoch_w = 300#212
+    nb_epoch_v = 350#223
+    nb_epoch_w = 350#212
     img_shape = (120, 160, 3)
     #img_shape = (60, 80, 3)
 
