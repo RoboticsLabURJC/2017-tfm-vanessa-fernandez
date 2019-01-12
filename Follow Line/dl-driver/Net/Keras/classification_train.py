@@ -189,7 +189,7 @@ def choose_model(name, input_shape, num_classes, name_variable, type_net):
         model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + type_net + '_' + \
                      name_variable + '.h5'
         if num_classes == 7:
-            batch_size = 64
+            batch_size = 32#64
             nb_epochs = 35
             if type_net == "biased":
                 class_weight = {0: 4., 1: 2., 2: 2., 3: 1., 4:2., 5: 2., 6: 3.}
