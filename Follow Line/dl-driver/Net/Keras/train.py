@@ -76,7 +76,7 @@ def choose_model(type_net, img_shape):
 
 if __name__ == "__main__":
     # Choose options
-    type_net = raw_input('Choose the type of network you want: pilotnet, tinypilotnet, lstm_tinypilotnet or lstm')
+    type_net = raw_input('Choose the type of network you want: pilotnet, tinypilotnet, lstm_tinypilotnet or lstm: ')
     print('Your choice: ' + type_net)
 
     # Load data
