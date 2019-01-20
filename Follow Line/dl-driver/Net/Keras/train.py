@@ -39,6 +39,14 @@ def get_images(list_images):
     return array_imgs
 
 
+def add_extreme_data(array_w, imgs):
+    for i in range(0, len(array_w)):
+        if abs(array_w) >= 1:
+            array_w.append(array_w[i])
+            imgs.append(imgs[i])
+    return array_w, imgs
+
+
 def choose_model(type_net, img_shape):
     model_png = 'models/model_' + type_net + '.png'
     model_file_v = 'models/model_' + type_net + '_v.h5'
@@ -49,7 +57,7 @@ def choose_model(type_net, img_shape):
         batch_size_v = 64#16
         batch_size_w = 64
         nb_epoch_v = 223
-        nb_epoch_w = 500#212
+        nb_epoch_w = 212
     elif type_net == 'tinypilotnet':
         model_v = tinypilotnet_model(img_shape)
         model_w = tinypilotnet_model(img_shape)
@@ -81,12 +89,12 @@ if __name__ == "__main__":
 
     # Load data
     if type_net == 'pilotnet' or type_net == 'tinypilotnet':
-        #list_images = glob.glob('../Dataset/Train/Images/' + '*')
-        #images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
-        #file = open('../Dataset/Train/train.json', 'r')
-        list_images = glob.glob('../Dataset/Train_balanced_bbdd_w/Images/' + '*')
+        list_images = glob.glob('../Dataset/Train/Images/' + '*')
         images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
-        file = open('../Dataset/Train_balanced_bbdd_w/train.json', 'r')
+        file = open('../Dataset/Train/train.json', 'r')
+        #list_images = glob.glob('../Dataset/Train_balanced_bbdd_w/Images/' + '*')
+        #images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
+        #file = open('../Dataset/Train_balanced_bbdd_w/train.json', 'r')
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm':
         list_images = glob.glob('../Dataset/Images/' + '*')
         images = sorted(list_images, key=lambda x: int(x.split('/')[3].split('.png')[0]))
@@ -101,14 +109,10 @@ if __name__ == "__main__":
 
     # Split data into 80% for train and 20% for validation
     if type_net == 'pilotnet' or type_net == 'tinypilotnet':
-        X_train_v = x
-        X_train_w = x
-        y_train_v = y_v
-        y_train_w = y_w
-        X_t_v, X_validation_v, y_t_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
-        X_t_w, X_validation_w, y_t_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
-        #X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
-        #X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
+        # We adapt the data
+        y_w, x = add_extreme_data(y_w, x)
+        X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
+        X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm':
         X_train_v = x
         X_train_w = x
