@@ -158,8 +158,10 @@ if __name__ == "__main__":
 
     tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
+    #model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size_w, verbose=2,
+    #                              validation_data=(X_validation_w, y_validation_w), callbacks=[tensorboard])
     model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size_w, verbose=2,
-                                  validation_data=(X_validation_w, y_validation_w), callbacks=[tensorboard])
+                                  callbacks=[tensorboard])
 
     # We evaluate the model
     # score = model_v.evaluate(X_validation_v, y_validation_v, verbose=0)
