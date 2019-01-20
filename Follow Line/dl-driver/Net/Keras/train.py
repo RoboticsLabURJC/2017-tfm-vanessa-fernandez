@@ -111,7 +111,7 @@ if __name__ == "__main__":
     if type_net == 'pilotnet' or type_net == 'tinypilotnet':
         # We adapt the data
         y_w, x = add_extreme_data(y_w, x)
-        X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
+        #X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
         X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm':
         X_train_v = x
@@ -127,11 +127,11 @@ if __name__ == "__main__":
 
 
     # We adapt the data
-    X_train_v = np.stack(X_train_v, axis=0)
-    y_train_v = np.stack(y_train_v, axis=0)
-    X_validation_v = np.stack(X_validation_v, axis=0)
-    y_validation_v = np.stack(y_validation_v, axis=0)
-    print(X_train_v.shape)
+    # X_train_v = np.stack(X_train_v, axis=0)
+    # y_train_v = np.stack(y_train_v, axis=0)
+    # X_validation_v = np.stack(X_validation_v, axis=0)
+    # y_validation_v = np.stack(y_validation_v, axis=0)
+    # print(X_train_v.shape)
     # print(type(X_train_v))
     # X_train_v = np.reshape(X_train_v, (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2]))
     # y_train_v = np.reshape(y_train_v, (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2]))
