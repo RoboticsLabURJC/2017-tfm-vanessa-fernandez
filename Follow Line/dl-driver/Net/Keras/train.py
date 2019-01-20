@@ -90,9 +90,12 @@ if __name__ == "__main__":
 
     # Load data
     if type_net == 'pilotnet' or type_net == 'tinypilotnet':
-        list_images = glob.glob('../Dataset/Train/Images/' + '*')
-        images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
-        file = open('../Dataset/Train/train.json', 'r')
+        #list_images = glob.glob('../Dataset/Train/Images/' + '*')
+        #images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
+        #file = open('../Dataset/Train/train.json', 'r')
+        list_images = glob.glob('../Dataset/Images/' + '*')
+        images = sorted(list_images, key=lambda x: int(x.split('/')[3].split('.png')[0]))
+        file = open('../Dataset/data.json', 'r')
         #list_images = glob.glob('../Dataset/Train_balanced_bbdd_w/Images/' + '*')
         #images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
         #file = open('../Dataset/Train_balanced_bbdd_w/train.json', 'r')
