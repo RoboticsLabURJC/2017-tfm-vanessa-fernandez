@@ -46,10 +46,10 @@ def choose_model(type_net, img_shape):
     if type_net == 'pilotnet':
         model_v = pilotnet_model(img_shape)
         model_w = pilotnet_model(img_shape)
-        batch_size_v = 63#16
+        batch_size_v = 64#16
         batch_size_w = 64
         nb_epoch_v = 223
-        nb_epoch_w = 212
+        nb_epoch_w = 500#212
     elif type_net == 'tinypilotnet':
         model_v = tinypilotnet_model(img_shape)
         model_w = tinypilotnet_model(img_shape)
