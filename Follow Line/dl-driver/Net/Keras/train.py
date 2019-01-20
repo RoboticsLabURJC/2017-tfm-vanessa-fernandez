@@ -101,8 +101,14 @@ if __name__ == "__main__":
 
     # Split data into 80% for train and 20% for validation
     if type_net == 'pilotnet' or type_net == 'tinypilotnet':
-        X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
-        X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
+        X_train_v = x
+        X_train_w = x
+        y_train_v = y_v
+        y_train_w = y_w
+        X_t_v, X_validation_v, y_t_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
+        X_t_w, X_validation_w, y_t_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
+        #X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
+        #X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm':
         X_train_v = x
         X_train_w = x
@@ -158,10 +164,8 @@ if __name__ == "__main__":
 
     tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
-    #model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size_w, verbose=2,
-    #                              validation_data=(X_validation_w, y_validation_w), callbacks=[tensorboard])
     model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size_w, verbose=2,
-                                  callbacks=[tensorboard])
+                                  validation_data=(X_validation_w, y_validation_w), callbacks=[tensorboard])
 
     # We evaluate the model
     # score = model_v.evaluate(X_validation_v, y_validation_v, verbose=0)
