@@ -89,7 +89,7 @@ def lstm_model(img_shape):
     model.add(Flatten())
     model.add(Dropout(0.25))
     print(model.summary())
-    model.add(Reshape((640,1)))
+    model.add(Reshape((9600,1)))
     model.add(LSTM(12))
     model.add(Dropout(0.2))
     model.add(Dense(50, activation="relu"))
