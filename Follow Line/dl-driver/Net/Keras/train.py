@@ -42,8 +42,9 @@ def get_images(list_images):
 def add_extreme_data(array_w, imgs):
     for i in range(0, len(array_w)):
         if abs(array_w[i]) >= 1:
-            array_w.append(array_w[i])
-            imgs.append(imgs[i])
+            for j in range(0, 5):
+                array_w.append(array_w[i])
+                imgs.append(imgs[i])
     return array_w, imgs
 
 
