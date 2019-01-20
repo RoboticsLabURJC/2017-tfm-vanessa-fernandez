@@ -78,8 +78,8 @@ def choose_model(type_net, img_shape):
         model_w = lstm_model(img_shape)
         batch_size_v = 12 #8
         batch_size_w = 12 #8
-        nb_epoch_v = 350#223
-        nb_epoch_w = 350#212
+        nb_epoch_v = 200#223
+        nb_epoch_w = 200#212
     return model_v, model_w, model_file_v, model_file_w, model_png, batch_size_v, nb_epoch_v, batch_size_w, nb_epoch_w
 
 
