@@ -39,13 +39,18 @@ def get_images(list_images):
     return array_imgs
 
 
-def add_extreme_data(array_w, imgs):
+def add_extreme_data(array_w, imgs_w, array_v, imgs_v):
     for i in range(0, len(array_w)):
         if abs(array_w[i]) >= 1:
             for j in range(0, 5):
                 array_w.append(array_w[i])
-                imgs.append(imgs[i])
-    return array_w, imgs
+                imgs_w.append(imgs_w[i])
+    for i in range(0, len(array_v)):
+        if array_v[i] < 0:
+            for j in range(0, 5):
+                array_v.append(array_v[i])
+                imgs_v.append(imgs_v[i])
+    return array_w, imgs_w, array_v, imgs_v
 
 
 def choose_model(type_net, img_shape):
@@ -96,9 +101,6 @@ if __name__ == "__main__":
         list_images = glob.glob('../Dataset/Images/' + '*')
         images = sorted(list_images, key=lambda x: int(x.split('/')[3].split('.png')[0]))
         file = open('../Dataset/data.json', 'r')
-        #list_images = glob.glob('../Dataset/Train_balanced_bbdd_w/Images/' + '*')
-        #images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
-        #file = open('../Dataset/Train_balanced_bbdd_w/train.json', 'r')
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm':
         list_images = glob.glob('../Dataset/Images/' + '*')
         images = sorted(list_images, key=lambda x: int(x.split('/')[3].split('.png')[0]))
@@ -114,9 +116,9 @@ if __name__ == "__main__":
     # Split data into 80% for train and 20% for validation
     if type_net == 'pilotnet' or type_net == 'tinypilotnet':
         # We adapt the data
-        y_w, x = add_extreme_data(y_w, x)
-        #X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
-        X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
+        y_w, x_w, y_v, x_v = add_extreme_data(y_w, x, y_v, x)
+        X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x_v, y_v, test_size=0.20, random_state=42)
+        #X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w, y_w, test_size=0.20, random_state=42)
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm':
         X_train_v = x
         X_train_w = x
@@ -131,10 +133,10 @@ if __name__ == "__main__":
 
 
     # We adapt the data
-    # X_train_v = np.stack(X_train_v, axis=0)
-    # y_train_v = np.stack(y_train_v, axis=0)
-    # X_validation_v = np.stack(X_validation_v, axis=0)
-    # y_validation_v = np.stack(y_validation_v, axis=0)
+    X_train_v = np.stack(X_train_v, axis=0)
+    y_train_v = np.stack(y_train_v, axis=0)
+    X_validation_v = np.stack(X_validation_v, axis=0)
+    y_validation_v = np.stack(y_validation_v, axis=0)
     # print(X_train_v.shape)
     # print(type(X_train_v))
     # X_train_v = np.reshape(X_train_v, (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2]))
@@ -165,34 +167,34 @@ if __name__ == "__main__":
     plot_model(model_v, to_file=model_png)
 
     #  We train
-    #tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
-
-    #model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
-    #                          validation_data=(X_validation_v, y_validation_v), callbacks=[tensorboard])
-
     tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
-    model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size_w, verbose=2,
-                                  validation_data=(X_validation_w, y_validation_w), callbacks=[tensorboard])
+    model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
+                              validation_data=(X_validation_v, y_validation_v), callbacks=[tensorboard])
+
+    # tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+    #
+    # model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size_w, verbose=2,
+    #                               validation_data=(X_validation_w, y_validation_w), callbacks=[tensorboard])
 
     # We evaluate the model
-    # score = model_v.evaluate(X_validation_v, y_validation_v, verbose=0)
-    # print('Evaluating v')
-    # print('Test loss: ', score[0])
-    # print('Test accuracy: ', score[1])
-    # print('Test mean squared error: ', score[2])
-    # print('Test mean absolute error: ', score[3])
-
-    score = model_w.evaluate(X_validation_w, y_validation_w, verbose=0)
-    print('Evaluating w')
-    print('Test loss:', score[0])
-    print('Test accuracy:', score[1])
+    score = model_v.evaluate(X_validation_v, y_validation_v, verbose=0)
+    print('Evaluating v')
+    print('Test loss: ', score[0])
+    print('Test accuracy: ', score[1])
     print('Test mean squared error: ', score[2])
     print('Test mean absolute error: ', score[3])
 
+    # score = model_w.evaluate(X_validation_w, y_validation_w, verbose=0)
+    # print('Evaluating w')
+    # print('Test loss:', score[0])
+    # print('Test accuracy:', score[1])
+    # print('Test mean squared error: ', score[2])
+    # print('Test mean absolute error: ', score[3])
+
     # We save the model
-    #model_v.save(model_file_v)
-    model_w.save(model_file_w)
+    model_v.save(model_file_v)
+    #model_w.save(model_file_w)
 
     # Plot the training and validation loss for each epoch
     # plt.plot(model_history.history['loss'])
