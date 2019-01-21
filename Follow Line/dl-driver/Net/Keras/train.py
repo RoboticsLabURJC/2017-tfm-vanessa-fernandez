@@ -111,7 +111,7 @@ if __name__ == "__main__":
     # Split data into 80% for train and 20% for validation
     if type_net == 'pilotnet' or type_net == 'tinypilotnet':
         # We adapt the data
-        y_w, x_w = add_extreme_data(y_w, x)
+        #y_w, x_w = add_extreme_data(y_w, x)
         X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
         #X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w, y_w, test_size=0.20, random_state=42)
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm':
