@@ -141,10 +141,10 @@ if __name__ == "__main__":
     # print(X_train_v.shape)
 
 
-    X_train_w = np.stack(X_train_w, axis=0)
-    y_train_w = np.stack(y_train_w, axis=0)
-    X_validation_w = np.stack(X_validation_w, axis=0)
-    y_validation_w = np.stack(y_validation_w, axis=0)
+    # X_train_w = np.stack(X_train_w, axis=0)
+    # y_train_w = np.stack(y_train_w, axis=0)
+    # X_validation_w = np.stack(X_validation_w, axis=0)
+    # y_validation_w = np.stack(y_validation_w, axis=0)
     # X_train_w = np.reshape(X_train_w, (len(X_train_w), 10, img_shape[0], img_shape[1], img_shape[2]))
     # y_train_w = np.reshape(y_train_w, (len(X_train_w), 10, img_shape[0], img_shape[1], img_shape[2]))
     # X_validation_w = np.reshape(X_validation_w, (len(X_validation_w), 10, img_shape[0], img_shape[1], img_shape[2]))
