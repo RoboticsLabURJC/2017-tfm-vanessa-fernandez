@@ -126,8 +126,10 @@ def lstm_model(img_shape):
     model.add(Dropout(0.5))
 
     print(model.summary())
+    model.add(LSTM(10, return_sequences = True))
+    model.add(Dropout(0.2))
     model.add(LSTM(10))
-    model.add(Dropout(0.5))
+    model.add(Dropout(0.2))
     model.add(Dense(5, activation="relu"))
     model.add(Dense(1))
     adam = Adam(lr=0.0001)
