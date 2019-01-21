@@ -4,7 +4,7 @@
 #       Vanessa Fernandez Martinez <vanessa_1895@msn.com>
 
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Conv2D, BatchNormalization, Dropout, ConvLSTM2D, Reshape, Lambda, MaxPooling2D
+from keras.layers import Flatten,Dense,Conv2D,BatchNormalization,Dropout,ConvLSTM2D,Reshape,Activation,MaxPooling2D
 from keras.layers.recurrent import LSTM, GRU
 from keras.layers.wrappers import TimeDistributed
 from keras.optimizers import Adam
@@ -81,23 +81,56 @@ def lstm_model(img_shape):
     #model.add(Dropout(0.2))
     #model.add(Dense(units=1))
 
-    model.add(BatchNormalization(epsilon=0.001, axis=-1, input_shape=img_shape))
-    model.add(Conv2D(24, (5, 5), strides=(2, 2), activation="relu"))
-    model.add(Conv2D(36, (5, 5), strides=(2, 2), activation="relu"))
-    model.add(Conv2D(48, (5, 5), strides=(2, 2), activation="relu"))
-    model.add(Conv2D(64, (3, 3), strides=(1, 1), activation="relu"))
-    model.add(Flatten())
+    # model.add(BatchNormalization(epsilon=0.001, axis=-1, input_shape=img_shape))
+    # model.add(Conv2D(24, (5, 5), strides=(2, 2), activation="relu"))
+    # model.add(Conv2D(36, (5, 5), strides=(2, 2), activation="relu"))
+    # model.add(Conv2D(48, (5, 5), strides=(2, 2), activation="relu"))
+    # model.add(Conv2D(64, (3, 3), strides=(1, 1), activation="relu"))
+    # model.add(Flatten())
+    # model.add(Dropout(0.25))
+    # model.add(Reshape((9600,1)))
+    # print(model.summary())
+    # model.add(LSTM(1))
+    # print(model.summary())
+    # model.add(Dropout(0.2))
+    # print(model.summary())
+    # #model.add(Dense(50, activation="relu"))
+    # #model.add(Dense(2, activation="relu"))
+    # model.add(Dense(1))
+    # adam = Adam(lr=0.00001)
+    # model.compile(optimizer=adam, loss="mse", metrics=['accuracy', 'mse', 'mae'])
+
+    model.add(Conv2D(32, (3, 3), padding='same', input_shape=img_shape, activation="relu"))
+    model.add(BatchNormalization(axis=-1))
+    model.add(MaxPooling2D(pool_size=(3, 3)))
     model.add(Dropout(0.25))
-    model.add(Reshape((9600,1)))
+
+    model.add(Conv2D(64, (3, 3), padding='same', activation="relu"))
+    model.add(BatchNormalization(axis=-1))
+    model.add(Conv2D(64, (3, 3), padding='same', activation="relu"))
+    model.add(BatchNormalization(axis=-1))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.25))
+
+    model.add(Conv2D(128, (3, 3), padding='same', activation="relu"))
+    model.add(BatchNormalization(axis=-1))
+    model.add(Conv2D(128, (3, 3), padding='same', activation="relu"))
+    model.add(BatchNormalization(axis=-1))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.25))
+
+    model.add(Flatten())
+    model.add(Dense(1024))
+    model.add(Activation('relu'))
+    model.add(BatchNormalization())
+    model.add(Dropout(0.5))
+
     print(model.summary())
-    model.add(LSTM(1))
-    print(model.summary())
-    model.add(Dropout(0.2))
-    print(model.summary())
-    #model.add(Dense(50, activation="relu"))
-    #model.add(Dense(2, activation="relu"))
+    model.add(LSTM(10))
+    model.add(Dropout(0.5))
+    model.add(Dense(5, activation="relu"))
     model.add(Dense(1))
-    adam = Adam(lr=0.00001)
+    adam = Adam(lr=0.0001)
     model.compile(optimizer=adam, loss="mse", metrics=['accuracy', 'mse', 'mae'])
 
     # img_shape = (17341, img_shape[0], img_shape[1], img_shape[2])
