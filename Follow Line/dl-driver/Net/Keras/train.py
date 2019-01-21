@@ -39,17 +39,21 @@ def get_images(list_images):
     return array_imgs
 
 
-def add_extreme_data(array_w, imgs_w, array_v, imgs_v):
+def add_extreme_data(array_w, array_v, imgs):
+    imsg_w = np.copy(imgs)
+    imgs_v = np.copy(imgs)
     for i in range(0, len(array_w)):
         if abs(array_w[i]) >= 1:
             for j in range(0, 5):
                 array_w.append(array_w[i])
-                imgs_w.append(imgs_w[i])
+                #imgs_w.append(imgs_w[i])
+                imgs_w = np.append(imgs_w, imsg_w[i])
     for i in range(0, len(array_v)):
         if array_v[i] < 0:
             for j in range(0, 5):
                 array_v.append(array_v[i])
-                imgs_v.append(imgs_v[i])
+                #imgs_v.append(imgs_v[i])
+                imgs_v = np.append(imgs_v, imgs_v[i])
     return array_w, imgs_w, array_v, imgs_v
 
 
@@ -116,7 +120,7 @@ if __name__ == "__main__":
     # Split data into 80% for train and 20% for validation
     if type_net == 'pilotnet' or type_net == 'tinypilotnet':
         # We adapt the data
-        y_w, x_w, y_v, x_v = add_extreme_data(y_w, np.copy(x), y_v, np.copy(x))
+        y_w, x_w, y_v, x_v = add_extreme_data(y_w, y_v, x)
         X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x_v, y_v, test_size=0.20, random_state=42)
         #X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w, y_w, test_size=0.20, random_state=42)
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm':
