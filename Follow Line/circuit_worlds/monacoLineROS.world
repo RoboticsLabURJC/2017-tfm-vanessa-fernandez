@@ -10,7 +10,7 @@
     </include>
     <include>
       <uri>model://f1ROS</uri>
-      <pose>-70.87 10.29 0.00096 0 0 2.44</pose>
+      <pose>-70.87 10.29 0.00096 0 0 0.70</pose>
     </include>
 
 
