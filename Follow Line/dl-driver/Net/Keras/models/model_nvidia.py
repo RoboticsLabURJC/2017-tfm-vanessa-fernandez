@@ -126,6 +126,7 @@ def lstm_model(img_shape):
     model.add(Dropout(0.5))
 
     print(model.summary())
+    model.add(Reshape((1024, 1)))
     model.add(LSTM(10, return_sequences = True))
     model.add(Dropout(0.2))
     model.add(LSTM(10))
