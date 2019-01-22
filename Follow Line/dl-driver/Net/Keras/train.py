@@ -45,7 +45,7 @@ def add_extreme_data(array_w, imgs_w, array_v, imgs_v):
             for j in range(0, 5):
                 array_w.append(array_w[i])
                 imgs_w.append(imgs_w[i])
-        if abs(array_v[i]) <= 2:
+        if float(array_v[i]) <= 2:
             for j in range(0, 5):
                 array_v.append(array_v[i])
                 imgs_v.append(imgs_v[i])
