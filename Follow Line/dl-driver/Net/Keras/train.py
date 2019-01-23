@@ -68,8 +68,8 @@ def choose_model(type_net, img_shape):
         model_w = tinypilotnet_model(img_shape)
         batch_size_v = 64#16
         batch_size_w = 64
-        nb_epoch_v = 223
-        nb_epoch_w = 212
+        nb_epoch_v = 1000 #223
+        nb_epoch_w = 1000 #212
     elif type_net == 'lstm_tinypilotnet':
         model_v = lstm_tinypilotnet_model(img_shape)
         model_w = lstm_tinypilotnet_model(img_shape)
