@@ -52,6 +52,23 @@ def add_extreme_data(array_w, imgs_w, array_v, imgs_v):
     return array_w, imgs_w, array_v, imgs_v
 
 
+def stack_frames(imgs):
+    new_imgs = []
+    margin = 2
+    for i in range(0, len(imgs)):
+        if i - 2*(margin+1) < 0:
+            index1 = 0
+        else:
+            index1 = i - 2*(margin+1)
+        if i - (margin + 1) < 0:
+            index2 = 0
+        else:
+            index2 = i - (margin + 1)
+        im1 =  np.concatenate([imgs[index1], imgs[index2]], axis=2)
+        im2 = np.concatenate([im1, imgs[i]], axis=2)
+        new_imgs.append(im2)
+    return new_imgs
+
 def choose_model(type_net, img_shape):
     model_png = 'models/model_' + type_net + '.png'
     model_file_v = 'models/model_' + type_net + '_v.h5'
@@ -70,6 +87,13 @@ def choose_model(type_net, img_shape):
         batch_size_w = 64
         nb_epoch_v = 1000 #223
         nb_epoch_w = 1000 #212
+    elif type_net == 'stacked':
+        model_v = pilotnet_model(img_shape)
+        model_w = pilotnet_model(img_shape)
+        batch_size_v = 64
+        batch_size_w = 64
+        nb_epoch_v = 300
+        nb_epoch_w = 300
     elif type_net == 'lstm_tinypilotnet':
         model_v = lstm_tinypilotnet_model(img_shape)
         model_w = lstm_tinypilotnet_model(img_shape)
@@ -89,11 +113,12 @@ def choose_model(type_net, img_shape):
 
 if __name__ == "__main__":
     # Choose options
-    type_net = raw_input('Choose the type of network you want: pilotnet, tinypilotnet, lstm_tinypilotnet or lstm: ')
+    type_net = raw_input('Choose the type of network you want: pilotnet, tinypilotnet, lstm_tinypilotnet, lstm or '
+                         'stacked: ')
     print('Your choice: ' + type_net)
 
     # Load data
-    if type_net == 'pilotnet' or type_net == 'tinypilotnet':
+    if type_net == 'pilotnet' or type_net == 'tinypilotnet' or type_net == 'stacked':
         #list_images = glob.glob('../Dataset/Train/Images/' + '*')
         #images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
         #file = open('../Dataset/Train/train.json', 'r')
@@ -118,8 +143,13 @@ if __name__ == "__main__":
         x_w = x[:]
         x_v = x[:]
         y_w, x_w, y_v, x_v = add_extreme_data(y_w, x_w, y_v, x_v)
-        X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x_v, y_v, test_size=0.20, random_state=42)
-        X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w, y_w, test_size=0.20, random_state=42)
+        X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x_v,y_v,test_size=0.20,random_state=42)
+        X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w,y_w,test_size=0.20,random_state=42)
+    elif type_net == 'stacked':
+        # We stack frames
+        x = stack_frames(x)
+        X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
+        X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm':
         X_train_v = x
         X_train_w = x
@@ -129,8 +159,11 @@ if __name__ == "__main__":
         X_t_w, X_validation_w, y_t_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
 
     # Variables
-    img_shape = (120, 160, 3)
-    #img_shape = (60, 80, 3)
+    if type_net == 'stacked':
+        img_shape = (120, 160, 9)
+    else:
+        img_shape = (120, 160, 3)
+        #img_shape = (60, 80, 3)
 
 
     # We adapt the data
