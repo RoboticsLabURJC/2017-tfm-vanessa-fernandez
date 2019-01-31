@@ -78,8 +78,8 @@ def choose_model(type_net, img_shape):
         model_w = pilotnet_model(img_shape)
         batch_size_v = 64#16
         batch_size_w = 64
-        nb_epoch_v = 500#223
-        nb_epoch_w = 500#212
+        nb_epoch_v = 250#223
+        nb_epoch_w = 250#212
     elif type_net == 'tinypilotnet':
         model_v = tinypilotnet_model(img_shape)
         model_w = tinypilotnet_model(img_shape)
@@ -201,10 +201,10 @@ if __name__ == "__main__":
     plot_model(model_v, to_file=model_png)
 
     #  We train
-    #tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+    tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
-    #model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
-    #                          validation_data=(X_validation_v, y_validation_v), callbacks=[tensorboard])
+    model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
+                              validation_data=(X_validation_v, y_validation_v), callbacks=[tensorboard])
 
     tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
@@ -227,7 +227,7 @@ if __name__ == "__main__":
     print('Test mean absolute error: ', score[3])
 
     # We save the model
-    #model_v.save(model_file_v)
+    model_v.save(model_file_v)
     model_w.save(model_file_w)
 
     # Plot the training and validation loss for each epoch
