@@ -27,6 +27,10 @@ class RegressionNetwork():
         self.prediction_v = ""
         self.prediction_w = ""
 
+        # Stack frames (stacked method)
+        self.stacked_imgs = []
+        self.margin = 2
+        self.num_stacked_imgs = 3
 
     def setCamera(self, camera):
         self.camera = camera
@@ -38,6 +42,17 @@ class RegressionNetwork():
         # Preprocessing
         img = cv2.cvtColor(input_image.data, cv2.COLOR_RGB2BGR)
         img_resized = cv2.resize(img, (self.img_width, self.img_height))
+
+        # Stack frames
+        # if len(self.stacked_imgs) == 0:
+        #     for i in range(0, (self.num_stacked_imgs*2+1)):
+        #         self.stacked_imgs.append(img_resized)
+        # else:
+        #     for i in range(0, len(self.stacked_imgs)-1):
+        #        self.stacked_imgs[i] = self.stacked_imgs[i+1]
+        #     self.stacked_imgs[len(self.stacked_imgs)-1] = img_resized
+        # im1 = np.concatenate([self.stacked_imgs[0], self.stacked_imgs[self.margin+1]], axis=2)
+        # img_resized = np.concatenate([im1, self.stacked_imgs[(self.margin+1)*2]], axis=2)
 
         # We adapt the image
         input_img = np.stack([img_resized], axis=0)
