@@ -84,11 +84,13 @@ def parse_json(data, num_classes, name_variable):
     return array_class, array_w
 
 
-def get_images(list_images):
+def get_images(list_images, type_image):
     # We read the images
     array_imgs = []
     for name in list_images:
         img = cv2.imread(name)
+        if type_image == 'cropped':
+            img = img[240:480, 0:640]
         img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
         array_imgs.append(img)
 
@@ -172,11 +174,15 @@ def adapt_labels(array_labels, num_classes, name_variable):
     return array_labels
 
 
-def choose_model(name, input_shape, num_classes, name_variable, type_net):
+def choose_model(name, input_shape, num_classes, name_variable, type_net, type_image):
     if name == "lenet":
         model = lenet5(input_shape, num_classes)
         model_png = 'models/model_lenet5.png'
-        model_file = 'models/model_lenet5_' + str(num_classes) + 'classes_' + type_net + '_' + name_variable + '.h5'
+        if type_image == 'cropped':
+            model_file = 'models/model_lenet5_' + str(num_classes) + 'classes_' + type_net + '_' + type_image + '_' +\
+                         name_variable + '.h5'
+        else:
+            model_file = 'models/model_lenet5_' + str(num_classes) + 'classes_' + type_net + '_' + name_variable + '.h5'
         batch_size = 64
         nb_epochs = 20
         if type_net == "biased":
@@ -186,8 +192,12 @@ def choose_model(name, input_shape, num_classes, name_variable, type_net):
     elif name == "smaller_vgg":
         model = SmallerVGGNet(input_shape, num_classes)
         model_png = 'models/model_smaller_vgg.png'
-        model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + type_net + '_' + \
-                     name_variable + '.h5'
+        if type_image == 'cropped':
+            model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + type_net + '_' + \
+                         type_image + '_' + name_variable + '.h5'
+        else:
+            model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + type_net + '_' + \
+                         name_variable + '.h5'
         if num_classes == 7:
             batch_size = 64
             nb_epochs = 65
@@ -228,6 +238,7 @@ if __name__ == "__main__":
     # Choose options
     num_classes = int(input('Choose one of the options for the number of classes: '))
     name_variable = raw_input('Choose the variable you want to train: v or w: ')
+    type_image = raw_input('Choose the type of image you want: normal or cropped: ')
     type_net = raw_input('Choose the type of network you want: normal, biased or balanced: ')
     name_model = raw_input('Choose the model you want to use: lenet, smaller_vgg or other: ')
     print('Your choice: ' + str(num_classes) + ', ' + name_variable + ', ' + type_net + ' and ' + name_model)
@@ -254,7 +265,7 @@ if __name__ == "__main__":
         file.close()
 
     # We preprocess images
-    x = get_images(images)
+    x = get_images(images, type_image)
     # We preprocess json
     y, array_w = parse_json(data, num_classes, name_variable)
 
@@ -283,13 +294,16 @@ if __name__ == "__main__":
 
 
     # Variables
-    img_shape = (120, 160, 3)
+    if type_image == 'cropped':
+        img_shape = (60, 160, 3)
+    else:
+        img_shape = (120, 160, 3)
 
 
     # Get model
     model, model_file, model_png, batch_size, nb_epochs, class_weight = choose_model(name_model, img_shape,
                                                                                      num_classes, name_variable,
-                                                                                     type_net)
+                                                                                     type_net, type_image)
 
     # We adapt the data
     X_train = np.stack(X_train, axis=0)
