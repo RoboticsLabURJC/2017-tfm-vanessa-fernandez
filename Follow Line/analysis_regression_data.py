@@ -51,7 +51,7 @@ def analysis_w(array):
            num_neg_2_6 += 1
         elif -2.6 <= w and w < -2.3: 
            num_neg_2_3 += 1
-        elif -2.2 <= w and w < -2.0: 
+        elif -2.3 <= w and w < -2.0: 
            num_neg_2_0 += 1
         elif -2.0 <= w and w < -1.7: 
            num_neg_1_7 += 1
@@ -89,6 +89,7 @@ def analysis_w(array):
            num_pos_2_6 += 1
         elif 2.9 <= w: 
            num_pos_2_9 += 1
+
     print('Negative: < -2.9', num_neg_2_9)
     print('Negative: -2.9 <= w < -2.6', num_neg_2_6)
     print('Negative: -2.6 <= w < -2.3', num_neg_2_3)
