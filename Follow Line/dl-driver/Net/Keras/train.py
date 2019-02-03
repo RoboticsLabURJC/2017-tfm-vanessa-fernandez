@@ -27,11 +27,13 @@ def parse_json(data):
     return array_v, array_w
 
 
-def get_images(list_images):
+def get_images(list_images, type_image):
     # We read the images
     array_imgs = []
     for name in list_images:
         img = cv2.imread(name)
+        if type_image == 'cropped':
+            img = img[240:480, 0:640]
         img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
         #img = cv2.resize(img, (img.shape[1] / 8, img.shape[0] / 8))
         array_imgs.append(img)
@@ -46,7 +48,7 @@ def add_extreme_data(array_w, imgs_w, array_v, imgs_v):
                 array_w.append(array_w[i])
                 imgs_w.append(imgs_w[i])
         if float(array_v[i]) <= 2:
-            for j in range(0, 5):
+            for j in range(0, 2):
                 array_v.append(array_v[i])
                 imgs_v.append(imgs_v[i])
     return array_w, imgs_w, array_v, imgs_v
@@ -69,10 +71,14 @@ def stack_frames(imgs):
         new_imgs.append(im2)
     return new_imgs
 
-def choose_model(type_net, img_shape):
+def choose_model(type_net, img_shape, type_image):
     model_png = 'models/model_' + type_net + '.png'
-    model_file_v = 'models/model_' + type_net + '_v.h5'
-    model_file_w = 'models/model_' + type_net + '_w.h5'
+    if type_image == 'cropped':
+        model_file_v = 'models/model_' + type_net + '_' + type_image + '_v.h5'
+        model_file_w = 'models/model_' + type_net + '_' + type_image + '_w.h5'
+    else:
+        model_file_v = 'models/model_' + type_net + '_v.h5'
+        model_file_w = 'models/model_' + type_net + '_w.h5'
     if type_net == 'pilotnet':
         model_v = pilotnet_model(img_shape)
         model_w = pilotnet_model(img_shape)
@@ -113,6 +119,7 @@ def choose_model(type_net, img_shape):
 
 if __name__ == "__main__":
     # Choose options
+    type_image = raw_input('Choose the type of image you want: normal or cropped: ')
     type_net = raw_input('Choose the type of network you want: pilotnet, tinypilotnet, lstm_tinypilotnet, lstm or '
                          'stacked: ')
     print('Your choice: ' + type_net)
@@ -133,7 +140,7 @@ if __name__ == "__main__":
     file.close()
 
     # We preprocess images
-    x = get_images(images)
+    x = get_images(images, type_image)
     # We preprocess json
     y_v, y_w = parse_json(data)
 
@@ -161,6 +168,8 @@ if __name__ == "__main__":
     # Variables
     if type_net == 'stacked':
         img_shape = (120, 160, 9)
+    elif type_image == 'cropped':
+        img_shape = (60, 160, 3)
     else:
         img_shape = (120, 160, 3)
         #img_shape = (60, 80, 3)
@@ -193,7 +202,7 @@ if __name__ == "__main__":
 
     # Get model
     model_v, model_w, model_file_v, model_file_w, model_png, batch_size_v, nb_epoch_v, batch_size_w, \
-    nb_epoch_w = choose_model(type_net, img_shape)
+    nb_epoch_w = choose_model(type_net, img_shape, type_image)
 
     # Print layers
     print(model_v.summary())
