@@ -167,11 +167,15 @@ if __name__ == "__main__":
 
     # Variables
     if type_net == 'stacked':
-        img_shape = (120, 160, 9)
-    elif type_image == 'cropped':
-        img_shape = (65, 160, 3)
+        if type_image == 'cropped':
+            img_shape = (65, 160, 9)
+        else:
+            img_shape = (120, 160, 9)
     else:
-        img_shape = (120, 160, 3)
+        if type_image == 'cropped':
+            img_shape = (65, 160, 3)
+        else:
+            img_shape = (120, 160, 3)
         #img_shape = (60, 80, 3)
 
 
