@@ -33,7 +33,7 @@ def get_images(list_images, type_image):
     for name in list_images:
         img = cv2.imread(name)
         if type_image == 'cropped':
-            img = img[240:480, 0:640]
+            img = img[220:480, 0:640]
         img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
         #img = cv2.resize(img, (img.shape[1] / 8, img.shape[0] / 8))
         array_imgs.append(img)
@@ -169,7 +169,7 @@ if __name__ == "__main__":
     if type_net == 'stacked':
         img_shape = (120, 160, 9)
     elif type_image == 'cropped':
-        img_shape = (60, 160, 3)
+        img_shape = (65, 160, 3)
     else:
         img_shape = (120, 160, 3)
         #img_shape = (60, 80, 3)
