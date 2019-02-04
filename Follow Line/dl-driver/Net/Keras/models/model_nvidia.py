@@ -65,6 +65,26 @@ def lstm_tinypilotnet_model(img_shape):
     return model
 
 
+def deepestlstm_tinypilotnet(img_shape):
+    model = Sequential()
+    model.add(Conv2D(8, (3, 3), strides=(2, 2), input_shape=img_shape, activation="relu"))
+    model.add(Conv2D(8, (3, 3), strides=(2, 2), activation="relu"))
+    model.add(Conv2D(8, (3, 3), strides=(2, 2), activation="relu"))
+    model.add(Dropout(0.2))
+    model.add(Reshape((1, 14, 19, 32)))
+    model.add(ConvLSTM2D(nb_filter=8, nb_row=3, nb_col=3, border_mode='same', return_sequences=True))
+    model.add(ConvLSTM2D(nb_filter=8, nb_row=3, nb_col=3, border_mode='same', return_sequences=True))
+    model.add(ConvLSTM2D(nb_filter=12, nb_row=3, nb_col=3, border_mode='same', return_sequences=True))
+    model.add(Reshape((14, 19, 40)))
+    model.add(Flatten())
+    model.add(Dense(100, activation="relu"))
+    model.add(Dense(50, activation="relu"))
+    model.add(Dense(1))
+    adam = Adam(lr=0.0001)
+    model.compile(optimizer=adam, loss="mse", metrics=['accuracy', 'mse', 'mae'])
+    return model
+
+
 def lstm_model(img_shape):
     # https://github.com/udacity/self-driving-car/blob/master/steering-models/community-models/chauffeur/models.py
     # https://www.kdnuggets.com/2018/11/keras-long-short-term-memory-lstm-model-predict-stock-prices.html
