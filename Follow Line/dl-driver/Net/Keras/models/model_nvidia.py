@@ -65,7 +65,7 @@ def lstm_tinypilotnet_model(img_shape):
     return model
 
 
-def deepestlstm_tinypilotnet(img_shape):
+def deepestlstm_tinypilotnet_model(img_shape):
     model = Sequential()
     model.add(Conv2D(8, (3, 3), strides=(2, 2), input_shape=img_shape, activation="relu"))
     model.add(Conv2D(8, (3, 3), strides=(2, 2), activation="relu"))
