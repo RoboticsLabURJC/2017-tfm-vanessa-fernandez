@@ -100,7 +100,7 @@ def choose_model(type_net, img_shape, type_image):
         batch_size_w = 64
         nb_epoch_v = 300
         nb_epoch_w = 250
-    elif type_net == 'lstm_tinypilotnet':
+    elif type_net == 'lstm_tinypilotnet' or type_net == 'deepestlstm_tinypilotnet':
         model_v = lstm_tinypilotnet_model(img_shape)
         model_w = lstm_tinypilotnet_model(img_shape)
         batch_size_v = 12 #8
@@ -120,8 +120,8 @@ def choose_model(type_net, img_shape, type_image):
 if __name__ == "__main__":
     # Choose options
     type_image = raw_input('Choose the type of image you want: normal or cropped: ')
-    type_net = raw_input('Choose the type of network you want: pilotnet, tinypilotnet, lstm_tinypilotnet, lstm or '
-                         'stacked: ')
+    type_net = raw_input('Choose the type of network you want: pilotnet, tinypilotnet, lstm_tinypilotnet, lstm, '
+                         'deepestlstm_tinypilotnet or stacked: ')
     print('Your choice: ' + type_net)
 
     # Load data
@@ -132,7 +132,7 @@ if __name__ == "__main__":
         list_images = glob.glob('../Dataset/Images/' + '*')
         images = sorted(list_images, key=lambda x: int(x.split('/')[3].split('.png')[0]))
         file = open('../Dataset/data.json', 'r')
-    elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm':
+    elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm' or type_net == 'deepestlstm_tinypilotnet':
         list_images = glob.glob('../Dataset/Images/' + '*')
         images = sorted(list_images, key=lambda x: int(x.split('/')[3].split('.png')[0]))
         file = open('../Dataset/data.json', 'r')
@@ -157,7 +157,7 @@ if __name__ == "__main__":
         x = stack_frames(x)
         X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
         X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
-    elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm':
+    elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm' or type_net == 'deepestlstm_tinypilotnet':
         X_train_v = x
         X_train_w = x
         y_train_v = y_v
