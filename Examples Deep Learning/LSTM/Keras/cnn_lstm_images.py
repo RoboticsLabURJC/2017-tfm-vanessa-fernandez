@@ -106,7 +106,7 @@ if __name__ == "__main__":
 
     # We evaluate the model
     score = model.evaluate(X_val, y_val, verbose=0)
-    print('Evaluating v')
+    print('Evaluating')
     print('Test loss: ', score[0])
     print('Test accuracy: ', score[1])
     print('Test mean squared error: ', score[2])
