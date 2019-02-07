@@ -34,7 +34,10 @@ def get_images(list_images, type_image):
         img = cv2.imread(name)
         if type_image == 'cropped':
             img = img[220:480, 0:640]
-        img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
+        if type_net == 'lstm':
+            img = cv2.resize(img, (img.shape[1] / 10, img.shape[0] / 10))
+        else:
+            img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
         #img = cv2.resize(img, (img.shape[1] / 8, img.shape[0] / 8))
         array_imgs.append(img)
 
@@ -179,6 +182,11 @@ if __name__ == "__main__":
             img_shape = (65, 160, 9)
         else:
             img_shape = (120, 160, 9)
+    elif type_net == 'lstm':
+        if type_image == 'cropped':
+            img_shape = (26, 64, 3)
+        else:
+            img_shape = (48, 64, 3)
     else:
         if type_image == 'cropped':
             img_shape = (65, 160, 3)
