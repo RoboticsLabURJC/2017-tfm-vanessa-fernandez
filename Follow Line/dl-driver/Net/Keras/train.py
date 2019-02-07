@@ -155,6 +155,11 @@ if __name__ == "__main__":
     # We preprocess json
     y_v, y_w = parse_json(data)
 
+    if type_net == 'lstm':
+        x = x[:10000]
+        y_v = y_v[:10000]
+        y_w = y_w[:10000]
+
     # Split data into 80% for train and 20% for validation
     if type_net == 'pilotnet' or type_net == 'tinypilotnet':
         # We adapt the data
