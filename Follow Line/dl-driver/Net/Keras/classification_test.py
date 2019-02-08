@@ -214,10 +214,10 @@ if __name__ == "__main__":
     print('Your choice: ' + str(num_classes) + ', ' + name_variable + ', ' + type_net + ' and ' + name_model)
 
     # Load data
-    list_images = glob.glob('../Dataset/Train/Images/' + '*')
+    list_images = glob.glob('../Dataset/Test/Images/' + '*')
     images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
 
-    file = open('../Dataset/Train/train.json', 'r')
+    file = open('../Dataset/Test/test.json', 'r')
     data = file.read()
     file.close()
 
