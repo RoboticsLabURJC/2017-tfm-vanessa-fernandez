@@ -23,7 +23,7 @@ def parse_json(data):
     return array_v, array_w
 
 
-def get_images(list_images):
+def get_images(list_images, type_image, type_net):
     # We read the images
     array_imgs = []
     for name in list_images:
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     file.close()
 
     # We preprocess images
-    x_test = get_images(images, type_image)
+    x_test = get_images(images, type_image, type_net)
     # We preprocess json
     y_test_v, y_test_w = parse_json(data)
 
