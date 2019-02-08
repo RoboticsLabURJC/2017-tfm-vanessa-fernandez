@@ -28,10 +28,25 @@ def get_images(list_images):
     array_imgs = []
     for name in list_images:
         img = cv2.imread(name)
-        img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
+        if type_image == 'cropped':
+            img = img[220:480, 0:640]
+        if type_net == 'lstm':
+            img = cv2.resize(img, (img.shape[1] / 10, img.shape[0] / 10))
+        else:
+            img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
         array_imgs.append(img)
 
     return array_imgs
+
+
+def choose_model(type_net, type_image):
+    if type_image == 'cropped':
+        model_file_v = 'models/model_' + type_net + '_' + type_image + '_v.h5'
+        model_file_w = 'models/model_' + type_net + '_' + type_image + '_w.h5'
+    else:
+        model_file_v = 'models/model_' + type_net + '_v.h5'
+        model_file_w = 'models/model_' + type_net + '_w.h5'
+    return model_file_v, model_file_w
 
 
 def make_predictions(data, model):
@@ -73,6 +88,11 @@ def plot_confusion_matrix(cm, cmap=plt.cm.Blues):
 
 
 if __name__ == "__main__":
+    # Choose options
+    type_image = raw_input('Choose the type of image you want: normal or cropped: ')
+    type_net = raw_input('Choose the type of network you want: pilotnet, tinypilotnet, lstm_tinypilotnet, lstm, '
+                         'deepestlstm_tinypilotnet or stacked: ')
+    print('Your choice: ' + type_net + ', ' +type_image)
 
     # Load data
     list_images = glob.glob('../Dataset/Test/Images/' + '*')
@@ -83,7 +103,7 @@ if __name__ == "__main__":
     file.close()
 
     # We preprocess images
-    x_test = get_images(images)
+    x_test = get_images(images, type_image)
     # We preprocess json
     y_test_v, y_test_w = parse_json(data)
 
@@ -92,10 +112,13 @@ if __name__ == "__main__":
     y_test_v = np.stack(y_test_v, axis=0)
     y_test_w = np.stack(y_test_w, axis=0)
 
+    # Get model
+    model_file_v, model_file_w = choose_model(type_net, type_image)
+
     # Load model
     print('Loading model...')
-    model_v = load_model('models/model_pilotnet_v.h5')
-    model_w = load_model('models/model_pilotnet_w.h5')
+    model_v = load_model(model_file_v)
+    model_w = load_model(model_file_w)
     #model_v = load_model('models/model_pilotnet_v.h5', custom_objects={'myAccuracy_regression': myAccuracy_regression})
     #model_w = load_model('models/model_pilotnet_w.h5', custom_objects={'myAccuracy_regression': myAccuracy_regression})
 
