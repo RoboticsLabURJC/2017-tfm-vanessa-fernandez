@@ -67,11 +67,13 @@ def parse_json(data, num_classes, name_variable):
 
 
 
-def get_images(list_images):
+def get_images(list_images, type_image):
     # We read the images
     array_imgs = []
     for name in list_images:
         img = cv2.imread(name)
+        if type_image == 'cropped':
+            img = img[240:480, 0:640]
         img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
         array_imgs.append(img)
 
@@ -149,11 +151,15 @@ def adapt_labels(array_labels, num_classes, name_variable):
     return array_labels
 
 
-def choose_model(name, num_classes, name_var, type_net):
+def choose_model(name, num_classes, name_var, type_net, type_image):
     if name == "lenet":
         model_file = 'models/model_lenet5_7classes.h5'
     elif name == "smaller_vgg":
-        model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + type_net + '_'+ name_var + '.h5'
+        if type_image == 'cropped':
+            model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + type_net + '_' + \
+                         type_image + '_' + name_var + '.h5'
+        else:
+            model_file = 'models/model_smaller_vgg_' + str(num_classes) + 'classes_' + type_net + '_'+ name_var + '.h5'
     elif name == "other":
         model_file = 'models/model_binary_classification.h5'
     return model_file
@@ -202,12 +208,13 @@ if __name__ == "__main__":
     # Choose options
     num_classes = int(input('Choose the number of classes: '))
     name_variable = raw_input('Choose the variable you want to train: v or w: ')
+    type_image = raw_input('Choose the type of image you want: normal or cropped: ')
     type_net = raw_input('Choose the type of network you want: normal, biased or balanced: ')
     name_model = raw_input('Choose the model you want to use: mobilenet, lenet, smaller_vgg or other: ')
     print('Your choice: ' + str(num_classes) + ', ' + name_variable + ', ' + type_net + ' and ' + name_model)
 
     # Load data
-    list_images = glob.glob('../Dataset/Test/Images/' + '*')
+    list_images = glob.glob('../Dataset/Train/Images/' + '*')
     images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
 
     file = open('../Dataset/Test/test.json', 'r')
@@ -215,7 +222,7 @@ if __name__ == "__main__":
     file.close()
 
     # We preprocess images
-    x_test = get_images(images)
+    x_test = get_images(images, type_image)
     # We preprocess json
     y_test = parse_json(data, num_classes, name_variable)
 
@@ -231,7 +238,7 @@ if __name__ == "__main__":
     y_test = np.stack(y_test, axis=0)
 
     # Get model
-    model_file = choose_model(name_model, num_classes, name_variable, type_net)
+    model_file = choose_model(name_model, num_classes, name_variable, type_net, type_image)
 
     # Load model
     print('Loading model...')
