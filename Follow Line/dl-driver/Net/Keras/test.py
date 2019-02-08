@@ -39,6 +39,24 @@ def get_images(list_images, type_image, type_net):
     return array_imgs
 
 
+def stack_frames(imgs):
+    new_imgs = []
+    margin = 2
+    for i in range(0, len(imgs)):
+        if i - 2*(margin+1) < 0:
+            index1 = 0
+        else:
+            index1 = i - 2*(margin+1)
+        if i - (margin + 1) < 0:
+            index2 = 0
+        else:
+            index2 = i - (margin + 1)
+        im1 =  np.concatenate([imgs[index1], imgs[index2]], axis=2)
+        im2 = np.concatenate([im1, imgs[i]], axis=2)
+        new_imgs.append(im2)
+    return new_imgs
+
+
 def choose_model(type_net, type_image):
     if type_image == 'cropped':
         model_file_v = 'models/model_' + type_net + '_' + type_image + '_v.h5'
@@ -106,6 +124,9 @@ if __name__ == "__main__":
     x_test = get_images(images, type_image, type_net)
     # We preprocess json
     y_test_v, y_test_w = parse_json(data)
+
+    # We adapt stacked frames
+    x_test = stack_frames(x_test)
 
     # We adapt the data
     X_test = np.stack(x_test, axis=0)
