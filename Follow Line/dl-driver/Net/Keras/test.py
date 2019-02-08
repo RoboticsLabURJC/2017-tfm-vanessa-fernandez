@@ -126,7 +126,8 @@ if __name__ == "__main__":
     y_test_v, y_test_w = parse_json(data)
 
     # We adapt stacked frames
-    x_test = stack_frames(x_test)
+    if type_net == 'stacked':
+        x_test = stack_frames(x_test)
 
     # We adapt the data
     X_test = np.stack(x_test, axis=0)
