@@ -57,7 +57,7 @@ def add_extreme_data(array_w, imgs_w, array_v, imgs_v):
     return array_w, imgs_w, array_v, imgs_v
 
 
-def stack_frames(imgs):
+def stack_frames(imgs, type_net):
     new_imgs = []
     margin = 10
     for i in range(0, len(imgs)):
@@ -71,7 +71,11 @@ def stack_frames(imgs):
             index2 = i - (margin + 1)
         #im1 =  np.concatenate([imgs[index1], imgs[index2]], axis=2)
         #im2 = np.concatenate([im1, imgs[i]], axis=2)
-        im2 = np.concatenate([imgs[index2], imgs[i]], axis=2)
+        if type_net == 'stacked_dif':
+            im = imgs[i] - imgs[index2]
+            im2 = np.concatenate([im, imgs[i]], axis=2)
+        else:
+            im2 = np.concatenate([imgs[index2], imgs[i]], axis=2)
         new_imgs.append(im2)
     return new_imgs
 
@@ -97,7 +101,7 @@ def choose_model(type_net, img_shape, type_image):
         batch_size_w = 64
         nb_epoch_v = 1000 #223
         nb_epoch_w = 1000 #212
-    elif type_net == 'stacked':
+    elif type_net == 'stacked' or type_net == 'stacked_dif':
         model_v = pilotnet_model(img_shape)
         model_w = pilotnet_model(img_shape)
         batch_size_v = 64
@@ -133,21 +137,13 @@ if __name__ == "__main__":
     # Choose options
     type_image = raw_input('Choose the type of image you want: normal or cropped: ')
     type_net = raw_input('Choose the type of network you want: pilotnet, tinypilotnet, lstm_tinypilotnet, lstm, '
-                         'deepestlstm_tinypilotnet or stacked: ')
-    print('Your choice: ' + type_net)
+                         'deepestlstm_tinypilotnet, stacked or stacked_dif: ')
+    print('Your choice: ' + type_net + ', ' + type_image)
 
     # Load data
-    if type_net == 'pilotnet' or type_net == 'tinypilotnet' or type_net == 'stacked':
-        #list_images = glob.glob('../Dataset/Train/Images/' + '*')
-        #images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
-        #file = open('../Dataset/Train/train.json', 'r')
-        list_images = glob.glob('../Dataset/Images/' + '*')
-        images = sorted(list_images, key=lambda x: int(x.split('/')[3].split('.png')[0]))
-        file = open('../Dataset/data.json', 'r')
-    elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm' or type_net == 'deepestlstm_tinypilotnet':
-        list_images = glob.glob('../Dataset/Images/' + '*')
-        images = sorted(list_images, key=lambda x: int(x.split('/')[3].split('.png')[0]))
-        file = open('../Dataset/data.json', 'r')
+    list_images = glob.glob('../Dataset/Images/' + '*')
+    images = sorted(list_images, key=lambda x: int(x.split('/')[3].split('.png')[0]))
+    file = open('../Dataset/data.json', 'r')
     data = file.read()
     file.close()
 
@@ -169,9 +165,9 @@ if __name__ == "__main__":
         y_w, x_w, y_v, x_v = add_extreme_data(y_w, x_w, y_v, x_v)
         X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x_v,y_v,test_size=0.20,random_state=42)
         X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w,y_w,test_size=0.20,random_state=42)
-    elif type_net == 'stacked':
+    elif type_net == 'stacked' or type_net == 'stacked_dif':
         # We stack frames
-        x = stack_frames(x)
+        x = stack_frames(x, type_net)
         X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
         X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm' or type_net == 'deepestlstm_tinypilotnet':
