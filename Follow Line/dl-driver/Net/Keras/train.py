@@ -179,7 +179,7 @@ if __name__ == "__main__":
         X_t_w, X_validation_w, y_t_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
 
     # Variables
-    if type_net == 'stacked':
+    if type_net == 'stacked' or type_net == 'stacked_dif':
         if type_image == 'cropped':
             #img_shape = (65, 160, 9)
             img_shape = (65, 160, 6)
