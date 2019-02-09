@@ -59,18 +59,19 @@ def add_extreme_data(array_w, imgs_w, array_v, imgs_v):
 
 def stack_frames(imgs):
     new_imgs = []
-    margin = 2
+    margin = 10
     for i in range(0, len(imgs)):
-        if i - 2*(margin+1) < 0:
-            index1 = 0
-        else:
-            index1 = i - 2*(margin+1)
+        # if i - 2*(margin+1) < 0:
+        #     index1 = 0
+        # else:
+        #     index1 = i - 2*(margin+1)
         if i - (margin + 1) < 0:
             index2 = 0
         else:
             index2 = i - (margin + 1)
-        im1 =  np.concatenate([imgs[index1], imgs[index2]], axis=2)
-        im2 = np.concatenate([im1, imgs[i]], axis=2)
+        #im1 =  np.concatenate([imgs[index1], imgs[index2]], axis=2)
+        #im2 = np.concatenate([im1, imgs[i]], axis=2)
+        im2 = np.concatenate([imgs[index2], imgs[i]], axis=2)
         new_imgs.append(im2)
     return new_imgs
 
@@ -184,9 +185,11 @@ if __name__ == "__main__":
     # Variables
     if type_net == 'stacked':
         if type_image == 'cropped':
-            img_shape = (65, 160, 9)
+            #img_shape = (65, 160, 9)
+            img_shape = (65, 160, 6)
         else:
-            img_shape = (120, 160, 9)
+            #img_shape = (120, 160, 9)
+            img_shape = (120, 160, 6)
     elif type_net == 'lstm':
         if type_image == 'cropped':
             img_shape = (26, 64, 3)
