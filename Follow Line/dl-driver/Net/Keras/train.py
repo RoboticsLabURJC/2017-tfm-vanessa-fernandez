@@ -149,13 +149,11 @@ def balance_w(array_w, imgs_w):
     for i in range(0, len(array_class_w)):
         while array_num[i] < max_num:
             j = 0
-            while j < len(array_class_w[i]):
+            while j < len(array_class_w[i]) and array_num[i] < max_num:
                 array_num[i] += 1
                 array_w.append(array_class_w[i][j])
                 imgs_w.append(imgs_class_w[i][j])
                 j += 1
-                if array_num[i] < max_num:
-                    break
     return array_w, imgs_w
 
 
