@@ -146,13 +146,10 @@ def classify_data(array_w, imgs_w):
 def balance_w(array_w, imgs_w):
     array_class_w, imgs_class_w, array_num = classify_data(array_w, imgs_w)
     max_num = max(array_num)
-    print(array_num)
     for i in range(0, len(array_class_w)):
         while array_num[i] < max_num:
-            print('WHILE 1')
             j = 0
             while j < len(array_class_w[i]):
-                print('WHILE 2')
                 array_num[i] += 1
                 array_w.append(array_class_w[i][j])
                 imgs_w.append(imgs_class_w[i][j])
