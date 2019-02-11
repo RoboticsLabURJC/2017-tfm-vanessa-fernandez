@@ -161,7 +161,7 @@ def add_extreme_data(array_w, imgs_w, array_v, imgs_v):
     for i in range(0, len(array_w)):
         if abs(array_w[i]) >= 1:
             if abs(array_w[i]) >= 2:
-                num_iter = 1000
+                num_iter = 100
             else:
                 num_iter = 5
             for j in range(0, num_iter):
