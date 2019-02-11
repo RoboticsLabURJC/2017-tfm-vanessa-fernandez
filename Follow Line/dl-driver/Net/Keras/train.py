@@ -211,7 +211,7 @@ def choose_model(type_net, img_shape, type_image):
         batch_size_v = 64#16
         batch_size_w = 64
         nb_epoch_v = 250#223
-        nb_epoch_w = 200#212
+        nb_epoch_w = 212#212
     elif type_net == 'tinypilotnet':
         model_v = tinypilotnet_model(img_shape)
         model_w = tinypilotnet_model(img_shape)
