@@ -28,7 +28,7 @@ def pilotnet_model(img_shape):
     model.add(Dense(50, activation="relu"))
     model.add(Dense(10, activation="relu"))
     model.add(Dense(1))
-    adam = Adam(lr=0.00001)
+    adam = Adam(lr=0.0001)
     model.compile(optimizer=adam, loss="mse", metrics=['accuracy', 'mse', 'mae'])
     return model
 
