@@ -157,21 +157,21 @@ def get_images(list_images, type_image):
 #     return array_w, imgs_w
 
 
-# def add_extreme_data(array_w, imgs_w, array_v, imgs_v):
-#     for i in range(0, len(array_w)):
-#         if abs(array_w[i]) >= 1:
-#             if abs(array_w[i]) >= 2:
-#                 num_iter = 10
-#             else:
-#                 num_iter = 5
-#             for j in range(0, num_iter):
-#                 array_w.append(array_w[i])
-#                 imgs_w.append(imgs_w[i])
-#         if float(array_v[i]) <= 2:
-#             for j in range(0, 2):
-#                 array_v.append(array_v[i])
-#                 imgs_v.append(imgs_v[i])
-#     return array_w, imgs_w, array_v, imgs_v
+def add_extreme_data(array_w, imgs_w, array_v, imgs_v):
+    for i in range(0, len(array_w)):
+        if abs(array_w[i]) >= 1:
+            if abs(array_w[i]) >= 2:
+                num_iter = 10
+            else:
+                num_iter = 5
+            for j in range(0, num_iter):
+                array_w.append(array_w[i])
+                imgs_w.append(imgs_w[i])
+        if float(array_v[i]) <= 2:
+            for j in range(0, 1):
+                array_v.append(array_v[i])
+                imgs_v.append(imgs_v[i])
+    return array_w, imgs_w, array_v, imgs_v
 
 
 def preprocess_data(array_w, array_v, imgs):
@@ -296,9 +296,12 @@ if __name__ == "__main__":
         #y_w, x_w, y_v, x_v = add_extreme_data(y_w, x_w, y_v, x_v)
         #y_w, x_w = balance_w(y_w, x_w)
         y_w, y_v, x = preprocess_data(y_w, y_v, x)
-        X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20,
+        x_w = x[:]
+        x_v = x[:]
+        y_w, x_w, y_v, x_v = add_extreme_data(y_w, x_w, y_v, x_v)
+        X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x_v, y_v, test_size=0.20,
                                                                                 random_state=42)
-        X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20,
+        X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w, y_w, test_size=0.20,
                                                                                 random_state=42)
         #X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x_v,y_v,test_size=0.20,random_state=42)
         #X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w,y_w,test_size=0.20,random_state=42)
