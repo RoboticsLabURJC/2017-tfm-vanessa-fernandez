@@ -44,119 +44,6 @@ def get_images(list_images, type_image):
     return array_imgs
 
 
-# def classify_data(array_w, imgs_w):
-#     num_class = 22
-#     imgs_class_w = [[] for i in range(0, num_class)]
-#     array_class_w = [[] for i in range(0, num_class)]
-#     array_num = [0 for i in range(0, num_class)]
-#     index = 0
-#     for w in array_w:
-#         if w < -2.9:
-#            array_num[0] += 1
-#            array_class_w[0].append(w)
-#            imgs_class_w[0].append(imgs_w[index])
-#         elif -2.9 <= w and w < -2.6:
-#             array_num[1] += 1
-#             array_class_w[1].append(w)
-#             imgs_class_w[1].append(imgs_w[index])
-#         elif -2.6 <= w and w < -2.3:
-#             array_num[2] += 1
-#             array_class_w[2].append(w)
-#             imgs_class_w[2].append(imgs_w[index])
-#         elif -2.3 <= w and w < -2.0:
-#             array_num[3] += 1
-#             array_class_w[3].append(w)
-#             imgs_class_w[3].append(imgs_w[index])
-#         elif -2.0 <= w and w < -1.7:
-#             array_num[4] += 1
-#             array_class_w[4].append(w)
-#             imgs_class_w[4].append(imgs_w[index])
-#         elif -1.7 <= w and w < -1.4:
-#             array_num[5] += 1
-#             array_class_w[5].append(w)
-#             imgs_class_w[5].append(imgs_w[index])
-#         elif -1.4 <= w and w < -1.1:
-#             array_num[6] += 1
-#             array_class_w[6].append(w)
-#             imgs_class_w[6].append(imgs_w[index])
-#         elif -1.1 <= w and w < -0.8:
-#             array_num[7] += 1
-#             array_class_w[7].append(w)
-#             imgs_class_w[7].append(imgs_w[index])
-#         elif -0.8 <= w and w < -0.5:
-#             array_num[8] += 1
-#             array_class_w[8].append(w)
-#             imgs_class_w[8].append(imgs_w[index])
-#         elif -0.5 <= w and w < -0.2:
-#             array_num[9] += 1
-#             array_class_w[9].append(w)
-#             imgs_class_w[9].append(imgs_w[index])
-#         elif -0.2 <= w and w < -0.0:
-#             array_num[10] += 1
-#             array_class_w[10].append(w)
-#             imgs_class_w[10].append(imgs_w[index])
-#         elif 0.0 <= w and w < 0.2:
-#             array_num[11] += 1
-#             array_class_w[11].append(w)
-#             imgs_class_w[11].append(imgs_w[index])
-#         elif 0.2 <= w and w < 0.5:
-#             array_num[12] += 1
-#             array_class_w[12].append(w)
-#             imgs_class_w[12].append(imgs_w[index])
-#         elif 0.5 <= w and w < 0.8:
-#             array_num[13] += 1
-#             array_class_w[13].append(w)
-#             imgs_class_w[13].append(imgs_w[index])
-#         elif 0.8 <= w and w < 1.1:
-#             array_num[14] += 1
-#             array_class_w[14].append(w)
-#             imgs_class_w[14].append(imgs_w[index])
-#         elif 1.1 <= w and w < 1.4:
-#             array_num[15] += 1
-#             array_class_w[15].append(w)
-#             imgs_class_w[15].append(imgs_w[index])
-#         elif 1.4 <= w and w < 1.7:
-#             array_num[16] += 1
-#             array_class_w[16].append(w)
-#             imgs_class_w[16].append(imgs_w[index])
-#         elif 1.7 <= w and w < 2.0:
-#             array_num[17] += 1
-#             array_class_w[17].append(w)
-#             imgs_class_w[17].append(imgs_w[index])
-#         elif 2.0 <= w and w < 2.3:
-#             array_num[18] += 1
-#             array_class_w[18].append(w)
-#             imgs_class_w[18].append(imgs_w[index])
-#         elif 2.3 <= w and w < 2.6:
-#             array_num[19] += 1
-#             array_class_w[19].append(w)
-#             imgs_class_w[19].append(imgs_w[index])
-#         elif 2.6 <= w and w < 2.9:
-#             array_num[20] += 1
-#             array_class_w[20].append(w)
-#             imgs_class_w[20].append(imgs_w[index])
-#         elif 2.9 <= w:
-#             array_num[21] += 1
-#             array_class_w[21].append(w)
-#             imgs_class_w[21].append(imgs_w[index])
-#         index += 1
-#     return array_class_w, imgs_class_w, array_num
-#
-#
-# def balance_w(array_w, imgs_w):
-#     array_class_w, imgs_class_w, array_num = classify_data(array_w, imgs_w)
-#     max_num = max(array_num)
-#     for i in range(0, len(array_class_w)):
-#         while array_num[i] < max_num:
-#             j = 0
-#             while j < len(array_class_w[i]) and array_num[i] < max_num:
-#                 array_num[i] += 1
-#                 array_w.append(array_class_w[i][j])
-#                 imgs_w.append(imgs_class_w[i][j])
-#                 j += 1
-#     return array_w, imgs_w
-
-
 def add_extreme_data(array_w, imgs_w, array_v, imgs_v):
     for i in range(0, len(array_w)):
         if abs(array_w[i]) >= 1:
@@ -294,7 +181,6 @@ if __name__ == "__main__":
         #x_w = x[:]
         #x_v = x[:]
         #y_w, x_w, y_v, x_v = add_extreme_data(y_w, x_w, y_v, x_v)
-        #y_w, x_w = balance_w(y_w, x_w)
         y_w, y_v, x = preprocess_data(y_w, y_v, x)
         x_w = x[:]
         x_v = x[:]
@@ -379,10 +265,10 @@ if __name__ == "__main__":
     model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
                               validation_data=(X_validation_v, y_validation_v), callbacks=[tensorboard])
 
-    tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+    #tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
-    model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size_w, verbose=2,
-                                  validation_data=(X_validation_w, y_validation_w), callbacks=[tensorboard])
+    #model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size_w, verbose=2,
+    #                              validation_data=(X_validation_w, y_validation_w), callbacks=[tensorboard])
 
     # We evaluate the model
     score = model_v.evaluate(X_validation_v, y_validation_v, verbose=0)
@@ -401,7 +287,7 @@ if __name__ == "__main__":
 
     # We save the model
     model_v.save(model_file_v)
-    model_w.save(model_file_w)
+    #model_w.save(model_file_w)
 
     # Plot the training and validation loss for each epoch
     # plt.plot(model_history.history['loss'])
