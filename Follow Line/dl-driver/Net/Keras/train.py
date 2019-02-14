@@ -193,10 +193,12 @@ if __name__ == "__main__":
         #X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w,y_w,test_size=0.20,random_state=42)
     elif type_net == 'stacked' or type_net == 'stacked_dif':
         # We stack frames
+        y_w, y_v, x = preprocess_data(y_w, y_v, x)
         x = stack_frames(x, type_net)
         X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
         X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm' or type_net == 'deepestlstm_tinypilotnet':
+        y_w, y_v, x = preprocess_data(y_w, y_v, x)
         X_train_v = x
         X_train_w = x
         y_train_v = y_v
