@@ -117,7 +117,7 @@ def choose_model(type_net, img_shape, type_image):
         model_w = tinypilotnet_model(img_shape)
         batch_size_v = 64#16
         batch_size_w = 64
-        nb_epoch_v = 1000 #223
+        nb_epoch_v = 300 #223
         nb_epoch_w = 1000 #212
     elif type_net == 'stacked' or type_net == 'stacked_dif':
         model_v = pilotnet_model(img_shape)
