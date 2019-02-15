@@ -138,7 +138,7 @@ def choose_model(type_net, img_shape, type_image):
         model_w = deepestlstm_tinypilotnet_model(img_shape)
         batch_size_v = 12 #8
         batch_size_w = 12 #8
-        nb_epoch_v = 100#223
+        nb_epoch_v = 150#223
         nb_epoch_w = 100#212
 
     elif type_net == 'lstm':
