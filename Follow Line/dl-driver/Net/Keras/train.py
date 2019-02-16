@@ -8,7 +8,7 @@ from time import time
 from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
 from keras.utils import plot_model
-from keras.callbacks import TensorBoard, ModelCheckpoint
+from keras.callbacks import TensorBoard, ModelCheckpoint, CSVLogger
 from models.model_nvidia import *
 
 
@@ -38,7 +38,6 @@ def get_images(list_images, type_image):
             img = cv2.resize(img, (img.shape[1] / 10, img.shape[0] / 10))
         else:
             img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
-        #img = cv2.resize(img, (img.shape[1] / 8, img.shape[0] / 8))
         array_imgs.append(img)
 
     return array_imgs
@@ -170,10 +169,6 @@ if __name__ == "__main__":
     # We preprocess json
     y_v, y_w = parse_json(data)
 
-    if type_net == 'lstm':
-        x = x[:1000]
-        y_v = y_v[:1000]
-        y_w = y_w[:1000]
 
     # Split data into 80% for train and 20% for validation
     if type_net == 'pilotnet' or type_net == 'tinypilotnet':
@@ -224,33 +219,17 @@ if __name__ == "__main__":
             img_shape = (65, 160, 3)
         else:
             img_shape = (120, 160, 3)
-        #img_shape = (60, 80, 3)
-
 
     # We adapt the data
     X_train_v = np.stack(X_train_v, axis=0)
     y_train_v = np.stack(y_train_v, axis=0)
     X_validation_v = np.stack(X_validation_v, axis=0)
     y_validation_v = np.stack(y_validation_v, axis=0)
-    # print(X_train_v.shape)
-    # print(type(X_train_v))
-    # X_train_v = np.reshape(X_train_v, (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2]))
-    # y_train_v = np.reshape(y_train_v, (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2]))
-    # X_validation_v = np.reshape(X_validation_v, (len(X_validation_v), 10, img_shape[0], img_shape[1], img_shape[2]))
-    # y_validation_v = np.reshape(y_validation_v, (len(X_validation_v), 10, img_shape[0], img_shape[1], img_shape[2]))
-    # print(X_train_v.shape)
-
 
     X_train_w = np.stack(X_train_w, axis=0)
     y_train_w = np.stack(y_train_w, axis=0)
     X_validation_w = np.stack(X_validation_w, axis=0)
     y_validation_w = np.stack(y_validation_w, axis=0)
-    # X_train_w = np.reshape(X_train_w, (len(X_train_w), 10, img_shape[0], img_shape[1], img_shape[2]))
-    # y_train_w = np.reshape(y_train_w, (len(X_train_w), 10, img_shape[0], img_shape[1], img_shape[2]))
-    # X_validation_w = np.reshape(X_validation_w, (len(X_validation_w), 10, img_shape[0], img_shape[1], img_shape[2]))
-    # y_validation_w = np.reshape(y_validation_w, (len(X_validation_w), 10, img_shape[0], img_shape[1], img_shape[2]))
-
-    #img_shape = (len(X_train_v), 10, img_shape[0], img_shape[1], img_shape[2])
 
     # Get model
     model_v, model_w, model_file_v, model_file_w, model_png, batch_size_v, nb_epoch_v, batch_size_w, \
@@ -264,6 +243,9 @@ if __name__ == "__main__":
     #  We train
     tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
+    filename = 'csv/' + type_net + '_' + type_image + '_v.csv'
+    csv_logger = CSVLogger(filename=filename, separator = ',', append = True)
+
     model_checkpoint = ModelCheckpoint(model_file_v,
                                        save_best_only=True,
                                        save_weights_only=False,
@@ -272,9 +254,13 @@ if __name__ == "__main__":
 
     model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
                                   validation_data=(X_validation_v, y_validation_v),
-                                  callbacks=[tensorboard, model_checkpoint])
+                                  callbacks=[tensorboard, model_checkpoint, csv_logger])
+
 
     tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+
+    filename = 'csv/' + type_net + '_' + type_image + '_w.csv'
+    csv_logger = CSVLogger(filename=filename, separator=',', append=True)
 
     model_checkpoint = ModelCheckpoint(model_file_w,
                                        save_best_only=True,
@@ -284,7 +270,7 @@ if __name__ == "__main__":
 
     model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size_w, verbose=2,
                                   validation_data=(X_validation_w, y_validation_w),
-                                  callbacks=[tensorboard, model_checkpoint])
+                                  callbacks=[tensorboard, model_checkpoint, csv_logger])
 
     # We evaluate the model
     score = model_v.evaluate(X_validation_v, y_validation_v, verbose=0)
