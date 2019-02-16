@@ -267,7 +267,7 @@ if __name__ == "__main__":
     model_checkpoint = ModelCheckpoint(model_file_v,
                                        save_best_only=True,
                                        save_weights_only=False,
-                                       monitor='val_acc',
+                                       monitor='val_loss',
                                        verbose=1)
 
     model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
@@ -279,7 +279,7 @@ if __name__ == "__main__":
     model_checkpoint = ModelCheckpoint(model_file_w,
                                        save_best_only=True,
                                        save_weights_only=False,
-                                       monitor='val_acc',
+                                       monitor='val_loss',
                                        verbose=1)
 
     model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size_w, verbose=2,
