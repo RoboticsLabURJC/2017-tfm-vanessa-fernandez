@@ -1,6 +1,7 @@
 import glob
 import numpy as np
 import cv2
+import os
 import matplotlib
 matplotlib.use('Agg')
 
@@ -243,6 +244,7 @@ if __name__ == "__main__":
     #  We train
     tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
+    if not os.path.exists('csv'): os.makedirs('csv')
     filename = 'csv/' + type_net + '_' + type_image + '_v.csv'
     csv_logger = CSVLogger(filename=filename, separator = ',', append = True)
 
