@@ -8,7 +8,7 @@ from time import time
 from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
 from keras.utils import plot_model
-from keras.callbacks import TensorBoard
+from keras.callbacks import TensorBoard, ModelCheckpoint
 from models.model_nvidia import *
 
 
@@ -264,13 +264,27 @@ if __name__ == "__main__":
     #  We train
     tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
+    model_checkpoint = ModelCheckpoint(model_file_v,
+                                       save_best_only=True,
+                                       save_weights_only=False,
+                                       monitor='val_acc',
+                                       verbose=1)
+
     model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
-                              validation_data=(X_validation_v, y_validation_v), callbacks=[tensorboard])
+                                  validation_data=(X_validation_v, y_validation_v),
+                                  callbacks=[tensorboard, model_checkpoint])
 
-    #tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+    tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
-    #model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size_w, verbose=2,
-    #                              validation_data=(X_validation_w, y_validation_w), callbacks=[tensorboard])
+    model_checkpoint = ModelCheckpoint(model_file_w,
+                                       save_best_only=True,
+                                       save_weights_only=False,
+                                       monitor='val_acc',
+                                       verbose=1)
+
+    model_history_w = model_w.fit(X_train_w, y_train_w, epochs=nb_epoch_w, batch_size=batch_size_w, verbose=2,
+                                  validation_data=(X_validation_w, y_validation_w),
+                                  callbacks=[tensorboard, model_checkpoint])
 
     # We evaluate the model
     score = model_v.evaluate(X_validation_v, y_validation_v, verbose=0)
