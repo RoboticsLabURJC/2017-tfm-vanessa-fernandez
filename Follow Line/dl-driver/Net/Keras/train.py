@@ -302,7 +302,7 @@ if __name__ == "__main__":
     print('Test mean absolute error: ', score[3])
 
     # We save the model
-    model_v.save(model_file_v)
+    #model_v.save(model_file_v)
     #model_w.save(model_file_w)
 
     # Plot the training and validation loss for each epoch
