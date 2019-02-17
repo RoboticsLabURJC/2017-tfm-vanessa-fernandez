@@ -127,15 +127,15 @@ def choose_model(type_net, img_shape, type_image):
         nb_epoch_v = 300
         nb_epoch_w = 250
     elif type_net == 'lstm_tinypilotnet':
-        model_v = lstm_tinypilotnet_model(img_shape)
-        model_w = lstm_tinypilotnet_model(img_shape)
+        model_v = lstm_tinypilotnet_model(img_shape, type_image)
+        model_w = lstm_tinypilotnet_model(img_shape, type_image)
         batch_size_v = 12 #8
         batch_size_w = 12 #8
         nb_epoch_v = 350#223
         nb_epoch_w = 350#212
     elif type_net == 'deepestlstm_tinypilotnet':
-        model_v = deepestlstm_tinypilotnet_model(img_shape)
-        model_w = deepestlstm_tinypilotnet_model(img_shape)
+        model_v = deepestlstm_tinypilotnet_model(img_shape, type_image)
+        model_w = deepestlstm_tinypilotnet_model(img_shape, type_image)
         batch_size_v = 12 #8
         batch_size_w = 12 #8
         nb_epoch_v = 150#223
