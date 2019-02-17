@@ -48,16 +48,20 @@ def tinypilotnet_model(img_shape):
     return model
 
 
-def lstm_tinypilotnet_model(img_shape):
+def lstm_tinypilotnet_model(img_shape, type_image):
     model = Sequential()
     model.add(Conv2D(8, (3, 3), strides=(2, 2), input_shape=img_shape, activation="relu"))
     model.add(Conv2D(16, (3, 3), strides=(2, 2), activation="relu"))
     model.add(Conv2D(32, (3, 3), strides=(2, 2), activation="relu"))
-    print(model.summary())
-    model.add(Reshape((1, 14, 19, 32)))
+    if type_image == 'cropped':
+        model.add(Reshape((1, 7, 19, 32)))
+    else:
+        model.add(Reshape((1, 14, 19, 32)))
     model.add(ConvLSTM2D(nb_filter=40, nb_row=3, nb_col=3, border_mode='same', return_sequences=True))
-    print(model.summary())
-    model.add(Reshape((14, 19, 40)))
+    if type_image == 'cropped':
+        model.add(Reshape((7, 19, 40)))
+    else:
+        model.add(Reshape((14, 19, 40)))
     model.add(Conv2D(1, (3, 3), strides=(2, 2), activation="relu"))
     model.add(Flatten())
     model.add(Dense(1))
@@ -66,19 +70,23 @@ def lstm_tinypilotnet_model(img_shape):
     return model
 
 
-def deepestlstm_tinypilotnet_model(img_shape):
+def deepestlstm_tinypilotnet_model(img_shape, type_image):
     model = Sequential()
     model.add(Conv2D(8, (3, 3), strides=(2, 2), input_shape=img_shape, activation="relu"))
     model.add(Conv2D(8, (3, 3), strides=(2, 2), activation="relu"))
     model.add(Conv2D(8, (3, 3), strides=(2, 2), activation="relu"))
     model.add(Dropout(0.2))
-    print(model.summary())
-    model.add(Reshape((1, 14, 19, 8)))
+    if type_image == 'cropped':
+        model.add(Reshape((1, 7, 19, 8)))
+    else:
+        model.add(Reshape((1, 14, 19, 8)))
     model.add(ConvLSTM2D(nb_filter=16, nb_row=3, nb_col=3, border_mode='same', return_sequences=True))
     model.add(ConvLSTM2D(nb_filter=16, nb_row=3, nb_col=3, border_mode='same', return_sequences=True))
     model.add(ConvLSTM2D(nb_filter=12, nb_row=3, nb_col=3, border_mode='same', return_sequences=True))
-    print(model.summary())
-    model.add(Reshape((14, 19, 12)))
+    if type_image == 'cropped':
+        model.add(Reshape((7, 19, 12)))
+    else:
+        model.add(Reshape((14, 19, 12)))
     model.add(Flatten())
     model.add(Dense(100, activation="relu"))
     model.add(Dense(50, activation="relu"))
