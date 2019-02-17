@@ -50,7 +50,6 @@ def tinypilotnet_model(img_shape):
 
 def lstm_tinypilotnet_model(img_shape):
     model = Sequential()
-    #model.add(BatchNormalization(epsilon=0.001, axis=-1, input_shape=img_shape))
     model.add(Conv2D(8, (3, 3), strides=(2, 2), input_shape=img_shape, activation="relu"))
     model.add(Conv2D(16, (3, 3), strides=(2, 2), activation="relu"))
     model.add(Conv2D(32, (3, 3), strides=(2, 2), activation="relu"))
@@ -71,10 +70,12 @@ def deepestlstm_tinypilotnet_model(img_shape):
     model.add(Conv2D(8, (3, 3), strides=(2, 2), activation="relu"))
     model.add(Conv2D(8, (3, 3), strides=(2, 2), activation="relu"))
     model.add(Dropout(0.2))
+    print(model.summary())
     model.add(Reshape((1, 14, 19, 8)))
     model.add(ConvLSTM2D(nb_filter=16, nb_row=3, nb_col=3, border_mode='same', return_sequences=True))
     model.add(ConvLSTM2D(nb_filter=16, nb_row=3, nb_col=3, border_mode='same', return_sequences=True))
     model.add(ConvLSTM2D(nb_filter=12, nb_row=3, nb_col=3, border_mode='same', return_sequences=True))
+    print(model.summary())
     model.add(Reshape((14, 19, 12)))
     model.add(Flatten())
     model.add(Dense(100, activation="relu"))
