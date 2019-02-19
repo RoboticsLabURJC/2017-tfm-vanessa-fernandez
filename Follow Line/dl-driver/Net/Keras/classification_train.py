@@ -1,6 +1,7 @@
 import glob
 import numpy as np
 import cv2
+import os
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -8,7 +9,7 @@ import matplotlib.pyplot as plt
 from time import time
 from sklearn.model_selection import train_test_split
 from keras.utils import plot_model, np_utils
-from keras.callbacks import TensorBoard
+from keras.callbacks import TensorBoard, CSVLogger, ModelCheckpoint
 from models.classification_model import cnn_model, lenet5, SmallerVGGNet
 
 
@@ -208,9 +209,9 @@ def choose_model(name, input_shape, num_classes, name_variable, type_net, type_i
                 class_weight = None
         elif num_classes == 9:
             batch_size = 64
-            nb_epochs = 34
+            nb_epochs = 50
             if type_net == "biased":
-                class_weight = {0: 6., 1: 5., 2: 2., 3: 1., 4: 1., 5: 1., 6: 2., 7: 5., 8: 6.}
+                class_weight = {0: 8., 1: 5., 2: 2., 3: 1., 4: 1., 5: 1., 6: 2., 7: 5., 8: 8.}
             else:
                 class_weight = None
         else:
@@ -324,10 +325,24 @@ if __name__ == "__main__":
 
     # Tensorboard
     tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+    # Callbacks
+    if not os.path.exists('csv'): os.makedirs('csv')
+    if type_image == 'cropped':
+        filename = 'csv/' + name_model + '_' + str(num_classes) + 'classes_' + type_net + '_' + type_image + '_' + \
+                   name_variable + '_v.csv'
+    else:
+        filename = 'csv/' + name_model + '_'+ str(num_classes) + 'classes_' + type_net + '_' + name_variable + '_v.csv'
+    csv_logger = CSVLogger(filename=filename, separator = ',', append = True)
+
+    model_checkpoint = ModelCheckpoint(model_file,
+                                       save_best_only=True,
+                                       save_weights_only=False,
+                                       monitor='val_acc',
+                                       verbose=1)
     #  We train
     model_history = model.fit(X_train, y_train, epochs=nb_epochs, batch_size=batch_size, verbose=2,
                               class_weight=class_weight, validation_data=(X_validation, y_validation),
-                              callbacks=[tensorboard])
+                              callbacks=[tensorboard, model_checkpoint, csv_logger])
 
     #step_epoch = 15
 
@@ -342,7 +357,7 @@ if __name__ == "__main__":
     print('Test accuracy:', score[1])
 
     # We save the model
-    model.save(model_file)
+    #model.save(model_file)
 
 
     # Loss Curves
