@@ -58,13 +58,28 @@ def parse_json_9_classes_w(data):
     return array_class, array_w
 
 
-def parse_json_other_classes_v(data):
+def parse_json_4_classes_v(data):
     array_class = []
     array_w = []
     # We process json
     data_parse = data.split('"class3": ')[1:]
     for d in data_parse:
         classification = d.split(', "w":')[0]
+        d_parse = d.split(', "w": ')[1]
+        w = float(d_parse.split(', "v":')[0])
+        array_class.append(classification)
+        array_w.append(w)
+
+    return array_class, array_w
+
+
+def parse_json_5_classes_v(data):
+    array_class = []
+    array_w = []
+    # We process json
+    data_parse = data.split('"class_v_5": ')[1:]
+    for d in data_parse:
+        classification = d.split(', "class_w_9":')[0]
         d_parse = d.split(', "w": ')[1]
         w = float(d_parse.split(', "v":')[0])
         array_class.append(classification)
@@ -80,8 +95,10 @@ def parse_json(data, num_classes, name_variable):
         array_class, array_w = parse_json_7_classes_w(data)
     elif num_classes == 9 and name_variable == 'w':
         array_class, array_w = parse_json_9_classes_w(data)
-    elif name_variable == 'v':
-        array_class, array_w = parse_json_other_classes_v(data)
+    elif num_classes == 4 and name_variable == 'v':
+        array_class, array_w = parse_json_4_classes_v(data)
+    elif num_classes == 5 and name_variable == 'v':
+        array_class, array_w = parse_json_5_classes_v(data)
     return array_class, array_w
 
 
@@ -158,6 +175,20 @@ def adapt_label_4_v(label):
     return label
 
 
+def adapt_label_5_v(label):
+    if label == '"slow"' or label == 'slow':
+        label = 0
+    elif label == '"moderate"' or label == 'moderate':
+        label = 1
+    elif label == '"fast"' or label == 'fast':
+        label = 2
+    elif label == '"very_fast"' or label == 'very_fast':
+        label = 3
+    elif label == '"negative"' or label == 'negative':
+        label = 4
+    return label
+
+
 def adapt_labels(array_labels, num_classes, name_variable):
     for i in range(0, len(array_labels)):
         if name_variable == 'w':
@@ -171,7 +202,10 @@ def adapt_labels(array_labels, num_classes, name_variable):
             elif num_classes == 9:
                 array_labels[i] = adapt_label_9_w(array_labels[i])
         elif name_variable == 'v':
-            array_labels[i] = adapt_label_4_v(array_labels[i])
+            if num_classes == 4:
+                array_labels[i] = adapt_label_4_v(array_labels[i])
+            elif num_classes == 5:
+                array_labels[i] = adapt_label_5_v(array_labels[i])
     return array_labels
 
 
