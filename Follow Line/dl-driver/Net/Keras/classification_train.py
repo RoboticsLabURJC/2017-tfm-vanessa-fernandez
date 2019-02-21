@@ -248,11 +248,18 @@ def choose_model(name, input_shape, num_classes, name_variable, type_net, type_i
                 class_weight = {0: 30., 1: 5., 2: 2., 3: 1., 4: 1., 5: 1., 6: 2., 7: 5., 8: 30.}
             else:
                 class_weight = None
-        else:
+        elif num_classes == 4:
             batch_size = 64
             nb_epochs = 55
             if type_net == "biased":
                 class_weight = {0: 2., 1: 3., 2: 3., 3: 4.}
+            else:
+                class_weight = None
+        elif num_classes == 5:
+            batch_size = 64
+            nb_epochs = 55
+            if type_net == "biased":
+                class_weight = {0: 2., 1: 3., 2: 3., 3: 4., 4: 15}
             else:
                 class_weight = None
     elif name == "other" and num_classes == 2:
