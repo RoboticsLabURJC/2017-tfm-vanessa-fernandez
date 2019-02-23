@@ -96,6 +96,24 @@ def deepestlstm_tinypilotnet_model(img_shape, type_image):
     return model
 
 
+def temporaldif_model(img_shape):
+    model = Sequential()
+    model.add(BatchNormalization(epsilon=0.001, axis=-1, input_shape=img_shape))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.25))
+    model.add(Conv2D(12, (5, 5), strides=(2, 2), activation="relu"))
+    model.add(Conv2D(24, (3, 3), strides=(2, 2), activation="relu"))
+    model.add(Conv2D(48, (3, 3), strides=(2, 2), activation="relu"))
+    model.add(Dropout(0.5))
+    model.add(Flatten())
+    model.add(Dense(150, activation="relu"))
+    model.add(Dense(50, activation="relu"))
+    model.add(Dense(1))
+    adam = Adam(lr=0.0001)
+    model.compile(optimizer=adam, loss="mse", metrics=['accuracy', 'mse', 'mae'])
+    return model
+
+
 def lstm_model(img_shape):
     # https://github.com/udacity/self-driving-car/blob/master/steering-models/community-models/chauffeur/models.py
     # https://www.kdnuggets.com/2018/11/keras-long-short-term-memory-lstm-model-predict-stock-prices.html
