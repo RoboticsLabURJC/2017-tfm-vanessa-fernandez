@@ -76,7 +76,7 @@ def preprocess_data(array_w, array_v, imgs):
 
 def stack_frames(imgs, type_net):
     new_imgs = []
-    margin = 10
+    margin = 5
     for i in range(0, len(imgs)):
         # if i - 2*(margin+1) < 0:
         #     index1 = 0
@@ -91,8 +91,10 @@ def stack_frames(imgs, type_net):
         if type_net == 'stacked_dif':
             im = imgs[i] - imgs[index2]
             im2 = np.concatenate([im, imgs[i]], axis=2)
-        else:
+        elif type_net == 'stacked':
             im2 = np.concatenate([imgs[index2], imgs[i]], axis=2)
+        elif type_net == 'temporal_dif':
+            im2 = imgs[i] - imgs[index2]
         new_imgs.append(im2)
     return new_imgs
 
@@ -126,6 +128,13 @@ def choose_model(type_net, img_shape, type_image):
         batch_size_w = 64
         nb_epoch_v = 300
         nb_epoch_w = 250
+    elif type_net == 'temporal_dif':
+        model_v = temporaldif_model(img_shape)
+        model_w = temporaldif_model(img_shape)
+        batch_size_v = 64
+        batch_size_w = 64
+        nb_epoch_v = 250
+        nb_epoch_w = 250
     elif type_net == 'lstm_tinypilotnet':
         model_v = lstm_tinypilotnet_model(img_shape, type_image)
         model_w = lstm_tinypilotnet_model(img_shape, type_image)
@@ -155,7 +164,7 @@ if __name__ == "__main__":
     # Choose options
     type_image = raw_input('Choose the type of image you want: normal or cropped: ')
     type_net = raw_input('Choose the type of network you want: pilotnet, tinypilotnet, lstm_tinypilotnet, lstm, '
-                         'deepestlstm_tinypilotnet, stacked or stacked_dif: ')
+                         'deepestlstm_tinypilotnet, stacked, stacked_dif or temporal_dif: ')
     print('Your choice: ' + type_net + ', ' + type_image)
 
     # Load data
@@ -187,7 +196,7 @@ if __name__ == "__main__":
                                                                                 random_state=42)
         #X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x_v,y_v,test_size=0.20,random_state=42)
         #X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w,y_w,test_size=0.20,random_state=42)
-    elif type_net == 'stacked' or type_net == 'stacked_dif':
+    elif type_net == 'stacked' or type_net == 'stacked_dif' or type_net == 'temporal_dif':
         # We stack frames
         y_w, y_v, x = preprocess_data(y_w, y_v, x)
         x = stack_frames(x, type_net)
