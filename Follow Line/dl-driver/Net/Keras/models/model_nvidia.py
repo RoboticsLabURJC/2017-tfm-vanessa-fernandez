@@ -96,7 +96,7 @@ def deepestlstm_tinypilotnet_model(img_shape, type_image):
     return model
 
 
-def temporaldif_model(img_shape):
+def temporal_model(img_shape):
     model = Sequential()
     model.add(BatchNormalization(epsilon=0.001, axis=-1, input_shape=img_shape))
     model.add(MaxPooling2D(pool_size=(2, 2)))
