@@ -74,6 +74,14 @@ def preprocess_data(array_w, array_v, imgs):
     return new_array_w, new_array_v, new_array_imgs
 
 
+def normalize_image(array):
+    rng = np.amax(array)-np.amin(array)
+    if rng == 0:
+        rng = 1
+    amin = np.amin(array)
+    return (array-amin)*255.0/rng
+
+
 def stack_frames(imgs, type_net):
     new_imgs = []
     margin = 5
@@ -94,7 +102,10 @@ def stack_frames(imgs, type_net):
         elif type_net == 'stacked':
             im2 = np.concatenate([imgs[index2], imgs[i]], axis=2)
         elif type_net == 'temporal_dif':
-            im2 = imgs[i] - imgs[index2]
+            i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2HSV)
+            i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2HSV)
+            dif_h = cv2.absdiff(i1[:, :, 0], i2[:, :, 0])
+            im2 = normalize_image(dif_h)
         new_imgs.append(im2)
     return new_imgs
 
@@ -122,8 +133,8 @@ def choose_model(type_net, img_shape, type_image):
         nb_epoch_v = 250 #223
         nb_epoch_w = 1000 #212
     elif type_net == 'stacked' or type_net == 'stacked_dif':
-        model_v = temporal_model(img_shape)
-        model_w = temporal_model(img_shape)
+        model_v = pilotnet_model(img_shape)
+        model_w = pilotnet_model(img_shape)
         batch_size_v = 64
         batch_size_w = 64
         nb_epoch_v = 300
@@ -149,12 +160,18 @@ def choose_model(type_net, img_shape, type_image):
         batch_size_w = 12 #8
         nb_epoch_v = 150#223
         nb_epoch_w = 100#212
-
     elif type_net == 'lstm':
         model_v = lstm_model(img_shape)
         model_w = lstm_model(img_shape)
         batch_size_v = 12 #8
         batch_size_w = 12 #8
+        nb_epoch_v = 200#223
+        nb_epoch_w = 200#212
+    elif type_net == 'controlnet':
+        model_v = controlnet_model(img_shape)
+        model_w = controlnet_model(img_shape)
+        batch_size_v = 128 #8
+        batch_size_w = 128 #8
         nb_epoch_v = 200#223
         nb_epoch_w = 200#212
     return model_v, model_w, model_file_v, model_file_w, model_png, batch_size_v, nb_epoch_v, batch_size_w, nb_epoch_w
@@ -164,7 +181,7 @@ if __name__ == "__main__":
     # Choose options
     type_image = raw_input('Choose the type of image you want: normal or cropped: ')
     type_net = raw_input('Choose the type of network you want: pilotnet, tinypilotnet, lstm_tinypilotnet, lstm, '
-                         'deepestlstm_tinypilotnet, stacked, stacked_dif or temporal_dif: ')
+                         'deepestlstm_tinypilotnet, controlnet, stacked, stacked_dif or temporal_dif: ')
     print('Your choice: ' + type_net + ', ' + type_image)
 
     # Load data
@@ -202,7 +219,8 @@ if __name__ == "__main__":
         x = stack_frames(x, type_net)
         X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
         X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
-    elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm' or type_net == 'deepestlstm_tinypilotnet':
+    elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm' or type_net == 'deepestlstm_tinypilotnet' or \
+        type_net == 'controlnet':
         y_w, y_v, x = preprocess_data(y_w, y_v, x)
         X_train_v = x
         X_train_w = x
