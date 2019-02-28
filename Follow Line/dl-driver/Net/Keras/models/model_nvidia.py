@@ -5,6 +5,7 @@
 
 from keras.models import Sequential
 from keras.layers import Flatten,Dense,Conv2D,BatchNormalization,Dropout,ConvLSTM2D,Reshape,Activation,MaxPooling2D
+from keras.layers import MaxPooling1D
 from keras.layers.recurrent import LSTM
 from keras.optimizers import Adam
 
@@ -97,7 +98,7 @@ def deepestlstm_tinypilotnet_model(img_shape, type_image):
 def temporal_model(img_shape):
     model = Sequential()
     model.add(BatchNormalization(epsilon=0.001, axis=-1, input_shape=img_shape))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(MaxPooling1D(pool_size=(2, 2)))
     model.add(Dropout(0.25))
     model.add(Conv2D(12, (5, 5), strides=(2, 2), activation="relu"))
     model.add(Conv2D(24, (3, 3), strides=(2, 2), activation="relu"))
