@@ -104,7 +104,8 @@ def stack_frames(imgs, type_net):
         elif type_net == 'temporal_dif':
             i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2HSV)
             i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2HSV)
-            dif_h = cv2.absdiff(i1[:, :, 0], i2[:, :, 0])
+            dif_h = np.zeros((i1.shape[0], i1.shape[1], 1))
+            dif_h[:,:,0] = cv2.absdiff(i1[:, :, 0], i2[:, :, 0])
             im2 = normalize_image(dif_h)
         new_imgs.append(im2)
     return new_imgs
@@ -244,9 +245,9 @@ if __name__ == "__main__":
             img_shape = (48, 64, 3)
     elif type_net == 'temporal_dif':
         if type_image == 'cropped':
-            img_shape = (65, 160)
+            img_shape = (65, 160, 1)
         else:
-            img_shape = (120, 160)
+            img_shape = (120, 160, 1)
     else:
         if type_image == 'cropped':
             img_shape = (65, 160, 3)
