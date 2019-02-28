@@ -134,7 +134,7 @@ def lstm_model(img_shape):
 
 def controlnet_model(img_shape):
     model = Sequential()
-    model.add(Conv2D(16, (10, 10), input_shape=img_shape, activation="relu"))
+    model.add(Conv2D(16, (5, 5), input_shape=img_shape, activation="relu"))
     model.add(MaxPooling2D(pool_size=(3, 3), strides=(2, 2)))
     model.add(Conv2D(16, (5, 5), activation="relu"))
     model.add(MaxPooling2D(pool_size=(3, 3), strides=(2, 2)))
