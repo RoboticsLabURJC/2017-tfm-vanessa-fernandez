@@ -244,9 +244,9 @@ if __name__ == "__main__":
             img_shape = (48, 64, 3)
     elif type_net == 'temporal_dif':
         if type_image == 'cropped':
-            img_shape = (65, 160, 1)
+            img_shape = (65, 160)
         else:
-            img_shape = (120, 160, 1)
+            img_shape = (120, 160)
     else:
         if type_image == 'cropped':
             img_shape = (65, 160, 3)
