@@ -104,9 +104,10 @@ def stack_frames(imgs, type_net):
         elif type_net == 'temporal_dif':
             i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2HSV)
             i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2HSV)
-            dif_h = np.zeros((i1.shape[0], i1.shape[1], 1))
-            dif_h[:,:,0] = cv2.absdiff(i1[:, :, 0], i2[:, :, 0])
-            im2 = normalize_image(dif_h)
+            dif = np.zeros((i1.shape[0], i1.shape[1], 2))
+            dif[:,:,0] = cv2.absdiff(i1[:, :, 0], i2[:, :, 0])
+            dif[:,:,1] = cv2.absdiff(i1[:, :, 1], i2[:, :, 1])
+            im2 = normalize_image(dif)
         new_imgs.append(im2)
     return new_imgs
 
@@ -145,8 +146,8 @@ def choose_model(type_net, img_shape, type_image):
         model_w = temporal_model(img_shape)
         batch_size_v = 64
         batch_size_w = 64
-        nb_epoch_v = 400
-        nb_epoch_w = 400
+        nb_epoch_v = 300
+        nb_epoch_w = 300
     elif type_net == 'lstm_tinypilotnet':
         model_v = lstm_tinypilotnet_model(img_shape, type_image)
         model_w = lstm_tinypilotnet_model(img_shape, type_image)
@@ -245,9 +246,9 @@ if __name__ == "__main__":
             img_shape = (48, 64, 3)
     elif type_net == 'temporal_dif':
         if type_image == 'cropped':
-            img_shape = (65, 160, 1)
+            img_shape = (65, 160, 2)
         else:
-            img_shape = (120, 160, 1)
+            img_shape = (120, 160, 2)
     else:
         if type_image == 'cropped':
             img_shape = (65, 160, 3)
