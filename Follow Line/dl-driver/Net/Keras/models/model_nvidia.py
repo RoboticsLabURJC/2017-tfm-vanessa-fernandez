@@ -136,7 +136,7 @@ def controlnet_model(img_shape):
     model.add(MaxPooling2D(pool_size=(3, 3), strides=(2, 2)))
     model.add(Conv2D(16, (5, 5), activation="relu"))
     model.add(MaxPooling2D(pool_size=(3, 3), strides=(2, 2)))
-    model.add(Conv2D(16, (5, 5), activation="relu"))
+    model.add(Conv2D(16, (3, 3), activation="relu"))
     model.add(MaxPooling2D(pool_size=(3, 3), strides=(2, 2)))
     model.add(Conv2D(16, (3, 3), activation="relu"))
     model.add(MaxPooling2D(pool_size=(3, 3), strides=(2, 2)))
