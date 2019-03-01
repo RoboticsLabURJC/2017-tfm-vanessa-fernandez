@@ -145,7 +145,7 @@ def controlnet_model(img_shape):
     model.add(Dense(50, activation="relu"))
     model.add(Dense(50, activation="relu"))
     print(model.summary())
-    model.add(Reshape((1, 2, 50, 1)))
+    model.add(Reshape((2, 50)))
     model.add(LSTM(5))
     print(model.summary())
     model.add(Activation('softmax'))
