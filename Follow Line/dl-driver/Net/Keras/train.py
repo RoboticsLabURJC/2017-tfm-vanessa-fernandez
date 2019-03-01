@@ -172,8 +172,8 @@ def choose_model(type_net, img_shape, type_image):
     elif type_net == 'controlnet':
         model_v = controlnet_model(img_shape)
         model_w = controlnet_model(img_shape)
-        batch_size_v = 128 #8
-        batch_size_w = 128 #8
+        batch_size_v = 64 #8
+        batch_size_w = 64 #8
         nb_epoch_v = 200#223
         nb_epoch_w = 200#212
     return model_v, model_w, model_file_v, model_file_w, model_png, batch_size_v, nb_epoch_v, batch_size_w, nb_epoch_w
