@@ -223,7 +223,7 @@ if __name__ == "__main__":
         x_v = x[:]
         y_w, x_w, y_v, x_v = add_extreme_data(y_w, x_w, y_v, x_v)
         X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x_v, y_v, test_size=0.20, random_state=42)
-        X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_y, y_w, test_size=0.20, random_state=42)
+        X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w, y_w, test_size=0.20, random_state=42)
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm' or type_net == 'deepestlstm_tinypilotnet' or \
         type_net == 'controlnet':
         y_w, y_v, x = preprocess_data(y_w, y_v, x)
