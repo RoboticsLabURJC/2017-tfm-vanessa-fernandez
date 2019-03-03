@@ -35,10 +35,7 @@ def get_images(list_images, type_image):
         img = cv2.imread(name)
         if type_image == 'cropped':
             img = img[220:480, 0:640]
-        if type_net == 'lstm':
-            img = cv2.resize(img, (img.shape[1] / 10, img.shape[0] / 10))
-        else:
-            img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
+        img = cv2.resize(img, (img.shape[1] / 4, img.shape[0] / 4))
         array_imgs.append(img)
 
     return array_imgs
@@ -165,10 +162,10 @@ def choose_model(type_net, img_shape, type_image):
     elif type_net == 'lstm':
         model_v = lstm_model(img_shape)
         model_w = lstm_model(img_shape)
-        batch_size_v = 12 #8
-        batch_size_w = 12 #8
-        nb_epoch_v = 200#223
-        nb_epoch_w = 200#212
+        batch_size_v = 128 #8
+        batch_size_w = 128 #8
+        nb_epoch_v = 100#223
+        nb_epoch_w = 100#212
     elif type_net == 'controlnet':
         model_v = controlnet_model(img_shape)
         model_w = controlnet_model(img_shape)
@@ -242,11 +239,6 @@ if __name__ == "__main__":
         else:
             #img_shape = (120, 160, 9)
             img_shape = (120, 160, 6)
-    elif type_net == 'lstm':
-        if type_image == 'cropped':
-            img_shape = (26, 64, 3)
-        else:
-            img_shape = (48, 64, 3)
     elif type_net == 'temporal_dif':
         if type_image == 'cropped':
             img_shape = (65, 160, 2)
