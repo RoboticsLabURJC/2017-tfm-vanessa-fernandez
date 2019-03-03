@@ -144,6 +144,8 @@ def controlnet_model(img_shape):
     model.add(MaxPooling2D(pool_size=(2, 2)))
     model.add(Dense(50, activation="relu"))
     model.add(Dense(50, activation="relu"))
+    model.add(Flatten())
+    print(model.summary())
     model.add(Reshape((2, 50)))
     model.add(LSTM(5))
     model.add(Reshape((5,)))
