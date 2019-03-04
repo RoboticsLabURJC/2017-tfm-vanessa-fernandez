@@ -98,17 +98,17 @@ def stack_frames(imgs, type_net):
             im2 = np.concatenate([im, imgs[i]], axis=2)
         elif type_net == 'stacked':
             im2 = np.concatenate([imgs[index2], imgs[i]], axis=2)
-        elif type_net == 'temporal_dif':
+        elif type_net == 'temporal':
             # i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2HSV)
             # i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2HSV)
             # dif = np.zeros((i1.shape[0], i1.shape[1], 2))
             # dif[:,:,0] = cv2.absdiff(i1[:, :, 0], i2[:, :, 0])
             # dif[:,:,1] = cv2.absdiff(i1[:, :, 1], i2[:, :, 1])
-            i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2GRAY)
-            i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2GRAY)
-            dif = np.zeros((i1.shape[0], i1.shape[1], 1))
-            dif[:,:,0] = cv2.subtract(i1, i2)
-            im2 = dif
+            #i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2GRAY)
+            #i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2GRAY)
+            # dif = np.zeros((i1.shape[0], i1.shape[1], 1))
+            # dif[:,:,0] = cv2.subtract(i1, i2)
+            im2 = np.add(imgs[i], imgs[index2])
             #im2 = normalize_image(dif)
         new_imgs.append(im2)
     return new_imgs
@@ -143,7 +143,7 @@ def choose_model(type_net, img_shape, type_image):
         batch_size_w = 64
         nb_epoch_v = 300
         nb_epoch_w = 250
-    elif type_net == 'temporal_dif':
+    elif type_net == 'temporal':
         model_v = temporal_model(img_shape)
         model_w = temporal_model(img_shape)
         batch_size_v = 64
@@ -185,7 +185,7 @@ if __name__ == "__main__":
     # Choose options
     type_image = raw_input('Choose the type of image you want: normal or cropped: ')
     type_net = raw_input('Choose the type of network you want: pilotnet, tinypilotnet, lstm_tinypilotnet, lstm, '
-                         'deepestlstm_tinypilotnet, controlnet, stacked, stacked_dif or temporal_dif: ')
+                         'deepestlstm_tinypilotnet, controlnet, stacked, stacked_dif or temporal: ')
     print('Your choice: ' + type_net + ', ' + type_image)
 
     # Load data
@@ -217,7 +217,7 @@ if __name__ == "__main__":
                                                                                 random_state=42)
         #X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x_v,y_v,test_size=0.20,random_state=42)
         #X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w,y_w,test_size=0.20,random_state=42)
-    elif type_net == 'stacked' or type_net == 'stacked_dif' or type_net == 'temporal_dif':
+    elif type_net == 'stacked' or type_net == 'stacked_dif' or type_net == 'temporal':
         # We stack frames
         y_w, y_v, x = preprocess_data(y_w, y_v, x)
         x = stack_frames(x, type_net)
@@ -244,7 +244,7 @@ if __name__ == "__main__":
         else:
             #img_shape = (120, 160, 9)
             img_shape = (120, 160, 6)
-    elif type_net == 'temporal_dif':
+    elif type_net == 'temporal':
         if type_image == 'cropped':
             #img_shape = (65, 160, 2)
             img_shape = (65, 160, 1)
