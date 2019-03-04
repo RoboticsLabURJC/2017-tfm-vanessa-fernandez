@@ -247,10 +247,10 @@ if __name__ == "__main__":
     elif type_net == 'temporal':
         if type_image == 'cropped':
             #img_shape = (65, 160, 2)
-            img_shape = (65, 160, 1)
+            img_shape = (65, 160, 3)
         else:
             #img_shape = (120, 160, 2)
-            img_shape = (120, 160, 1)
+            img_shape = (120, 160, 3)
     else:
         if type_image == 'cropped':
             img_shape = (65, 160, 3)
