@@ -99,11 +99,14 @@ def stack_frames(imgs, type_net):
         elif type_net == 'stacked':
             im2 = np.concatenate([imgs[index2], imgs[i]], axis=2)
         elif type_net == 'temporal_dif':
-            i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2HSV)
-            i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2HSV)
-            dif = np.zeros((i1.shape[0], i1.shape[1], 2))
-            dif[:,:,0] = cv2.absdiff(i1[:, :, 0], i2[:, :, 0])
-            dif[:,:,1] = cv2.absdiff(i1[:, :, 1], i2[:, :, 1])
+            # i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2HSV)
+            # i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2HSV)
+            # dif = np.zeros((i1.shape[0], i1.shape[1], 2))
+            # dif[:,:,0] = cv2.absdiff(i1[:, :, 0], i2[:, :, 0])
+            # dif[:,:,1] = cv2.absdiff(i1[:, :, 1], i2[:, :, 1])
+            i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2GRAY)
+            i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2GRAY)
+            dif = cv2.absdiff(i1, i2)
             im2 = normalize_image(dif)
         new_imgs.append(im2)
     return new_imgs
