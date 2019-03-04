@@ -108,7 +108,8 @@ def stack_frames(imgs, type_net):
             i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2GRAY)
             dif = np.zeros((i1.shape[0], i1.shape[1], 1))
             dif[:,:,0] = cv2.absdiff(i1, i2)
-            im2 = normalize_image(dif)
+            im2 = dif
+            #im2 = normalize_image(dif)
         new_imgs.append(im2)
     return new_imgs
 
