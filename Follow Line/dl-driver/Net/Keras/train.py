@@ -229,12 +229,13 @@ if __name__ == "__main__":
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm' or type_net == 'deepestlstm_tinypilotnet' or \
         type_net == 'controlnet':
         y_w, y_v, x = preprocess_data(y_w, y_v, x)
-        X_train_v = x
-        X_train_w = x
+        y_w, x_w, y_v, x_v = add_extreme_data(y_w, x_w, y_v, x_v)
+        X_train_v = x_v
+        X_train_w = x_w
         y_train_v = y_v
         y_train_w = y_w
-        X_t_v, X_validation_v, y_t_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
-        X_t_w, X_validation_w, y_t_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
+        X_t_v, X_validation_v, y_t_v, y_validation_v = train_test_split(x_v, y_v, test_size=0.20, random_state=42)
+        X_t_w, X_validation_w, y_t_w, y_validation_w = train_test_split(x_w, y_w, test_size=0.20, random_state=42)
 
     # Variables
     if type_net == 'stacked' or type_net == 'stacked_dif':
