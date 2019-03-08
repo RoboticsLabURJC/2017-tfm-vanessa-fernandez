@@ -176,8 +176,8 @@ def choose_model(type_net, img_shape, type_image):
         model_w = controlnet_model(img_shape)
         batch_size_v = 64 #8
         batch_size_w = 64 #8
-        nb_epoch_v = 200#223
-        nb_epoch_w = 200#212
+        nb_epoch_v = 300#223
+        nb_epoch_w = 300#212
     return model_v, model_w, model_file_v, model_file_w, model_png, batch_size_v, nb_epoch_v, batch_size_w, nb_epoch_w
 
 
@@ -229,15 +229,12 @@ if __name__ == "__main__":
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm' or type_net == 'deepestlstm_tinypilotnet' or \
         type_net == 'controlnet':
         y_w, y_v, x = preprocess_data(y_w, y_v, x)
-        x_w = x[:]
-        x_v = x[:]
-        y_w, x_w, y_v, x_v = add_extreme_data(y_w, x_w, y_v, x_v)
-        X_train_v = x_v
-        X_train_w = x_w
+        X_train_v = x
+        X_train_w = x
         y_train_v = y_v
         y_train_w = y_w
-        X_t_v, X_validation_v, y_t_v, y_validation_v = train_test_split(x_v, y_v, test_size=0.20, random_state=42)
-        X_t_w, X_validation_w, y_t_w, y_validation_w = train_test_split(x_w, y_w, test_size=0.20, random_state=42)
+        X_t_v, X_validation_v, y_t_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
+        X_t_w, X_validation_w, y_t_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
 
     # Variables
     if type_net == 'stacked' or type_net == 'stacked_dif':
