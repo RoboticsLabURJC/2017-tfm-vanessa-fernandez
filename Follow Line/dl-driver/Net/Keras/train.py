@@ -128,8 +128,9 @@ def stack_frames(imgs, type_net):
             i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2GRAY)
             i1 = cv2.GaussianBlur(i1, (5, 5), 0)
             i2 = cv2.GaussianBlur(i2, (5, 5), 0)
-            difference = cv2.absdiff(i1, i2)
-            _, difference = cv2.threshold(difference, 15, 255, cv2.THRESH_BINARY)
+            difference = np.zeros((i1.shape[0], i1.shape[1], 1))
+            difference[:, :, 0] = cv2.absdiff(i1, i2)
+            _, difference[:, :, 0] = cv2.threshold(difference, 15, 255, cv2.THRESH_BINARY)
             kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
             im2 = cv2.morphologyEx(difference, cv2.MORPH_CLOSE, kernel)
 
@@ -270,10 +271,10 @@ if __name__ == "__main__":
     elif type_net == 'temporal':
         if type_image == 'cropped':
             #img_shape = (65, 160, 2)
-            img_shape = (65, 160, 3)
+            img_shape = (65, 160, 1)
         else:
             #img_shape = (120, 160, 2)
-            img_shape = (120, 160, 3)
+            img_shape = (120, 160, 1)
     else:
         if type_image == 'cropped':
             img_shape = (65, 160, 3)
