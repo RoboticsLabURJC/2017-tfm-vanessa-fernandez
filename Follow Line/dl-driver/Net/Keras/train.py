@@ -121,6 +121,7 @@ def stack_frames(imgs, type_net):
             imB = np.uint8(imB)
             imG = np.uint8(imG)
             imR = np.uint8(imR)
+            if i >= 13000
             im2 = cv2.merge((imB, imG, imR))
             cv2.imshow('frame', im2)
             cv2.waitKey(0)
