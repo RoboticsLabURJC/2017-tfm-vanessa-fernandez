@@ -122,6 +122,8 @@ def stack_frames(imgs, type_net):
             imG = np.uint8(imG)
             imR = np.uint8(imR)
             im2 = cv2.merge((imB, imG, imR))
+            cv2.imshow('frame', im2)
+            cv2.waitKey(0)
         new_imgs.append(im2)
     return new_imgs
 
