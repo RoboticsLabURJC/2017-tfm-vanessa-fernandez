@@ -130,9 +130,10 @@ def stack_frames(imgs, type_net):
             i2 = cv2.GaussianBlur(i2, (5, 5), 0)
             difference = np.zeros((i1.shape[0], i1.shape[1], 1))
             difference[:, :, 0] = cv2.absdiff(i1, i2)
-            _, difference[:, :, 0] = cv2.threshold(difference, 15, 255, cv2.THRESH_BINARY)
+            _, difference[:, :, 0] = cv2.threshold(difference[:, :, 0], 15, 255, cv2.THRESH_BINARY)
             kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
-            im2 = cv2.morphologyEx(difference, cv2.MORPH_CLOSE, kernel)
+            difference[:, :, 0] = cv2.morphologyEx(difference[:, :, 0], cv2.MORPH_CLOSE, kernel)
+            im2 = difference
 
         new_imgs.append(im2)
     return new_imgs
