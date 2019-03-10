@@ -81,7 +81,7 @@ def normalize_image(array):
 
 def stack_frames(imgs, type_net):
     new_imgs = []
-    margin = 10
+    margin = 5
     for i in range(0, len(imgs)):
         # if i - 2*(margin+1) < 0:
         #     index1 = 0
@@ -167,7 +167,7 @@ def choose_model(type_net, img_shape, type_image):
         batch_size_v = 64
         batch_size_w = 64
         nb_epoch_v = 300
-        nb_epoch_w = 250
+        nb_epoch_w = 300
     elif type_net == 'temporal':
         model_v = temporal_model(img_shape)
         model_w = temporal_model(img_shape)
