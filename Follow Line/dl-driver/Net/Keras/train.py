@@ -81,7 +81,7 @@ def normalize_image(array):
 
 def stack_frames(imgs, type_net):
     new_imgs = []
-    margin = 5
+    margin = 10
     for i in range(0, len(imgs)):
         # if i - 2*(margin+1) < 0:
         #     index1 = 0
@@ -173,8 +173,8 @@ def choose_model(type_net, img_shape, type_image):
         model_w = temporal_model(img_shape)
         batch_size_v = 64
         batch_size_w = 64
-        nb_epoch_v = 300
-        nb_epoch_w = 300
+        nb_epoch_v = 1000
+        nb_epoch_w = 1000
     elif type_net == 'lstm_tinypilotnet':
         model_v = lstm_tinypilotnet_model(img_shape, type_image)
         model_w = lstm_tinypilotnet_model(img_shape, type_image)
