@@ -133,7 +133,6 @@ def stack_frames(imgs, type_net):
             _, difference[:, :, 0] = cv2.threshold(difference[:, :, 0], 15, 255, cv2.THRESH_BINARY)
             kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
             difference[:, :, 0] = cv2.morphologyEx(difference[:, :, 0], cv2.MORPH_CLOSE, kernel)
-            print(difference.shape)
             im2 = difference
 
         new_imgs.append(im2)
