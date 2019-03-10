@@ -81,7 +81,7 @@ def normalize_image(array):
 
 def stack_frames(imgs, type_net):
     new_imgs = []
-    margin = 5
+    margin = 10
     for i in range(0, len(imgs)):
         # if i - 2*(margin+1) < 0:
         #     index1 = 0
@@ -309,15 +309,15 @@ if __name__ == "__main__":
     filename = 'csv/' + type_net + '_' + type_image + '_v.csv'
     csv_logger = CSVLogger(filename=filename, separator = ',', append = True)
 
-    # model_checkpoint = ModelCheckpoint(model_file_v,
-    #                                    save_best_only=True,
-    #                                    save_weights_only=False,
-    #                                    monitor='val_loss',
-    #                                    verbose=1)
-    #
-    # model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
-    #                               validation_data=(X_validation_v, y_validation_v),
-    #                               callbacks=[tensorboard, model_checkpoint, csv_logger])
+    model_checkpoint = ModelCheckpoint(model_file_v,
+                                       save_best_only=True,
+                                       save_weights_only=False,
+                                       monitor='val_loss',
+                                       verbose=1)
+
+    model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
+                                  validation_data=(X_validation_v, y_validation_v),
+                                  callbacks=[tensorboard, model_checkpoint, csv_logger])
 
 
     tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
