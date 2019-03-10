@@ -166,8 +166,8 @@ def choose_model(type_net, img_shape, type_image):
         model_w = pilotnet_model(img_shape)
         batch_size_v = 64
         batch_size_w = 64
-        nb_epoch_v = 300
-        nb_epoch_w = 300
+        nb_epoch_v = 150
+        nb_epoch_w = 150
     elif type_net == 'temporal':
         model_v = temporal_model(img_shape)
         model_w = temporal_model(img_shape)
@@ -309,15 +309,15 @@ if __name__ == "__main__":
     filename = 'csv/' + type_net + '_' + type_image + '_v.csv'
     csv_logger = CSVLogger(filename=filename, separator = ',', append = True)
 
-    model_checkpoint = ModelCheckpoint(model_file_v,
-                                       save_best_only=True,
-                                       save_weights_only=False,
-                                       monitor='val_loss',
-                                       verbose=1)
-
-    model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
-                                  validation_data=(X_validation_v, y_validation_v),
-                                  callbacks=[tensorboard, model_checkpoint, csv_logger])
+    # model_checkpoint = ModelCheckpoint(model_file_v,
+    #                                    save_best_only=True,
+    #                                    save_weights_only=False,
+    #                                    monitor='val_loss',
+    #                                    verbose=1)
+    #
+    # model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
+    #                               validation_data=(X_validation_v, y_validation_v),
+    #                               callbacks=[tensorboard, model_checkpoint, csv_logger])
 
 
     tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
