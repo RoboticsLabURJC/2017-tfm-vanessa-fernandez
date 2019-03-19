@@ -108,7 +108,7 @@ def stack_frames(imgs, type_net):
             kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
             difference[:, :, 0] = cv2.morphologyEx(difference[:, :, 0], cv2.MORPH_CLOSE, kernel)
             im = difference
-            if np.ptp(im2) != 0:
+            if np.ptp(im) != 0:
                 im = 256 * (im - np.min(im)) / np.ptp(im) - 128
             else:
                 im = 256 * (im - np.min(im)) / 1 - 128
