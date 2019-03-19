@@ -94,8 +94,26 @@ def stack_frames(imgs, type_net):
         #im1 =  np.concatenate([imgs[index1], imgs[index2]], axis=2)
         #im2 = np.concatenate([im1, imgs[i]], axis=2)
         if type_net == 'stacked_dif':
-            im = imgs[i] - imgs[index2]
+            #im = imgs[i] - imgs[index2]
+            i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2GRAY)
+            i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2GRAY)
+            i1 = cv2.GaussianBlur(i1, (5, 5), 0)
+            i2 = cv2.GaussianBlur(i2, (5, 5), 0)
+            difference = np.zeros((i1.shape[0], i1.shape[1], 1))
+            difference[:, :, 0] = cv2.subtract(np.float64(i1), np.float64(i2))
+            mask1 = cv2.inRange(difference[:, :, 0], 15, 255)
+            mask2 = cv2.inRange(difference[:, :, 0], -255, -15)
+            mask = mask1 + mask2
+            difference[:, :, 0][np.where(mask == 0)] = 0
+            kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
+            difference[:, :, 0] = cv2.morphologyEx(difference[:, :, 0], cv2.MORPH_CLOSE, kernel)
+            im = difference
+            if np.ptp(im2) != 0:
+                im = 256 * (im - np.min(im)) / np.ptp(im) - 128
+            else:
+                im = 256 * (im - np.min(im)) / 1 - 128
             im2 = np.concatenate([im, imgs[i]], axis=2)
+
         elif type_net == 'stacked':
             im2 = np.concatenate([imgs[index2], imgs[i]], axis=2)
         elif type_net == 'temporal':
@@ -168,13 +186,20 @@ def choose_model(type_net, img_shape, type_image):
         batch_size_w = 64
         nb_epoch_v = 250 #223
         nb_epoch_w = 1000 #212
-    elif type_net == 'stacked' or type_net == 'stacked_dif':
+    elif type_net == 'stacked':
         model_v = pilotnet_model(img_shape)
         model_w = pilotnet_model(img_shape)
         batch_size_v = 64
         batch_size_w = 64
         nb_epoch_v = 150
         nb_epoch_w = 150
+    elif type_net == 'stacked_dif':
+        model_v = temporal_model(img_shape)
+        model_w = temporal_model(img_shape)
+        batch_size_v = 64
+        batch_size_w = 64
+        nb_epoch_v = 100
+        nb_epoch_w = 100
     elif type_net == 'temporal':
         model_v = temporal_model(img_shape)
         model_w = temporal_model(img_shape)
@@ -269,13 +294,18 @@ if __name__ == "__main__":
         X_t_w, X_validation_w, y_t_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
 
     # Variables
-    if type_net == 'stacked' or type_net == 'stacked_dif':
+    if type_net == 'stacked':
         if type_image == 'cropped':
             #img_shape = (65, 160, 9)
             img_shape = (65, 160, 6)
         else:
             #img_shape = (120, 160, 9)
             img_shape = (120, 160, 6)
+    if type_net == 'stacked_dif':
+        if type_image == 'cropped':
+            img_shape = (65, 160, 4)
+        else:
+            img_shape = (120, 160, 4)
     elif type_net == 'temporal':
         if type_image == 'cropped':
             #img_shape = (65, 160, 2)
