@@ -111,29 +111,36 @@ def stack_frames(imgs, type_net):
             #im2 = np.add(imgs[i], imgs[index2])
             #im2 = normalize_image(dif)
 
-            # backB, backG, backR = cv2.split(imgs[index2])
-            # imgB, imgG, imgR = cv2.split(imgs[i])
-            # sustB = np.abs(np.double(imgB) - np.double(backB))
-            # sustG = np.abs(np.double(imgG) - np.double(backG))
-            # sustR = np.abs(np.double(imgR) - np.double(backR))
-            # imB = ((sustB > 40) * 255)
-            # imG = ((sustG > 40) * 255)
-            # imR = ((sustR > 40) * 255)
-            # imB = np.uint8(imB)
-            # imG = np.uint8(imG)
-            # imR = np.uint8(imR)
-            # im2 = cv2.merge((imB, imG, imR))
+
+            # i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2GRAY)
+            # i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2GRAY)
+            # i1 = cv2.GaussianBlur(i1, (5, 5), 0)
+            # i2 = cv2.GaussianBlur(i2, (5, 5), 0)
+            # difference = np.zeros((i1.shape[0], i1.shape[1], 1))
+            # difference[:, :, 0] = cv2.absdiff(i1, i2)
+            # _, difference[:, :, 0] = cv2.threshold(difference[:, :, 0], 15, 255, cv2.THRESH_BINARY)
+            # kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
+            # difference[:, :, 0] = cv2.morphologyEx(difference[:, :, 0], cv2.MORPH_CLOSE, kernel)
+            # im2 = difference
+
 
             i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2GRAY)
             i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2GRAY)
             i1 = cv2.GaussianBlur(i1, (5, 5), 0)
             i2 = cv2.GaussianBlur(i2, (5, 5), 0)
             difference = np.zeros((i1.shape[0], i1.shape[1], 1))
-            difference[:, :, 0] = cv2.absdiff(i1, i2)
-            _, difference[:, :, 0] = cv2.threshold(difference[:, :, 0], 15, 255, cv2.THRESH_BINARY)
+            difference[:, :, 0] = cv2.subtract(np.float64(i1), np.float64(i2))
+            mask1 = cv2.inRange(difference[:, :, 0], 15, 255)
+            mask2 = cv2.inRange(difference[:, :, 0], -255, -15)
+            mask = mask1 + mask2
+            difference[:, :, 0][np.where(mask == 0)] = 0
             kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
             difference[:, :, 0] = cv2.morphologyEx(difference[:, :, 0], cv2.MORPH_CLOSE, kernel)
             im2 = difference
+            if np.ptp(im2) != 0:
+                im2 = 256*(im2 - np.min(im2))/np.ptp(im2)-128
+            else:
+                im2 = 256 * (im2 - np.min(im2)) / 1 - 128
 
         new_imgs.append(im2)
     return new_imgs
