@@ -9,7 +9,7 @@
       <pose>0 0 0 0 0 o</pose>
     </include>
     <include>
-      <uri>model://f1_redbull</uri>
+      <uri>model://f1ROS</uri>
       <pose>-59.25 28.6 0 0 0 -0.55</pose>
     </include>
   <light name='user_directional_light_0' type='directional'>
