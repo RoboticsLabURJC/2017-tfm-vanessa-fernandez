@@ -13,9 +13,18 @@ from keras.callbacks import TensorBoard, ModelCheckpoint, CSVLogger
 from models.model_nvidia import *
 
 
-def parse_json(data):
-    array_v = []
-    array_w = []
+def load_data(folder):
+    name_folder = '../' + folder + '/Images/'
+    list_images = glob.glob(name_folder + '*')
+    images = sorted(list_images, key=lambda x: int(x.split('/')[3].split('.png')[0]))
+    name_file = '../' + folder + '/data.json'
+    file = open(name_file, 'r')
+    data = file.read()
+    file.close()
+    return images, data
+
+
+def parse_json(data, array_v, array_w):
     # We process json
     data_parse = data.split('}')[:-1]
     for d in data_parse:
@@ -28,9 +37,8 @@ def parse_json(data):
     return array_v, array_w
 
 
-def get_images(list_images, type_image):
+def get_images(list_images, type_image, array_imgs):
     # We read the images
-    array_imgs = []
     for name in list_images:
         img = cv2.imread(name)
         if type_image == 'cropped':
@@ -246,24 +254,23 @@ if __name__ == "__main__":
     print('Your choice: ' + type_net + ', ' + type_image)
 
     # Load data
-    list_images = glob.glob('../Dataset/Images/' + '*')
-    images = sorted(list_images, key=lambda x: int(x.split('/')[3].split('.png')[0]))
-    file = open('../Dataset/data.json', 'r')
-    data = file.read()
-    file.close()
+    images, data = load_data('Dataset')
+    images_curve, data_curve = load_data('Dataset_Curves')
 
     # We preprocess images
-    x = get_images(images, type_image)
+    array_imgs = []
+    x = get_images(images, type_image, array_imgs)
+    x = get_images(images_curve, type_image, x)
     # We preprocess json
-    y_v, y_w = parse_json(data)
+    array_v = []
+    array_w = []
+    y_v, y_w = parse_json(data, array_v, array_w)
+    y_v, y_w = parse_json(data_curve, y_v, y_w)
 
 
     # Split data into 80% for train and 20% for validation
     if type_net == 'pilotnet' or type_net == 'tinypilotnet':
         # We adapt the data
-        #x_w = x[:]
-        #x_v = x[:]
-        #y_w, x_w, y_v, x_v = add_extreme_data(y_w, x_w, y_v, x_v)
         y_w, y_v, x = preprocess_data(y_w, y_v, x)
         x_w = x[:]
         x_v = x[:]
