@@ -241,8 +241,8 @@ def choose_model(type_net, img_shape, type_image):
         model_w = controlnet_model(img_shape)
         batch_size_v = 64 #8
         batch_size_w = 64 #8
-        nb_epoch_v = 300#223
-        nb_epoch_w = 300#212
+        nb_epoch_v = 200#300
+        nb_epoch_w = 200#300
     return model_v, model_w, model_file_v, model_file_w, model_png, batch_size_v, nb_epoch_v, batch_size_w, nb_epoch_w
 
 
