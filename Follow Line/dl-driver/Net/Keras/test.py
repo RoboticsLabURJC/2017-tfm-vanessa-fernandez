@@ -79,16 +79,6 @@ def make_predictions(data, model):
     return np.array(predicted)
 
 
-# def myAccuracy_regression(y_true, y_pred):
-#     # Absolute difference between correct and predicted values
-#     diff = K.abs(y_true-y_pred)
-#     # Tensor with 0 for false values and 1 for true values
-#     correct = K.less(diff,0.05)
-#     # Sum all 1's and divide by the total
-#     return K.mean(correct)
-
-
-
 def plot_confusion_matrix(cm, cmap=plt.cm.Blues):
     """
     Function to plot the confusion matrix
@@ -141,17 +131,24 @@ if __name__ == "__main__":
     print('Loading model...')
     model_v = load_model(model_file_v)
     model_w = load_model(model_file_w)
-    #model_v = load_model('models/model_pilotnet_v.h5', custom_objects={'myAccuracy_regression': myAccuracy_regression})
-    #model_w = load_model('models/model_pilotnet_w.h5', custom_objects={'myAccuracy_regression': myAccuracy_regression})
 
     # Make predictions
     print('Making predictions...')
     y_predict_v = make_predictions(X_test, model_v)
     y_predict_w = make_predictions(X_test, model_w)
 
+    # We create the figure and subplots
+    fig, ax = plt.subplots()
+    ax.set_title('Difference between ground truth and prediction')
+    ax.axis([-3, 3, -1, 1.5])
+    ax.set_xlabel('Angles of ground truth')
+    ax.set_ylabel('Difference between ground truth and prediction')
     for i in range(0, len(y_predict_w)):
         print('w: ', y_test_w[i], y_predict_w[i])
+        dif_w = y_test_w[i] - y_predict_w[i]
         print('v: ', y_test_v[i], y_predict_v[i])
+        ax.plot(y_test_w[i], dif_w, 'ro')
+    plt.show()
 
     # Evaluation
     print('Making evaluation...')
