@@ -45,6 +45,20 @@ def get_classification_v(v):
 		classification = 'slow'
 	return classification
 
+def get_classification_v_5(v):
+	if v > 11:
+		classification = 'very_fast'
+	elif v > 9:
+		classification = 'fast'
+	elif v > 7:
+		classification = 'moderate'
+	elif v > 0:
+		classification = 'slow'
+	else:
+		classification = 'negative'
+	return classification
+
+
 
 if __name__ == "__main__":
 	filename = 'dl-driver/Net/Dataset/data.json'
