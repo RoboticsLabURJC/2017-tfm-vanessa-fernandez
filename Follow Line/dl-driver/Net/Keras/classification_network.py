@@ -21,7 +21,9 @@ class ClassificationNetwork():
         self.graph = tf.get_default_graph()
 
         # The Keras network works on 160x120
-        self.img_height = 120
+        #self.img_height = 120
+        # If we have cropped images, the network works on 160x60
+        self.img_height = 60
         self.img_width = 160
 
         self.num_classes_w = 7
@@ -86,6 +88,8 @@ class ClassificationNetwork():
             string_label = "fast"
         elif label == 3:
             string_label = "very_fast"
+        elif label == 4:
+            string_label = "negative"
         return string_label
 
 
@@ -93,23 +97,25 @@ class ClassificationNetwork():
         input_image = self.camera.getImage()
 
         # Preprocessing
-        img = cv2.cvtColor(input_image.data, cv2.COLOR_RGB2BGR)
-        img_resized = cv2.resize(img, (self.img_width, self.img_height))
+        #img = cv2.cvtColor(input_image.data, cv2.COLOR_RGB2BGR)
+        img = cv2.cvtColor(input_image.data[240:480, 0:640], cv2.COLOR_RGB2BGR)
+        if img is not None:
+            img_resized = cv2.resize(img, (self.img_width, self.img_height))
 
-        # We adapt the image
-        input_img = np.stack([img_resized], axis=0)
+            # We adapt the image
+            input_img = np.stack([img_resized], axis=0)
 
-        # While predicting, use the same graph
-        with self.graph.as_default():
-            # Make prediction
-            predictions_v = self.model_v.predict(input_img)
-            predictions_w = self.model_w.predict(input_img)
-        y_pred_v = [np.argmax(prediction) for prediction in predictions_v][0]
-        y_pred_w = [np.argmax(prediction) for prediction in predictions_w][0]
+            # While predicting, use the same graph
+            with self.graph.as_default():
+                # Make prediction
+                predictions_v = self.model_v.predict(input_img)
+                predictions_w = self.model_w.predict(input_img)
+            y_pred_v = [np.argmax(prediction) for prediction in predictions_v][0]
+            y_pred_w = [np.argmax(prediction) for prediction in predictions_w][0]
 
-        # Convert int prediction to corresponded label
-        y_pred_v = self.convertLabel_v(y_pred_v)
-        y_pred_w = self.convertLabel_w(y_pred_w)
+            # Convert int prediction to corresponded label
+            y_pred_v = self.convertLabel_v(y_pred_v)
+            y_pred_w = self.convertLabel_w(y_pred_w)
 
-        self.prediction_v = y_pred_v
-        self.prediction_w = y_pred_w
+            self.prediction_v = y_pred_v
+            self.prediction_w = y_pred_w
