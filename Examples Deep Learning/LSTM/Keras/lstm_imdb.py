@@ -20,6 +20,11 @@ num_words = 1000
 X_train = sequence.pad_sequences(X_train, maxlen=200) 
 X_test = sequence.pad_sequences(X_test, maxlen=200)
 
+print(X_train)
+print(X_test)
+print(X_train.shape)
+print(X_test.shape)
+
 # Define network architecture and compile 
 model = Sequential() 
 model.add(Embedding(num_words, 50, input_length=200)) 
