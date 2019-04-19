@@ -241,8 +241,8 @@ def choose_model(type_net, img_shape, type_image):
         model_w = controlnet_model(img_shape)
         batch_size_v = 64 #8
         batch_size_w = 64 #8
-        nb_epoch_v = 100#300
-        nb_epoch_w = 100#300
+        nb_epoch_v = 350#300
+        nb_epoch_w = 350#300
     return model_v, model_w, model_file_v, model_file_w, model_png, batch_size_v, nb_epoch_v, batch_size_w, nb_epoch_w
 
 
@@ -255,17 +255,17 @@ if __name__ == "__main__":
 
     # Load data
     images, data = load_data('Dataset')
-    #images_curve, data_curve = load_data('Dataset_Curves')
+    images_curve, data_curve = load_data('Dataset_Curves')
 
     # We preprocess images
     array_imgs = []
     x = get_images(images, type_image, array_imgs)
-    #x = get_images(images_curve, type_image, x)
+    x = get_images(images_curve, type_image, x)
     # We preprocess json
     array_v = []
     array_w = []
     y_v, y_w = parse_json(data, array_v, array_w)
-    #y_v, y_w = parse_json(data_curve, y_v, y_w)
+    y_v, y_w = parse_json(data_curve, y_v, y_w)
 
 
     # Split data into 80% for train and 20% for validation
