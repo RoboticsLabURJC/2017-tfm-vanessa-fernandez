@@ -255,17 +255,17 @@ if __name__ == "__main__":
 
     # Load data
     images, data = load_data('Dataset')
-    images_curve, data_curve = load_data('Dataset_Curves')
+    #images_curve, data_curve = load_data('Dataset_Curves')
 
     # We preprocess images
     array_imgs = []
     x = get_images(images, type_image, array_imgs)
-    x = get_images(images_curve, type_image, x)
+    #x = get_images(images_curve, type_image, x)
     # We preprocess json
     array_v = []
     array_w = []
     y_v, y_w = parse_json(data, array_v, array_w)
-    y_v, y_w = parse_json(data_curve, y_v, y_w)
+    #y_v, y_w = parse_json(data_curve, y_v, y_w)
 
 
     # Split data into 80% for train and 20% for validation
