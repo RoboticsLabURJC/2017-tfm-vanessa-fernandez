@@ -103,10 +103,10 @@ if __name__ == "__main__":
     print('Your choice: ' + type_net + ', ' +type_image)
 
     # Load data
-    list_images = glob.glob('../Dataset/Images/' + '*')
-    images = sorted(list_images, key=lambda x: int(x.split('/')[3].split('.png')[0]))
+    list_images = glob.glob('../Dataset/Test/Images/' + '*')
+    images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
 
-    file = open('../Dataset/data.json', 'r')
+    file = open('../Dataset/Test/test.json', 'r')
     data = file.read()
     file.close()
 
