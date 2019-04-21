@@ -103,10 +103,10 @@ if __name__ == "__main__":
     print('Your choice: ' + type_net + ', ' +type_image)
 
     # Load data
-    list_images = glob.glob('../Dataset/Test/Images/' + '*')
-    images = sorted(list_images, key=lambda x: int(x.split('/')[4].split('.png')[0]))
+    list_images = glob.glob('../Dataset/Images/' + '*')
+    images = sorted(list_images, key=lambda x: int(x.split('/')[3].split('.png')[0]))
 
-    file = open('../Dataset/Test/test.json', 'r')
+    file = open('../Dataset/data.json', 'r')
     data = file.read()
     file.close()
 
@@ -143,11 +143,18 @@ if __name__ == "__main__":
     ax.axis([-3, 3, -1, 1.5])
     ax.set_xlabel('Angles of ground truth')
     ax.set_ylabel('Difference between ground truth and prediction')
+    fig, ax1 = plt.subplots()
+    ax1.set_title('Difference between ground truth and prediction')
+    ax1.axis([-2, 14, -3, 3])
+    ax1.set_xlabel('Speed of ground truth')
+    ax1.set_ylabel('Difference between ground truth and prediction')
     for i in range(0, len(y_predict_w)):
         print('w: ', y_test_w[i], y_predict_w[i])
         dif_w = y_test_w[i] - y_predict_w[i]
+        dif_v = y_test_v[i] - y_predict_v[i]
         print('v: ', y_test_v[i], y_predict_v[i])
         ax.plot(y_test_w[i], dif_w, 'ro')
+        ax1.plot(y_test_v[i], dif_v, 'bo')
     plt.show()
 
     # Evaluation
