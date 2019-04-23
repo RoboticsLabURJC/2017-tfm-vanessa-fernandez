@@ -143,7 +143,7 @@ if __name__ == "__main__":
     ax.set_ylabel('Difference between ground truth and prediction')
     fig, ax1 = plt.subplots()
     ax1.set_title('Difference between ground truth and prediction')
-    ax1.axis([-2, 14, -3, 3])
+    ax1.axis([-2, 14, -5, 5])
     ax1.set_xlabel('Speed of ground truth')
     ax1.set_ylabel('Difference between ground truth and prediction')
     for i in range(0, len(y_predict_w)):
