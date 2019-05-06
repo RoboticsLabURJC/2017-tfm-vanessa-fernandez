@@ -228,7 +228,7 @@ def choose_model(type_net, img_shape, type_image):
         batch_size_v = 12 #8
         batch_size_w = 12 #8
         nb_epoch_v = 150#223
-        nb_epoch_w = 100#212
+        nb_epoch_w = 150#212
     elif type_net == 'lstm':
         model_v = lstm_model(img_shape)
         model_w = lstm_model(img_shape)
@@ -239,10 +239,10 @@ def choose_model(type_net, img_shape, type_image):
     elif type_net == 'controlnet':
         model_v = controlnet_model(img_shape)
         model_w = controlnet_model(img_shape)
-        batch_size_v = 24 #64
-        batch_size_w = 24 #64
-        nb_epoch_v = 80#300
-        nb_epoch_w = 80#300
+        batch_size_v = 12 #24 #64
+        batch_size_w = 12 #24 #64
+        nb_epoch_v = 100 #300
+        nb_epoch_w = 100 #300
     return model_v, model_w, model_file_v, model_file_w, model_png, batch_size_v, nb_epoch_v, batch_size_w, nb_epoch_w
 
 
