@@ -66,6 +66,26 @@ def add_extreme_data(array_w, imgs_w, array_v, imgs_v):
     return array_w, imgs_w, array_v, imgs_v
 
 
+def add_extreme_data_temporal(array_w, imgs_w, array_v, imgs_v):
+    batch = 12
+    for i in range(0, len(array_w)):
+        if abs(array_w[i]) >= 1:
+            if abs(array_w[i]) >= 2:
+                num_iter = 10
+            else:
+                num_iter = 5
+            for j in range(0, num_iter):
+                for k in range(batch, 0, -1):
+                    array_w.append(array_w[i-k])
+                    imgs_w.append(imgs_w[i-k])
+        if float(array_v[i]) <= 2:
+            for j in range(0, 1):
+                for k in range(batch, 0, -1):
+                    array_v.append(array_v[i-k])
+                    imgs_v.append(imgs_v[i-k])
+    return array_w, imgs_w, array_v, imgs_v
+
+
 def preprocess_data(array_w, array_v, imgs):
     # We take the image and just flip it and negate the measurement
     flip_imgs = []
@@ -293,12 +313,13 @@ if __name__ == "__main__":
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm' or type_net == 'deepestlstm_tinypilotnet' or \
         type_net == 'controlnet':
         y_w, y_v, x = preprocess_data(y_w, y_v, x)
-        X_train_v = x
-        X_train_w = x
+        y_w, x_w, y_v, x_v = add_extreme_data_temporal(y_w, x_w, y_v, x_v)
+        X_train_v = x_v
+        X_train_w = x_w
         y_train_v = y_v
         y_train_w = y_w
-        X_t_v, X_validation_v, y_t_v, y_validation_v = train_test_split(x, y_v, test_size=0.20, random_state=42)
-        X_t_w, X_validation_w, y_t_w, y_validation_w = train_test_split(x, y_w, test_size=0.20, random_state=42)
+        X_t_v, X_validation_v, y_t_v, y_validation_v = train_test_split(x_v, y_v, test_size=0.20, random_state=42)
+        X_t_w, X_validation_w, y_t_w, y_validation_w = train_test_split(x_w, y_w, test_size=0.20, random_state=42)
 
     # Variables
     if type_net == 'stacked':
