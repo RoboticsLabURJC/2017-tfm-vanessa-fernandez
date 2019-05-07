@@ -313,6 +313,8 @@ if __name__ == "__main__":
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm' or type_net == 'deepestlstm_tinypilotnet' or \
         type_net == 'controlnet':
         y_w, y_v, x = preprocess_data(y_w, y_v, x)
+        x_w = x[:]
+        x_v = x[:]
         y_w, x_w, y_v, x_v = add_extreme_data_temporal(y_w, x_w, y_v, x_v)
         X_train_v = x_v
         X_train_w = x_w
