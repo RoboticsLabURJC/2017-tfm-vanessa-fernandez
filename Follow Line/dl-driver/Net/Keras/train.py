@@ -79,7 +79,7 @@ def add_extreme_data_temporal(array_w, imgs_w, array_v, imgs_v):
                     array_w.append(array_w[i-k])
                     imgs_w.append(imgs_w[i-k])
         if float(array_v[i]) <= 2:
-            for j in range(0, 4):
+            for j in range(0, 5):
                 for k in range(batch, 0, -1):
                     array_v.append(array_v[i-k])
                     imgs_v.append(imgs_v[i-k])
