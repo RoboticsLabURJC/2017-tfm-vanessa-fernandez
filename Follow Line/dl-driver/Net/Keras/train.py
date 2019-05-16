@@ -79,7 +79,7 @@ def add_extreme_data_temporal(array_w, imgs_w, array_v, imgs_v):
                     array_w.append(array_w[i-k])
                     imgs_w.append(imgs_w[i-k])
         if float(array_v[i]) <= 2:
-            for j in range(0, 1):
+            for j in range(0, 4):
                 for k in range(batch, 0, -1):
                     array_v.append(array_v[i-k])
                     imgs_v.append(imgs_v[i-k])
@@ -261,8 +261,8 @@ def choose_model(type_net, img_shape, type_image):
         model_w = controlnet_model(img_shape)
         batch_size_v = 24 #64
         batch_size_w = 24 #64
-        nb_epoch_v = 30 #300
-        nb_epoch_w = 30 #300
+        nb_epoch_v = 100 #300
+        nb_epoch_w = 100 #300
     return model_v, model_w, model_file_v, model_file_w, model_png, batch_size_v, nb_epoch_v, batch_size_w, nb_epoch_w
 
 
