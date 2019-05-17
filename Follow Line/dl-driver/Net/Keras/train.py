@@ -67,13 +67,13 @@ def add_extreme_data(array_w, imgs_w, array_v, imgs_v):
 
 
 def add_extreme_data_temporal(array_w, imgs_w, array_v, imgs_v):
-    batch = 12
+    batch = 24
     for i in range(0, len(array_w)):
         if abs(array_w[i]) >= 1:
             if abs(array_w[i]) >= 2:
-                num_iter = 10
+                num_iter = 2
             else:
-                num_iter = 5
+                num_iter = 1
             for j in range(0, num_iter):
                 for k in range(batch, 0, -1):
                     array_w.append(array_w[i-k])
