@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 import os
 import matplotlib
+
 matplotlib.use('Agg')
 
 from time import time
@@ -67,18 +68,18 @@ def add_extreme_data(array_w, imgs_w, array_v, imgs_v):
 
 
 def add_extreme_data_temporal(array_w, imgs_w, array_v, imgs_v):
-    batch = 24
+    timestep = 5
     for i in range(0, len(array_w)):
         if abs(array_w[i]) >= 2:
             for j in range(0, 2):
-                for k in range(batch, 0, -1):
-                    array_w.append(array_w[i-k])
-                    imgs_w.append(imgs_w[i-k])
+                for k in range(timestep, 0, -1):
+                    array_w.append(array_w[i - k])
+                    imgs_w.append(imgs_w[i - k])
         if float(array_v[i]) <= 2:
             for j in range(0, 5):
-                for k in range(batch, 0, -1):
-                    array_v.append(array_v[i-k])
-                    imgs_v.append(imgs_v[i-k])
+                for k in range(timestep, 0, -1):
+                    array_v.append(array_v[i - k])
+                    imgs_v.append(imgs_v[i - k])
     return array_w, imgs_w, array_v, imgs_v
 
 
@@ -95,12 +96,28 @@ def preprocess_data(array_w, array_v, imgs):
     return new_array_w, new_array_v, new_array_imgs
 
 
+def preprocess_images_lstm(imgs):
+    new_array_imgs = []
+    timestep = 5
+    for i in range(0, len(imgs)):
+        if i < timestep:
+            array = []
+            for j in range(0, (timestep - i)):
+                array.append(imgs[0])
+            for j in range(0, i):
+                array.append(imgs[j])
+            new_array_imgs.append(array)
+        else:
+            new_array_imgs.append(imgs[i - timestep:i])
+    return new_array_imgs
+
+
 def normalize_image(array):
-    rng = np.amax(array)-np.amin(array)
+    rng = np.amax(array) - np.amin(array)
     if rng == 0:
         rng = 1
     amin = np.amin(array)
-    return (array-amin)*255.0/rng
+    return (array - amin) * 255.0 / rng
 
 
 def stack_frames(imgs, type_net):
@@ -115,10 +132,10 @@ def stack_frames(imgs, type_net):
             index2 = 0
         else:
             index2 = i - (margin + 1)
-        #im1 =  np.concatenate([imgs[index1], imgs[index2]], axis=2)
-        #im2 = np.concatenate([im1, imgs[i]], axis=2)
+        # im1 =  np.concatenate([imgs[index1], imgs[index2]], axis=2)
+        # im2 = np.concatenate([im1, imgs[i]], axis=2)
         if type_net == 'stacked_dif':
-            #im = imgs[i] - imgs[index2]
+            # im = imgs[i] - imgs[index2]
             i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2GRAY)
             i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2GRAY)
             i1 = cv2.GaussianBlur(i1, (5, 5), 0)
@@ -146,12 +163,12 @@ def stack_frames(imgs, type_net):
             # dif = np.zeros((i1.shape[0], i1.shape[1], 2))
             # dif[:,:,0] = cv2.absdiff(i1[:, :, 0], i2[:, :, 0])
             # dif[:,:,1] = cv2.absdiff(i1[:, :, 1], i2[:, :, 1])
-            #i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2GRAY)
-            #i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2GRAY)
+            # i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2GRAY)
+            # i2 = cv2.cvtColor(imgs[index2], cv2.COLOR_BGR2GRAY)
             # dif = np.zeros((i1.shape[0], i1.shape[1], 1))
             # dif[:,:,0] = cv2.subtract(i1, i2)
-            #im2 = np.add(imgs[i], imgs[index2])
-            #im2 = normalize_image(dif)
+            # im2 = np.add(imgs[i], imgs[index2])
+            # im2 = normalize_image(dif)
 
 
             # i1 = cv2.cvtColor(imgs[i], cv2.COLOR_BGR2GRAY)
@@ -180,7 +197,7 @@ def stack_frames(imgs, type_net):
             difference[:, :, 0] = cv2.morphologyEx(difference[:, :, 0], cv2.MORPH_CLOSE, kernel)
             im2 = difference
             if np.ptp(im2) != 0:
-                im2 = 256*(im2 - np.min(im2))/np.ptp(im2)-128
+                im2 = 256 * (im2 - np.min(im2)) / np.ptp(im2) - 128
             else:
                 im2 = 256 * (im2 - np.min(im2)) / 1 - 128
 
@@ -199,17 +216,17 @@ def choose_model(type_net, img_shape, type_image):
     if type_net == 'pilotnet':
         model_v = pilotnet_model(img_shape)
         model_w = pilotnet_model(img_shape)
-        batch_size_v = 64#16
+        batch_size_v = 64  # 16
         batch_size_w = 64
-        nb_epoch_v = 300#223
-        nb_epoch_w = 300#212
+        nb_epoch_v = 300  # 223
+        nb_epoch_w = 300  # 212
     elif type_net == 'tinypilotnet':
         model_v = tinypilotnet_model(img_shape)
         model_w = tinypilotnet_model(img_shape)
-        batch_size_v = 64#16
+        batch_size_v = 64  # 16
         batch_size_w = 64
-        nb_epoch_v = 250 #223
-        nb_epoch_w = 1000 #212
+        nb_epoch_v = 250  # 223
+        nb_epoch_w = 1000  # 212
     elif type_net == 'stacked':
         model_v = pilotnet_model(img_shape)
         model_w = pilotnet_model(img_shape)
@@ -234,31 +251,31 @@ def choose_model(type_net, img_shape, type_image):
     elif type_net == 'lstm_tinypilotnet':
         model_v = lstm_tinypilotnet_model(img_shape, type_image)
         model_w = lstm_tinypilotnet_model(img_shape, type_image)
-        batch_size_v = 12 #8
-        batch_size_w = 12 #8
-        nb_epoch_v = 200#223
-        nb_epoch_w = 200#212
+        batch_size_v = 12  # 8
+        batch_size_w = 12  # 8
+        nb_epoch_v = 200  # 223
+        nb_epoch_w = 200  # 212
     elif type_net == 'deepestlstm_tinypilotnet':
         model_v = deepestlstm_tinypilotnet_model(img_shape, type_image)
         model_w = deepestlstm_tinypilotnet_model(img_shape, type_image)
-        batch_size_v = 12 #8
-        batch_size_w = 12 #8
-        nb_epoch_v = 150#223
-        nb_epoch_w = 150#212
+        batch_size_v = 12  # 8
+        batch_size_w = 12  # 8
+        nb_epoch_v = 150  # 223
+        nb_epoch_w = 150  # 212
     elif type_net == 'lstm':
         model_v = lstm_model(img_shape)
         model_w = lstm_model(img_shape)
-        batch_size_v = 128 #8
-        batch_size_w = 128 #8
-        nb_epoch_v = 100#223
-        nb_epoch_w = 100#212
+        batch_size_v = 128  # 8
+        batch_size_w = 128  # 8
+        nb_epoch_v = 100  # 223
+        nb_epoch_w = 100  # 212
     elif type_net == 'controlnet':
         model_v = controlnet_model(img_shape)
         model_w = controlnet_model(img_shape)
-        batch_size_v = 24 #64
-        batch_size_w = 24 #64
-        nb_epoch_v = 100 #300
-        nb_epoch_w = 100 #300
+        batch_size_v = 128  # 24 #64
+        batch_size_w = 128  # 24 #64
+        nb_epoch_v = 200  # 300
+        nb_epoch_w = 200  # 300
     return model_v, model_w, model_file_v, model_file_w, model_png, batch_size_v, nb_epoch_v, batch_size_w, nb_epoch_w
 
 
@@ -283,7 +300,6 @@ if __name__ == "__main__":
     y_v, y_w = parse_json(data, array_v, array_w)
     y_v, y_w = parse_json(data_curve, y_v, y_w)
 
-
     # Split data into 80% for train and 20% for validation
     if type_net == 'pilotnet' or type_net == 'tinypilotnet':
         # We adapt the data
@@ -295,8 +311,8 @@ if __name__ == "__main__":
                                                                                 random_state=42)
         X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w, y_w, test_size=0.20,
                                                                                 random_state=42)
-        #X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x_v,y_v,test_size=0.20,random_state=42)
-        #X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w,y_w,test_size=0.20,random_state=42)
+        # X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x_v,y_v,test_size=0.20,random_state=42)
+        # X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w,y_w,test_size=0.20,random_state=42)
     elif type_net == 'stacked' or type_net == 'stacked_dif' or type_net == 'temporal':
         # We stack frames
         y_w, y_v, x = preprocess_data(y_w, y_v, x)
@@ -304,14 +320,18 @@ if __name__ == "__main__":
         x_w = x[:]
         x_v = x[:]
         y_w, x_w, y_v, x_v = add_extreme_data(y_w, x_w, y_v, x_v)
-        X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x_v, y_v, test_size=0.20, random_state=42)
-        X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w, y_w, test_size=0.20, random_state=42)
+        X_train_v, X_validation_v, y_train_v, y_validation_v = train_test_split(x_v, y_v, test_size=0.20,
+                                                                                random_state=42)
+        X_train_w, X_validation_w, y_train_w, y_validation_w = train_test_split(x_w, y_w, test_size=0.20,
+                                                                                random_state=42)
     elif type_net == 'lstm_tinypilotnet' or type_net == 'lstm' or type_net == 'deepestlstm_tinypilotnet' or \
-        type_net == 'controlnet':
+                    type_net == 'controlnet':
         y_w, y_v, x = preprocess_data(y_w, y_v, x)
+        if type_net == 'controlnet' or type_net == 'lstm':
+            x = preprocess_images_lstm(x[:])
         x_w = x[:]
         x_v = x[:]
-        y_w, x_w, y_v, x_v = add_extreme_data_temporal(y_w, x_w, y_v, x_v)
+        y_w, x_w, y_v, x_v = add_extreme_data(y_w, x_w, y_v, x_v)  # add_extreme_data_temporal(y_w, x_w, y_v, x_v)
         X_train_v = x_v
         X_train_w = x_w
         y_train_v = y_v
@@ -322,10 +342,10 @@ if __name__ == "__main__":
     # Variables
     if type_net == 'stacked':
         if type_image == 'cropped':
-            #img_shape = (65, 160, 9)
+            # img_shape = (65, 160, 9)
             img_shape = (65, 160, 6)
         else:
-            #img_shape = (120, 160, 9)
+            # img_shape = (120, 160, 9)
             img_shape = (120, 160, 6)
     if type_net == 'stacked_dif':
         if type_image == 'cropped':
@@ -334,11 +354,15 @@ if __name__ == "__main__":
             img_shape = (120, 160, 4)
     elif type_net == 'temporal':
         if type_image == 'cropped':
-            #img_shape = (65, 160, 2)
+            # img_shape = (65, 160, 2)
             img_shape = (65, 160, 1)
         else:
-            #img_shape = (120, 160, 2)
+            # img_shape = (120, 160, 2)
             img_shape = (120, 160, 1)
+    elif type_net == 'controlnet' or type_net == 'lstm':
+        # img_shape = (120, 160, 3)
+        # img_shape = (250, 5, 57600)
+        img_shape = (5, 120, 160, 3)
     else:
         if type_image == 'cropped':
             img_shape = (65, 160, 3)
@@ -370,18 +394,17 @@ if __name__ == "__main__":
 
     if not os.path.exists('csv'): os.makedirs('csv')
     filename = 'csv/' + type_net + '_' + type_image + '_v.csv'
-    # csv_logger = CSVLogger(filename=filename, separator = ',', append = True)
-    #
-    # model_checkpoint = ModelCheckpoint(model_file_v,
-    #                                    save_best_only=True,
-    #                                    save_weights_only=False,
-    #                                    monitor='val_loss',
-    #                                    verbose=1)
+    csv_logger = CSVLogger(filename=filename, separator=',', append=True)
 
-    # model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
-    #                               validation_data=(X_validation_v, y_validation_v),
-    #                               callbacks=[tensorboard, model_checkpoint, csv_logger])
+    model_checkpoint = ModelCheckpoint(model_file_v,
+                                       save_best_only=True,
+                                       save_weights_only=False,
+                                       monitor='val_loss',
+                                       verbose=1)
 
+    model_history_v = model_v.fit(X_train_v, y_train_v, epochs=nb_epoch_v, batch_size=batch_size_v, verbose=2,
+                                  validation_data=(X_validation_v, y_validation_v),
+                                  callbacks=[tensorboard, model_checkpoint, csv_logger])
 
     tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
 
@@ -414,8 +437,8 @@ if __name__ == "__main__":
     print('Test mean absolute error: ', score[3])
 
     # We save the model
-    #model_v.save(model_file_v)
-    #model_w.save(model_file_w)
+    # model_v.save(model_file_v)
+    # model_w.save(model_file_w)
 
     # Plot the training and validation loss for each epoch
     # plt.plot(model_history.history['loss'])
