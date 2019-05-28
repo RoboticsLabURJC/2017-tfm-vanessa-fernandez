@@ -5,7 +5,8 @@
 
 from keras.models import Sequential
 from keras.layers import Flatten,Dense,Conv2D,BatchNormalization,Dropout,ConvLSTM2D,Reshape,Activation,MaxPooling2D
-from keras.layers.recurrent import LSTM
+from keras.layers import LSTM
+from keras.layers.wrappers import TimeDistributed
 from keras.optimizers import Adam
 
 
@@ -133,21 +134,38 @@ def lstm_model(img_shape):
 
 def controlnet_model(img_shape):
     model = Sequential()
-    model.add(Conv2D(16, (5, 5), input_shape=img_shape, activation="relu"))
-    model.add(MaxPooling2D(pool_size=(3, 3), strides=(2, 2)))
-    model.add(Conv2D(16, (5, 5), activation="relu"))
-    model.add(MaxPooling2D(pool_size=(3, 3), strides=(2, 2)))
-    model.add(Conv2D(16, (3, 3), activation="relu"))
-    model.add(MaxPooling2D(pool_size=(3, 3), strides=(2, 2)))
-    model.add(Conv2D(16, (3, 3), activation="relu"))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Conv2D(16, (3, 3), activation="relu"))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dense(50, activation="relu"))
-    model.add(Dense(50, activation="relu"))
-    model.add(Flatten())
-    model.add(Reshape((100, 1)))
-    model.add(LSTM(5))
+    #model.add(Conv2D(16, (5, 5), input_shape=img_shape, activation="relu"))
+    #model.add(MaxPooling2D(pool_size=(3, 3), strides=(2, 2)))
+    #model.add(Conv2D(16, (5, 5), activation="relu"))
+    #model.add(MaxPooling2D(pool_size=(3, 3), strides=(2, 2)))
+    #model.add(Conv2D(16, (3, 3), activation="relu"))
+    #model.add(MaxPooling2D(pool_size=(3, 3), strides=(2, 2)))
+    #model.add(Conv2D(16, (3, 3), activation="relu"))
+    #model.add(MaxPooling2D(pool_size=(2, 2)))
+    #model.add(Conv2D(16, (3, 3), activation="relu"))
+    #model.add(MaxPooling2D(pool_size=(2, 2)))
+    #model.add(Dense(50, activation="relu"))
+    #model.add(Dense(50, activation="relu"))
+    #model.add(Flatten())
+    #model.add(Reshape((100, 1)))
+    #model.add(LSTM(5))
+    #model.add(Activation('softmax'))
+    #model.add(Dense(1))
+
+    model.add(TimeDistributed(Conv2D(16, (5, 5), activation="relu"), input_shape=img_shape))
+    model.add(TimeDistributed(MaxPooling2D(pool_size=(3, 3), strides=(2, 2))))
+    model.add(TimeDistributed(Conv2D(16, (5, 5), activation="relu")))
+    model.add(TimeDistributed(MaxPooling2D(pool_size=(3, 3), strides=(2, 2))))
+    model.add(TimeDistributed(Conv2D(16, (3, 3), activation="relu")))
+    model.add(TimeDistributed(MaxPooling2D(pool_size=(3, 3), strides=(2, 2))))
+    model.add(TimeDistributed(Conv2D(16, (3, 3), activation="relu")))
+    model.add(TimeDistributed(MaxPooling2D(strides=(2, 2))))
+    model.add(TimeDistributed(Conv2D(16, (3, 3), activation="relu")))
+    model.add(TimeDistributed(MaxPooling2D(strides=(2, 2))))
+    model.add(TimeDistributed(Dense(50, activation="relu")))
+    model.add(TimeDistributed(Dense(50, activation="relu")))
+    model.add(TimeDistributed(Flatten()))
+    model.add(LSTM(100, return_sequences=False))
     model.add(Activation('softmax'))
     model.add(Dense(1))
     adam = Adam(lr=0.0001)
