@@ -13,7 +13,7 @@ But there are also cases where we need more context. Consider trying to predict 
 
 In theory, RNNs are absolutely capable of handling such “long-term dependencies”. In practice, RNNs don’t seem to be able to learn them. LSTMs don’t have this problem.
 
-LSTMs (Long Short-Term Memory networks) (http://www.bioinf.jku.at/publications/older/2604.pdf, https://colah.github.io/posts/2015-08-Understanding-LSTMs/) are a type of RNN (Recurrent Neural Network) architecture that addresses the vanishing/exploding gradient problem and allows learning of long-term dependencies. They were introduced by Hochreiter & Schmidhuber (1997). They work very well on a large variety of problems, and are now widely used.
+LSTMs (Long Short-Term Memory networks) ([1](http://www.bioinf.jku.at/publications/older/2604.pdf), [2](https://colah.github.io/posts/2015-08-Understanding-LSTMs/)) are a type of RNN (Recurrent Neural Network) architecture that addresses the vanishing/exploding gradient problem and allows learning of long-term dependencies. They were introduced by Hochreiter & Schmidhuber (1997). They work very well on a large variety of problems, and are now widely used.
 
 LSTMs are explicitly designed to avoid the long-term dependency problem. Remembering information for long periods of time is practically their default behavior. All recurrent neural networks have the form of a chain of repeating modules of neural network. In standard RNNs, this repeating module will have a very simple structure. LSTMs also have this chain like structure, but the repeating module has a different structure. Instead of having a single neural network layer, there are four, interacting in a very special way.
 
@@ -33,5 +33,5 @@ It’s now time to update the old cell state, Ct−1, into the new cell state Ct
 
 ## First exampke of LSTM
 
-To implement a first simple example of this kind of networks a tutorial (https://www.knowledgemapper.com/knowmap/knowbook/jasdeepchhabra94@gmail.comUnderstandingLSTMinTensorflow(MNISTdataset) has been followed in which we discover how to develop an LSTM network in tensorflow. In this example, we use MNIST as our dataset. The result of this implementation can be found in https://github.com/RoboticsURJC-students/2017-tfm-vanessa-fernandez/blob/master/Examples%20Deep%20Learning/LSTM/Tensorflow/lstm_mnist.py. 
+To implement a first simple example of this kind of networks a [tutorial] (https://www.knowledgemapper.com/knowmap/knowbook/jasdeepchhabra94@gmail.comUnderstandingLSTMinTensorflow(MNISTdataset)) has been followed in which we discover how to develop an LSTM network in tensorflow. In this example, we use MNIST as our dataset. The result of this implementation can be found in [Github](https://github.com/RoboticsURJC-students/2017-tfm-vanessa-fernandez/blob/master/Examples%20Deep%20Learning/LSTM/Tensorflow/lstm_mnist.py). 
 
