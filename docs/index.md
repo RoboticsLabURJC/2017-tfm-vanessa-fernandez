@@ -3,6 +3,8 @@ layout: default
 ---
 # Vanessa Fernández's TFM student
 
+* [Week 12: Follow line with classification network, Studying Tensorboard, Classification network for v, Regression network for w and v](week12.md)
+* [Week 11: Correction of the binary classification model, correction of driver node, accuracy top2, Pilotnet network](week11.md)
 * [Week 10: Adding new class, Classification network](week10.md)
 * [Week 9: Improving driver node, classification network, and driver test](week9.md)
 * [Week 8: Improving driver node](week8.md)
