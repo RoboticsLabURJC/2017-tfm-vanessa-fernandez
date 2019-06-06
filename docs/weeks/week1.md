@@ -17,7 +17,7 @@ This week, I read some papers about Deep Learning for Steering Autonomous Vehicl
 * [Agile Autonomous Driving using End-to-End Deep Imitation Learning](https://arxiv.org/pdf/1709.07174.pdf): They present an end-to-end imitation learning system for agile, off-road autonomous driving using only low-cost on-board sensors. By imitating a model predictive controller equipped with advanced sensors, they train a deep neural network control policy to map raw, high-dimensional observations to continuous steering and throttle commands. Compared with recent approaches to similar tasks, their method requires neither state estimation nor on-the-fly planning to navigate the vehicle. Their approach relies on, and experimentally validates, recent imitation learning theory.
 
 
-In addition, I followed the Tensorflow convolutional neural networks tutorial (https://www.tensorflow.org/tutorials/layers). In this tutorial, I've learnt how to use layers to build a convolutional neural network model to recognize the handwritten digits in the MNIST data set. As the model trains, you'll see log output like the following: 
+In addition, I followed the [Tensorflow convolutional neural networks tutorial](https://www.tensorflow.org/tutorials/layers). In this tutorial, I've learnt how to use layers to build a convolutional neural network model to recognize the handwritten digits in the MNIST data set. As the model trains, you'll see log output like the following: 
 
 <pre>
 INFO:tensorflow:loss = 2.36026, step = 1
