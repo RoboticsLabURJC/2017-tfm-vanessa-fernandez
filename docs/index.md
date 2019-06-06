@@ -3,6 +3,8 @@ layout: default
 ---
 # Vanessa Fernández's TFM student
 
+* [Week 10: Adding new class, Classification network](week10.md)
+* [Week 9: Improving driver node, classification network, and driver test](week9.md)
 * [Week 8: Improving driver node](week8.md)
 * [Week 7: Dataset generator and driver node](week7.md)
 * [Weeks 5, 6: First steps with Follow Line](weeks/week5_6.md)
