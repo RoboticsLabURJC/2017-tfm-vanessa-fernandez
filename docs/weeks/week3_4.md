@@ -17,7 +17,7 @@ LSTMs (Long Short-Term Memory networks) ([1](http://www.bioinf.jku.at/publicatio
 
 LSTMs are explicitly designed to avoid the long-term dependency problem. Remembering information for long periods of time is practically their default behavior. All recurrent neural networks have the form of a chain of repeating modules of neural network. In standard RNNs, this repeating module will have a very simple structure. LSTMs also have this chain like structure, but the repeating module has a different structure. Instead of having a single neural network layer, there are four, interacting in a very special way.
 
-[![LSTM](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/lstm.png)]
+![LSTM](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/lstm.png)
 
 In the above diagram, each line carries an entire vector, from the output of one node to the inputs of others. The pink circles represent pointwise operations, like vector addition, while the yellow boxes are learned neural network layers. Lines merging denote concatenation, while a line forking denote its content being copied and the copies going to different locations.
 
@@ -33,5 +33,5 @@ It’s now time to update the old cell state, Ct−1, into the new cell state Ct
 
 ## First exampke of LSTM
 
-To implement a first simple example of this kind of networks a [tutorial] (https://www.knowledgemapper.com/knowmap/knowbook/jasdeepchhabra94@gmail.comUnderstandingLSTMinTensorflow(MNISTdataset)) has been followed in which we discover how to develop an LSTM network in tensorflow. In this example, we use MNIST as our dataset. The result of this implementation can be found in [Github](https://github.com/RoboticsURJC-students/2017-tfm-vanessa-fernandez/blob/master/Examples%20Deep%20Learning/LSTM/Tensorflow/lstm_mnist.py). 
+To implement a first simple example of this kind of networks a [tutorial](https://www.knowledgemapper.com/knowmap/knowbook/jasdeepchhabra94@gmail.comUnderstandingLSTMinTensorflow(MNISTdataset)) has been followed in which we discover how to develop an LSTM network in tensorflow. In this example, we use MNIST as our dataset. The result of this implementation can be found in [Github](https://github.com/RoboticsURJC-students/2017-tfm-vanessa-fernandez/blob/master/Examples%20Deep%20Learning/LSTM/Tensorflow/lstm_mnist.py). 
 
