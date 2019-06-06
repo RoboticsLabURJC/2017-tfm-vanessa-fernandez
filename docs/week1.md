@@ -1,0 +1,11 @@
+---
+layout: default
+---
+# Week 1: Read papers about Deep Learning for Steering Autonomous Vehicles, CNN with Tensorflow
+
+
+This week, I read some papers about Deep Learning for Steering Autonomous Vehicles. Some of these papers are: 
+
+* [End-to-End Deep Learning for Steering Autonomous Vehicles Considering Temporal Dependencies](https://arxiv.org/pdf/1710.03804.pdf): In this work, they propose a Convolutional Long Short-Term Memory Recurrent Neural Network (C-LSTM), that is end-to-end trainable, to learn both visual and dynamic temporal dependencies of driving. To train and validate their proposed methods, they used the publicly available Comma.ai dataset. The system they propose is comprised of a front-facing RGB camera and a composite neural network consisting of a CNN and LSTM network that estimate the steering wheel angle based on the camera input. Camera images are processed frame by frame by the CNN. The CNN is pre-trained, on the Imagenet dataset, that features 1.2 million images of approximately 1000 different classes and allows for recognition of a generic set of features and a variety of objects with a high precision. Then, they transfer the trained neural network from that broad domain to another specific one focusing on driving scene images. The LSTM then processes a sequence of w fixed-length feature vectors (sliding window) from the CNN. In turn, the LSTM layers learn to recognize temporal dependences leading to a steering decision Yt based on the inputs from Xt−w to Xt. Small values of t lead to faster reactions, but the network learns only short-term dependences and susceptibility for individually misclassified frames increases. Whereas large values of t lead to a smoother behavior, and hence more stable steering predictions, but increase the chance of learning wrong long-term dependences. The sliding window concept allows the network to learn to recognize different steering angles from the same frame Xi but at different temporal states of the LSTM layers. For the domain-specific training, the classification layer of the CNN is re-initialized and trained on camera road data. Training of the LSTM layer is conducted in a many-to-one fashion; the network learns the steering decisions that are associated with intervals of driving.
+
+* 
