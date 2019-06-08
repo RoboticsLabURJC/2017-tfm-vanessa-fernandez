@@ -81,9 +81,9 @@ v = 13             ===> 1670
 ## Results table (cropped image)
 
 
-|                                                      Driving results of classification networks                                                                                                   |
+|                                                      Driving results of classification networks                                                                                      ||||||||||||||
 |                           |        Manual         |      1v+7w biased     |     4v+7w biased      |     1v+7w balanced    |     4v+7w balanced    |   1v+7w imbalanced    |    4v+7w imbalanced   |
-|         :---:             |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |
+|         :---:             |        :---:         ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||
 |      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |
 |  Simple (clockwise)       |    100%    | 1min 35s |     75%    |          |     10%    |          |    80%     |          |     25%    |          |    10%     |          |    10%     |          |
 |Simple (anti-clockwise)    |    100%    | 1min 32s |     25%    |          |     15%    |          |    65%     |          |     65%    |          |    100%    | 2min 16s |    25%     |          |
@@ -94,9 +94,9 @@ v = 13             ===> 1670
 
 
 
-|                                                      Driving results of regression networks                                                       |
+|                                                      Driving results of regression networks                                              ||||||||||
 |                           |        Manual         | Pilotnet constant v+w |    Pilotnet v + w     | Stacked constant v+w  |       Stacked v+w     |
-|         :---:             |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |
+|         :---:             |         :---:        ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||
 |      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |
 |  Simple (clockwise)       |    100%    | 1min 35s |     100%   | 3min 46s |     10%    |          |     100%   | 3min 46s |     10%    |          |
 |Simple (anti-clockwise)    |    100%    | 1min 32s |     100%   | 3min 46s |     10%    |          |     100%   | 3min 46s |     25%    |          |
@@ -110,9 +110,9 @@ v = 13             ===> 1670
 
 ## Results table (whole image)
 
-|                                                      Driving results of classification networks                                                                                                   |
+|                                                      Driving results of classification networks                                                                                      ||||||||||||||
 |                           |        Manual         |      1v+7w biased     |     4v+7w biased      |     1v+7w balanced    |     4v+7w balanced    |   1v+7w imbalanced    |    4v+7w imbalanced   |
-|         :---:             |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |
+|         :---:             |        :---:         ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||
 |      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |
 |  Simple (clockwise)       |    100%    | 1min 35s |    100%    | 2min 17s |     75%    |          |    90%     |          |     10%    |          |    75%     |          |    25%     |          |
 |Simple (anti-clockwise)    |    100%    | 1min 32s |    100%    | 2min 17s |     65%    |          |    98%     |          |     10%    |          |    75%     |          |    65%     |          |
@@ -123,9 +123,9 @@ v = 13             ===> 1670
 
 
 
-|                                                      Driving results of regression networks                                                                                                          |
+|                                                      Driving results of regression networks                                                                                             ||||||||||||||
 |                           |        Manual         | Pilotnet constant v+w |    Pilotnet v + w     | Stacked constant v+w  |       Stacked v+w     | DeepestLSTM-Tinyp cons v | DeepestLSTM-Tinypilot.|
-|         :---:             |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |   :---:    |   :---:  |    :---:      |   :---   |   :---:    |   :---:  |
+|         :---:             |        :---:         ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||           :---:         ||        :---:         ||
 |      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |  Percentage   |   Time   | Percentage |   Time   |
 |  Simple (clockwise)       |    100%    | 1min 35s |     100%   | 3min 46s |     25%    |          |     10%    |          |     10%    |          |       10%     |          |     10%    |          | 
 |Simple (anti-clockwise)    |    100%    | 1min 32s |     100%   | 3min 46s |     25%    |          |     15%    |          |     12%    |          |       25%     |          |     10%    |          |
