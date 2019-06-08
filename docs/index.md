@@ -3,6 +3,12 @@ layout: default
 ---
 # Vanessa Fernández's TFM student
 
+* [Week 22: Results table, Data analysis, CARLA simulator, Udacity simulator](weeks/week22.md)
+* [Week 21: Driving videos, Stacked network](weeks/week21.md)
+* [Week 20: Driving videos, Reading information](weeks/week20.md)
+* [Week 19: Reading information](weeks/week19.md)
+* [Weeks 17, 18: Driving video, New Dataset, Number of data for each class, Data statistics, Effect of image colourspace on CNN](weeks/week17_18.md)
+* [Week 16: Driving videos, Classification network, LSTM-Tinypilotnet](weeks/week16.md)
 * [Week 15: Driving videos, Dataset coherence study, Driving analysis, New gui](weeks/week15.md)
 * [Week 14: Classification Network, Regression Network, Reading information](weeks/week14.md)
 * [Week 13: Data's Analysis, New Dataset](weeks/week13.md)
