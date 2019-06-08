@@ -3,6 +3,8 @@ layout: default
 ---
 # Vanessa Fernández's TFM student
 
+* [Week 25: Study of difference images, Results, Controlnet](weeks/week25.md)
+* [Week 24: Reading information, Temporal difference network, Results](weeks/week24.md)
 * [Week 23: Driving videos, Pilotnet multiple (stacked), Metrics table, Basic LSTM](weeks/week23.md)
 * [Week 22: Results table, Data analysis, CARLA simulator, Udacity simulator](weeks/week22.md)
 * [Week 21: Driving videos, Stacked network](weeks/week21.md)
@@ -23,3 +25,4 @@ layout: default
 * [Weeks 3, 4: Understanding LSTM](weeks/week3_4.md)
 * [Week 2: Follow line dataset](weeks/week2.md)
 * [Week 1: Read papers about Deep Learning for Steering Autonomous Vehicles, CNN with Tensorflow](weeks/week1.md)
+* [Previous TFM](weeks/Previous_tfm/index_previous.md)
