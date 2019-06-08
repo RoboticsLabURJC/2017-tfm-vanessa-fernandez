@@ -1,0 +1,11 @@
+---
+layout: default
+---
+# Weeks 5,6,7: SSD and R-CNN
+
+These weeks, I've known some object detection algorithms. Object detection is the process of finding instances of real-world objects in images or videos. Object detection algorithms usually use extracted features and learning algorithms to recognize instances of an object category. There are different algorithm for object detection. Some of them are: 
+
+* [R-CNN (Recurrent Convolutional Neural Network)](https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Liang_Recurrent_Convolutional_Neural_2015_CVPR_paper.pdf): is a special type of CNN that is able to locate and detect objects in images: the output is generally a set of bounding boxes that closely match each of the detected objects, as well as a class output for each detected object. Though the input is static, the activities of RCNN units evolve over time so that the activity of each unit is modulated by the activities of its neighboring units. This property enhances the ability of the model to integrate the context information, which is important for object recognition. Like other recurrent neural networks, unfolding the RCNN through time can result in an arbitrarily deep network with a fixed number of parameters. Furthermore, the unfolded network has multiple paths, which can facilitate the learning process.
+
+* [Single Shot Multibox Detector (SSD)](https://www.cs.unc.edu/~wliu/papers/ssd.pdf): discretizes the output space of bounding boxes into a set of default boxes over different aspect ratios and scales per feature map location. At  prediction time, the network generates scores for the presence of each object category in each default box and produces adjustments to the box to better match the object shape. Additionally, the network combines predictions from multiple feature maps with different resolutions to naturally handle objects of various sizes. SSD is simple relative to methods that require object proposals because it completely eliminates proposal generation and subsequent pixel or feature resampling stages and encapsulates all computation in a single network. This makes SSD easy to train and straightforward to integrate into systems that require a detection component.
+
