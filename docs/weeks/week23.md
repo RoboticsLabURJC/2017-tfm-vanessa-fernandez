@@ -149,7 +149,7 @@ I've used the predictions of the classification network according to w (7 classe
 In this method (stacked frames), we concatenate multiple subsequent input images to create a stacked image. Then, we feed this stacked image to the network as a single input. In this case, we have stacked 2 images separated by 10 frames. The results are: 
 
 
-|                                                      Driving results (classification networks)                                   ||||||||
+|                                                      Driving results (regression networks)                                       ||||||||
 |                           | stacked const v whole image | stacked whole image   | stacked const v cropped image | stacked cropped image |
 |         :---:             |              :---:         ||        :---:         ||            :---:             ||        :---:         ||
 |      Circuits             |   Percentage   |    Time    | Percentage |   Time   |    Percentage    |    Time    | Percentage |   Time   |
@@ -164,7 +164,7 @@ In this method (stacked frames), we concatenate multiple subsequent input images
 We have also tried to stack 2 images, but separated but one is the image in the instantaneous it and the other is the difference image of it and it-10. The results are: 
 
 
-|                                                      Driving results (classification networks)                                   ||||||||
+|                                                      Driving results (regression networks)                                       ||||||||
 |                           | stacked const v whole image | stacked whole image   | stacked const v cropped image | stacked cropped image |
 |         :---:             |              :---:         ||        :---:         ||            :---:             ||        :---:         ||
 |      Circuits             |   Percentage   |    Time    | Percentage |   Time   |    Percentage    |    Time    | Percentage |   Time   |
