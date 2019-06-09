@@ -6,8 +6,7 @@ layout: default
 ## Results(cropped image)
 
 |                                                      Driving results (classification networks)                     ||||||||
-|                           |        Manual         |      5v+7w biased     |     5v+7w balanced    |    5v+7w imbalanced   | 
-|         :---:             |        :---:         ||        :---:         ||        :---:         ||        :---:         ||
+|                           |        Manual        ||      5v+7w biased    ||    5v+7w balanced    ||   5v+7w imbalanced   || 
 |      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |
 |  Simple (clockwise)       |    100%    | 1min 35s |    100%    | 1min 41s |     75%    |          |    100%    | 1min 42s |
 |Simple (anti-clockwise)    |    100%    | 1min 32s |    100%    | 1min 39s |    100%    | 1min 39s |    100%    | 1min 43s |
@@ -22,8 +21,7 @@ layout: default
 ## Results(whole image)
 
 |                                                      Driving results (classification networks)                     ||||||||
-|                           |        Manual         |      5v+7w biased     |     5v+7w balanced    |    5v+7w imbalanced   | 
-|         :---:             |        :---:         ||        :---:         ||        :---:         ||        :---:         ||
+|                           |        Manual        ||      5v+7w biased    ||     5v+7w balanced   ||   5v+7w imbalanced   || 
 |      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |
 |  Simple (clockwise)       |    100%    | 1min 35s |     35%    |          |     10%    |          |     90%    |          |
 |Simple (anti-clockwise)    |    100%    | 1min 32s |    100%    | 1min 49s |    100%    | 1min 46s |     90%    |          |
@@ -60,7 +58,7 @@ Before road-testing a trained CNN, they ﬁrst evaluate the networks performance
 
 ### Target-driven Visual Navigation in Indoor Scenesusing Deep Reinforcement Learning
 
-[Paper](https://arxiv.org/pdf/1609.05143.pdf, https://www.youtube.com/watch?v=SmBxMDiOrvs) 
+[Paper](https://arxiv.org/pdf/1609.05143.pdf), [2](https://www.youtube.com/watch?v=SmBxMDiOrvs) 
 
 
 
@@ -69,16 +67,15 @@ Before road-testing a trained CNN, they ﬁrst evaluate the networks performance
 In this method I test a new network with the difference image of it and it-5. The results are: 
 
 
-|                                                      Driving results (regression networks)                                                          ||||||||
-|                           | Temporal_dif const v whole image | Temporal_dif whole image   | Temporl_dif const v cropped image | Temporal_dif cropped image |
-|         :---:             |              :---:              ||           :---:           ||               :---:               ||           :---:          ||
-|      Circuits             |    Percentage     |     Time     |    Percentage   |   Time   |      Percentage      |     Time    |   Percentage   |   Time   |
-|  Simple (clockwise)       |       100%        |   3min 37s   |       100%      | 1min 43s |          100%        |   3min 37s  |      100%      | 1min 39s |
-|Simple (anti-clockwise)    |       100%        |   3min 38s   |       100%      | 1min 44s |          100%        |   3min 38s  |      100%      | 1min 42s |
-|  Monaco (clockwise)       |        45%        |              |         5%      |          |          45%         |             |       5%       |          |
-|Monaco (anti-clockwise)    |        45%        |              |         5%      |          |           8%         |             |       5%       |          |
-| Nurburgrin (clockwise)    |         8%        |              |         8%      |          |           8%         |             |       8%       |          |
-|Nurburgrin (anti-clockwise)|        90%        |              |         8%      |          |          90%         |             |       8%       |          |
+|                                                      Driving results (regression networks)                                                            ||||||||
+|                           | Temporal_dif const v whole image|| Temporal_dif whole image  || Temporl_dif const v cropped image || Temporal_dif cropped image ||
+|      Circuits             |    Percentage     |     Time     |    Percentage   |   Time   |      Percentage      |     Time    |    Percentage    |   Time   |
+|  Simple (clockwise)       |       100%        |   3min 37s   |       100%      | 1min 43s |          100%        |   3min 37s  |       100%       | 1min 39s |
+|Simple (anti-clockwise)    |       100%        |   3min 38s   |       100%      | 1min 44s |          100%        |   3min 38s  |       100%       | 1min 42s |
+|  Monaco (clockwise)       |        45%        |              |         5%      |          |          45%         |             |        5%        |          |
+|Monaco (anti-clockwise)    |        45%        |              |         5%      |          |           8%         |             |        5%        |          |
+| Nurburgrin (clockwise)    |         8%        |              |         8%      |          |           8%         |             |        8%        |          |
+|Nurburgrin (anti-clockwise)|        90%        |              |         8%      |          |          90%         |             |        8%        |          |
 
 
 
