@@ -3,6 +3,8 @@ layout: default
 ---
 # Vanessa Fernández's TFM student
 
+* [Week 27: Temporal difference network](weeks/week27.md)
+* [Week 26: Tests with other circuit, Controlnet, Temporal difference network](weeks/week26.md)
 * [Week 25: Study of difference images, Results, Controlnet](weeks/week25.md)
 * [Week 24: Reading information, Temporal difference network, Results](weeks/week24.md)
 * [Week 23: Driving videos, Pilotnet multiple (stacked), Metrics table, Basic LSTM](weeks/week23.md)
