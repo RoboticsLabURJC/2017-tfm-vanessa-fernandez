@@ -3,6 +3,13 @@ layout: default
 ---
 # Vanessa Fernández's TFM student
 
+* [Week 34: Reading information, Controlnet](weeks/week34.md)
+* [Week 33: Controlnet, Reading information](weeks/week33.md)
+* [Week 32: Controlnet](weeks/week32.md)
+* [Week 31: Results, Fixed circuit](weeks/week31.md)
+* [Week 30: Results, Controlnet Statistics, Fixed circuit](weeks/week30.md)
+* [Week 29: Problems with the circuits, Tests with CurveGP circuit, Controlnet statistics, Circuit](weeks/week29.md)
+* [Week 28: Circuit](weeks/week28.md)
 * [Week 27: Temporal difference network](weeks/week27.md)
 * [Week 26: Tests with other circuit, Controlnet, Temporal difference network](weeks/week26.md)
 * [Week 25: Study of difference images, Results, Controlnet](weeks/week25.md)
