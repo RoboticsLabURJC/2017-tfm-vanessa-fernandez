@@ -89,8 +89,7 @@ I've used the predictions of the classification network according to w (7 classe
 
 
 |                                                      Driving results (regression networks)                                                                                              ||||||||||||||
-|                           |        Manual         |    Pilotnet v + w     |  TinyPilotnet v + w   |        Stacked v+w    |   Stacked (diff) v+w  |  LSTM-Tinypilotnet v + w | DeepestLSTM-Tinypilot.|
-|         :---:             |        :---:         ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||           :---:         ||        :---:         ||
+|                           |        Manual        ||    Pilotnet v + w    ||  TinyPilotnet v + w  ||       Stacked v+w    ||  Stacked (diff) v+w  || LSTM-Tinypilotnet v + w ||DeepestLSTM-Tinypilot.||
 |      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |  Percentage   |   Time   | Percentage |   Time   |
 |  Simple (clockwise)       |    100%    | 1min 35s |     100%   | 1min 40s |    100%    | 1min 40s |    100%    | 1min 41s |    100%    | 1min 39s |       100%    | 1min 40s |    100%    | 1min 37s | 
 |Simple (anti-clockwise)    |    100%    | 1min 32s |     100%   | 1min 45s |    100%    | 1min 40s |     10%    |          |    100%    | 1min 38s |       100%    | 1min 38s |    100%    | 1min 38s |
@@ -102,8 +101,7 @@ I've used the predictions of the classification network according to w (7 classe
 
 
 |                                                      Driving results (classification networks)                                                                                       ||||||||||||||
-|                           |        Manual         |      1v+7w biased     |     4v+7w biased      |     1v+7w balanced    |     4v+7w balanced    |   1v+7w imbalanced    |    4v+7w imbalanced   |
-|         :---:             |         :---:        ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||
+|                           |        Manual        ||     1v+7w biased     ||     4v+7w biased     ||    1v+7w balanced    ||    4v+7w balanced    ||   1v+7w imbalanced   ||    4v+7w imbalanced  ||
 |      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |
 |  Simple (clockwise)       |    100%    | 1min 35s |    100%    | 2min 16s |    100%    | 1min 38s |    100%    | 2min 16s |     98%    |          |    100%    | 2min 16s |    100%    | 1min 42s |
 |Simple (anti-clockwise)    |    100%    | 1min 32s |    100%    | 2min 16s |    100%    | 1min 38s |    100%    | 2min 16s |    100%    | 1min 41s |    100%    | 2min 16s |    100%    | 1min 39s |
@@ -119,8 +117,7 @@ I've used the predictions of the classification network according to w (7 classe
 
 
 |                                                      Driving results (regression networks)                                                                                              ||||||||||||||
-|                           |        Manual         |    Pilotnet v + w     |  TinyPilotnet v + w   |        Stacked v+w    |   Stacked (diff) v+w  |  LSTM-Tinypilotnet v + w | DeepestLSTM-Tinypilot.|
-|         :---:             |        :---:         ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||           :---:         ||        :---:         ||
+|                           |        Manual        ||    Pilotnet v + w    ||  TinyPilotnet v + w  ||        Stacked v+w   ||  Stacked (diff) v+w  || LSTM-Tinypilotnet v + w ||DeepestLSTM-Tinypilot.||
 |      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |  Percentage   |   Time   | Percentage |   Time   |
 |  Simple (clockwise)       |    100%    | 1min 35s |     100%   | 1min 41s |     100%   | 1min 39s |     100%   | 1min 40s |     100%   | 1min 43s |      100%     | 1min 39s |    100%    | 1min 39s | 
 |Simple (anti-clockwise)    |    100%    | 1min 32s |     100%   | 1min 39s |     100%   | 1min 38s |     100%   | 1min 46s |     10%    |          |       10%     |          |    100%    | 1min 41s |
@@ -132,8 +129,7 @@ I've used the predictions of the classification network according to w (7 classe
 
 
 |                                                      Driving results (classification networks)                                                                                       ||||||||||||||
-|                           |        Manual         |      1v+7w biased     |     4v+7w biased      |     1v+7w balanced    |     4v+7w balanced    |   1v+7w imbalanced    |    4v+7w imbalanced   |
-|         :---:             |        :---:         ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||        :---:         ||
+|                           |        Manual        ||      1v+7w biased    ||     4v+7w biased     ||     1v+7w balanced   ||     4v+7w balanced   ||   1v+7w imbalanced   ||    4v+7w imbalanced  ||
 |      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |
 |  Simple (clockwise)       |    100%    | 1min 35s |    100%    | 2min 17s |     70%    |          |    75%     |          |     7%     |          |    100%    | 2min 17s |    40%     |          |
 |Simple (anti-clockwise)    |    100%    | 1min 32s |    100%    | 2min 17s |     10%    |          |    100%    | 2min 16s |     7%     |          |    100%    | 2min 16s |    10%     |          |
@@ -150,8 +146,7 @@ In this method (stacked frames), we concatenate multiple subsequent input images
 
 
 |                                                      Driving results (regression networks)                                       ||||||||
-|                           | stacked const v whole image | stacked whole image   | stacked const v cropped image | stacked cropped image |
-|         :---:             |              :---:         ||        :---:         ||            :---:             ||        :---:         ||
+|                           | stacked const v whole image|| stacked whole image  || stacked const v cropped image|| stacked cropped image||
 |      Circuits             |   Percentage   |    Time    | Percentage |   Time   |    Percentage    |    Time    | Percentage |   Time   |
 |  Simple (clockwise)       |      100%      |  3min 45s  |    100%    | 1min 40s |       100%       |  3min 46s  |    100%    | 1min 41s |
 |Simple (anti-clockwise)    |      100%      |  3min 47s  |    100%    | 1min 46s |       100%       |  3min 46s  |    10%     |          |
@@ -165,8 +160,7 @@ We have also tried to stack 2 images, but separated but one is the image in the 
 
 
 |                                                      Driving results (regression networks)                                       ||||||||
-|                           | stacked const v whole image | stacked whole image   | stacked const v cropped image | stacked cropped image |
-|         :---:             |              :---:         ||        :---:         ||            :---:             ||        :---:         ||
+|                           | stacked const v whole image|| stacked whole image  || stacked const v cropped image|| stacked cropped image||
 |      Circuits             |   Percentage   |    Time    | Percentage |   Time   |    Percentage    |    Time    | Percentage |   Time   |
 |  Simple (clockwise)       |      100%      |  3min 45s  |    100%    | 1min 43s |       100%       |  3min 46s  |    100%    | 1min 39s |
 |Simple (anti-clockwise)    |      100%      |  3min 36s  |     10%    |          |       100%       |  3min 46s  |    100%    | 1min 38s |
