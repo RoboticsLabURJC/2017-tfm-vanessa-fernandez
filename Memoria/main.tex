@@ -1,0 +1,152 @@
+\documentclass[a4paper, 12pt, oneside]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{layout}
+\usepackage{emptypage}
+\usepackage{fancyhdr}
+\usepackage[spanish,es-tabla]{babel}
+%\usepackage[Conny]{fncychap}
+%\usepackage{graphicx}
+\usepackage{subfigure} % subfiguras
+\usepackage{caption}
+\usepackage{mathtools}
+\usepackage{hyperref}
+\usepackage[a4paper,top=3cm, bottom=3cm, inner=2.5cm, outer=2.5cm]{geometry}
+\usepackage{listings}
+\usepackage[spanish]{babel}
+\usepackage{url}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{rotating} 
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage[table]{xcolor}
+\usepackage[spanish]{babel}
+\usepackage{enumerate}
+\usepackage{natbib}
+\usepackage[acronym, nonumberlist]{glossaries}
+\makeglossaries
+\input{capitulos/0-Acronimos} % Archivo que contiene los acrónimos
+
+\makeatletter
+\renewcommand{\@makeschapterhead}[1]{%
+%  \vspace*{50\p@}%
+  \vspace*{0\p@}%
+  {\parindent \z@ \raggedright
+    \normalfont
+    \interlinepenalty\@M
+    \Huge \bfseries  #1\par \nobreak
+%    \vskip 40\p@
+    \vskip 15\p@
+  }}
+\makeatother
+
+\renewcommand{\baselinestretch}{1.4}
+\setlength{\headheight}{16pt} 
+\captionsetup{justification=justified}
+\pretolerance=1000
+
+\chead[]{}
+\rhead[]{}
+\renewcommand{\headrulewidth}{0.5pt}
+
+\pagestyle{empty}
+
+\title{Conducción autónoma de un vehículo en un simulador mediante aprendizaje extremo a extremo basado en visión}
+\author{Vanessa Fernández Martínez}
+
+\lstset{
+	float=hbp,
+	basicstyle=\ttfamily\small,
+	columns=flexible,
+	tabsize=4,
+	frame=single,
+	extendedchars=true,
+	showspaces=false,
+	showstringspaces=false,
+	numbers=none,
+	numberstyle=\tiny,
+	breaklines=false,
+	breakautoindent=true,
+	captionpos=b
+}
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+
+\definecolor{lightgray}{gray}{0.9}
+
+\begin{document}
+%%%%%%%%%%%%%%% Portada %%%%%%%%%%%%%%%%%%%%
+\include{capitulos/0-Portada}
+
+\pagenumbering{Roman}
+
+%%%%%%%%%%%%%%% Agradecimientos %%%%%%%%%%%%
+\include{capitulos/0-Agradecimientos}
+
+
+%%%%%%%%%%%%%%% Resumen %%%%%%%%%%%%%%%%%%%%
+\include{capitulos/0-Resumen}
+\cleardoublepage
+
+%%%%%%%%%%%%%%% Índices %%%%%%%%%%%%%%%%%%%%
+%\cleardoublepage
+\renewcommand{\tablename}{Tabla}
+%\renewcommand{\listtablename}{Índice de tablas}
+%\tableofcontents
+
+%\cleardoublepage % Í­ndice de figuras
+%\addcontentsline{toc}{chapter}{\listfigurename}
+%\listoffigures
+
+%\cleardoublepage % Í­ndice de tablas
+%\addcontentsline{toc}{chapter}{Índice de tablas}
+%\listoftables 
+\cleardoublepage
+\tableofcontents % indice de contenidos
+
+\cleardoublepage
+\listoffigures % indice de figuras
+\addcontentsline{toc}{chapter}{Índice de figuras} % para que aparezca en el indice de contenidos
+
+\cleardoublepage
+\listoftables % indice de tablas
+\addcontentsline{toc}{chapter}{Índice de tablas} % para que aparezca en el indice de contenidos
+
+
+%%%%%%%%%%%%%%% Acronimos %%%%%%%%%%%%%%%%%%%%
+
+% Incluye el listado de acrónimos utilizados en el trabajo. 
+\printglossary[type=\acronymtype,title={Acrónimos}]
+% Añade el resto de acrónimos si así se desea. Si no elimina el comando siguiente
+\glsaddallunused  
+ 
+ 
+%%%%%%%%%%%%%%% Capí­tulos %%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\pagenumbering{arabic}
+\setlength{\parindent}{6mm}
+
+\lhead[]{CAPÍTULO \thechapter. INTRODUCCIÓN}
+\include{capitulos/1-Introduccion}
+\lhead[]{CAPÍTULO \thechapter. OBJETIVOS}
+\include{capitulos/2-Objetivos}
+\lhead[]{CAPÍTULO \thechapter. ESTADO DEL ARTE}
+\include{capitulos/3-Estado_arte}
+\lhead[]{CAPÍTULO \thechapter. INFRAESTRUCTURA DESARROLLADA}
+\include{capitulos/4-Infraestructura}
+\lhead[]{CAPÍTULO \thechapter. REDES DE CLASIFICACIÓN}
+\include{capitulos/5-Redes_clasificacion}
+\lhead[]{CAPÍTULO \thechapter. REDES DE REGRESIÓN}
+\include{capitulos/6-Redes_regresion}
+\lhead[]{CAPÍTULO \thechapter. CONCLUSIONES}
+\include{capitulos/7-Conclusiones}
+
+%%%%%%%%%%%%%%% Bibliograí­a %%%%%%%%%%%%%%%
+\nocite{*}
+\bibliographystyle{unsrt}
+\bibliography{Bibliografia.bib}
+\addcontentsline{toc}{chapter}{Bibliografía}
+
+\end{document}

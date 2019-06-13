@@ -1,0 +1,253 @@
+\chapter{Introducción}\label{cap.introduccion}
+
+En este capítulo se definirá el contexto en el cual se sitúa este proyecto, y la motivación principal que ha llevado a su desarrollo. Se explicará de forma general qué es la visión artificial, así como el uso de redes neuronales en la misma. Además, se expondrá qué es la conducción autónoma.
+
+\section{Contexto y motivación}
+
+Desde la antigüedad el ser humano ha soñado con crear máquinas capaces de pensar. Cuando surgieron los primeros ordenadores programables, las personas se plantearon la idea de lograr que estos computadores adquirieran inteligencia, adquiriendo capacidades empleadas para realizar tareas propias de los humanos. Algunos ejemplos de estas tareas son entender el habla o las imágenes, y automatizar tareas rutinarias. El campo que desarrolla estas tareas se denomina \acrfull{ia}~\cite{Goodfellow} y cada vez tiene más presencia en temas de investigación.\\
+
+En \acrshort{ia} existen diversos desafíos muy interesantes; sin embargo, en la mayoría de ellos es extremadamente difícil alcanzar el rendimiento y la eficiencia del cerebro humano. Las máquinas nos superan en tareas como procesamiento de gran cantidad de datos, almacenamiento de información o tareas de razonamiento como el juego de ajedrez. Sin embargo, algunas habilidades que el ser humano realiza inconscientemente, como caminar o ver, son muy complejas para las máquinas; y por ello el cerebro humano supera a la máquina en este tipo de tareas.\\
+
+La \acrshort{ia} comprende diferentes campos (Figura \ref{fig.ia}): \textit{Machine Learning}, \textit{Knowledge Engineering}, Lingüística computacional, \acrfull{rna}~\cite{rna}, Procesamiento del lenguaje natural, Minería de datos, \acrfull{va}, etc. Este proyecto se enfoca en la \acrshort{va}, que trata de analizar y procesar imágenes de tal forma que un ordenador sea capaz de interpretar dichas imágenes. La \acrshort{ia} intenta conseguir que una máquina realice el mismo proceso que el Sistema Visual Humano de tal forma que sea capaz de tomar decisiones y actuar en función de la situación en que se encuentre.\\
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{figures/Introduccion/venn.png}
+		\caption{Diagrama de Venn que muestra los campos que engloba la \acrshort{ia}}
+		\label{fig.ia}
+		\end{center}
+\end{figure}
+
+El aprendizaje de las máquinas es un punto de encuentro de diferentes disciplinas que engloba a la estadística, la geometría, la programación y la optimización, entre otras. La \acrshort{va} intenta simular las capacidades del ojo y el cerebro humano, empleando los conceptos de estas disciplinas.\\
+
+Uno de los problemas que se está estudiando ampliamente en \acrshort{va} en la última década es la conducción autónoma. Los humanos somos capaces de mirar a la carretera y saber al instante si el coche que conducimos está en una curva o una recta, si hay coches alrededor y cómo interactúan entre ellos. En función a la situación en la que nos encontramos sabemos qué acciones llevar a cabo para lograr una buena conducción.  Sin embargo, este procedimiento es más complicado para los ordenadores. En la actualidad se está investigando ampliamente cómo emplear las \acrfull{rna} para predecir comportamiento autónomo en vehículos.\\
+
+El objetivo principal de este proyecto es el estudio de conducción autónoma en simulación mediante \acrfull{rna}. En el estudio se incluyen diferentes arquitecturas de redes neuronales empleadas para imitar el comportamiento humano en un vehículo. Además, se presentarán los resultados de las distintas redes neuronales.
+
+
+\section{Visión artificial}
+
+Las primeras aplicaciones de la Visión Artificial datan de los años 60, donde destaca la creación del perceptrón, desarrollado por Frank Rosenblatt. Se considera la primera neurona artificial con capacidades de aprendizaje. Era capaz de distinguir figuras simples, como triángulos y cuadrados, a base de ensayo y error.\\
+
+En la década de los 70 surgen las primeras aplicaciones comerciales de la \acrshort{va}, como por ejemplo el reconocimiento óptico de caracteres (OCR). Sin embargo, no es hasta los años 80 y 90 cuando la \acrshort{va} toma mayor peso. En la actualidad es una parte muy importante que contribuye a la transformación digital de diversos sectores. Por este motivo sólo es posible dar una pequeña pincelada sobre las múltiples aplicaciones en las que se ha aplicado hasta el momento.\\
+
+Un claro ejemplo, es la navegación en robótica (Figura \ref{fig.robot}), donde la visión constituye una capacidad sensorial más para la percepción del entorno que rodea al robot. Generalmente se recurre a técnicas de visión estereoscópica con el fin de reconstruir la escena 3D. En algunas ocasiones se añade algún módulo de reconocimiento con el fin de identificar la presencia de determinados objetos, hacia los que debe dirigirse o evitar. Cualquier información que pueda extraerse mediante \acrshort{va} supone una gran ayuda para el movimiento del robot. \\
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.3\textwidth]{figures/Introduccion/robot.jpg}
+		\caption{Navegación en robótica mediante \acrshort{va}}
+		\label{fig.robot}
+		\end{center}
+\end{figure}
+
+
+Otro ejemplo donde la \acrshort{va} supone un gran avance es en la comunidad médica, donde permite diagnosticar con mayor rapidez y detalle enfermedades y lesiones. De esta forma es posible aplicar tratamientos personalizados y eficaces en menor tiempo. Un claro ejemplo de investigadores que emplean \acrshort{va} es el \acrfull{csail}~\cite{cancer}, donde el desarrollo de algoritmos que analizan mamografías de una forma novedosa permite ayudar a detectar el cáncer de mama (Figura \ref{fig.cancer}) con hasta cinco años de anticipación.\\
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.4\textwidth]{figures/Introduccion/cancer.png}
+		\caption{Detección de cáncer de mama}
+		\label{fig.cancer}
+		\end{center}
+\end{figure}
+
+
+Una posible aplicación es el mantenimiento e inventariado urbano. Es posible identificar problemas en intalaciones y mobiliario urbano (averías, mal estado de contenedores (Figura \ref{fig.contenedor}), socavones en la vía pública, etc) mediante cámaras ubicadas por ejemplo en autobuses. Los mantenimientos de infraestructuras de transporte, como vías y cables ferroviarios, pueden programarse automáticamente implantando sistemas de \acrshort{va} en los propios trenes. 
+
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/Introduccion/contenedor.png}
+		\caption{Detección de contenedores}
+		\label{fig.contenedor}
+		\end{center}
+\end{figure}
+
+La reducción de accidentes gracias a vehículos autónomos es una realidad gracias a la \acrshort{va}, ya que los sistemas de guiado que poseen estos vehículos están basados en esta visión. Algunos ejemplos de estos sistemas (Figura \ref{fig.car}) son: los sistemas de aviso de cambio de carril, o de control de velocidad de crucero. 
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/Introduccion/car.jpg}
+		\caption{Conducción autónoma}
+		\label{fig.car}
+		\end{center}
+\end{figure}
+
+
+\section{Conducción autónoma}
+
+La conducción autónoma pretende que un vehículo sea capaz de conducir sólo en base a los datos proporcionados por determinados sensores (cámaras, LIDAR, etc), es decir, es capaz de aprender las normas de circulación. La posibilidad de crear un sistema capaz de conducir un vehículo ya se había contemplado en el siglo pasado. Sin embargo, la tecnología disponible en ese momento no permitía resolver una tarea tan compleja. Después de los avances tecnológicos cambió este hecho.\\
+
+A finales del siglo pasado, algunos investigadores \cite{Dickmanns} \cite{alvinn} experimentaton con la creación de las primeras arquitecturas de conducción autónoma, desarrollando y probando algunos prototipos que podían conducir en calles reales. Estas pruebas se realizaron en áreas controladas y protegidas, y la conducción no fue lo suficientemente buena como para crear un producto de uso seguro. Estos experimentos dejaron claro que aún quedaba mucho para obtener una solución, pero al mismo tiempo, demostraron que la conducción autónoma podría convertirse en una perspectiva real.\\
+
+En los últimos años se ha hecho mayor incapié en la investigación de la conducción autónoma con el fin de solventar el incremento de la tasa de muerte por accidentes de tráfico. Aunque algunos de estos accidentes se producen por fallos mecánicos del vehículo, la mayoría de dichos accidentes se debe a imprudencias y distracciones humanas. La conducción autónoma eliminaría estas distracciones haciendo posible la disminución de accidentes.\\
+
+Hoy en día, cada vez existen más fabricantes de vehículos que incorporan tecnologías de conducción autónoma. Existe un estándar elaborado por la Sociedad de Ingenieros Automotrices (SAE), conocido como J3016 \cite{sae}, que establece los niveles de conducción autónoma según la capacidad del vehículo.\\
+
+\begin{itemize}
+    \item Nivel 0: No hay automatización de la conducción. Las tareas de conducción son realizadas en su totalidad por el conductor.
+    
+    \item Nivel 1: Asistencia al conductor. El vehículo posee algún sistema de automatización de la conducción (control de crucero, autoaparcamiento), ya sea para el control de movimiento longitudinal o el movimiento lateral, aunque no ambas cosas al mismo tiempo. El conductor realiza el resto de tareas de conducción, por lo que debe estar siempre atento.
+    
+    \item Nivel 2: Automatización parcial. Considera que el conductor ya no tiene que conducir en todo momento y que el coche empieza a ser realmente autónomo, aunque con ciertos matices. El vehículo es capaz de actuar de manera independiente dentro de escenarios controlados y en situaciones específicas de conducción. El conductor debe seguir prestado atención a lo que ocurre a su alrededor para evitar posibles riesgos. Un buen ejemplo de Nivel 2 de conducción autónoma pueden ser los modelos BMW Serie 7 o el Mercedes Clase E, capaces de moverse solos durante un tiempo o con el sistema de asistente de atascos.
+    
+    \item Nivel 3: Automatización condicional. En este nivel, el coche comienza a interactuar con el entorno que le rodea y es capaz de analizar posibles riesgos externos con el fin de evitarlos. Ya no se habla de conductor sino que hablamos de un usuario preparado para intervenir, es decir, el coche ya conduce completamente solo y el conductor es un simple vigilante de que todo funcione correctamente. El coche está preparado para ser conducido de manera habitual en cualquier momento.
+    
+    \item Nivel 4: Alta autonomía. En este nivel el sistema cuenta tanto con los sistemas de automatización presentes en el anterior nivel, como con sistemas de detección de objetos y eventos. Además, es capaz de responder ante ellos. El sistema de automatización de la conducción tiene un sistema de respaldo para actuar en caso de fallo del sistema principal y poder conducir hasta una situación de riesgo mínimo. En algunas situaciones es posible que el vehículo no siga conduciendo.
+    
+    \item Nivel 5: Autonomía total. Este nivel cuenta con todos los beneficios del sistema de automatización del nivel 4. Sin embargo, la diferencia es que en este caso el vehículo podría seguir conduciendo en todo momento o circunstancia.
+\end{itemize}
+
+Ejemplos importantes de conducción autónoma son: el DARPA Grand Challenge y el Urban Challenge. El DARPA
+Grand Challenge, organizado en 2004 y 2005 en Estados Unidos, fue una carrera de vehículos autónomos que debían recorrer 120 kms por el desierto de Nevada sin intervención humana y disponiendo únicamente de un listado de puntos intermedios entre el principio del circuito y el final.  El Urban Challenge, organizado en 2007, fue una carrera de vehículos autónomos por zona urbana en la que debían recorrer 96 km en menos de 6 horas.\\
+
+Como resultado de estos desafíos, destaca el proyecto ganador de 2005 de la Universidad de Stanford, cuyos miembros liderados por Sebastian Thrun acabaron desarrollando el vehículo autónomo de Google. En 2014, Google reveló un nuevo prototipo de su automóvil sin conductor (Firefly), que no tenía volante, pedal de acelerador o freno, siendo 100\% autónomo, aunque era un prototipo empleado exclusivamente para pruebas. En la actualidad este vehículo se conoce como Waymo.\\
+
+Este año, BMW y Mercedes-Benz han decidido unir fuerzas para desarrollar coches autónomos. Estas dos grandes compañías desarrollarán tecnologías para la creación de los próximos vehículos autónomos. Pretenden desarrollar ayudas a la conducción avanzadas y sistemas que automaticen la conducción en autopista y en el aparcamiento. Su objetivo es crear sistemas de conducción autónoma de nivel 4.\\
+
+Tesla incluye el sistema inteligente Autopilot que alcanza el nivel de conducción 3. Sin embargo, Elon Musk ha anunciado este año que en 2020 será posible hablar de coches completamente autónomos (niveles 4 y 5), ya que su sistema Autopilot ofrecerá una conducción 100\% autónoma, donde el conductor pasaría a ser un mero espectador durante la conducción.\\
+
+En la actualidad se están desarrollando sistemas que toman decisiones empleando una red neuronal profunda, la cual recibe información del entorno mediante diferentes sensores (LIDAR, radar, cámaras, etc.).  A partir de los datos recogidos por los sensores la red predice unos valores de salida que serán los empleados para la conducción.  Las decisiones tomadas por la red neuronal están determinadas por los datos empleados durante el entrenamiento de la red. Por lo tanto, cuanto más representativo sea el conjunto de datos, mejor rendimiento se espera que tenga la red, ya que conocerá todas las situaciones posibles en las que puede estar el vehículo.\\
+
+Hoy en día el principal obstáculo para la conducción autónoma no se deriva de las limitaciones de la tecnología, sino de factores políticos, jurídicos, de regulación, de infraestructura y de responsabilidad que se deben abordar. A pesar de estas dificultades la investigación ha hecho muchos avances.\\
+
+
+\section{Redes neuronales artificiales}
+
+Una Red Neuronal Artificial \acrshort{rna} es un modelo matemático inspirado en el comportamiento biológico de las neuronas y en cómo se organizan dichas neuronas en el cerebro. Estas redes intentan imitar ciertas  características propias de los seres humanos, como pueden ser la capacidad de memorizar y de asociar hechos. Estas neuronas siguen la misma estructura jerárquica que el cerebro humano, es decir, las diversas neuronas se organizan por capas.\\
+
+Una comparativa entre las neuronas biológicas y las neuronas artificiales se puede observar en la Figura \ref{fig.neurona}. Las neuronas biológicas constan de un cuerpo celular o soma que contiene un núcleo y ramas denominadas dendritas. Las dendritas transfieren la información de las células próximas mediante sinapsis al soma. Además, poseen un axón que lleva el impulso nervioso del soma a otras neuronas. Sin embargo, la neurona artificial es un modelo simplificado de las neuronas biológicas. Las sinapsis y las dendritas de  la  neurona  artificial  son las  entradas  al  elemento procesador (soma). Cada una de estas entradas posee un peso asociado de conexión. Cada una de estas entradas es multiplicada por su peso y se suman generalmente estos productos, que pasan entonces a la función de la transferencia para generar un resultado que se transmita por la salida (axón).\\
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{figures/Introduccion/neurona.png}
+		\caption{Comparación de neurona biológica (izquierda) y neurona artificial (derecha).}
+		\label{fig.neurona}
+		\end{center}
+\end{figure}
+
+En este proyecto emplearemos la red multicapa, que consta de dos o más capas de neuronas interconectdas. Cada una de las capas puede hacer un tipo de transformación en su entrada, donde las señales atraviesan todas las capas. Cuando existen más de dos capas, hablamos de que la red posee capas ocultas. En esta red normalmente las capas iniciales realizan generalizaciones simples, y en capas más profundas se hacen las generalizaciones más complejas.\\
+
+La característica más especial del aprendizaje con redes neuronales es la capacidad de aprender y generalizar gracias a una base de datos específica para el problema que se debe tratar. Una vez esta red es entrenada, es capaz de estimar resultados para ejemplos que no ha visto anteriormente.\\
+
+En este proyecto se emplearán dos tipos de redes neuronales para resolver el mismo problema. Por un lado se utilizan redes neuronales convolucionales y redes neuronales recurrentes.
+
+
+\subsection{Redes neuronales convolucionales}
+
+Las \acrfull{cnn} son una clase de red neuronal artificial profunda que se emplean principalmente para clasificar imágenes, agrupar estas imágenes por similitud y realizar el reconocimiento de objetos dentro de las escenas. Este tipo de redes pueden identificar rostros, individuos, letreros de calles, tumores y muchos otros aspectos de los datos visuales.\\
+
+Las \acrshort{cnn} se basan en la arquitectura de la corteza visual del cerebro humano. Las \acrshort{cnn} aplican una serie de filtros a los datos para extraer y aprender características de nivel superior, que el modelo puede usar para la clasificación, el reconocimiento u otro tipo de tarea. Las \acrshort{cnn} están formadas por diferentes tipos de capas que veremos en las próximas subsecciones: capas convolucionales, capas de agrupación o \textit{pooling}, y capas completamente conectadas o \textit{fully connected}. \\
+
+Las \acrshort{cnn} siguen el esquema de la Figura \ref{fig.arquitectura_cnn} \cite{rna8}. Normalmente este tipo de redes está formado por un conjunto de módulos convolucionales, que consisten en una capa convolucional seguida de una capa \textit{pooling}. La capa convolución realiza una operación de convolución, mientras que la capa de agrupación o \textit{pooling} genera características invariantes calculando estadísticas de las activaciones de convolución a partir de un campo receptivo (un pequeño campo de la capa anterior). En este tipo de redes, cada neurona de una capa oculta se conecta al campo receptivo local. En la capa convolucional, las neuronas se distribuyen en diversas capas paralelas, denominadas mapas de características. En un mapa de características cada neurona está conectada a un campo receptivo local. Además, para cada mapa de características todas las neuronas comparten el mismo parámetro de peso conocido como \textit{kernel} o filtro.\\
+
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/Introduccion/arquitectura_cnn.png}
+		\caption{Estructura de \acrshort{cnn}}
+		\label{fig.arquitectura_cnn}
+		\end{center}
+\end{figure}
+
+Además, en este tipo de redes es importante tener en cuenta tanto las dimensiones de entrada como las dimensiones de las distintas capas. Las imágenes de entrada normalmente tienen dimensiones W x H x C, donde W es el ancho de la imagen, H es la altura, y C es el número de canales de la imagen. Cuando la información va atravesando las capas, normalmente se disminuye los valores W x H, mientras que la profundidad de la red aumenta. Las primeras capas proporcionan una información localizada, es decir, el donde; mientras que las capas finales proporcionan información acerca del contenido de la imagen, es decir, el qué.
+
+
+\subsection{Redes neuronales recurrentes}
+
+Las \acrfull{rnn} son un tipo de red neuronal artificial, donde la idea es usar información secuencial en vez de información independiente como en las redes tradicionales. En algunos casos emplear información independiente es mala idea, como puede ser en la predicción de la siguiente palabra en una cadena de texto, ya que sin información previa la red no es capaz de predecir la palabra.\\
+
+Las \acrshort{rnn} permiten que la información previa al instante actual persista. Una red neuronal recurrente se puede considerar como copias múltiples de la misma red, cada una de las cuales pasa un mensaje a su sucesor. En la Figura \ref{fig.rnn} se puede ver un esquema de \acrshort{rnn}.\\
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/Introduccion/esquema_rnn.png}
+		\caption{Esquema de \acrfull{rnn}}
+		\label{fig.rnn}
+		\end{center}
+\end{figure}
+
+Las \acrfull{rnn} aprenden a emplear la información pasada en los casos donde la brecha entre la información relevante y la información actual es pequeña. Pero habrá casos donde necesitemos más contexto, como por ejemplo si queremos predecir la última palabra del texto ``Crecí en Francia... Hablo francés con fluidez". La información reciente sugiere que la siguiente palabra es un idioma, pero si queremos concretar qué idioma es, necesitamos el contexto desde más atrás. Sin embargo, a medida que aumenta la brecha, las \acrshort{rnn} no son capaces de aprender a conectar la información. En cambio las \acrshort{lstm} no tienen ese problema.\\
+
+Las redes \acrfull{lstm} \cite{lstm} son un tipo especial de \acrshort{rnn} capaz de aprender dependencias a largo plazo. Esta clase de redes fueron diseñadas para recordar información de periodos de tiempo largo. Se explicará más acerca de este tipo de red en las siguientes subsecciones.\\
+
+
+\subsection{Tipos de capas}
+
+En las siguientes susbsecciones se explican los diferentes tipos de capas empleadas en las redes \acrshort{cnn} y \acrshort{lstm}.
+
+
+\subsubsection{Capa Convolucional}
+
+Las capas convolucionales son las más importantes de una \acrshort{cnn}. La operación de convolución (Figura \ref{fig.convolucion}) recibe como entrada una imagen y luego aplica sobre ella un filtro o \textit{kernel} que devuelve un mapa de características. Con esta operación se reduce el tamaño de los parámetros. En las capas convolucionales existen diferentes parámetros a tener en cuenta:\\
+
+\begin{itemize}
+    \item Dimensiones de los filtros de convolución. Suelen ser una matriz cuadrada (tamaño M x M). Cada píxel de cada mapa de características solamente tendrá en cuenta los píxeles que estén dentro del filtro.
+    
+    \item Número de filtros de convolución. Determina la profundidad del volumen de salida. Cada filtro genera un mapa decaracterísticas.
+    
+    \item \textit{Stride}. Determina cuánto vamos a deslizar el filtro sobre la matriz de entrada. Por  ejemplo, cuando el stride es 1 se mueven los filtros 1 píxel a la vez. 
+    
+    \item \textit{Padding}. Añade alrededor de la matriz de entrada ceros para evitar perder dimensiones tras la convolución.
+\end{itemize}
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{figures/Introduccion/convolucion.png}
+		\caption{Ejemplo de operación de convolución}
+		\label{fig.convolucion}
+		\end{center}
+\end{figure}
+
+Se puede calcular el tamaño del volumen de salida en función al volumen de entrada (W), el tamaño del filtro de convolución (M), el stride aplicado (S) y la cantidad de zero-padding que se aplica (P). El tamaño del volumen de salida se calcula como: (W - M + 2P) / (S+1).\\
+
+
+Tras aplicar la convolución, se aplica una función de activación a los mapas de características. Esta función de activación es no lineal para conseguir modelos no lineales. La función de activación más usada es la función ReLU.
+
+
+\subsubsection{Capa de \textit{Pooling}}
+
+La capa de \textit{pooling} o de agrupación se coloca normalmente detrás de la capa convolucional. Se emplea para reducir las dimensiones espaciales (ancho x alto) del volumen de entrada, pero no afecta a la dimensión de profundidad del volumen.\\
+
+En ocasiones la operación que realiza la capa de \textit{pooling} se denomina reducción de muestreo debido a que la reducción de tamaño lleva a pérdidas de información. Aunque esta pérdida puede ser buena para la red por dos motivos: (1) trabaja en reducir el sobreajuste, (2) la disminución del tamaño produce un menor consumo de memoria durante el entrenamiento de las redes.\\
+
+El funcionamiento de esta capa se basa en una ventana deslizante que actua sobre el volumen de entrada. La operación realizad por esta ventana deslizante depende del tipo de \textit{pooling} elegido. Las clases de submuestreo más empleadas son:
+
+\begin{itemize}
+    \item \textit{Max pooling}: Se queda con el valor máximo de los valores de la ventana deslizante. Se puede ver un ejemplo en la Figura \ref{fig.pooling}
+    
+    \item \textit{Average pooling}: Calcula cada píxel del volumen de salida realizando el promedio de los píxeles que se encuentran dentro de la ventana deslizante del volumen de entrada. Esta operación se hace canal por canal.
+\end{itemize}
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/Introduccion/pooling.png}
+		\caption{Ejemplo de capa \textit{max pooling}}
+		\label{fig.pooling}
+		\end{center}
+\end{figure}
+
+
+\subsubsection{Capa \textit{Fully connected}}
+
+Las capas completamente conectadas o \textit{fully connected} conectan cada neurona de la capa de entrada con cada neurona de la capa de salida. Además, asignan un determinado peso a cada conexión. La gran cantidad de conexiones produce que exista un gran número de parámetros configurables en esta capa.
+
+
+\subsubsection{Capa LSTM}
+
+La unidad LSTM puede añadir o quitar información, lo cual lo hace mediante estructuras denominadas puertas. Estas puertas son como una especiede camino para dejar pasar información. Una unidada LSTM tiene tres puertas.
+
+\begin{itemize}
+    \item \textit{Forget gate}. Decide que información debe desechar. 
+    \item \textit{Input gate}. Esta capa decide que valores se deben actualizar.
+    \item La unidad produce un \textit{output} o valor de salida.
+\end{itemize}
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{figures/Introduccion/unidad_lstm.png}
+		\caption{Unidad \acrshort{lstm}}
+		\label{fig.unidad_lstm}
+		\end{center}
+\end{figure}

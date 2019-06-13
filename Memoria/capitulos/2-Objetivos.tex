@@ -1,0 +1,94 @@
+\chapter{Objetivos}\label{cap.objetivos}
+
+Una vez explicado el contexto de este proyecto, se describirán en este capítulo los objetivos, los requisitos y la metodología empleados.
+
+\section{Objetivos}
+
+El propósito principal de este proyecto es el estudio de diferentes redes neuronales basadas en información visual que permitan a un vehículo ser capaz de conducir de forma autónoma.\\
+
+El coche deberá ser capaz de conducir en diferentes circuitos en el Simulador Gazebo. Los entornos serán diferentes para que el vehículo sea capaz de aprender diferentes estímulos que le permitan conducir en situaciones complicadas.\\
+
+Se creará un componente académico con la infraestructura necesaria que se comunica con el Simulador Gazebo, donde se podrá ver el resultado de la predicción de las redes neuronales. Para elaborar este componente se ha seguido la estructura de Robotics-Academy \footnote{\url{https://jderobot.org/Robotics-Academy}} y de dl-objectdetector \footnote{\url{https://github.com/JdeRobot/dl-objectdetector}}. Este componente tendrá diferentes ingredientes: 
+
+\begin{itemize}
+    \item Infraestructura en el simulador.
+    \item Nodo que permite cargar y emplear redes neuronales, además de incluir una GUI.
+    \item Fichero \textit{MyAlgorithm.py} donde se proporciona al vehículo las órdenes de velocidad predichas por el nodo.
+\end{itemize}
+
+El objetivo principal es proporcionar una comparativa de diferentes modelos de redes neuronales que se pueden emplear para la conducción autónoma. Por este motivo, se estudiarán y se llevarán a cabo pruebas con diferentes arquitecturas de redes, como pueden ser redes neuronales convolucionales de clasificación y regresión o redes neuronales recurrentes de regresión. 
+
+\section{Requisitos}
+
+El proyecto se desarrollará basándose en los subobjetivos mencionados anteriormente y tendrá que ajustarse a los requisitos de partida del proyecto. Estos requisitos condicionan la realización del proyecto, y son los siguientes: 
+
+\begin{enumerate}
+    \item La simulación se realizará en el simulador Gazebo, en concreto en la versión 7.15.0. El modelo de coche empleado es el modelo f1ROS (posee una cámara como sensor) creado por los desarrolladores de JdeRobot \footnote{\url{https://jderobot.org/Main_Page}}. Este modelo se encuentra disponible en el repositorio de Github JdeRobot-assets \footnote{\url{https://github.com/JdeRobot/assets}}.
+
+    \item Se empleará el \textit{middleware} robótico JdeRobot, en concreto en la versión 5.6.7. Este \textit{middleware} se explicará en mayor detalle en el Capítulo~\ref{cap.estado}. Esta plataforma simplifica el desarrollo del comportamiento del coche.
+
+    \item El sistema operativo que se empleará en este proyecto será Ubuntu 16.04.
+    
+    \item El lenguaje de desarollo empleado en los \textit{plugins} del coche es C++. Sin embargo, en el resto de componentes se utilizarán el lenguje Python. Debido a la compatilibidad con JdeRobot-5.6.7 y de éste con el \textit{middleware} ROS Kinetic no se ha empleado Python-3.X, sino que se utiliza Python-2.7.
+    
+    \item Se hará uso de la API de redes neuronales Keras, escrita en Python y capaz de ejecutarse sobre TensorFlow, CNTK o Theano. En este proyecto se ejecutará sobre TensorFlow y se empleará la versión 2.2.4.
+    
+    \item Las soluciones deben ser ágiles. Los algoritmos propuestos no pueden detenerse demasiado tiempo a pensar cuál será el próximo movimiento del vehículo, porque debe reaccionar rápido, en tiempo real y con movimientos suaves.
+    
+\end{enumerate}
+
+
+\section{Metodología}
+
+El desarrollo del proyecto se ha realizado mediante una metodología iterativa, donde cada iteración está compuesta por varias fases: determinar objetivos, planificación, diseño e implementación, análisis de riesgos, además de reuniones periódicas con el tutor y el cotutor.\\
+
+Se ha decidido seguir el modelo de desarrollo en espiral, creado por Barry Boehm~\cite{modelo_espiral}~\cite{modelo_espiral1}~\cite{modelo_espiral2}. Este modelo se adapta perfectamente a este tipo de proyectos, ya que permite separar el comportamiento final en varias subtareas más sencillas y después juntarlas. Además, el modelo permite una gran flexibilidad ante cambios en los requisitos, algo muy común en estos proyectos.\\
+
+Este modelo de ciclo de vida permite obtener prototipos funcionales poco a poco, a la vez que se realiza el desarrollo del producto de forma incremental. El modelo consta de diferentes iteraciones, también conocidas como ciclos. En cada ciclo existen cuatro fases bien diferenciadas:
+
+\begin{itemize}
+    \item Determinar objetivos: Se concretan los objetivos específicos que deben cumplirse para que el ciclo actual se considere terminado en función de los objetivos finales. Según se vayan incrementando las iteraciones, los objetivos serán más complejos.
+
+    \item Análisis del riesgo: Se realiza un análisis detallado de cada posible riesgo que pueda tener el objetivo definido en la fase anterior. Se concretan los puntos a seguir con el fin de minimizar los riesgos, y después del análisis se planean estrategias alternativas.
+    
+    \item Desarrollar y probar: Se desarrolla el producto o las partes del producto que se han definido en las fases anteriores. Además, se realizan las pruebas necesarias que permitan asegurar la calidad de la implementación, y que pueda seguir funcionando en iteraciones futuras.
+    
+    \item Planificación: Se analizan los resultados obtenidos a través de las pruebas de la fase anterior, y es donde se planifica la siguiente iteración considerando los posibles errores que se han cometido.
+\end{itemize}
+
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.4\textwidth]{figures/Objetivos/espiral.png}
+		\caption{Modelo en espiral}
+		\label{fig.espiral}
+		\end{center}
+\end{figure}
+
+Esta metodología se ha llevado a cabo mediante reuniones semanales con el tutor y el cotutor. En estas reuniones se analizaban los resultados de cada iteración, y en función de los resultados se fijaban nuevos objetivos. Además, en estas reuniones se analizaban los posibles fallos y se resolvían las dudas que iban surgiendo.\\
+
+
+El código desarrollado semanalmente se ha subido al repositorio propio público de Github \footnote{\url{https://github.com/RoboticsURJC-students/2017-tfm-vanessa-fernandez}}, que emplea el sistema de control de versiones. Además, se ha desarrollado una bitácora en la página de JdeRobot \footnote{\url{https://jderobot.org/Vmartinezf-tfm}}, donde semanalmente se han explicado los avances y se han mostrado los resultados mediante imágenes y vídeos.\\
+
+El resultado del TFM, las diferentes redes neuronales desarrolladas, se encuentran disponibles en el repositorio Github, y se encuentran disponibles como software libre.
+
+
+
+\section{Plan de trabajo}
+
+Las etapas en las que se divide el proyecto, que se corresponden con el modelo en espiral, son:
+
+\begin{itemize}
+    \item Familiarización con la API de redes neuronales Keras y estudio de diferentes soluciones de aprendizaje extremo a extremo para conducción autónoma. En esta etapa se ha descargado e instalado Keras, así como todo el software necesario para desarrollar el proyecto. Además, se ha estudiado la creación de redes neuronales convolucionales en Keras, y su uso en algunos proyectos de la plataforma JdeRobot. Para tener una mejor comprensión de los diferentes modelos que se pueden emplear en conducción autónoma se han estudiado diferentes artículos.
+    
+    \item Desarrollo de la infraestructura necesaria en Gazebo, además de un componente académico que permita la conducción del coche, integrando una red entrenada en Keras en dicho componente.
+    
+    \item Creación de una base de datos que permita poder entrenar una red neuronal con la información visual del coche y los datos de velocidad.
+    
+    \item Estudio y mejora de redes neuronales convolucionales de clasificación aplicadas a la conducción autónoma. Se realizarán múltiples pruebas para tratar de conseguir la red más robusta posible y emplearla en el componente desarrollado.
+    
+    \item Estudio y mejora de redes neuronales convolucionales de regresión aplicadas a la conducción autónoma. Se realizarán diversas pruebas para intentar conseguir la red más robusta posible y emplearla en el componente desarrollado.
+    
+    \item Estudio y mejora de redes neuronales recurrentes de regresión aplicadas a la conducción autónoma. Se realizarán diversas pruebas para tratar de conseguir la red más robusta y emplearla en el componente desarrollado.
+\end{itemize}
+
