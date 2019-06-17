@@ -7,34 +7,34 @@ Además, se explican los diferentes ingredientes software en los que nos hemos a
 
 \section{Bases de datos para conducción autónoma}
 
-La conducción autónoma pretende que un vehículo sea capaz de conducir sólo en base a los datos proporcionados por determinados sensores. En concreto, la cámara es el sensor más empleado en las diferentes redes neuronales que se mencionarán en el estado del arte. Dado que queremos que el vehículo sea capaz de conducir bajo diferentes circunstancias, es decir, en diferentes entornos y diferentes iluminaciones, necesitaremos entrenar el modelo con un conjunto de imágenes representativo. Por ello, a lo largo de los últimos años han surgido diferentes datasets con el fin de solucionar este problema. A continuación, se exponen algunos ejemplos de bases de datos empleadas para este propósito.
+La conducción autónoma pretende que un vehículo sea capaz de conducir sólo en base a los datos proporcionados por determinados sensores. En concreto, la cámara es el sensor más empleado en las diferentes redes neuronales que se mencionarán en el estado del arte. Dado que queremos que el vehículo sea capaz de conducir bajo diferentes circunstancias, es decir, en diferentes entornos y diferentes iluminaciones, necesitaremos entrenar el modelo con un conjunto de imágenes representativo. Por ello, a lo largo de los últimos años han surgido diferentes \textit{datasets} con el fin de solucionar este problema. A continuación, se exponen algunos ejemplos de bases de datos empleadas para este propósito.
 
 \subsection{Comma.ai}
 
-La startup de conducción autónoma Comma.ai creó en 2016 un conjunto de datos ~\cite{comma} que permite probar modelos para controlar un vehículo autónomo. Este conjunto de datos consta de 11 videoclips grabados a 20 Hz por una cámara Point Grey colocada en el parabrisas de un Acura ILX 2016. El conjunto de datos es un archivo zip comprimido que ocupa un total de 45 GB.\\
+La \textit{startup} de conducción autónoma Comma.ai creó en 2016 un conjunto de datos ~\cite{comma} que permite probar modelos para controlar un vehículo autónomo. Este conjunto de datos consta de 11 videoclips grabados a 20 Hz por una cámara \textit{Point Grey} colocada en el parabrisas de un \textit{Acura ILX} 2016. El conjunto de datos es un archivo zip comprimido que ocupa un total de 45 GB.\\
 
-Este conjunto de datos consta de un total de 7.25 horas de datos de conducción, donde los \textit{frames} de vídeo tienen un tamaño de 160 x 320 píxeles. Junto a los archivos de video se proporciona un conjunto de medidas de sensores donde se registran medidas como la velocidad, la aceleración, el ángulo de giro, la ubicación del GPS y los ángulos del giroscopio.\\
+Este conjunto de datos consta de un total de 7.25 horas de datos de conducción, donde los \textit{frames} de vídeo tienen un tamaño de 160 x 320 píxeles. Junto a los archivos de vídeo se proporciona un conjunto de medidas de sensores donde se registran medidas como la velocidad, la aceleración, el ángulo de giro, la ubicación del GPS y los ángulos del giroscopio.\\
 
-Además registran los \textit{time  stamps} en los que se midieron estas medidas de los sensores y los \textit{time  stamps} en que se capturaron los \textit{frames} de la cámara. Los datos los sensores se capturan en bruto y los \textit{frames} de la cámara se almacenan en archivos HDF5 para que sean fáciles de usar en el aprendizaje automático y el software de control.
+Además registran los \textit{time  stamps} en los que se midieron estas medidas de los sensores y los \textit{time  stamps} en que se capturaron los \textit{frames} de la cámara. Los datos de los sensores se capturan en bruto y los \textit{frames} de la cámara se almacenan en archivos HDF5 para que sean fáciles de usar en el aprendizaje automático y el \textit{software} de control.
 
 \subsection{Udacity}
 
-Udacity posee un proyecto de código libre para conducción autónoma. El proyecto ofrece ejemplos de grabaciones de datos de más de diez horas de conducción y conjuntos de datos anotados de conducción, donde los objetos en el video han sido marcados con cuadros circundantes. Además de las herramientas de código abierto, Udacity publica desafíos de programación para promover el desarrollo del proyeco. \\
+Udacity posee un proyecto de código libre para conducción autónoma. El proyecto ofrece ejemplos de grabaciones de datos de más de diez horas de conducción y conjuntos de datos anotados de conducción, donde los objetos en el vídeo han sido marcados con cuadros circundantes. Además de las herramientas de código abierto, Udacity publica desafíos de programación para promover el desarrollo del proyeco. \\
 
 Inicialmente, Udacity \cite{udacity-data} poseía 40 GB de datos públicos con el fin de facilitar a las personas la construicción de modelos competitivos sin acceso al tipo de datos de conducción que Tesla o Google poseen. Sin embargo, debido a que los modelos de aprendizaje profundo necesitan muchos datos, la compañía publicó 183 GB adicionales de datos de conducción.\\
 
-El conjunto de datos de Ucadity \cite{udacity-dataset} consta de 223 GB de datos. Estos datos fueron grabados durante más de 70 minutos de conducción en días soleados y nublados, repartidos en dos días en Mountain View. Las imágenes fueron grabadas por tres cámaras frontales: izquierda, derecha y central. La variedad de imágenes aumentará la calidad de los resultados y proporcionará a los participantes datos más realistas para poder trabajar, ya que este conjunto de datos representa mejor los desafíos de la conducción en el mundo real y las condiciones variables de la carretera. Los datos almacenados constan de latitud, longitud, marcha, freno, aceleración, ángulos de dirección y velocidad.
+El conjunto de datos de Ucadity \cite{udacity-dataset} consta de 223 GB de datos. Estos datos fueron grabados durante más de 70 minutos de conducción en días soleados y nublados, repartidos en dos días en \textit{Mountain View}. Las imágenes fueron grabadas por tres cámaras frontales: izquierda, derecha y central. La variedad de imágenes aumentará la calidad de los resultados y proporcionará a los participantes datos más realistas para poder trabajar, ya que este conjunto de datos representa mejor los desafíos de la conducción en el mundo real y las condiciones variables de la carretera. Los datos almacenados constan de latitud, longitud, marcha, freno, aceleración, ángulos de dirección y velocidad.
 
 
 \subsection{SAIC Dataset}
 
-En el artículo \textit{End-to-end Multi-Modal Multi-Task Vehicle Controlfor Self-Driving Cars with Visual Perceptions} \cite{multi-modal} se creó un nuevo conjunto de datos, llamado SAIC, con el fin de obtener un conjunto de datos para pruebas reales de conducción.\\
+En el artículo \textit{End-to-end Multi-Modal Multi-Task Vehicle Control for Self-Driving Cars with Visual Perceptions} \cite{multi-modal} se creó un nuevo conjunto de datos, llamado SAIC, con el fin de obtener un conjunto de datos para pruebas reales de conducción.\\
 
 El conjunto de datos incluye cinco horas de datos de conducción en el área norte de San José, principalmente en carreteras urbanas. Este conjunto contiene datos de conducción tanto de día como de noche. \\
 
-El vehículo es conducido entre varios puntos y cada viaje entre los puntos tiene una duración de aproximadamente diez minutos. El estacionamiento, la espera en el semáforo y otras condiciones se consideran partes ruidosas y se filtran. Después de filtrar los videos ruidosos, los datos de dos horas se dividen en entrenamiento, validación y conjunto de test.\\
+El vehículo es conducido entre varios puntos y cada viaje entre los puntos tiene una duración de aproximadamente diez minutos. El estacionamiento, la espera en el semáforo y otras condiciones se consideran partes ruidosas y se filtran. Después de filtrar los vídeos ruidosos, los datos de dos horas se dividen en entrenamiento, validación y conjunto de test.\\
 
-En la grabación del conjunto de datos se incluyen tres conductores para evitar sesgos hacia un comportamiento de conducción específico. De manera similar, se graban flujos de video, valores de velocidad y direcciones. Las secuencias de video contienen videos de una cámara frontal central y dos laterales con una \textit{frame rate} de 30 fotogramas por segundo.
+En la grabación del conjunto de datos se incluyen tres conductores para evitar sesgos hacia un comportamiento de conducción específico. De manera similar, se graban flujos de vídeo, valores de velocidad y direcciones. Las secuencias de vídeo contienen vídeos de una cámara frontal central y dos laterales con una \textit{frame rate} de 30 fotogramas por segundo.
 
 
 
@@ -46,18 +46,18 @@ Un vehículo es caro, lo que implica que muchas investigaciones sobre conducció
 
 CARLA ~\cite{carla} ~\cite{carla-org} es un simulador de código abierto para la investigación de conducción autónoma. Se ha desarrollado desde cero para respaldar el desarrollo, el entrenamiento y la validación de sistemas de conducción autónomos. Además, admite diferentes conjuntos de sensores y condiciones ambientales.\\
 
-CARLA (Figura \ref{fig.carla}) simula un mundo dinámico y proporciona una interfaz simple entre el mundo y un agente que interactúa con el mundo. Para llevar a cabo esta funcionalidad, CARLA está diseñado como un sistema cliente-servidor, donde el servidor ejecuta la simulación y renderiza la escena. La API del cliente se implementa en Python y es responsable de la interacción entre el agente autónomo y el servidor a través de sockets. El cliente envía comandos y metacomandos al servidor y recibe las lecturas del sensor. Los comandos (dirección, aceleración y frenado) controlan el vehículo. Los metamandatos controlan el comportamiento del servidor y se utilizan para restablecer la simulación, cambiar las propiedades del entorno (condiciones climáticas, iluminación y densidad de automóviles y peatones) y modificar el conjunto de sensores. \\
+CARLA (Figura \ref{fig.carla}) simula un mundo dinámico y proporciona una interfaz simple entre el mundo y un agente que interactúa con el mundo. Para llevar a cabo esta funcionalidad, CARLA está diseñado como un sistema cliente-servidor, donde el servidor ejecuta la simulación y renderiza la escena. La API del cliente se implementa en Python y es responsable de la interacción entre el agente autónomo y el servidor a través de \textit{sockets}. El cliente envía comandos y metacomandos al servidor y recibe las lecturas del sensor. Los comandos (dirección, aceleración y frenado) controlan el vehículo. Los metamandatos controlan el comportamiento del servidor y se utilizan para restablecer la simulación, cambiar las propiedades del entorno (condiciones climáticas, iluminación y densidad de automóviles y peatones) y modificar el conjunto de sensores. \\
 
 CARLA presenta las siguientes características:
 
 \begin{itemize}
 \item Escalabilidad a través de una arquitectura multi-cliente servidor: varios clientes en el mismo nodo o en diferentes nodos pueden controlar diferentes actores.
 \item Permite a los usuarios controlar todos los aspectos relacionados con la simulación (generación de tráfico, comportamientos de peatones, climas, sensores, etc).
-\item  Los usuarios pueden configurar diversos conjuntos de sensores (LIDAR, cámaras, sensores de profundidad, GPS, etc).
+\item  Los usuarios pueden configurar diversos conjuntos de sensores (LIDAR, cámaras, sensores de profundidad, \acrshort{gps}, etc).
 \item Permite deshabilitar la representación para ofrecer una ejecución rápida de la simulación del tráfico y los comportamientos de la carretera para los que no se requieren gráficos.
-\item Se pueden crear mapas siguiendo el estándar OpenDrive a través de herramientas como RoadRunner.
+\item Se pueden crear mapas siguiendo el estándar \textit{OpenDrive} a través de herramientas como \textit{RoadRunner}.
 \item Los usuarios pueden definir diferentes situaciones de tráfico.
-\item Integra ROS.
+\item Integra \acrshort{ros}.
 \end{itemize}
 
 \begin{figure}
@@ -73,7 +73,7 @@ CARLA presenta las siguientes características:
 
 Gazebo \cite{gazebo1} (Figura \ref{fig.gazebo}) es un simulador 3D de código abierto distribuido bajo licencia Apache 2.0. Este simulador se ha utilizado en ámbitos de investigación en robótica e Inteligencia Artificial. Es capaz de simular robots, objetos y sensores en entornos complejos de interior y exterior. Posee gráficos de gran calidad y un robusto motor de físicas (masa del robot, rozamiento, inercia, amortiguamiento, etc.). Fue elegido para realizar el DARPA Robotics Challenge (2012-2015) y está mantenido por la Fundación Robótica de Código Abierto (OSRF).\\
 
-Los modelos de robots que se emplean en la simulación son creados mediante algún programa de modelado 3D (Blender, Sketchup, etc). Estos robots simulados necesitan ser dotados de inteligencia para lo cual se emplean los plugins. Estos plugins pueden dotar al robot de inteligencia u ofrecer la información de sus sensores a aplicaciones externas y recibir de éstas comandos para los actuadores de los robots.
+Los modelos de robots que se emplean en la simulación son creados mediante algún programa de modelado 3D (Blender, Sketchup, etc). Estos robots simulados necesitan ser dotados de inteligencia para lo cual se emplean \textit{plugins}. Estos \textit{plugins} pueden dotar al robot de inteligencia u ofrecer la información de sus sensores a aplicaciones externas y recibir de éstas comandos para los actuadores de los robots.
 
 \begin{figure}
 \begin{center}
@@ -103,12 +103,12 @@ Técnicamente, el simulador actúa como un servidor desde el cual el programa pu
 
 \subsection{Deepdrive 2.0}
 
-Deepdrive 2.0 \cite{deepdrive} es un simulador de código abierto para Linux y Windows. Los simuladores actuales parecen vincularse a un hardware específico o no tienen forma de vincularse vehículos físicos. Deepdrive (Figura \ref{fig.deepdrive}) para conseguir este propóstio, incluye una amplia gama de sensores, automóviles y entornos y facilita la transferencia a vehículos reales. Esto permitirá que un mayor número de personas utilice únicamente el simulador para hacer pruebas cosntantes.\\
+Deepdrive 2.0 \cite{deepdrive} es un simulador de código abierto para Linux y Windows. Los simuladores actuales parecen vincularse a un \textit{hardware} específico o no tienen forma de vincularse vehículos físicos. Deepdrive (Figura \ref{fig.deepdrive}) para conseguir este propóstio, incluye una amplia gama de sensores, automóviles y entornos, y facilita la transferencia a vehículos reales. Esto permitirá que un mayor número de personas utilice únicamente el simulador para hacer pruebas cosntantes.\\
 
 Presenta algunas características únicas respecto a otros simuladores de código abierto:
 
 \begin{itemize}
-\item El \textit{frame rate} es más elevado al emplear varias cámaras, ya que emplea memoria compartida en lugar de sockets y transferencia asíncrona.
+\item El \textit{frame rate} es más elevado al emplear varias cámaras, ya que emplea memoria compartida en lugar de \textit{sockets} y transferencia asíncrona.
 \item La superficie de la carretera no es plana, sino que incluye colinas, curvas y la anchura de la carretera varía.
 \item El mapa, los automóviles, la iluminación, etc. son gratuitos y son modificables en Unreal.
 \end{itemize}
@@ -131,11 +131,11 @@ La conducción autónoma no posible sin un algoritmo que tome decisiones. En alg
 
 El aprendizaje de extremo a extremo para conducción autónoma se ha explorado desde finales de los años ochenta. The Autonomous Land Vehicle in a Neural Network (ALVINN) \cite{alvinn} se desarrolló para aprender ángulos de dirección a partir de una cámara y las medidas proporcionadas por un láser mediante una red neuronal con una sola capa oculta. Basados en esta idea de redes de extremo a extremo (dada una imagen o imágenes se preciden ángulos de dirección), exiten mútiples aproximaciones \cite{road} \cite{end2end} \cite{interpretable} de las cuales veremos algunas a continuación.\\
 
-Un buen ejemplo de red de extremo a extremo es la red PilotNet \cite{end2end} \cite{explaining-end2end} creada por Nvidia. En \cite{end2end} se describe dicha red con detalle. Es una red neuronal convolucional (CNN) que mapea píxeles en crudo de una sola cámara frontal a comandos de dirección directamente. El comando propuesto por la CNN se compara con el comando deseado para la imagen en concreto y los pesos de la red se van ajustando para aproximar la salida de la red a la salida deseada. El ajuste de los pesos se realiza empleando \textit{back propagation}.\\
+Un buen ejemplo de red de extremo a extremo es la red PilotNet \cite{end2end} \cite{explaining-end2end} creada por Nvidia. En ``End to end learning for self-drivingcars'' \cite{end2end} se describe dicha red con detalle. Es una red neuronal convolucional (CNN) que mapea píxeles en crudo de una sola cámara frontal a comandos de dirección directamente. El comando propuesto por la CNN se compara con el comando deseado para la imagen en concreto y los pesos de la red se van ajustando para aproximar la salida de la red a la salida deseada. El ajuste de los pesos se realiza empleando \textit{back propagation}.\\
 
 La red PilotNet (Figura \ref{fig.pilotnet}) consta de 9 capas, que incluyen una capa de normalización, 5 capas convolucionales y 3 capas \textit{fully-connected}. La imagen de entrada se divide en planos YUV y se pasa a la red. Las capas convolucionales las diseñaron para realizar la extracción de características y las eligieron a través de experimentos que variaban las configuraciones de capas. Las dos primeras capas convolucionales usaban un \textit{stride} de 2x2 y un kernel 5x5, mientras que las 3 últimas capas usaban un \textit{non-stride} y un kernel 3x3. Las 3 capas \textit{fully-connected} fueron diseñadas para funcionar como un controlador de la dirección, pero no es posible saber exactamente qué partes de la red funcionan principalmente como extractor de características y cuáles sirven como controlador. El sistema aprende automáticamente las representaciones internas, como la detección de características útiles de la carretera.\\
 
-El objetivo de \cite{explaining-end2end} es explicar lo que PilotNet aprende y cómo toma sus decisiones. Con este fin, se desarrolla un método para determinar qué elementos en la imagen de la carretera influyen más en la decisión de la dirección de PilotNet. Llaman a estas secciones de imagen salientes los objetos salientes. Se puede encontrar un informe detallado del su método de detección de saliencia en \cite{visual}.\\
+El objetivo de \cite{explaining-end2end} es explicar lo que PilotNet aprende y cómo toma sus decisiones. Con este fin, se desarrolla un método para determinar qué elementos en la imagen de la carretera influyen más en la decisión de la dirección de PilotNet. Llaman a estas secciones de imagen objetos salientes. Se puede encontrar un informe detallado del método de detección de saliencia en ``VisualBackProp: Efficient Visualization of CNNs for Autonomous Driving'' \cite{visual}.\\
 
 \begin{figure}
 \begin{center}
@@ -145,7 +145,7 @@ El objetivo de \cite{explaining-end2end} es explicar lo que PilotNet aprende y c
 \end{center}
 \end{figure}
 
-La idea central de \cite{explaining-end2end} para discernir los objetos salientes es encontrar partes de la imagen que corresponden a ubicaciones donde los mapas de características tienen las mejores activaciones. Las activaciones de los mapas de nivel superior se convierten en máscaras para las activaciones de niveles inferiores utilizando el siguiente algoritmo:
+La idea central de ``Explaining  how  a  deep  neural network trained with end-to-end learning steers a car'' \cite{explaining-end2end} para discernir los objetos salientes es encontrar partes de la imagen que corresponden a ubicaciones donde los mapas de características tienen las mejores activaciones. Las activaciones de los mapas de nivel superior se convierten en máscaras para las activaciones de niveles inferiores utilizando el siguiente algoritmo:
 
 \begin{enumerate}
     \item En cada capa, las activaciones de los mapas de características se promedian.
@@ -169,7 +169,7 @@ Esta máscara de visualización muestra qué regiones de la imagen de entrada co
 Los resultados muestran que PilotNet aprende a reconocer objetos relevantes en la carretera y que es capaz de mantener el vehículo en el carril con éxito en una amplia variedad de condiciones, independientemente de si las marcas del carril están presentes en la carretera o no.\\
 
 
-En \cite{self-driving} se propone una nueva arquitectura de red, llamada TinyPilotnet, que se deriva de la red Pilotnet \cite{end2end} \cite{explaining-end2end}. La red TinyPilotnet (Figura \ref{fig.tinypilotnet}) está compuesta por una capa de entrada, en la que se introducirán imágenes de resolución 16x32 y un único canal, seguida por dos capas convolucionales de kernel 3x3, y una capa \textit{dropout} configurada al 50\% de probabilidad para agilizar el entrenamiento. Finalmente, el tensor de información se convierte en un vector que es conectado a dos capas \textit{fully-connected} que conducen a un par de neuronas, cada una de ellas dedicada a predecir los valores de dirección y aceleración respectivamente. La imagen de entrada tiene un solo canal formado por el canal de saturación del espacio de color HSV.\\
+En ``Self-driving a Car in Simulation Through a CNN'' \cite{self-driving} se propone una nueva arquitectura de red, llamada TinyPilotnet, que se deriva de la red Pilotnet \cite{end2end} \cite{explaining-end2end}. La red TinyPilotnet (Figura \ref{fig.tinypilotnet}) está compuesta por una capa de entrada, en la que se introducirán imágenes de resolución 16x32 y un único canal, seguida por dos capas convolucionales de kernel 3x3, y una capa \textit{dropout} configurada al 50\% de probabilidad para agilizar el entrenamiento. Finalmente, el tensor de información se convierte en un vector que es conectado a dos capas \textit{fully-connected} que conducen a un par de neuronas, cada una de ellas dedicada a predecir los valores de dirección y aceleración respectivamente. La imagen de entrada tiene un solo canal formado por el canal de saturación del espacio de color HSV.\\
 
 \begin{figure}
 \begin{center}
@@ -179,19 +179,19 @@ En \cite{self-driving} se propone una nueva arquitectura de red, llamada TinyPil
 \end{center}
 \end{figure}
 
-En \cite{event} se presenta un enfoque de red neuronal profunda que emplea cámaras de eventos (sensores de inspiración biológica que no adquieren imágenes completas a una velocidad de \textit{frames} fija, sino que tienen píxeles independientes que solo producen cambios de intensidad de forma asíncrona en el momento en el que ocurren) para predecir el ángulo de giro de un vehículo. Los eventos se convierten en \textit{frames} de eventos por acumulación de píxeles en un intervalo de tiempo constante. Posteriormente, una red neuronal profunda los asigna a los ángulos de dirección.\\
+En `` Event-based  vision  meets  deep  learning  on  steering  prediction  forself-driving  cars'' \cite{event} se presenta un enfoque de red neuronal profunda que emplea cámaras de eventos (sensores de inspiración biológica que no adquieren imágenes completas a una velocidad de \textit{frames} fija, sino que tienen píxeles independientes que solo producen cambios de intensidad de forma asíncrona en el momento en el que ocurren) para predecir el ángulo de giro de un vehículo. Los eventos se convierten en \textit{frames} de eventos por acumulación de píxeles en un intervalo de tiempo constante. Posteriormente, una red neuronal profunda los asigna a los ángulos de dirección.\\
 
 En este artículo inicialmente apilan los \textit{frames} de eventos de diferente polaridad, creando una imagen de eventos 2D. Después, implementan una serie de arquitecturas ResNet, es decir, ResNet18 y ResNet50. Estas redes son utilizadas como extractores de características para el problema de regresión, considerando solo las capas convolucionales. Para codificar las características de la imagen extraídas de la última capa convolucional en un descriptor vectorizado, se emplea una capa \textit{global average pooling} que devuelve la media del canal de las características. Después se agrega una capa \textit{fully-connected} (con dimensionalidad 256 para ResNet18 y 1024 para ResNet50), seguida de una ReLU no lineal y una capa \textit{fully-connected} unidimensional para generar el ángulo.\\
 
-En \cite{event} preciden ángulos empleando 3 tipos de entradas: 1. imágenes en escala de grises, 2. diferencia de imágenes en escala de grises, 3. imágenes creadas por la acumulación de eventos. Analizan el rendimiento de la red en función del tiempo de integración utilizado para generar las imágenes de eventos (10, 25, 50, 100 y 200 ms). Cuanto mayor es el tiempo de integración, mayor es la traza de eventos que aparecen en los contornos de los objetos. La red funciona mejor cuando se entrena con imágenes de eventos correspondientes a 50 ms, y el rendimiento se degrada para tiempos de integración cada vez más grandes. Uno de los problemas que presentan las entradas que emplean imágenes en escala de grises es que a altas velocidades las imágenes se difuminan y la diferencia de imágenes se vuelve muy ruidosa.\\
+En este artículo \cite{event} se preciden ángulos empleando 3 tipos de entradas: 1. imágenes en escala de grises, 2. diferencia de imágenes en escala de grises, 3. imágenes creadas por la acumulación de eventos. Analizan el rendimiento de la red en función del tiempo de integración utilizado para generar las imágenes de eventos (10, 25, 50, 100 y 200 ms). Cuanto mayor es el tiempo de integración, mayor es la traza de eventos que aparecen en los contornos de los objetos. La red funciona mejor cuando se entrena con imágenes de eventos correspondientes a 50 ms, y el rendimiento se degrada para tiempos de integración cada vez más grandes. Uno de los problemas que presentan las entradas que emplean imágenes en escala de grises es que a altas velocidades las imágenes se difuminan y la diferencia de imágenes se vuelve muy ruidosa.\\
 
-En \cite{pixels} se realiza un amplio estudio donde se analiza una red neuronal de extremo a extremo para predecir las acciones de dirección de un vehículo en base a las imágenes de una cámara, así como las dependencias temporales de entradas consecutivas y la diferencia entre redes de clasificación y redes de regresión.\\
+En el artículo ``From Pixels to Actions: Learning to Drive a Car with Deep Neural Networks'' \cite{pixels} se realiza un amplio estudio donde se analiza una red neuronal de extremo a extremo para predecir las acciones de dirección de un vehículo en base a las imágenes de una cámara, así como las dependencias temporales de entradas consecutivas y la diferencia entre redes de clasificación y redes de regresión.\\
 
 La arquitectura principal que emplean es una variación de la arquitectura PilotNet, AlexNet o VGG19. Para AlexNet se elimina el \textit{dropout} de las 2 capas densas finales y se reduce el tamaño de 500 y 200 neuronas. La capa de salida de la red depende de su tipo (regresión o clasificación) y para una red de clasificación del número de clases. Para el caso de clasificación, cuantifican las medidas del ángulo de dirección en valores discretos, que representan las etiquetas de la clase. Esta cuantificación es necesaria como entrada cuando se tiene una red de clasificación y permite equilibrar los datos a través de los pesos de la muestra. Esta ponderación actúa como un coeficiente para la tasa de aprendizaje de la red para cada muestra. El peso de una muestra está directamente relacionado con la clase a la que pertenece cuando se cuantifica. La ponderación de muestra se realiza para regresión y clasificación.\\
 
 Se estudia la influencia de las especificaciones de cuantización de clase en el rendimiento del sistema. Estas especificaciones consisten en la cantidad de clases y la asignación del rango de entrada de estas clases. Se comparan redes con diferentes grados de granularidad, lo que influye en el rendimiento. Se compara un esquema de cuantificación de grano grueso de 7 clases con uno de grano fino de 17 clases, obteniendo mejores resultados con el de grano grueso.\\
 
-Además, en este artículo se evalúan métodos que permiten que nuestro sistema aproveche la información de entradas consecutivas: un método que sigue una arquitectura de extremo a extremo y un método que emplea capas recurrentes (lo veremos en la siguiente subsección). \\
+Además, en este artículo se evalúan métodos que permiten que el sistema aproveche la información de entradas consecutivas: un método que sigue una arquitectura de extremo a extremo y un método que emplea capas recurrentes (lo veremos en la siguiente subsección). \\
 
 El método que emplea una CNN para la predicción, que llaman \textit{stacked frames}, concatena varias imágenes de entrada consecutivas para crear una imagen apilada. La entrada a la red es esta imagen apilada (para la imagen t se concatenan las imágenes t-1, t-2, etc). El tamaño de entrada será la única variable que se modique, es decir, no se modifica la red. Por esta razón, las imágenes se concatenan en la dimensión de profundidad (canal) y no en una nueva dimensión. Por ejemplo, apilar 2 imágenes anteriores a la imagen RGB actual de 160 x 320 x 3 cambaría su tamaño a 160 x 320 x 9. Los resultados muestran un aumento en el rendimiento de las métricas con este método. Se cree que es debido a que la red puede hacer una predicción basada en la información promedio de múltiples imágenes. Para una sola imagen, el valor predicho puede ser o muy alto o muy bajo. En cambio, para imágenes concatenadas, la información combinada podría cancelarse entre sí, dando una mejor predicción promedio. Suponiendo que la red promedie la información, aumentar el número de imágenes podría hacer que la red perdiera la capacidad de respuesta. Por ello emplean 3 \textit{frames} concatenados.\\
 
@@ -206,7 +206,7 @@ Las redes neuronales recurrentes (RNNs) representan una clase de redes neuronale
 
 En múltiples investigaciones sobre conducción autónoma se ha aprovechado la capacidad de estas redes para poder aprovechar la información de imágenes consecutivas. Algunas de estas investigaciones las veremos a continuación.\\
 
-Un ejemplo de investigación donde se emplean capas LSTM es la propuesta por \cite{reactive-ground}. En esta investigación se presenta un controlador reactivo basado en aprendizaje profundo que emplea una arquitectura de red simple que requiere pocas imágenes de entrenamiento. A pesar de esta estructura simple, su arquitectura de red, llamada ControlNet, supera a otras redes más complejas en múltiples entornos (entornos interiores estructurados y entornos exteriores no estructurados) utilizando diferentes plataformas robóticas. Es decir, el artículo se centra en el control reactivo, donde el robot debe evitar obstáculos que no están presentes durante la construcción del mapa.\\
+Un ejemplo de investigación donde se emplean capas LSTM es la propuesta por ``Reactive  ground  vehicle  control  via  deep networks'' \cite{reactive-ground}. En esta investigación se presenta un controlador reactivo basado en aprendizaje profundo que emplea una arquitectura de red simple que requiere pocas imágenes de entrenamiento. A pesar de esta estructura simple, su arquitectura de red, llamada ControlNet, supera a otras redes más complejas en múltiples entornos (entornos interiores estructurados y entornos exteriores no estructurados) utilizando diferentes plataformas robóticas. Es decir, el artículo se centra en el control reactivo, donde el robot debe evitar obstáculos que no están presentes durante la construcción del mapa.\\
 
 ControlNet extrae imágenes RGB para generar comandos de control: gira a la derecha, gira a la izquierda y recto. La arquitectura de ControlNet consiste en alternar capas convolucionales con capas de \textit{maxpooling} seguidas de capas \textit{fully-connected}. Las capas convolucionales y la de \textit{pooling} extraen información geométrica sobre el medio ambiente, mientras que las capas \textit{fully-connected} actúan como un clasificador general. La capa LSTM permite al robot incorporar información temporal permitiéndole continuar moviéndose en la misma dirección sobre varios \textit{frames}. La estructura de ControlNet (Figura \ref{fig.controlnet}) es:
 
@@ -236,7 +236,7 @@ ControlNet extrae imágenes RGB para generar comandos de control: gira a la dere
 \end{center}
 \end{figure}
 
-En \cite{temporal-dependencies} se propone una Convolutional Long Short-Term Memory Recurrent Neural Networks, conocido como C-LSTM (Figura \ref{fig.clstm}), que es entrenable de extremo a extremo, para aprender las dependencias visual y temporal dinámica de la conducción. El sistema investigado está compuesto por una cámara RGB frontal y una red neuronal que consta de una CNN y LSTM que estiman el ángulo del volante en función de la entrada de la cámrara. Las imágenes de la cámara se procesan fotograma a fotogama por la CNN. Las características resultantes luego se procesan dentro de la red LSTM para aprender las dependencias temporales. La predicción del ángulo de dirección se calcula a través de la capa de clasificación de salida después de las capas LSTM.\\
+En ``End-to-end deep learning for steering autonomous vehicles considering temporal dependencies'' \cite{temporal-dependencies} se propone una Convolutional Long Short-Term Memory Recurrent Neural Networks, conocida como C-LSTM (Figura \ref{fig.clstm}), que es entrenable de extremo a extremo, para aprender las dependencias visual y temporal dinámica de la conducción. El sistema investigado está compuesto por una cámara RGB frontal y una red neuronal que consta de una CNN y LSTM que estiman el ángulo del volante en función de la entrada de la cámrara. Las imágenes de la cámara se procesan fotograma a fotogama por la CNN. Las características resultantes luego se procesan dentro de la red LSTM para aprender las dependencias temporales. La predicción del ángulo de dirección se calcula a través de la capa de clasificación de salida después de las capas LSTM.\\
 
 Aplican el concepto de \textit{transfer learning}. La CNN está pre-entrenada en el conjunto de datos Imagenet. Luego, transfieren la red neuronal entrenada a otra específica enfocada en imágenes de conducción. Posteriormente, en la LSTM se procesa una secuencia de vectores de características de longitud fija w de la CNN. A su vez, las capas LSTM aprenden a reconocer las dependencias temporales que conducen a una decisión de dirección Yt basada en las entradas de Xt-w a Xt. Los valores pequeños de t conducen a reacciones más rápidas, pero la red aprende solo las dependencias a corto plazo y la suceptibilidad a los aumentos de \textit{frames} mal clasificados individualmente. Mientras que los valores elevados de t conducen a un comportamiento más suave y, por tanto, predicciones de dirección más estables, pero aumenta las posibilidades de aprender dependencias erróneas a largo plazo.\\
 
@@ -244,7 +244,7 @@ El concepto de ventana deslizante permite a la red aprender a reconocer diferent
 
 Plantean la regresión del ángulo de dirección como un problema de clasificación. Esta es la razón por la que el único número que representa el ángulo de dirección Yt está codificado como un vector de activaciones de las neuronas de la capa de clasificación. Utilizan una capa totalmente conectada con activaciones \textit{tanh} para la capa de clasificación.\\
 
-En esta propuesta para el entrenamiento de dominio "específico", la capa de clasificación de la CNN se reinicializa y se entrena con los datos de carretera de la cámara. El entrenamiento de la capa LSTM se lleva a cabo de manera múltiple, la red aprende las decisiones de dirección que están asociadas con los intervalos de conducción. La capa de clasificación y las capas LSTM emplean una mayor velocidad de aprendizaje porque se inicializan con valores aleatorios. La CNN y la LSTM se entrenan conjuntamente al mismo tiempo.\\
+En esta propuesta para el entrenamiento de dominio ``específico'', la capa de clasificación de la CNN se reinicializa y se entrena con los datos de carretera de la cámara. El entrenamiento de la capa LSTM se lleva a cabo de manera múltiple, la red aprende las decisiones de dirección que están asociadas con los intervalos de conducción. La capa de clasificación y las capas LSTM emplean una mayor velocidad de aprendizaje porque se inicializan con valores aleatorios. La CNN y la LSTM se entrenan conjuntamente al mismo tiempo.\\
 
 \begin{figure}
 \begin{center}
@@ -254,17 +254,15 @@ En esta propuesta para el entrenamiento de dominio "específico", la capa de cla
 \end{center}
 \end{figure}
 
-En \cite{deep-steering} se propone un modelo basado en visión que mapea imágenes de entrada en ángulos de direccion usando redes profundas. Se segmenta la red en subredes. Es decir, los \textit{frames} se introducen primero en una red de extracción de características, generando una representación de características de longitud fija que modela el entorno visual y el estado interno de un vehículo. Las características extraídas se envían a una red de predicción de dirección. En la subred de extracción de características emplea una Spatio-Temporal Convolution (ST-Conv) que cambia las dimensiones temporales y espaciales. Se emplea una capa \textit{fully-connected} tras la ST-Conv para obtener un vector de características de dimensión 128. Además, en la subred de extracción de características se introducen capas LSTM, para lo cual se emplea ConvLSTM. La subred de predicción de dirección propone concatenar acciones de dirección y de estado del vehículo con el vector de características de 128 dimensiones. Para ello se añade 1 paso de recurrencia entre la salida final y las dos capas \textit{concat} justo antes/después de la LSTM. La capa \textit{concat} antes de la LSTM agrega la velocidad, y el par de torsión y ángulo de rueda al vector de 128 dimensiones, formando un vector de 131 dimensiones. La capa \textit{concat} después de LSTM está compuesta por un vector de características 128-d + salida de LSTM 64-d + salida final previa 3d.\\
+En `` Deep  steering:  Learning  end-to-end  driving  model  fromspatial and temporal visual cues'' \cite{deep-steering} se propone un modelo basado en visión que mapea imágenes de entrada en ángulos de dirección usando redes profundas. Se segmenta la red en subredes. Es decir, los \textit{frames} se introducen primero en una red de extracción de características, generando una representación de características de longitud fija que modela el entorno visual y el estado interno de un vehículo. Las características extraídas se envían a una red de predicción de dirección. En la subred de extracción de características emplea una Spatio-Temporal Convolution (ST-Conv) que cambia las dimensiones temporales y espaciales. Se emplea una capa \textit{fully-connected} tras la ST-Conv para obtener un vector de características de dimensión 128. Además, en la subred de extracción de características se introducen capas LSTM, para lo cual se emplea ConvLSTM. La subred de predicción de dirección propone concatenar acciones de dirección y de estado del vehículo con el vector de características de 128 dimensiones. Para ello se añade 1 paso de recurrencia entre la salida final y las dos capas \textit{concat} justo antes/después de la LSTM. La capa \textit{concat} antes de la LSTM agrega la velocidad, y el par de torsión y ángulo de rueda al vector de 128 dimensiones, formando un vector de 131 dimensiones. La capa \textit{concat} después de LSTM está compuesta por un vector de características 128-d + salida de LSTM 64-d + salida final previa 3d.\\
 
-En \cite{interpretable} se propone un modelo de atención visual para entrenar una red convolucional de extremo a extremo desde las imágenes hasta el ángulo de giro. El modelo de atención resalta las regiones de imagen que potencialmente influye en la salida de la red, de las cuales algunas son influencias reales y otras espureas. Su modelo predice comandos de ángulo de dirección continuos a partir de píxeles en bruto. El modelo predice el radio de giro inverso ût, pero se relaciona con el comando de ángulo de dirección mediante geometría de Ackermann. \\
+En ``Interpretable  learning  for  self-driving  cars  by visualizing  causal  attention'' \cite{interpretable} se propone un modelo de atención visual para entrenar una red convolucional de extremo a extremo desde las imágenes hasta el ángulo de giro. El modelo de atención resalta las regiones de imagen que potencialmente influye en la salida de la red, de las cuales algunas son influencias reales y otras espureas. Su modelo predice comandos de ángulo de dirección continuos a partir de píxeles en bruto. El modelo predice el radio de giro inverso ût, pero se relaciona con el comando de ángulo de dirección mediante geometría de Ackermann. \\
 
 En este método emplean una red neuronal convolucional para extraer un conjunto de vectores de características visuales codificadas, a las que se refieren como una característica convolucional cubo xt. Cada vector de características puede contener descripciones de objetos de alto nivel que permiten que el modelo de atención preste atención selectiva a ciertas partes de una imagen de entrada al elegir un subconjunto de vectores de características. Utilizan la red PilotNet \cite{end2end} para aprender un modelo de conducción, pero omiten las capas de \textit{maxpooling} para evitar la pérdida de información de ubicación espacial. Recopilan un cubo xt de características convolucionales tridimensionales de la última capa empujando la imagen preprocesada a través del modelo, y el cubo de características de salida se emplea como entrada de las capas LSTM. Utilizan una red LSTM que predice el radio de giro inverso y genera ponderaciones de atención en cada paso de tiempo t condicionado al estado oculto anterior y una característica convolucional actual xt. Asumen una capa oculta condicionada al estado oculto anterior y los vectores de características actuales. El peso de atención para cada ubicación espacial se calcula luego mediante una función de regresión logística multinomial.\\
 
-El último paso de este método es un decodificador de grano fio en el que refinan un mapa de atención visual y detectan saliencias visuales locales. Aunque un mapa de atención del decodificador de grano grueso proporciona una probabilidad de importancia sobre un espacio de imagen 2D, el modelo debe determinar regiones específicas que causan un efecto casual en el rendimiento de la predicción. Obtienen una disminución en el rendimiento cuando se oculta una prominencia visual local en una imagen de entrada en bruto. En primer lugar, recopilan un conjunto consecutivo de pesos de atención e ingresan imágenes en bruto para los T pasos de  tiempo especificados por el usuario. Luego, crean un mapa de atención, Mt. La red neuronal de 5 capas (basada en PilotNet) emplea una pila de filtros 5x5 y 3x3 sin ninguna capa \textit{pooling}, y por tanto la imagen de dimensiones 80x160 se procesa para producir un cubo de características 10x20x64, conservando su relación de aspecto. Para extraer una prominencia visual local, primero muestrean aleatoriamente partículas de 2D con reemplazo sobre una imagen de entrada condicionada en el mapa de atención Mt. También emplean el eje de tiempo como la tercera dimensión para considerar las características temporales de las saliencias visuales, almacenando partículas espacio temporales 3D. Posteriormente, aplican un algoritmo de \textit{clustering} (DBSCAN) para encontrar una prominencia visual local agrupando las partículas 3D en \textit{clusters}. Para los puntos de cada grupo y cada \textit{frame} de tiempo t, calculan el algoritmo \textit{convex hull} para encontrar una región local de cada prominencia visual destacada.\\
+El último paso de este método es un decodificador de grano fino en el que refinan un mapa de atención visual y detectan saliencias visuales locales. Aunque un mapa de atención del decodificador de grano grueso proporciona una probabilidad de importancia sobre un espacio de imagen 2D, el modelo debe determinar regiones específicas que causan un efecto casual en el rendimiento de la predicción. Obtienen una disminución en el rendimiento cuando se oculta una prominencia visual local en una imagen de entrada en bruto. En primer lugar, recopilan un conjunto consecutivo de pesos de atención e ingresan imágenes en bruto para los T pasos de  tiempo especificados por el usuario. Luego, crean un mapa de atención, Mt. La red neuronal de 5 capas (basada en PilotNet) emplea una pila de filtros 5x5 y 3x3 sin ninguna capa \textit{pooling}, y por tanto la imagen de dimensiones 80x160 se procesa para producir un cubo de características 10x20x64, conservando su relación de aspecto. Para extraer una prominencia visual local, primero muestrean aleatoriamente partículas de 2D con reemplazo sobre una imagen de entrada condicionada en el mapa de atención Mt. También emplean el eje de tiempo como la tercera dimensión para considerar las características temporales de las saliencias visuales, almacenando partículas espacio temporales 3D. Posteriormente, aplican un algoritmo de \textit{clustering} (DBSCAN) para encontrar una prominencia visual local agrupando las partículas 3D en \textit{clusters}. Para los puntos de cada grupo y cada \textit{frame} de tiempo t, calculan el algoritmo \textit{convex hull} para encontrar una región local de cada prominencia visual destacada.\\
 
-En \cite{pixels} además de aprovechar la información temporal concatenando \textit{frames} se estudia la inclusión de capas recurrentes. Es decir, modifican su arquitectura para incluir capas LSTM, que permiten capturar información temporal entre entradas consecutivas. Las redes se entrenan con un vector de entrada que consiste en la imagen de entrada y una serie de imágenes anteriores, lo que se traduce en una ventana de tiempo. Comparan muchas variaciones de la arquitectura PilotNet \cite{end2end}: (1) se cambia una o dos capas densas a capas LSTM, (2) se agrega una capa LSTM después de las capas densas, y (3) se cambia la capa de salida a LSTM. Todos los experimentos que realizan con redes LSTM demostraron que la incorporación de capas LSTM no aumentó ni redujo el rendimiento de la red.\\
-
-En \cite{self-driving} se propone una nueva arquitectura basada en la arquitectura TinyPilotnet (Figura \ref{fig.tinypilotnet}) para mejorar el rendimiento de la misma. Esta nueva red (Figura \ref{fig.deepestlstm}) está formada principalmente por 3 capas convolucionales de kernel 3x3, combinadas con capas \textit{maxpooling}, seguidas por 3 capas LSTM convolucionales 5x5 y 2 capas \textit{fully-connected}. Las capas LSTM producen un efecto de memoria, por lo que los ángulos de dirección y los valores de aceleración dados por la CNN están influenciados por los anteriores. \\
+En ``From pixels to actions: Learning to drive a car with deep neural networks'' \cite{pixels} además de aprovechar la información temporal concatenando \textit{frames} se estudia la inclusión de capas recurrentes. Es decir, modifican su arquitectura para incluir capas LSTM, que permiten capturar información temporal entre entradas consecutivas. Las redes se entrenan con un vector de entrada que consiste en la imagen de entrada y una serie de imágenes anteriores, lo que se traduce en una ventana de tiempo. Comparan muchas variaciones de la arquitectura PilotNet \cite{end2end}: (1) se cambia una o dos capas densas a capas LSTM, (2) se agrega una capa LSTM después de las capas densas, y (3) se cambia la capa de salida a LSTM. Todos los experimentos que realizan con redes LSTM demostraron que la incorporación de capas LSTM no aumentó ni redujo el rendimiento de la red.\\
 
 \begin{figure}
 \begin{center}
@@ -274,6 +272,8 @@ En \cite{self-driving} se propone una nueva arquitectura basada en la arquitectu
 \end{center}
 \end{figure}
 
+En ``Self-driving  a  Car  in  Simulation  Through  a  CNN'' \cite{self-driving} se propone una nueva arquitectura basada en la arquitectura TinyPilotnet (Figura \ref{fig.tinypilotnet}) para mejorar el rendimiento de la misma. Esta nueva red (Figura \ref{fig.deepestlstm}) está formada principalmente por 3 capas convolucionales de kernel 3x3, combinadas con capas \textit{maxpooling}, seguidas por 3 capas LSTM convolucionales 5x5 y 2 capas \textit{fully-connected}. Las capas LSTM producen un efecto de memoria, por lo que los ángulos de dirección y los valores de aceleración dados por la CNN están influenciados por los anteriores. \\
+
 
 \section{Infraestructura empleada}
 
@@ -281,7 +281,7 @@ En esta sección se explican los ingredientes software empleados para desarrolla
 
 \subsection{Simulador Gazebo}
 
-Como hemos visto al hablar de simuladores, Gazebo \footnote{\url{http://gazebosim.org/}} es un programa de código abierto distribuido bajo licencia de Apache 2.0. Se emple en el desarrollo de aplicaciones robóticas e inteligencia artificial. Es capaz de simular robots, objetos y sensores en entornos complejos de interior y exteriror. Tiene gráficas de gran calidad y un robusto motor de físicas (masa del robot, rozamiento, inercia, amortiguamiento, etc.).\\
+Como hemos visto al hablar de simuladores, Gazebo \footnote{\url{http://gazebosim.org/}} es un programa de código abierto distribuido bajo licencia Apache 2.0. Se emplea en el desarrollo de aplicaciones robóticas e inteligencia artificial. Es capaz de simular robots, objetos y sensores en entornos complejos de interior y exteriror. Tiene gráficas de gran calidad y un robusto motor de físicas (masa del robot, rozamiento, inercia, amortiguamiento, etc.).\\
 
 En este trabajo se emplea la versión 7.15.0 de Gazebo. Gracias a Gazebo se pueden incluir texturas, luces y sombras en los escenarios, así como simular la física como por ejemplo choques, empujes, gravedad, etc. Además, incluye diversos sensores, como pueden ser cámaras y láseres, los cuales podrán ser incorporados en los robots que empleemos. Todo ello hace que sea una herramienta muy potente y de gran ayuda en robótica.\\
 
@@ -396,7 +396,7 @@ Keras \footnote{https://keras.io/} es un \textit{framework} de alto nivel para r
 
 Keras fue desarrollado con el fin de que la implementación de modelos de aprendizaje profundo fuera lo  más fácil y rápido posible para la investigación y el desarrollo.\\
 
-Este \textit{framework} se ejecuta en Python 2.7-3.6, y es posible ejecutarlo tanto en CPU como en GPU. Keras se liberó bajo la licencia permisiva del MIT \cite{Keras_license}. Keras fue desarrollado y mantenido por François Chollet, un ingeniero de Google que utiliza cuatro principios:
+Este \textit{framework} se ejecuta en Python 2.7-3.6, y es posible ejecutarlo tanto en CPU como en GPU. Keras se liberó bajo la licencia permisiva del MIT \cite{Keras_license}, y fue desarrollado y mantenido por François Chollet, un ingeniero de Google que utiliza cuatro principios:
 
 \begin{itemize}
         \item Facilidad de uso: Keras es una \acrshort{api} diseñada básandose en la experiencia del usuario, es decir, ofrece un \acrshort{api} consistente y simple, proporciona comentarios claros y procesables en caso de error del usuario.
@@ -415,21 +415,62 @@ En las próximas subsecciones, se analizan los elementos principales que forman 
 
 \subsubsection{Modelos}
 
-En Keras cada red neuronal se define como un modelo, es una forma de organizar las capas. La clase de modelo más simple es el modelo \textit{Sequential}, que es una pila lineal de capas. Es posible construir arquitecturas más complejas,aunque se debe utilizar la API funcional de Keras, que permite crear gráficos de capas arbitrarios.\\
+En Keras cada red neuronal se define como un modelo, es una forma de organizar las capas. La clase de modelo más simple es el modelo \textit{Sequential}, que es una pila lineal de capas. Es posible construir arquitecturas más complejas, aunque se debe utilizar la API funcional de Keras, que permite crear gráficos de capas arbitrarios.\\
 
-Los modelos \textit{Sequential} tienen diferentes métodos, y los algunos son imprescindibles para el
-proceso de aprendizaje, como son:
+Los modelos \textit{Sequential} tienen diferentes métodos, y algunos son imprescindibles para el proceso de aprendizaje, como son:
 
 \begin{itemize}
     \item \textbf{.compile()}: Configura el modelo para entrenamiento. Los principales argumentos son los siguientes:
     
         \begin{itemize}
-            \item \textit{optimizer}: Nombre del optimizador que actualizará los valores de los pesos durante el entrenamiento para minimizar la función de pérdida.
-            \item \textit{loss}:
-            \item \textit{metrics}
+            \item \textit{optimizer}: Nombre del optimizador que actualizará los valores de los pesos durante el entrenamiento para minimizar la función de pérdida. Existen diferentes optimizadores como Adadelta, SGD, RMSProp, Adagrad, Adamax o Adam. En las diferentes redes implementadas se ha empleado el optimizador Adam \cite{adam}.
+            
+            \item \textit{loss}: Nombre de la función de coste que mide la diferencia entre la predicción y la etiqueta real. En este proyecto en las redes de clasificación se ha empleado \textit{categorical cross-entropy}, también conocida como \textit{log loss}. Esta función es muy utilizada en problemas de clasificación multiclase. Esta función devuelve la entropía cruzada entre una distribución aproximada q y una distribución verdadera p, y sigue la siguiente fórmula \cite{ops_theano}:
+            
+            \begin{equation}\label{eq:categorical_crossentropy}
+		    H(p,q)=-\Sigma_{x}p(x)\log(q(x))
+		    \end{equation}	
+            
+            En las redes neuronales de regresión se ha empleado como función de coste \textit{\acrfull{mse}}, que da una medida de cómo de lejos están las medidas predichas de las reales, pero acentúa los errores grandes. La fórmula de \acrshort{mse} es:
+            
+            \begin{equation}\label{eq:mse}
+                \acrshort{mse} = \frac{1}{N}\sum_{j=1}^{N}(y_j - \hat{y}_j)^2
+            \end{equation}
+            
+            Otra posible función a emplear es \textit{\acrfull{mae}}, que nos da una medida de cuán lejos están las medidas predichas de las medidas reales.
+            
+            \item \textit{metrics}: Nombre de las funciones que se emplean para medir el rendimiento del modelo durante el entrenamiento y el \textit{test}. En este proyecto las métricas empleadas son \textit{accuracy}, \acrshort{mse} y \acrshort{mae}. \textit{Accuracy} es el número de predicciones correctas realizadas por el modelo sobre todo tipo de predicciones realizadas en los modelos de clasificación. La fórmula para \textit{accuracy} es la siguiente:
+            
+            \begin{equation}\label{eq:mse}
+                \textit{Accuracy} = \frac{TP + TN}{TP + FP + TN + FN}
+            \end{equation}
+            
+            donde TP es \textit{True Positive} (casos en los que la clase real del dato es 1 y la clase predicha es 1), TN es \textit{True Negative} (la clase del dato es 0 y la predicha es 0), FP es \textit{False Positive} (la clase real es 0 y la clase predicha es 1), y FN es \textit{False Negative} (la clase real es 1 y la predicha es 0).\\
+            
+            \acrfull{mae}, como hemos dicho anteriormente es una medida del error de la predicción, y sigue la siguiente fórmula:
+            
+            \begin{equation}\label{eq:mse}
+                \acrshort{mae} = \frac{1}{N}\sum_{j=1}^{N}|y_j - \hat{y}_j|
+            \end{equation}
         \end{itemize}
     
-    \item \textbf{.fit()}: 
+    \item \textbf{.fit()}: Entrena el modelo para un número dado de épocas (iteraciones en un conjunto de datos). Los siguientes argumentos son necesarios:
+    
+        \begin{itemize}
+            \item \textit{x}: Muestras de entrenamiento. Se debe definir como un \textit{Numpy array} o una lista de \textit{Numpy arrays}.
+            
+            \item \textit{y}: Etiquetas de entrenamiento. Se debe definir como un \textit{Numpy array} o una lista de \textit{Numpy arrays}.
+            
+            \item \textit{batch\_size}: Número de muestras que serán evaluadas antes de actualizar los pesos. Si no se especifica, batch\_size será por defecto 32.
+            
+            \item \textit{epochs}: Número de iteraciones sobre todo el conjunto de datos.
+            
+            \item \textit{callbacks}: Lista de \textit{callbacks} (ver la subsección \ref{callback}) que se aplican durante el entrenamiento y la validación.
+            
+            \item \textit{validation\_split o validation\_data}: En Keras hay dos posibilidades para establecer el conjunto de validación: validation\_split o validation\_data. validation\_split es la fracción de los datos de entrenamiento (número entre 0 y 1) que se utilizarán como datos de validación. validation\_data es una tupla de valores sobre la cual se debe evaluar la pérdida y cualquier métrica del modelo al final de cada época. El modelo no tendrá en cuenta el conjunto de validación al entrenar el modelo.
+            
+            \item \textit{shuffle}: booleano que determina si se barajan los datos de entrenamiento o no. Si los datos no son barajados durante el entrenamiento, las muestras de una misma clase pueden aparecer de forma consecutiva. En este caso, el modelo tendrá que aprender las características de una determinada clase. Cuando el modelo empieza a ver muestras de la siguiente clase, se ajusta a los nuevos datos y se olvida de la característica aprendida anteriormente. Si los datos están ordenados por clases, este proceso sigue y conduce a un peor resultado.
+        \end{itemize}
     
     \item \textbf{.predict()}: Genera predicciones de salida para las muestras de entrada. 
     
@@ -440,13 +481,104 @@ proceso de aprendizaje, como son:
     \item \textbf{.load\_model()}: Carga un modelo desde un archivo \acrshort{hdf5}.
 \end{itemize}
 
+
 \subsubsection{Capas}
 
-\subsubsection{\textit{Callbacks}}
+Como hemos visto anteriormente, los modelos se componen de un conjunto de capas. Estas capas se añaden al modelo empleando el método \textit{.add()} de Keras. Dentro de este método se define el tipo de capa y los parámetros de cada capa. Existen diferentes tipos de capas en Keras, pero solamente veremos las empleadas en el proyecto, que ya han sido descritas con más detalle en la Sección \ref{tipos_capas}.
+
+\begin{itemize}
+    \item \textit{Convolutional layer}: Es la capa principal de una red \acrshort{cnn}, como vimos en la Sección \ref{tipos_capas}, donde se explica con detalle su funcionamiento. Keras proporciona distintos tipos de capas convolucionales en función de las dimensiones de los datos de entrada: \textit{Conv1D}, \textit{Conv2D}, y \textit{Conv3D}. En nuestro proyecto emplearemos la capa \textit{Conv2D}, ya que nuestros datos de entrada son imágenes.\\
+    
+    Los argumentos principales que hay que definir en una capa convolucional en Keras son:
+    
+        \begin{itemize}
+            \item \textit{filters}: Número de filtros. Las capas \textit{Conv2D} intermedias aprenderán más filtros que las primeras capas \textit{Conv2D}, pero menos filtros que las capas más cercanas a la salida. 
+            
+            \item \textit{kernel\_size}: Especifica la anchura y altura de los filtros. Puede ser un solo entero para especificar el mismo valor para todas las dimensiones espaciales, o puede ser una tupla o lista de 2 enteros.
+            
+            \item \textit{strides}: Entero o tupla/lista de 2 enteros, que especifica cuántos píxeles debe desplazarse el filtro antes de aplicar la siguiente convolución. El valor por defecto es 1.
+            
+            \item \textit{padding}: Puede ser \textit{valid} o \textit{same}. Si se emplea \textit{valid}, no se aplica relleno, dando lugar a una salida con una dimensión más pequeña que la entrada. Sin embargo, si empleamos \textit{same}, la entrada se rellenará con ceros para dar lugar a una salida que conserve las dimensiones de la entrada. El valor por defecto es \textit{valid}.
+
+        \end{itemize}
+    
+    \item \textit{BatchNormalization Layer}: Normaliza las activaciones de la capa anterior en cada lote, es decir, aplica una transformación que mantenga la activación media cerca de 0 y la desviación estándar de activación cerca de 1. El argumento más importante es \textit{axis}, que indica el eje que debe normalizarse. Por ejemplo, después de una capa \textit{Conv2D} donde establecemos \textit{data\_format = ``channels\_first''}, el valor de \textit{axis} será 1. Mientras que si establecemos \textit{data\_format = ``channels\_last''}, el valor de \textit{axis} será -1.
+    
+    \item \textit{Pooling layer}: Como vimos en la Sección \ref{tipos_capas}, esta capa reduce las dimensiones espaciales del volumen de entrada, reduce el coste computacional, y evita el sobreajuste.\\
+    
+    En Keras, dependiendo de las dimensiones de entrada y la operación empleada, existen diferentes capas de \textit{pooling}: MaxPooling1D, MaxPooling2D, MaxPooling3D, AveragePooling1D, AveragePooling2D, AveragePooling3D, GlobalMaxPooling1D, GlobalMaxPooling1D, etc. En Keras, los principales argumentos necesarios para definir estas capas son:
+    
+    \begin{itemize}
+        \item \textit{pool\_size}: Factor por el cual se reduce la escala (vertical, horizontal), donde el factor es un número entero o una tupla de 2 enteros. Si solo se especifica un número entero, se utilizará la misma longitud de ventana para ambas dimensiones. Por ejemplo, si empleamos un \textit{pool\_size} de (2, 2) se reducirá a la mitad la entrada en ambas dimensiones espaciales.
+        
+        \item \textit{strides}: Indica cuántos píxeles debe desplazarse la ventana antes de aplicar la siguiente operación. Su valor es un entero, o una tupla de 2 enteros, o \textit{None}.
+
+    \end{itemize}
+    
+    \item \textit{Dense layer}: En Keras, las capas \textit{fully-connected} se definen como \textit{Dense layers}. El argumento principal de este tipo de capa es:
+    
+        \begin{itemize}
+            \item \textit{units}: número de neuronas.
+        \end{itemize}
+    
+    \item \textit{Activation layer}: En Keras, una función de activación se puede declarar como una capa en sí misma o como un argumento dentro del método \textit{.add()} de la capa anterior. Keras proporciona varias funciones de activación, como \textit{sigmoid}, \textit{linear}, \textit{ReLU} y \textit{softmax}. En este proyecto se han empleado las funciones de activación:
+    
+        \begin{itemize}
+            \item ReLU: es una función de activación no lineal, donde la salida es igual a 0 si la entrada es menor que 0, y si la entrada es mayor que 0 la salida es igual a la entrada. La función \textit{ReLU} sigue la siguiente fórmula:
+            
+            \begin{equation}\label{eq:relu}
+		        g(x)=\max(0,x)
+            \end{equation}
+            
+            En la Figura \ref{fig.relu} se muestra la función de activación \textit{ReLU} en el intervalo [-10, 10].
+            
+            \begin{figure}[H]
+              \begin{center}
+                \includegraphics[width=0.5\textwidth]{figures/Estado_arte/relu.png}
+            		\caption{Función de activación \textit{ReLU}}
+            		\label{fig.relu}
+            		\end{center}
+            \end{figure}
+                        
+            \item Softmax: Esta función de activación es muy empleada en la capa de salida de los problemas de clasificación. La función \textit{softmax} escala las salidas de cada unidad para que estén entre 0 y 1, al igual que una función sigmoide, pero también divide cada salida de tal manera que la suma total de las salidas sea igual a 1.\\
+            
+            La función softmax se puede expresar mtemáticamente como vemos a continuación, donde z es un vector de las entradas a la capa de salida, y j indexa las unidades de salida, entonces i = 1, 2, ..., K.
+            
+            \begin{equation}\label{eq:SoftMax}
+		        \mathrm{softmax}(z)_i=\frac{\exp(z_i)}{\Sigma_{j}{\exp(z_j)}} \quad \mathrm{for} \ j=1, ...,K.
+            \end{equation}
+        \end{itemize}
+    
+    \item \textit{Flatten layer}: Aplana la entrada, es decir, modifica sus dimensiones. Por ejemplo, convierte los elementos de una matriz de imágenes de entrada en un array plano. Esta capa no afecta al \textit{batch\_size}.
+    
+    \item \textit{Dropout layer}: Esta capa consiste en establecer aleatoriamente una tasa de fracción (\textit{rate}) de unidades de entrada en 0 en cada actualización durante el tiempo de entrenamiento, lo que ayuda a evitar el sobreajuste. El argumento principal de esta capa es \textit{rate}, que es la tasa de fracción mencionada anteriormente. El valor de \textit{rate} debe estar entre 0 y 1.
+
+    
+    \item \textit{LSTM layer}: Implementa una capa \acrfull{lstm}. Esta capa tiene algunos argumentos esenciales:
+    
+        \begin{itemize}
+            \item \textit{units}: Número de celdas LSTM.
+            
+            \item \textit{return\_sequences}: Booleano que indica si se debe devolver la última salida en la secuencia de salida o la secuencia completa. Si se establece a \textit{True} se devuelve la secuencia completa.
+        \end{itemize}
+\end{itemize}
+
+
+\subsubsection{\textit{Callbacks}} \label{callback}
+
+Un \textit{callback} es un conjunto de funciones que se aplicarán en determinadas etapas del proceso de entrenamiento. Se puede emplear los \textit{callbacks} para obtener un vistazo de los estados internos y las estadísticas del modelo durante el entrenamiento. En este proyecto se han empleado los siguientes \textit{callbacks}:
+
+\begin{itemize}
+    \item \textit{.ModelCheckpoint()}: Guarda el modelo y sus pesos después de cada época. Es posible configurar \textit{ModelCheckpoint} para que sobreescriba el modelo solamente si una métrica que indicamos ha mejorado respecto al mejor resultado anterior. De esta forma se guarda la mejor versión del modelo.
+    
+    \item \textit{.TensorBoard()} \cite{tensorboard}: Es un conjunto de herramientas de visualización porporcionado por \textit{TensorFlow}, que facilita la comprensión, la depuración y la optimización de los programas. Se puede emplear TensorBoard para visualizar el gráfico proporcionado por TensorFlow, trazar métricas cuantitativas sobre la ejecución del gráfico, así como histogramas de activación para las diferentes capas en el modelo, y mostrar datos adicionales como las imágenes que pasan a través de él. 
+    
+    \item \textit{.CSVLogger()}: Escribe un archivo de registro CSV que contiene información sobre las épocas, el \textit{accuracy} y \textit{loss} en el disco, dando la posibilidad de inspeccionarlo más tarde. De esta forma se pueden crear gráficos a partir de estos datos o mantener un registro del proceso de entrenamiento del modelo a lo largo del tiempo.
+\end{itemize}
 
 \subsection{Formato de archivo HDF5}
 
-\acrfull{hdf5} \cite{hdf5_1} \cite{hdf5_2} es una librería de propósito general y al mismo tiempo un formato de ficheros para el almacenamiento de datos científicos. \acrshort{hdf5} fue creado con el fin de facilitar el trabajo a los ingenieros y científicos que trabajan en entornos con altas prestaciones y con un uso masivo de datos. Keras emplear el formado de archivo \acrshort{hdf5} para guardar modelos y leer conjuntos de datos. La tecnología \acrshort{hdf5} incluye:
+\acrfull{hdf5} \cite{hdf5_1} \cite{hdf5_2} es una librería de propósito general y al mismo tiempo un formato de ficheros para el almacenamiento de datos científicos. \acrshort{hdf5} fue creado con el fin de facilitar el trabajo a los ingenieros y científicos que trabajan en entornos con altas prestaciones y con un uso masivo de datos. Keras emplea el formado de archivo \acrshort{hdf5} para guardar modelos y leer conjuntos de datos. La tecnología \acrshort{hdf5} incluye:
 
 \begin{itemize}
     \item Un modelo de datos versátil que puede representar objetos de datos complejos y una gran variedad de metadatos.
