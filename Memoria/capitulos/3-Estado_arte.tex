@@ -333,6 +333,31 @@ Esta plataforma soporta gran variedad de dispositivos como el cuadricóptero AR 
 En el desarrollo del proyecto de este TFM se empleará la versión 5.6.7 de JdeRobot, ya que es la última versión estable.
 
 
+
+\subsection{Entorno ROS}
+
+\acrfull{ros} \footnote{https://www.ros.org/} \cite{middleware1} es una plataforma de software libre para el desarrollo de software de robots, que provee servicios estándar de un sistema operativo como la abstracción del harware, el control de dispositivos de bajo nivel, mecanismos de intercambio de mensajes entre procesos y un conjunto de herramientas ampliamente utilizadas en robótica. Esta plataforma es de código abierto y se distribuye bajo licencia BSD.\\
+
+Uno de los grandes beneficios del uso de \acrshort{ros} es la integración con el simulador Gazebo. Para realizar esta comunicación se hace uso de un conjunto de paquetes de \textit{ros} llamado gazebo\_ros\_pkgs \footnote{http://wiki.ros.org/gazebo\_ros\_pkgs} \cite{ros_integration}. Gazebo se integra con \textit{ros} mediante \textit{ROS Messages}, servicios y reconfiguración dinámica. En la Figura \ref{fig.ros} se puede observar una visión general de la intergfaz gazebo\_ros\_pkgs.\\
+
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[width=0.9\textwidth]{figures/Estado_arte/ros.png}
+		\caption{Interfaz del conjunto de paquetes gazebo\_ros\_pkgs}
+		\label{fig.ros}
+		\end{center}
+\end{figure}
+
+
+\acrshort{ros} está formado por una colección de nodos o procesos que se combinan en un gráfico, y se comunican entre ellos mediante \textit{topics} de transimisón, servicios \acrshort{rpc}, y el Servidor de Parámetros. El sistema de control de un robot se compone de diferentes nodos, siendo mayor el número de nodos cuanta mayor sea la funcionalidad del robot. En \acrshort{ros} existen distintos nodos que controlan un láser, cámaras, motores de ruedas, odometría, etc. El uso de nodos de \acrshort{ros} en el robot permite localizar más fácilmente los fallos que puedan surgir, ya que cada fallo se concentra únicamente en un nodo.\\
+
+Los \textit{topics} de \acrshort{ros} \footnote{http://wiki.ros.org/Topics} \cite{ros_book} son una forma de comunicación de los nodos. Los \textit{topics} también se conocen como buses sobre los cuales los nodos intercambian mensajes. Los \textit{topics} implementan un mencanismo de comunicación de publicación y/o suscripción. La semántica de publicación y/o suscripción de los \textit{topics} es anónima, lo que desacopla la producción de información de consumo. De esta forma los nodos no saben con quien se están comunicando. Además, los nodos que desean recibir mensajes sobre un \textit{topic} se deben suscribir a él para obtener la información que publique dicho \textit{topic}. Después de suscribirse, todos los mensajes sobre el \textit{topic} se envían al nodo que realizó la solicitud. Es posible que existan varios suscriptores del mismo \textit{topic}.\\
+
+En \acrshort{ros} existen diversos \textit{plugins} \footnote{http://wiki.ros.org/gazebo\_plugins} que aportan una gran variedad de funcionalidad para los distintos modelos de robots de Gazebo. Algunos de los \textit{plugins} más destacados son libgazebo\_ros\_camera, que permite controlar una cámara; libgazebo\_ros\_laser, que controla un sensor láser; o libgazebo\_ros\_bumper que controla un sensor \textit{bumper} (sensor de contacto). Los \textit{plugins} libgazebo\_ros\_camera y  libgazebo\_ros\_laser serán empleados por el coche utilizado en este proyecto.
+
+
+
 \subsection{Python}
 
 Python \footnote{\url{https://www.python.org/}} es un lenguaje de programación fácil de aprender y de alto nivel. Su creador fue Guido van Rossum, un investigador holandés que trabajaba en el centro de investigación CWI (Centrum Wiskunde \& Informatica). La primera versión surgió en 1991 pero no fue publicada hasta tres años después. Guido dio el nombre de Python en honor a la serie de televisión \textit{Monty Python’s Flying Circus}.\\
