@@ -1,1 +1,247 @@
 \chapter{Redes de regresión}\label{cap.regresion}
+
+\section{Contexto}
+
+\section{Arquitecturas de red}
+
+\subsection{PilotNet}
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{figures/Regresion/pilotnet.png}
+   \caption{Arquitectura PilotNet.}
+	\label{fig.Pilotnet}
+\end{center}
+\end{figure}
+
+
+\subsection{TinyPilotNet}
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{figures/Regresion/tinypilotnet.png}
+   \caption{Arquitectura TinyPilotNet.}
+	\label{fig.TinyPilotNet}
+\end{center}
+\end{figure}
+
+\subsection{ControlNet}
+
+\section{Experimentos}
+
+A continuación se explicaán todos los experimentos realizados durante el entrenamiento de redes de regresión, tanto los relacionados con las dimensiones y los tipos de las imágenes, preprocesado de los datos, etc. \\
+
+\subsection{Preprocesado de los datos}
+
+Los datos de entrenamiento son una parte fundamental del aprendizaje por parte de las redes neuronales. En algunas ocasiones es díficil extrar una gran cantidad de datos, por este motivo se suele hacer un aumentado de datos. El aumentado de datos consiste en aumentar la información de la red a partir del conjunto de datos.\\
+
+En el entrenamiento se ha realizado un preprocesado para aumentar los datos de los que disponemos, y de esta forma tener los mismos datos de velocidad de rotación a la izquierda que a la derecha. Es decir, lo que se ha hecho exactamente es emplear la operación \textit{cv2.flip} de OpenCV, que consiste en hacer un espejo de nuestra imagen. De esta forma para una imagen en la que giramos a la izquierda (velocidad de rotación 0.5), ahora dispondríamos de la imagen correspondiente pero a la derecha (velocidad de rotación -0.5).\\
+
+En la Figura \ref{fig.image_camera} se puede ver una imagen obtenida por la cámara del coche, mientras que en la Figura \ref{fig.image_flip} se puede observar la misma imagen tras aplicar la operación \textit{flip} de OpenCV.\\
+
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{figures/Regresion/img_normal.png}
+   \caption{Imagen de la cámara}
+	\label{fig.image_camera}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{figures/Regresion/img_flip.png}
+   \caption{Imagen tras realizar la operación \textit{flip}}
+	\label{fig.image_flip}
+\end{center}
+\end{figure}
+
+
+\subsection{Dimensiones imagen y tipo de imagen}
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{figures/Regresion/img_normal.png}
+   \caption{Imagen completa}
+	\label{fig.completa_reg}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{figures/Regresion/img_cropped_reg.png}
+   \caption{Imagen recortada}
+	\label{fig.recortada_reg}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{figures/Regresion/dif_gray_128.png}
+   \caption{Imagen diferencia}
+	\label{fig.diferencia_reg}
+\end{center}
+\end{figure}
+
+
+\subsection{Métricas de evaluación}
+
+\begin{table}[H]
+\centering
+\caption{Métricas de test de redes de regresión (v, imagen recortada)}
+\label{metricas_regresion_recortada_v}
+\begin{tabular}{c|c|c|}
+\cline{1-3}
+                        \multicolumn{1}{|c|}{Red}    & Mean squared error       & Mean absolute error             \\ \hline
+\multicolumn{1}{|c|}{PilotNet}    & 0.162276   & 0.104023   \\ \hline
+\multicolumn{1}{|c|}{TinyPilotNet}     & 0.653815      & 0.424191   \\ \hline
+\multicolumn{1}{|c|}{PilotNet (stacked)}   & 1.081069    & 0.489701   \\ \hline
+\multicolumn{1}{|c|}{PilotNet (stacked, dif)}     & 1.292020    & 0.551575        \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Métricas de test de redes de regresión (w, imagen recortada)}
+\label{metricas_regresion_recortada_w}
+\begin{tabular}{c|c|c|}
+\cline{1-3}
+                        \multicolumn{1}{|c|}{Red}    & Mean squared error       & Mean absolute error             \\ \hline
+\multicolumn{1}{|c|}{PilotNet}    & 0.000312   &  0.006651   \\ \hline
+\multicolumn{1}{|c|}{TinyPilotNet}     & 0.001290      & 0.023038   \\ \hline
+\multicolumn{1}{|c|}{PilotNet (stacked)}   & 0.006833    & 0.043313  \\ \hline
+\multicolumn{1}{|c|}{PilotNet (stacked, dif)}     & 0.002911    & 0.022799        \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+
+\begin{table}[H]
+\centering
+\caption{Métricas de test de redes de regresión (v, imagen completa)}
+\label{metricas_regresion_completa_v}
+\begin{tabular}{c|c|c|}
+\cline{1-3}
+                        \multicolumn{1}{|c|}{Red}    & Mean squared error       & Mean absolute error             \\ \hline
+\multicolumn{1}{|c|}{PilotNet}    & 0.205252    & 0.142394    \\ \hline
+\multicolumn{1}{|c|}{TinyPilotNet}     & 0.459055      & 0.296804   \\ \hline
+\multicolumn{1}{|c|}{PilotNet (stacked)}   & 1.084940    & 0.469273  \\ \hline
+\multicolumn{1}{|c|}{PilotNet (stacked, dif)}     & 1.889947    & 0.468693        \\ \hline
+\multicolumn{1}{|c|}{Temporal (dif)}      & 0.442861     & 0.316337   \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Métricas de test de redes de regresión (w, imagen completa)}
+\label{metricas_regresion_completa_w}
+\begin{tabular}{c|c|c|}
+\cline{1-3}
+                        \multicolumn{1}{|c|}{Red}    & Mean squared error       & Mean absolute error             \\ \hline
+\multicolumn{1}{|c|}{PilotNet}    & 0.000316   & 0.007184    \\ \hline
+\multicolumn{1}{|c|}{TinyPilotNet}     & 0.001366      & 0.022281   \\ \hline
+\multicolumn{1}{|c|}{PilotNet (stacked)}   & 0.004471    & 0.034673   \\ \hline
+\multicolumn{1}{|c|}{PilotNet (stacked, dif)}     & 0.005292    & 0.031134        \\ \hline
+\multicolumn{1}{|c|}{Temporal (dif)}      & 0.002155     & 0.029771   \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+
+\subsection{Resultados}
+
+\begin{table}[H]
+\centering
+\caption{Resultados de conducción con redes neuronales de regresión (imagen recortada)}
+\label{resultados_regresion_recortada}
+\begin{tabular}{c|c|c|c|c|c|}
+\cline{2-6}
+                          & \multicolumn{1}{c|}{Manual} & \multicolumn{2}{c|}{PilotNet} & \multicolumn{2}{c|}{TinyPilotNet} \\ \cline{1-6} 
+                        \multicolumn{1}{|c|}{Circuitos}    & Tiempo       & \%       & Tiempo       & \%        & Tiempo         \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (h)}    & 1' 35''           & 100 \%         & 1' 37''       &  100 \%        & 1' 41''               \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (ah)}     & 1' 33''           & 100 \%          & 1' 38''           & 100 \%        & 1' 41''      \\ \hline
+\multicolumn{1}{|c|}{monacoLine (h)}      & 1' 15''           & 100 \%            & 1' 20''            & 100 \%         & 1' 19''                \\ \hline
+\multicolumn{1}{|c|}{monacoLine (ah)}       & 1' 15''       &  100 \%      & 1' 19''         & 100 \%          & 1' 18''         \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (h)}      & 1' 02''       &  100 \%         & 1' 04''           & 100 \%        & 1' 04''       \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (ah)}       & 1' 02''     & 100 \%         & 1' 06''          & 100 \%     & 1' 05''            \\ \hline
+\multicolumn{1}{|c|}{curveGP (h)}     & 2' 13''           & 100 \%         & 2' 16''            & 25 \%        &              \\ \hline
+\multicolumn{1}{|c|}{curveGP (ah)}       & 2' 09''            & 100 \%         & 2' 12''        & 75 \%        &         \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''           & 100 \%       & 1' 04''            & 100 \%         & 59''        \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''          & 100 \%       & 1' 05''         & 100 \%        & 1' 00'                 \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Resultados de conducción con redes neuronales de regresión introduciendo temporalidad (imagen recortada)}
+\label{resultados_regresion_temporal_recortada}
+\begin{tabular}{c|c|c|c|c|c|c|c|}
+\cline{2-6}
+                          & \multicolumn{1}{c|}{Manual} & \multicolumn{2}{c|}{PilotNet (stacked)} & \multicolumn{2}{c|}{PilotNet (stacked, dif)} \\ \cline{1-6} 
+                        \multicolumn{1}{|c|}{Circuitos}    & Tiempo       & \%       & Tiempo       & \%        & Tiempo      \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (h)}    & 1' 35''     & 100 \%   & 1' 41''    & 100 \%   & 1' 39''          \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (ah)}     & 1' 33''           & 10 \%        &        & 100 \%     & 1' 38''   \\ \hline
+\multicolumn{1}{|c|}{monacoLine (h)}      & 1' 15''           & 85 \%         &        & 45 \%       &            \\ \hline
+\multicolumn{1}{|c|}{monacoLine (ah)}       & 1' 15''       & 15 \%       &         & 5 \%           &         \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (h)}      & 1' 02''       & 8 \%      &       & 8 \%        &        \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (ah)}       & 1' 02''     & 80 \%     &        & 50 \%     &          \\ \hline
+\multicolumn{1}{|c|}{curveGP (h)}     & 2' 13''     & 25 \%       &     & 25 \%     &              \\ \hline
+\multicolumn{1}{|c|}{curveGP (ah)}       & 2' 09''            & 75 \%    &     & 75 \%       &       \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''           & 30 \%       &       & 100 \%      & 1' 06''    \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''    & 10 \%    &          & 100 \%      & 1' 05''          \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+
+
+\begin{table}[H]
+\centering
+\caption{Resultados de conducción con redes neuronales de regresión (imagen completa)}
+\label{resultados_regresion_completa}
+\begin{tabular}{c|c|c|c|c|c|}
+\cline{2-6}
+                          & \multicolumn{1}{c|}{Manual} & \multicolumn{2}{c|}{PilotNet} & \multicolumn{2}{c|}{TinyPilotNet} \\ \cline{1-6} 
+                        \multicolumn{1}{|c|}{Circuitos}    & Tiempo       & \%       & Tiempo       & \%        & Tiempo         \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (h)}    & 1' 35''           & 100 \%         & 1' 41''       &  100 \%        & 1' 39''               \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (ah)}     & 1' 33''           & 100 \%          & 1' 39''           & 100 \%        & 1' 38''      \\ \hline
+\multicolumn{1}{|c|}{monacoLine (h)}      & 1' 15''           & 100 \%            & 1' 21''            & 100 \%         & 1' 19''                \\ \hline
+\multicolumn{1}{|c|}{monacoLine (ah)}       & 1' 15''       &  100 \%      & 1' 23''         & 100 \%          & 1' 20''         \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (h)}      & 1' 02''       &  100 \%         & 1' 03''           & 100 \%        & 1' 05''       \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (ah)}       & 1' 02''     & 100 \%         & 1' 06''          & 100 \%     & 1' 06''            \\ \hline
+\multicolumn{1}{|c|}{curveGP (h)}     & 2' 13''           & 100 \%         & 2' 20''            & 100 \%        & 2' 11''             \\ \hline
+\multicolumn{1}{|c|}{curveGP (ah)}       & 2' 09''            & 100 \%         & 2' 16''        & 100 \%        & 2' 06''        \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''           & 100 \%       & 1' 07''            & 100 \%         & 1' 02''        \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''          & 100 \%       & 1' 09''         & 100 \%        & 1' 02'                 \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Resultados de conducción con redes neuronales de regresión introduciendo temporalidad (imagen completa)}
+\label{resultados_regresion_temporal_completa}
+\begin{tabular}{c|c|c|c|c|c|c|c|}
+\cline{2-8}
+                          & \multicolumn{1}{c|}{Manual} & \multicolumn{2}{c|}{PilotNet (stacked)} & \multicolumn{2}{c|}{PilotNet (stacked, dif)} & \multicolumn{2}{c|}{Temporal (dif)} \\ \cline{1-8} 
+                        \multicolumn{1}{|c|}{Circuitos}    & Tiempo       & \%       & Tiempo       & \%        & Tiempo  & \%        & Tiempo          \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (h)}    & 1' 35''      & 100 \%     & 1' 40''  & 100 \%     & 1' 43''   & 35 \%       &     \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (ah)}     & 1' 33''           & 100 \%   & 1' 46''    & 10 \%        &   & 10 \%       &  \\ \hline
+\multicolumn{1}{|c|}{monacoLine (h)}      & 1' 15''           & 50 \%         &         & 5 \%           &     & 3 \%        &                 \\ \hline
+\multicolumn{1}{|c|}{monacoLine (ah)}       & 1' 15''    & 7\%      &         & 5 \%          &    & 3 \%       &        \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (h)}      & 1' 02''       & 50 \%       &          & 8 \%        &     & 8 \%        &     \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (ah)}       & 1' 02''     & 80 \%    &      & 50 \%     &   & 3 \%        &            \\ \hline
+\multicolumn{1}{|c|}{curveGP (h)}     & 2' 13''      & 25 \%       &      & 25 \%     &     &       &           \\ \hline
+\multicolumn{1}{|c|}{curveGP (ah)}       & 2' 09''            & 100 \%     & 2' 07''     &  75 \%     &   &       &        \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''           & 100 \%     & 1' 11'      & 100 \%       & 1' 03''    &       &         \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''      & 100 \%     & 1' 08''     & 100 \%       & 1' 02''    &       &                \\ \hline
+\end{tabular}
+\end{table}
+
+
+\section{Conclusiones}
