@@ -1,1 +1,594 @@
 \chapter{Redes de clasificación}\label{cap.clasificacion}
+
+Una vez explicado el contexto, los objetivos y las herramientas empleadas en este proyecto, en este capítulo se detallarán las arquitecturas de redes de clasificación empleadas, así como la experimentación tanto con las dimensiones de la imagen como en el uso de diferentes conjuntos de datos y número de clases, y los resultados de los mismos.
+
+
+\section{Contexto}
+
+Las redes neuronales de extremo a extremo se han empleado ampliamente en problemas de clasificación, es decir, en problemas en los que el objetivo es determinar la clase a la que pertenece un elemento. En este proyecto se emplea este tipo de red con el fin de predecir las acciones de dirección y velocidad de tracción de un vehículo.\\
+
+En las redes de clasificación se han cuantificado tanto las medidas de velocidad lineal como las medidas del ángulo de dirección en valores discretos, que representan las etiquetas de las clases. Se ha estudiado la influencia de las especificaciones de cuantización de clase en la conducción del vehículo. Las especificaciones son tanto el número de clases, como el rango de valores de estas clases.\\
+
+Las diferentes clasificaciones empleadas en función de los valores de los ángulos y las velocidades lineales se pueden ver en la creación del dataset (Sección \ref{dataset}), donde se especifican los rangos de valores que toma cada clase en cada clasificación. En los experimentos realizados se verán las combinaciones empleadas de cierto número de clases para la velocidad de tracción (v) con cierto número de clases para la velocidad de rotación (w). En nuestro caso, se han probado combinaciones de 4 clases de v con 7 u 9 clases de w (con mayor o menor rango de w), y la combinación de 5 clases de v con 7 clases de w.\\
+
+En la conducción, la red predecirá una determinada clase tanto para v como para w, pero esta clase se debe traducir a órdenes de velocidad que se envía al coche. Debido a que las clases que predecimos se encuentran en un determinado rango lo que se hace es mandar como orden de velocidad a los motores del coche el resultado de la media del mínimo y el máximo valor de ese rango, o un valor próximo a dicha media ajustado experimentalmente. Es decir, si por ejemplo, la red predice la clase ``moderately\_right'' de w, que para una clasificación de 7 clases tiene un rango de valores entre -0.5 y -1, entonces le indicaremos al vehículo que tome una velocidad de rotación igual a -0.75.\\
+
+En las próximas secciones se detallarán las arquitecturas de red probadas, y además se detallará la influencia de emplear una imagen completa o una imagen recortada, así como la influencia que tiene el conjunto de entrenamiento en el rendimiento de las redes.
+
+
+\section{Arquitecturas de red}
+
+En esta sección se explicarán las arquitecturas de red que se han estudiado en redes de clasificación y las experiencias que se han obtenido de cada arquitectura. Las redes neuronales empleadas para clasificación son \acrshort{cnn}.
+
+\subsection{LeNet-5}
+
+En el momento inicial se empleó la arquitentura de red LeNet-5 \cite{LeCunGradient} (Figura \ref{fig.Lenet}), propuesta por Yann LeCun, Leon Bottou, Yosuha Bengio y Patrick Haffner para el reconocimiento de carácteres.\\
+
+LeNet-5 es una red muy simple, que consta únicamente de 7 capas. Tres de estas capas son capas convolucionales (C1, C3 y C5), las cuales emplean un filtro de tamaño 5x5 y un \textit{stride} de 1. Entre las capas convolucionales se aplica una capas de submuestreo (\textit{pooling}), es decir, en total dos capas de \textit{pooling} (S2 y S4) con un tamaño de filtro de 2x2. La capa 6 es una \textit{fully-connected} (F6), seguida por la capa de salida.\\
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=1\textwidth]{figures/Clasificacion/model_lenet.png}
+   \caption{Arquitectura Lenet-5.}
+	\label{fig.Lenet}
+\end{center}
+\end{figure}
+
+Al comienzo del proyecto se empleó LeNet-5 para entrenar las redes de clasificación, pero pronto se vió que era un modelo muy simple y no era suficiente para que el coche fuera capaz de aprender a conducir de forma autónoma. Por este motivo se introdujo la siguiente arquitectura de red.
+
+\subsection{SmallerVGGNet}
+
+La arquitectura de red empleada \cite{smallerVggNet} (Figura \ref{fig.SmallerVGGNet}) es una versión reducida del modelo VGGNet, que fue propuesto por Simonyan y Zisserman en el artículo ``Very Deep Convolutional Networks for Large Scale Image Recognition''. La arquitectura SmallerVGGNet empleada está diseñada para problemas multiclase, es decir, una clasificación con diversas clases. \\
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.28\textwidth]{figures/Clasificacion/model_smallervgg.png}
+   \caption{Arquitectura SmallerVGGNet.}
+	\label{fig.SmallerVGGNet}
+\end{center}
+\end{figure}
+
+En esta red inicialmente tenemos un bloque compuesto por una capa convolucional de 32 filtros de tamaño 3x3 y activación \textit{ReLU}, seguida de una capa de normalización del lote (\textit{BatchNormalization}), una capa de sumuestreo (\textit{pooling}), y una capa de \textit{dropout} del 25\%. A continuación, hay dos bloques compuestos por una capa convolucional seguida de una capa \textit{BatchNormalization}, una capa una capa convolucional, una capa \textit{BatchNormalization}, una capa de \textit{pooling}, y una capa de \textit{dropout} del 25\%. En el primero de estos dos bloques en las capas convolucionales se emplean 64 filtros de tamaño 3x3 y activación \textit{ReLU}; mientras que en el segundo bloque en las capas convolucionales se usan 128 filtros de tamaño 3x3 y activación \textit{ReLU}. Al final de la red tenemos un bloque de capas \textit{Fully connected}, donde en la última de estas capas se utiliza una función de activación sigmoide para la clasificación de múltiples etiquetas.\\
+
+
+Esta arquitectura es bastante más compleja que la arquitectura LeNet-5, permitiendo de esta forma a la red aprender situaciones más complejas. Este modelo se ha empleado en los diferentes experimentos realizados que veremos en la siguiente sección.
+
+
+\section{Experimentos}
+
+En esta sección se datallarán todos los experimentos realizados durante el entrenamiento de redes de clasificación, ya sean experimentos acerca de las dimensiones de las imágenes, el número de clases, etc. \\
+
+
+\subsection{Dimensiones de imagen}
+
+Las imágenes capturadas por la cámara del vehículo tienen unas dimensiones de 640 x 480 píxeles. Algunas pruebas consisten en emplear las imágenes completas (Figura \ref{fig.completa}) y entrenar las redes de clasificación con las mismas en formato BGR. Antes de entrenar las redes con estas imágenes, se reducen las dimensiones de las mismas por un factor de escala de 1/4 en horizontal y 1/4 en vertical en total para aliviar la carga del entrenamiento. Por lo que las imágenes a la entrada de la red tienen unas dimensiones de (160, 120, 3).\\
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{figures/Clasificacion/img_normal.png}
+   \caption{Imagen completa}
+	\label{fig.completa}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.5\textwidth]{figures/Clasificacion/img_cropped_class.png}
+   \caption{Imagen recortada}
+	\label{fig.recortada}
+\end{center}
+\end{figure}
+
+Además se han realizado pruebas empleando un recorte de imagen (\textit{image cropping}), que consiste en extraer una zona concreta de la imagen donde se considera que se almacena la parte relevante de información. Es decir, esta imagen (Figura \ref{fig.recortada}) contiene información acerca de la carretera, eliminando de esta forma la parte del cielo de la imagen. Esta imagen tiene unas dimensiones de 240 x 640 píxeles, aunque antes de entrenar la red se reducen las dimensiones 1/4 en horizontal y 1/4 en vertical, siendo las dimensiones de la imagen de (160, 60, 3) al entrar a la red.
+
+
+
+\subsection{Número de clases}
+
+Como hemos mencionado antes, el número de clases, así como el rango de valores de velocidad de cada clase influirá en el rendimiento de la conducción. Es necesario entrenar una red para la velocidad lineal (v) y una red para la velocidad de rotación, siendo ambas empleadas durante la conducción.\\
+
+En el proyecto se han estudiado varias combinaciones de clases de v y clases de w, sabiendo que los datos de velocidad de rotación se encuentran en un rango de (-2.9269; 3.1138) y los datos de velocidad de tracción se encuentran en el rango (-0.6; 13). En un primer momento se ha estudiado la combinación de 7 clases para w y 4 para v. Como segundo experimento se han empleado 9 clases para w y 4 clases para v. Finalmente, se ha experimentado con 7 clases de velocidad de rotación y 5 clases de velocidad de tracción.\\
+
+En la clasificación de 7 clases de velocidad de rotación (w), las clases se dividen según los siguientes rangos:
+
+\vspace{10pt}
+\begin{lstlisting}
+"radically_left": w >= 1
+"moderately_left": 0.5 <= w < 1
+"slightly_left": 0.1 <= w <= 0.5
+"slight": - 0.1 < w < 0.1
+"slightly_right": - 0.5 < w <= -0.1
+"moderately_right": - 1 < w <= -0.5
+"radically_right": w <= -1
+\end{lstlisting}
+\vspace{20pt}
+
+
+En la clasificación de 9 clases de velocidad de rotación, las clases se dividen según los siguientes rangos:
+
+\vspace{10pt}
+\begin{lstlisting}
+"radically_left": w >= 2
+"strongly_left": 1 <= w < 2
+"moderately_left": 0.5 <= w < 1
+"slightly_left": 0.1 <= w <= 0.5
+"slight": - 0.1 < w < 0.1
+"slightly_right": - 0.5 < w <= -0.1
+"moderately_right": - 1 < w <= -0.5
+"strongly_right": -2 < w <= -1
+"radically_right": w <= -2
+\end{lstlisting}
+\vspace{20pt}
+
+
+En la clasificación de 4 clases de velocidad de tracción (v), las clases se dividen en función a los siguientes rangos:
+
+\vspace{10pt}
+\begin{lstlisting}
+"slow": v <= 7
+"moderate": 7 < v <= 9
+"fast": 9 < v <= 11
+"very_fast": v > 11
+\end{lstlisting}
+\vspace{20pt}
+
+En la clasificación de 5 clases de velocidad de tracción, las clases se dividen en función a los siguientes rangos:
+
+\vspace{10pt}
+\begin{lstlisting}
+"negative": v <= 0
+"slow": 0 < v <= 7
+"moderate": 7 < v <= 9
+"fast": 9 < v <= 11
+"very_fast": v > 11
+\end{lstlisting}
+\vspace{20pt}
+
+
+Los resultados de estas combinaciones de las clasificaciones se describirán con más detalle en las Secciones \ref{metrica_clasificacion} y \ref{resultados_clasificacion}.
+
+
+\subsection{Diferentes bases datos}
+
+Los resultados de las redes neuronales no solamente tienen que ver con la arquitectura de red empleada o con la forma de entrenar, sino que el conjunto de entrenamiento tiene una gran influencia sobre el mismo.\\
+
+En el entrenamiento se ha empleado la base de datos \textit{Dataset} (Sección \ref{dataset}), donde se tienen datos de todas las clasificacions mencionadas en la sección anterior. Aunque uno de los problemas de los datos en las redes de clasificación es que normalmente no se dispone del mismo número de datos por cada clase. Este problema implica que en algunas ocasiones haya muchos datos de una determinada clase y muy pocos de otra, haciendo que la red aprenda las situaciones donde hay muchos datos y no aprenda las clases donde tenemos menos datos.\\
+
+En el conjunto de datos empleado sucede este inconveniente, ya que hay algunas clases de las que disponemos de muchos datos y de otras de muy pocos, desequilibrando de esta forma el aprendizaje de la red.\\
+
+En este conjunto de datos disponemos de un total de 17341 pares de imágenes-datos, de los cuales se emplean para entrenamiento únicamente 12138 pares. Si empleamos el conjunto de datos entero para ver de cuántos datos disponemos en función de las clases nos encontramos con lo siguiente:\\
+
+\begin{itemize}
+    \item En la clasificación de 7 clases de velocidad de rotación (w), el número de datos por cada clase es:
+
+    \vspace{10pt}
+    \begin{lstlisting}
+    Numero de datos de "radically_left": 825
+    Numero de datos de "moderately_left": 3054
+    Numero de datos de "slightly_left": 2882
+    Numero de datos de "slight": 4030
+    Numero de datos de "slightly_right": 2606
+    Numero de datos de "moderately_right": 2907
+    Numero de datos de "radically_right": 1037
+    \end{lstlisting}
+    \vspace{20pt}
+
+
+    \item En la clasificación de 9 clases de velocidad de rotación,  el número de datos por cada clase es:
+
+    \vspace{10pt}
+    \begin{lstlisting}
+    Numero de datos de "radically_left": 80 
+    Numero de datos de "strongly_left": 745
+    Numero de datos de "moderately_left": 2054
+    Numero de datos de "slightly\left": 2882
+    Numero de datos de "slight": 4030
+    Numero de datos de "slightly_right": 2606
+    Numero de datos de "moderately_right": 2907
+    Numero de datos de "strongly_right": 953
+    Numero de datos de "radically_right": 84
+    \end{lstlisting}
+    \vspace{20pt}
+
+
+    \item En la clasificación de 4 clases de velocidad de tracción (v),  el número de datos por cada clase es:
+
+    \vspace{10pt}
+    \begin{lstlisting}
+    Numero de datos de "slow": 9885
+    Numero de datos de "moderate": 3251
+    Numero de datos de "fast": 2535
+    Numero de datos de "very_fast": 1670
+    \end{lstlisting}
+    \vspace{20pt}
+
+    \item En la clasificación de 5 clases de velocidad de tracción,  el número de datos por cada clase es:
+
+    \vspace{10pt}
+    \begin{lstlisting}
+    Numero de datos de "negative": 197
+    Numero de datos de "slow": 9688
+    Numero de datos de "moderate": 3251
+    Numero de datos de "fast": 2535
+    Numero de datos de "very_fast": 1670
+    \end{lstlisting}
+    \vspace{20pt}
+
+\end{itemize}
+
+
+Si evaluamos el conjunto de entrenamiento (12138 pares de datos) con el fin de saber de cuántos datos disponemos en función de las clases, obtenemos lo siguiente lo siguiente:\\
+
+\begin{itemize}
+    \item En la clasificación de 7 clases de velocidad de rotación (w), el número de datos por cada clase es:
+
+    \vspace{10pt}
+    \begin{lstlisting}
+    Numero de datos de "radically_left": 590
+    Numero de datos de "moderately_left": 2160
+    Numero de datos de "slightly_left": 1996
+    Numero de datos de "slight": 2800
+    Numero de datos de "slightly_right": 1826
+    Numero de datos de "moderately_right": 2013
+    Numero de datos de "radically_right": 753
+    \end{lstlisting}
+    \vspace{20pt}
+
+
+    \item En la clasificación de 9 clases de velocidad de rotación,  el número de datos por cada clase es:
+
+    \vspace{10pt}
+    \begin{lstlisting}
+    Numero de datos de "radically_left": 572
+    Numero de datos de "strongly_left": 18
+    Numero de datos de "moderately_left": 2160
+    Numero de datos de "slightly_left": 1996
+    Numero de datos de "slight": 2800
+    Numero de datos de "slightly_right": 1826
+    Numero de datos de "moderately_right": 2013
+    Numero de datos de "strongly_right": 20
+    Numero de datos de "radically_right": 733
+    \end{lstlisting}
+    \vspace{20pt}
+
+
+    \item En la clasificación de 4 clases de velocidad de tracción (v),  el número de datos por cada clase es:
+
+    \vspace{10pt}
+    \begin{lstlisting}
+    Numero de datos de "slow": 6945
+    Numero de datos de "moderate": 2306
+    Numero de datos de "fast": 1725
+    Numero de datos de "very_fast": 1162
+    \end{lstlisting}
+    \vspace{20pt}
+
+    \item En la clasificación de 5 clases de velocidad de tracción,  el número de datos por cada clase es:
+
+    \vspace{10pt}
+    \begin{lstlisting}
+    Numero de datos de "negative": 139
+    Numero de datos de "slow": 6806
+    Numero de datos de "moderate": 2306
+    Numero de datos de "fast": 1725
+    Numero de datos de "very_fast": 1162 
+    \end{lstlisting}
+    \vspace{20pt}
+
+\end{itemize}
+
+
+Como se puede ver tanto en el conjunto de datos completo como en el conjunto de entrenamiento existe un desbalanceo de los datos, lo que influirá en el entrenamiento. Por este motivo, se han realizado 3 experimentos basándonos en la base de datos:\\
+
+\begin{itemize}
+    \item El primer experimento consiste en entrenar la red con el conjunto de entrenamiento sin ninguna modificación. A las redes neuronales entrenadas de esta forma se les llamará desbalanceadas.
+    
+    \item El segundo experimento consiste en crear una nueva base de datos de entrenamiento balancedada, es decir, donde exista el mismo número de ejemplos por cada clase. Para lograr este objetivo se parte de la clase con el menor número de ejemplos, y se selecciona el mismo número de datos aleatoriamente para cada una de las otras clases. Por ejemplo, en la base de datos balanceada de 4 clases de velocidad lineal tendremos 1162 ejemplos por cada clase. A las redes entrenadas con estos conjuntos las llamaremos balanceadas.
+    
+    \item El tercer experimento consiste en entrenar las redes con el conjunto de entrenamiento por completo, pero al entrenar se emplea el parámetro \textit{class\_weight} de Keras que nos permite dar pesos a cada clase. Este parámetro es un diccionario donde se indican las etiquetas (clases) y los pesos que le damos a cada etiqueta. De esta forma aunque dispongamos de menos datos para alguna de las clases le daremos más peso durante el entrenamiento. A las redes entrenadas de esta manera les llamaremos sesgadas.
+\end{itemize}
+
+Los resultados de estos tres experimentos realizados para cada una de las combinaciones de velocidades se describirán en las Secciones \ref{metrica_clasificacion} y \ref{resultados_clasificacion}.
+
+
+
+\subsection{Métricas de evaluación}\label{metrica_clasificacion}
+
+Con el fin de evaluar los resultados obtenidos tras el entrenamiento se calculan ciertas métricas de evaluación en el conjunto de \textit{test}. En las redes de clasificación las métricas que se han evaluado son: \textit{Accuracy}, \textit{Accuracy Top 2}, \textit{Precision}, \textit{Recall}, y \textit{F1-Score}.\\
+
+En los problemas de clasificación, \textit{Accuracy} es el número de predicciones correctas realizadas por el modelo sobre todo tipo de predicciones realizadas. El \textit{Accuracy} se puede calcular con la siguiente fórmula:
+
+$$\frac{1}{N} \sum\limits_{n=1}^N \delta\{ \hat{p}_n = p_n \}$$
+\vspace{10pt}
+
+Donde $\hat{p_n}$ es la etiqueta que la red predice en la clasificación, $p_n$ son las etiquetas reales, y $N$ es el número de muestras. Por último, la función $\delta\{x\}$ se define como:
+
+$$\delta\{ \textup{condición}\} = \left\{ \begin{array}{lr} 1 &  \textup{si condición} \\ 0 & \mbox{resto} \end{array} \right.$$
+\vspace{10pt}
+
+El término \textit{Accuracy Top 2} lo calculamos como la métrica \textit{Accuracy}, pero en este caso si la clase predicha es una de las clases adyacentes o la clase real se considera que es correcta la predicción.\\
+
+La métrica \textit{Precision} se define como la relación entre los positivos verdaderos (TP) y el número total de positivos predichos por un modelo (TP y FP). En la clasificación multiclase se debe tener en cuenta que existen varias clases y se emplea la siguiente fórmula:
+
+ 
+\[ Precision = \frac{TP_X}{TP_X + FP_X} \]
+\vspace{10pt}
+
+Donde \(TP_X\) es el número de verdaderos positivos para la clase X, es decir, el número de aciertos correspondiente para dicha clase. Mientras que \(FP_X\) es el número de falsos positivos para la clase X, es decir, el número de veces que se ha predicho dicha clase sin ser así.\\
+
+
+El parámetro \textit{Recall} es la relación entre los positivos verdaderos (TP) y el número total de positivos que se producen. En los problemas multiclase se puede definir como:\\
+
+\[ Recall = \frac{TP_X}{TP_X + FN_X} \]
+\vspace{10pt}
+
+Donde \(FN_X\) son los falsos negativos para la clase X, es decir, el número de veces que se predijo
+errónamente otra clase habiéndose producido X.\\
+
+La métrica \textit{F1-Score} es una puntuación única que representa tanto a Precision (P) como a Recall (R). Se puede calcular mediante la siguiente fórmula:
+
+\[F1-Score =  \frac{2 * Precision * Recall}{Precision + Recall} \]
+\vspace{10pt}
+
+
+Estas métricas calculadas en el conjunto de \textit{test} nos dan una idea de cómo de bien ha ido el entrenamiento. Cada una de las medidas se calculará para cada una de las redes entrenadas para v y w.\\
+
+En la Tabla \ref{metricas_classificacion_recortada_w} se pueden ver los resultados de las métricas promedio para las redes de velocidad de rotación (w) con imágenes recortadas. En este caso vemos 3 redes de 7 clases de w en función de cómo entrenamos según los datos, y 3 redes con 9 clases para w.\\
+
+
+\begin{table}[H]
+\centering
+\caption{Métricas de test de redes de clasificación (w, imagen recortada)}
+\label{metricas_classificacion_recortada_w}
+\begin{tabular}{c|c|c|c|c|c|}
+\cline{1-6}
+                        \multicolumn{1}{|c|}{Red}    & Acurracy       & Accuracy top 2      & Precision       & Recall        & F1-Score        \\ \hline
+\multicolumn{1}{|c|}{7w sesgada}    & 94 \%             & 99 \%         & 95 \%            & 95 \%          & 95 \%       \\ \hline
+\multicolumn{1}{|c|}{7w balanceada}     & 93 \%             & 99 \%          &  94 \%              &  94 \%            &  94 \%             \\ \hline
+\multicolumn{1}{|c|}{7w desbalanceada}      &  95 \%             & 99 \%           &  95 \%            & 95 \%        &  95 \%            \\ \hline
+\multicolumn{1}{|c|}{9w sesgada}       &  93 \%     &  99 \%      &  94 \%           &  94 \%            &  94 \%               \\ \hline
+\multicolumn{1}{|c|}{9w balanceada}      &  93 \%         &  99 \%        &  94 \%         &  94 \%      &  94 \%          \\ \hline
+\multicolumn{1}{|c|}{9w desbalanceada}     & 95 \%          & 99 \%        & 96 \%           & 96 \%         & 96 \%                \\ \hline
+\end{tabular}
+\end{table}
+
+En la Tabla \ref{metricas_classificacion_recortada_v} se pueden observar los resultados de las métricas para las redes de velocidad de tracción (v) con imágenes recortadas. En esta tabla tenemos 3 redes para 4 clases de v y 3 redes para 5 clases de v.\\
+
+\begin{table}[H]
+\centering
+\caption{Métricas de test de redes de clasificación (v, imagen recortada)}
+\label{metricas_classificacion_recortada_v}
+\begin{tabular}{c|c|c|c|c|c|}
+\cline{1-6}
+                        \multicolumn{1}{|c|}{Red}    & Acurracy       & Accuracy top 2      & Precision       & Recall        & F1-Score        \\ \hline
+\multicolumn{1}{|c|}{4v sesgada}    & 95 \%     & 98 \%         & 95 \%            & 95 \%          & 95 \%       \\ \hline
+\multicolumn{1}{|c|}{4v balanceada}     & 92 \%        & 96 \%          &  94 \%              &  93 \%            &  93 \%             \\ \hline
+\multicolumn{1}{|c|}{4v desbalanceada}      &  95 \%        & 97 \%           &  95 \%            & 95 \%        &  95 \%            \\ \hline
+\multicolumn{1}{|c|}{5v sesgada}       & 93 \%         & 96 \%     & 95 \%            & 93 \%           & 94 \%              \\ \hline
+\multicolumn{1}{|c|}{5v balanceada}      & 92 \%        & 95 \%         & 93 \%           & 92 \%     & 93 \%            \\ \hline
+\multicolumn{1}{|c|}{5v desbalanceada}       & 93 \%          & 96 \%           & 95 \%          & 94 \%        & 94 \%               \\ \hline
+\end{tabular}
+\end{table}
+
+
+En la Tabla \ref{metricas_classificacion_completa_w} se pueden observar los resultados de las métricas para las redes de velocidad de rotación con imágenes completas. En esta tabla tenemos 3 (sesgada, balanceada y desbalanceada) redes para 7 clases de w y 3 redes para 9 clases de w.\\
+
+\begin{table}[H]
+\centering
+\caption{Métricas de test de redes de clasificación (w, imagen completa)}
+\label{metricas_classificacion_completa_w}
+\begin{tabular}{c|c|c|c|c|c|}
+\cline{1-6}
+                        \multicolumn{1}{|c|}{Red}    & Acurracy       & Accuracy top 2      & Precision       & Recall        & F1-Score        \\ \hline
+\multicolumn{1}{|c|}{7w sesgada}    & 95 \%             & 99 \%         & 95 \%            & 95 \%          & 95 \%       \\ \hline
+\multicolumn{1}{|c|}{7w balanceada}     & 93 \%             & 99 \%          &  94 \%              &  93 \%            &  93 \%             \\ \hline
+\multicolumn{1}{|c|}{7w desbalanceada}      &  95 \%             & 99 \%           &  95 \%            & 95 \%        &  95 \%            \\ \hline
+\multicolumn{1}{|c|}{9w sesgada}       & 94 \%     & 99 \%       & 95 \%      & 94 \%           & 94 \%               \\ \hline
+\multicolumn{1}{|c|}{9w balanceada}      & 93 \%          & 99 \%         & 94 \%       & 93 \%       & 93 \%             \\ \hline
+\multicolumn{1}{|c|}{9w desbalanceada}       & 95 \%        & 99 \%    & 95 \%        & 95 \%        & 95 \%                 \\ \hline
+\end{tabular}
+\end{table}
+
+En la Tabla \ref{metricas_classificacion_completa_v} se pueden ver los resultados de las métricas de las redes de velocidad lineal con imágenes completas. En la tabla vemos 3 redes para 4 clases de v y 3 redes para 5 clases de v.\\
+
+\begin{table}[H]
+\centering
+\caption{Métricas de test de redes de clasificación (v, imagen completa)}
+\label{metricas_classificacion_completa_v}
+\begin{tabular}{c|c|c|c|c|c|}
+\cline{1-6}
+                        \multicolumn{1}{|c|}{Red}    & Acurracy       & Accuracy top 2      & Precision       & Recall        & F1-Score        \\ \hline
+\multicolumn{1}{|c|}{4v sesgada}    & 94 \%    & 97 \%         & 95 \%            & 95 \%          & 95 \%       \\ \hline
+\multicolumn{1}{|c|}{4v balanceada}     & 89 \%       & 95 \%          &  91 \%              &  89 \%            &  90 \%             \\ \hline
+\multicolumn{1}{|c|}{4v desbalanceada}      &  94 \%      & 97 \%           &  95 \%            & 95 \%        &  95 \%            \\ \hline
+\multicolumn{1}{|c|}{5v sesgada}       &   93 \%      &  96 \%      &  95 \%             &   94 \%           &  94 \%               \\ \hline
+\multicolumn{1}{|c|}{5v balanceada}      &  90 \%       &  95 \%         &  93 \%         &  91 \%       &  91 \%            \\ \hline
+\multicolumn{1}{|c|}{5v desbalanceada}  &  93 \%      &  96 \%           &  95 \%         &  94 \%         &  94 \%    \\ \hline
+\end{tabular}
+\end{table}
+
+En estas tablas se pueden ver que los resultados en el conjunto de prueba en la mayoría de casos superan el 90\%, pero esto no implica que la conducción vaya a tener éxito como veremos en la Sección \ref{resultados_clasificacion}, ya que el resultado de las métricas es un promedio de todas las clases. Esto quiere decir que por ejemplo en una clase nos puede dar un resultado de \textit{Accuracy} del 100\% mientras que en otra clase nos da un resultado mucho menor, pero al hacer un promedio nos hace intuir que los resultados serán buenos. Aún así nos pueden dar una idea de cómo ajustar los parámetros durante el entrenamiento.
+
+
+\subsection{Resultados}\label{resultados_clasificacion}
+
+El objetivo principal era explorar las diferentes combinaciones de redes de clasificación y su empleo para que el vehículo sea capaz de conducir solo. Por este motivo, el vehículo se ha probado en cada uno de los entornos mencionados en la Sección \ref{modelos_circuitos} con cada una de las combinaciones. Se han creado unas tablas con los resultados de cada combinación, donde se indican el porcentaje de circuito recorrido y el tiempo que ha tardado el vehículo en recorrer el circuito completo si se da el caso.\\
+
+En un primer momento se contempló la combinación del empleo de 4 clases de velocidad lineal y 7 clases de velocidad de rotación. Estos resultados se muestran en las Tablas \ref{resultados_classificacion_recortada_4v_7w}, \ref{resultados_classificacion_normal_4v_7w}. En estas tablas se muestran los resultados para una combinación de redes sesgadas, otra combinación de redes balanceadas y otra de redes desbalanceadas (según el entrenamiento realizado). En la Tabla \ref{resultados_classificacion_recortada_4v_7w} se muestran los resultados de las redes entrenadas con imágenes de entrada recortadas. En la Tabla \ref{resultados_classificacion_normal_4v_7w} las redes han sido entrenadas con las imágenes de entrada completas (sin recortar).\\
+
+\begin{table}[H]
+\centering
+\caption{Resultados de conducción con redes de clasificación (4 clases de v y 7 de w, imagen recortada)}
+\label{resultados_classificacion_recortada_4v_7w}
+\begin{tabular}{c|c|c|c|c|c|c|c|}
+\cline{2-8}
+                          & \multicolumn{1}{c|}{Manual} & \multicolumn{2}{c|}{4v+7w sesgada} & \multicolumn{2}{c|}{4v+7w balanceada} & \multicolumn{2}{c|}{4v+7w desbalanceada} \\ \cline{1-8} 
+                        \multicolumn{1}{|c|}{Circuitos}    & Tiempo       & \%       & Tiempo       & \%        & Tiempo       & \%      & Tiempo     \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (h)}    & 1' 35''           & 100 \%         & 1' 38''           & 98 \%          &            & 100 \%       & 1' 42''      \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (ah)}     & 1' 33''           & 100 \%          & 1' 38''            & 100 \%           & 1' 41''           & 100 \%       & 1' 39''       \\ \hline
+\multicolumn{1}{|c|}{monacoLine (h)}      & 1' 15''           & 5 \%           &             & 5 \%       &             & 5 \%       &           \\ \hline
+\multicolumn{1}{|c|}{monacoLine (ah)}       & 1' 15''            & 5 \%       &             & 5 \%           &             & 5 \%          &      \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (h)}      & 1' 02''            & 8 \%          &            & 8 \%        &           & 8 \%       &     \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (ah)}       & 1' 02''           & 90 \%           &           & 80 \%        &            & 80 \%       &       \\ \hline
+\multicolumn{1}{|c|}{curveGP (h)}     & 2' 13''           & 100 \%           & 2' 19''            & 100 \%        & 2' 03''           & 100 \%       & 2' 20''      \\ \hline
+\multicolumn{1}{|c|}{curveGP (ah)}       & 2' 09''            & 100 \%         & 2' 12''            & 3 \%        &           & 100 \%      & 2' 21''     \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''           & 100 \%          & 1' 04''            & 100 \%        & 1' 01''             & 100 \%      & 1' 04''       \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''            & 100 \%          & 1' 04''          & 100 \%        & 59''             & 100 \%      & 1' 05''        \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Resultados de conducción con redes de clasificación (4 clases de v y 7 de w, imagen completa)}
+\label{resultados_classificacion_normal_4v_7w}
+\begin{tabular}{c|c|c|c|c|c|c|c|}
+\cline{2-8}
+                          & \multicolumn{1}{c|}{Manual} & \multicolumn{2}{c|}{4v+7w sesgada} & \multicolumn{2}{c|}{4v+7w balanceada} & \multicolumn{2}{c|}{4v+7w desbalanceada} \\ \cline{1-8} 
+                        \multicolumn{1}{|c|}{Circuitos}    & Tiempo       & \%       & Tiempo       & \%        & Tiempo       & \%      & Tiempo     \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (h)}    & 1' 35''           & 70 \%         &            & 7 \%          &            & 40 \%       &       \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (ah)}     & 1' 33''           & 10 \%          &             & 7 \%           &           & 10 \%       &       \\ \hline
+\multicolumn{1}{|c|}{monacoLine (h)}      & 1' 15''           & 5 \%           &            & 5 \%       &             & 5 \%       &           \\ \hline
+\multicolumn{1}{|c|}{monacoLine (ah)}       & 1' 15''            & 5 \%       &             & 5 \%           &             & 5 \%          &        \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (h)}      & 1' 02''            & 8 \%          &            & 8 \%        &             & 8 \%       &       \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (ah)}       & 1' 02''           & 8 \%           &            & 8 \%        &            & 8 \%       &        \\ \hline
+\multicolumn{1}{|c|}{curveGP (h)}     & 2' 13''           & 100 \%           & 2' 12''           & 25 \%        &            & 85 \%       &      \\ \hline
+\multicolumn{1}{|c|}{curveGP (ah)}       & 2' 09''            & 100\%         & 2' 11''            & 8 \%        &            & 75 \%      &      \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''           & 12 \%          &           & 10 \%        &             & 100 \%      & 1' 07''       \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''            & 25 \%          &          & 12 \%        &             & 100 \%      & 1' 09''        \\ \hline
+\end{tabular}
+\end{table}
+
+En los resultados de estas tablas se puede observar que los resultados obtenidos para las imágenes de entrada recortadas son bastante mejores que para las imágenes completas para cada una de las redes. Aún así vemos que ninguna de estas redes es capaz de completar todos los circuitos, aunque la red sesgada es la que mejor resultado obtiene. En el caso de la red 4v+7w sesgada de imagen recortada, se puede observar que completa 3 de los circuitos en ambos sentidos, pero los otros 2 no es capaz de completarlos. Esto se debe a que estos dos circuitos poseen curvas más abruptas, donde o bien el vehículo deberá aplicar una velocidad de rotación mayor o una velocidad de tracción menor.\\
+
+Al estudiar los resultados anteriores se contempló realizar una combinación de 4 clases de velocidad lineal y 9 clases de velocidad de rotación. Los resultados se muestran en las Tablas \ref{resultados_classificacion_recortada_4v_9w} (imagen recortada) y \ref{resultados_classificacion_completa_4v_9w} (imagen completa) para cada una de las redes entrenadas.\\
+
+
+\begin{table}[H]
+\centering
+\caption{Resultados de conducción con redes de clasificación (4 clases de v y 9 de w, imagen recortada)}
+\label{resultados_classificacion_recortada_4v_9w}
+\begin{tabular}{c|c|c|c|c|c|c|c|}
+\cline{2-8}
+                          & \multicolumn{1}{c|}{Manual} & \multicolumn{2}{c|}{4v+9w sesgada} & \multicolumn{2}{c|}{4v+9w balanceada} & \multicolumn{2}{c|}{4v+9w desbalanceada} \\ \cline{1-8} 
+                        \multicolumn{1}{|c|}{Circuitos}    & Tiempo       & \%       & Tiempo       & \%        & Tiempo       & \%      & Tiempo     \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (h)}    & 1' 35''           & 100 \%   & 1' 42''           & 95 \%         &        & 100 \%       & 1' 45''       \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (ah)}     & 1' 33''           & 100 \%       & 1' 39''            & 100 \%           & 1' 40''    & 100 \%     & 1' 41''\\ \hline
+\multicolumn{1}{|c|}{monacoLine (h)}      & 1' 15''           & 5 \%      &             & 5 \%    &         & 5 \%      &           \\ \hline
+\multicolumn{1}{|c|}{monacoLine (ah)}       & 1' 15''            & 12 \%     &             & 5 \%          &        & 5 \%         &      \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (h)}      & 1' 02''            & 8 \%         &         & 8 \%       &    & 8 \%      &     \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (ah)}       & 1' 02''           & 80 \%          &           & 80 \%      &            & 80 \%       &       \\ \hline
+\multicolumn{1}{|c|}{curveGP (h)}     & 2' 13''      & 100 \%      & 2' 17''          & 100 \%        & 2' 03''          & 100 \%      & 2' 17''   \\ \hline
+\multicolumn{1}{|c|}{curveGP (ah)}       & 2' 09''    & 100 \%        & 2' 13''        & 100 \%    & 2' 02''    & 100 \%       & 2' 15''     \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''           & 100 \%        & 1' 04''          & 100 \%       & 59''            & 100 \%       & 1' 04''   \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''            & 100 \%    & 1' 02''   & 100 \%        & 1' 00''     & 100 \%     & 1' 08''    \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Resultados de conducción con redes de clasificación (4 clases de v y 9 de w, imagen completa)}
+\label{resultados_classificacion_completa_4v_9w}
+\begin{tabular}{c|c|c|c|c|c|c|c|}
+\cline{2-8}
+                          & \multicolumn{1}{c|}{Manual} & \multicolumn{2}{c|}{4v+9w sesgada} & \multicolumn{2}{c|}{4v+9w balanceada} & \multicolumn{2}{c|}{4v+9w desbalanceada} \\ \cline{1-8} 
+                        \multicolumn{1}{|c|}{Circuitos}    & Tiempo       & \%       & Tiempo       & \%        & Tiempo       & \%      & Tiempo     \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (h)}    & 1' 35''        & 5 \%         &           & 5 \%         &            & 5 \%        &       \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (ah)}     & 1' 33''           &  5 \%          &             & 5 \%           &           & 5 \%      & \\ \hline
+\multicolumn{1}{|c|}{monacoLine (h)}      & 1' 15''           & 3 \%         &       & 2 \%     &         & 2 \%       &           \\ \hline
+\multicolumn{1}{|c|}{monacoLine (ah)}       & 1' 15''            & 3 \%     &             & 2 \%           &       & 2 \%          &      \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (h)}      & 1' 02''            &  3 \%        &         & 2 \%        &       & 2 \%       &     \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (ah)}       & 1' 02''           & 2 \%         &           & 2 \%        &         & 2 \%       &       \\ \hline
+\multicolumn{1}{|c|}{curveGP (h)}     & 2' 13''           & 4 \%      &            & 3 \%         &       & 2 \%       &       \\ \hline
+\multicolumn{1}{|c|}{curveGP (ah)}       & 2' 09''            &  3 \%        &      & 2 \%    &        & 2 \%       &     \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''           & 4 \%           &        & 3 \%      &     & 3 \%       &   \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''            & 4 \%       &         & 3 \%         &       & 5 \%      &         \\ \hline
+\end{tabular}
+\end{table}
+
+En los resultados obtenidos para las redes 4v+9w se puede observar de nuevo que los resultados son mucho mejores para las redes entrenadas con la imagen recortada que con la imagen completa. Además, se puede ver que los mejores resultados se logran con la red 4v+9w sesgada, aunque aún así no se ha conseguido completar todos los circuitos en ambos sentidos. Llegamos a la conclusión de que aunque empleemos un mayor número de clases para la velocidad de rotación, no es suficiente para un buen rendimiento en la conducción.\\
+
+La conclusión obtenida de los resultados anteriores es que este fallo se produce debido a que en los datos hay casos donde la velocidad es negativa, es decir, el vehículo da marcha atrás para poder girar sin chocar con la valla. Por este motivo se ha estudiado la combinación de 7 clases de velocidad de rotación y 5 clases de velocidad de tracción, donde se contemplan valores negativos.\\
+
+Los resultados de las redes 5v+7w se pueden ver en las Tablas \ref{resultados_classificacion_recortada_5v_7w} y \ref{resultados_classificacion_normal_5v_7w}, donde la primera se corresponde con las redes entrenadas con la imagen recortada y la segunda con las redes entrenadas con la imagen completa.\\
+
+
+\begin{table}[H]
+\centering
+\caption{Resultados de conducción con redes de clasificación (5 clases de v y 7 de w, imagen recortada)}
+\label{resultados_classificacion_recortada_5v_7w}
+\begin{tabular}{c|c|c|c|c|c|c|c|}
+\cline{2-8}
+                          & \multicolumn{1}{c|}{Manual} & \multicolumn{2}{c|}{5v+7w sesgada} & \multicolumn{2}{c|}{5v+7w balanceada} & \multicolumn{2}{c|}{5v+7w desbalanceada} \\ \cline{1-8} 
+                        \multicolumn{1}{|c|}{Circuitos}    & Tiempo       & \%       & Tiempo       & \%        & Tiempo       & \%      & Tiempo     \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (h)}    & 1' 35''           & 100 \%         & 1' 41''           & 75 \%          &            & 100 \%       & 1' 42''      \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (ah)}     & 1' 33''           & 100 \%          & 1' 39''            & 100 \%           & 1' 39''           & 100 \%       & 1' 43''       \\ \hline
+\multicolumn{1}{|c|}{monacoLine (h)}      & 1' 15''           & 100 \%           & 1' 20''            & 70 \%       &             & 85 \%       &           \\ \hline
+\multicolumn{1}{|c|}{monacoLine (ah)}       & 1' 15''            & 100 \%       & 1' 18''            & 8 \%           &             & 100 \%          & 1' 20''       \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (h)}      & 1' 02''            & 100 \%          & 1' 03''            & 100 \%        & 1' 03''            & 100 \%       & 1' 05''      \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (ah)}       & 1' 02''           & 100 \%           & 1' 05''           & 80 \%        &            & 80 \%       &       \\ \hline
+\multicolumn{1}{|c|}{curveGP (h)}     & 2' 13''           & 100 \%           & 2' 06''            & 97 \%        &            & 100 \%       & 2' 15''      \\ \hline
+\multicolumn{1}{|c|}{curveGP (ah)}       & 2' 09''            & 100 \%         & 2' 11''            & 100 \%        & 2' 05''           & 100 \%      & 2' 15''     \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''           & 100 \%          & 1' 02''            & 100 \%        & 1' 02''             & 100 \%      & 1' 01''       \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''            & 100 \%          & 1' 03''          & 100 \%        & 1' 03''             & 100 \%      & 1' 04''        \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Resultados de conducción con redes de clasificación (5 clases de v y 7 de w, imagen completa)}
+\label{resultados_classificacion_normal_5v_7w}
+\begin{tabular}{c|c|c|c|c|c|c|c|}
+\cline{2-8}
+                          & \multicolumn{1}{c|}{Manual} & \multicolumn{2}{c|}{5v+7w sesgada} & \multicolumn{2}{c|}{5v+7w balanceada} & \multicolumn{2}{c|}{5v+7w desbalanceada} \\ \cline{1-8} 
+                        \multicolumn{1}{|c|}{Circuitos}    & Tiempo       & \%       & Tiempo       & \%        & Tiempo       & \%      & Tiempo     \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (h)}    & 1' 35''           & 35 \%         &            & 10 \%          &            & 90 \%       &       \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (ah)}     & 1' 33''           & 100 \%          & 1' 49''            & 100 \%           & 1' 46''           & 90 \%       &       \\ \hline
+\multicolumn{1}{|c|}{monacoLine (h)}      & 1' 15''           & 100 \%           & 1' 24''            & 5 \%       &             & 100 \%       &  1' 23''          \\ \hline
+\multicolumn{1}{|c|}{monacoLine (ah)}       & 1' 15''            & 100 \%       & 1' 29''            & 8 \%           &             & 100 \%          & 1' 24''       \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (h)}      & 1' 02''            & 100 \%          & 1' 10''            & 8 \%        &             & 90 \%       &       \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (ah)}       & 1' 02''           & 100 \%           & 1' 07''           & 8 \%        &            & 100 \%       & 1' 09''       \\ \hline
+\multicolumn{1}{|c|}{curveGP (h)}     & 2' 13''           & 95 \%           &            & 80 \%        &            & 25 \%       &      \\ \hline
+\multicolumn{1}{|c|}{curveGP (ah)}       & 2' 09''            & 7 \%         &             & 3 \%        &            & 20 \%      &      \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''           & 8 \%          &           & 8 \%        &             & 100 \%      & 1' 08''       \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''            & 12 \%          &          & 12 \%        &             & 100 \%      & 1' 08''        \\ \hline
+\end{tabular}
+\end{table}
+
+En las tablas anteriores se puede concluir de nuevo que los resultados obtenidos con imágenes de entrada son mejores que con las imágenes completas. Además, las redes sesgadas también obtienen mejor resultado que las balanceadas y las desbalanceadas. En la Tabla \ref{resultados_classificacion_recortada_5v_7w} es posible observar una red con la cual somos capaces de completar el circuito completo para todo los circuitos de los que disponemos. Esta red es la que hemos denominado 5v+7w sesgada (imagen recortada). \\
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{figures/Clasificacion/nurburgrin_class.png}
+   \caption{Pilotaje del coche en el circuito nurburgrinLine}
+	\label{fig.nurburgrin_class}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{figures/Clasificacion/monaco_class.png}
+   \caption{Pilotaje del coche en el circuito monacoLine}
+	\label{fig.monaco_class}
+\end{center}
+\end{figure}
+
+Un dato a tener en cuenta es que si nos fijamos en la columna ``Manual'' se pueden ver los tiempos realizados por el piloto manual, mientras que si nos fijamos en la columna de tiempo de la red 5v+7w sesgada se ven los tiempos logrados con esta red. Los tiempos obtenidos del pilotaje mediante esta red no se encuentran muy lejanos a los resultados del piloto manual. Esto permite concluir que esta red aprende de forma correcta a conducir de forma autónoma. El resultado de la conducción del vehículo de forma satisfactoria se puede ver en las Figuras \ref{fig.nurburgrin_class} y \ref{fig.monaco_class}.\\
+
+
+
+\section{Conclusiones}
+
+En este proyecto se ha logrado que un vehículo sea capaz de conducir de forma autónoma mediante redes de clasificación. Este es el caso de la red 5v+7w sesgada (imagen recortada).\\
+
+Gracias a los diferentes experimentos realizados y los resultados obtenidos, se pueden sacar algunas conclsiones acerca del entrenamiento de estas redes y de la cuantización de las clases.\\
+
+En primer lugar, se ha llegado a la conclusión de que tanto el número de clases como el rango de valores que abarca cada una de las clases tiene una gran influencia en el rendimiento del problema planteado. Se establece que con 7 clases de velocidad de rotación es suficiente para lograr una buena conducción, y que no es necesario emplear 9 clases para conseguir el objetivo. Sin embargo, en el caso de las clases de velocidad lineal, no es suficiente con emplear 4 clases, hay que añadir una quinta clase para que el coche sea capaz de tomar la velocidad necesaria en cada caso.\\
+
+En segundo lugar, los resultados muestran que es mejor emplear una imagen de entrada recortada a una imagen completa. Esto se debe a que la red posiblemente se distraiga con la parte superior de la imagen (el cielo) y no consiga centrar su atención en la parte más importante de la imagen (la carretera).\\
+
+En tercer lugar, se concluye que son muy importantes los datos de entrenamiento para conseguir una red efectiva. En los resultados se ha podido observar que el mejor entrenamiento es con las redes sesgadas, es decir, donde le damos pesos a las clases. De esta forma podemos darle más importancia a las clases pertenecientes a curvas más abruptas que a las rectas. Así nuestro vehículo aprende mejor las relaciones visuales con las clases. Por otra parte con las redes entrenadas con el conjunto de datos desbalanceado es normal que no consigamos el mejor resultado debido a que tenemos muchos más datos para algunas clases que para otras. Sin embargo, aunque podría parecer que las redes entrenadas con el \textit{dataset} balanceado podrían dar el mejor resultado, esto no sucede así. La razón de este problema es que aunque poseeamos el mismo número de datos para cada una de las clases, no tenemos un gran número de imágenes por cada clase, lo que hace que el vehículo no sea capaz de aprender a conducir. Es decir, es necesario tener un amplio conjunto de entrenamiento que nos permita aprender las relaciones que deseamos.\\
+
+En cuarto lugar, se ha comprobado que aunque obtengamos buenos resultados en las métricas de evaluación para cada una de las clases, es posible que en algunos casos con estas redes el vehículo choque contra la valla, y en cambio en otros casos donde se obtengan peores resultados el vehículo será capaz de conducir. Esto se debe a que cuando estamos pilotando el coche, puede ser que si predecimos mal un valor no implique mucha desviación del coche de la línea roja. Pero, sin embargo, si la red en un instante dado predice 3 o 4 valores seguidos mal, el coche se irá desviando cada vez más y no será capaz de retificar para volver a la recta. Esto implica que el entrenaminto de redes neuronales para conducción autónoma sea algo complejo y necesite mucha experimentación antes de lograr un buen resultado.
