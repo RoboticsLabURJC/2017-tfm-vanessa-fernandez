@@ -466,7 +466,7 @@ Los modelos \textit{Sequential} tienen diferentes métodos, y algunos son impres
             
             \item \textit{metrics}: Nombre de las funciones que se emplean para medir el rendimiento del modelo durante el entrenamiento y el \textit{test}. En este proyecto las métricas empleadas son \textit{accuracy}, \acrshort{mse} y \acrshort{mae}. \textit{Accuracy} es el número de predicciones correctas realizadas por el modelo sobre todo tipo de predicciones realizadas en los modelos de clasificación. La fórmula para \textit{accuracy} es la siguiente:
             
-            \begin{equation}\label{eq:mse}
+            \begin{equation}\label{eq:accuracy}
                 \textit{Accuracy} = \frac{TP + TN}{TP + FP + TN + FN}
             \end{equation}
             
@@ -474,7 +474,7 @@ Los modelos \textit{Sequential} tienen diferentes métodos, y algunos son impres
             
             \acrfull{mae}, como hemos dicho anteriormente es una medida del error de la predicción, y sigue la siguiente fórmula:
             
-            \begin{equation}\label{eq:mse}
+            \begin{equation}\label{eq:mae}
                 \acrshort{mae} = \frac{1}{N}\sum_{j=1}^{N}|y_j - \hat{y}_j|
             \end{equation}
         \end{itemize}
