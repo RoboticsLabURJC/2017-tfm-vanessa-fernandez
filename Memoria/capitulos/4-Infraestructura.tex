@@ -18,7 +18,7 @@ El coche que se ha empleado en este proyecto es un modelo de robot creado por lo
 
 El modelo \textit{f1ROS} es empleado en las prácticas \textit{Follow line} y \textit{Obstacle avoidance with VFF}. Este coche tiene unas dimensiones pequeñas, ya que mide aproximadamente 0.8 metros de largo, 0.4 metros de ancho y posee una altura de 0.3 metros. Este modelo pesa 10 kg y se puede ver en la figura \ref{fig.f1}.\\
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.5\textwidth]{figures/Infraestructura/f1.png}
 		\caption{Modelo f1ROS}
@@ -45,7 +45,7 @@ En este proyecto se han empleado tres \textit{plugins} de \acrshort{ros} con el 
 \end{itemize}
 
 
-\section{Modelos de circuitos}
+\section{Modelos de circuitos}\label{modelos_circuitos}
 
 El objetivo de este proyecto es que nuestro Fórmula 1 sea capaz de conducir de forma autónoma por un circuito, por lo que tendremos que crear diferentes entornos (circuitos) donde se moverá. Para facilitar la solución de la práctica \textit{Follow line}, y por tanto la solución del piloto manual, los circuitos tienen una línea roja pintada en el suelo.\\
 
@@ -53,7 +53,7 @@ Los modelos de circuitos fueron creados con una herrramienta de modelado 3D (Ble
 
 El primer modelo de circuito empleado se llama \textit{pistaSimple}. Es un circuito de carreras de gran tamaño, que consta de una carretera con una línea roja en el suelo, una línea de salida, y las paredes para evitar que el coche se salga del circuito. Este circuito no posee ningún elemento de adorno, ya que haría que la simulación fuera muy lenta. Este modelo se puede observar en la Figura \ref{fig.simple}.\\
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.9\textwidth]{figures/Infraestructura/circuit_Simple.png}
 		\caption{Modelo pistaSimple}
@@ -64,7 +64,7 @@ El primer modelo de circuito empleado se llama \textit{pistaSimple}. Es un circu
 El segundo modelo de circuito se denomina \textit{monacoLine} y simula el circuito de carreras de Mónaco (Principado de Mónaco), también conocido como Montecarlo. Este modelo consta del circuito en sí mismo, así como línea de salida, paredes que rodean el circuito, césped de adorno, y una grada pequeña. El modelo \textit{monacoLine} se puede ver en la Figura \ref{fig.monaco}.\\
 
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.9\textwidth]{figures/Infraestructura/circuit_Monaco.png}
 		\caption{Modelo monacoLine}
@@ -74,7 +74,7 @@ El segundo modelo de circuito se denomina \textit{monacoLine} y simula el circui
 
 El tercer modelo simula el circuito de carretas Nürburgring (Alemania) acortado, llamado \textit{nurburgrinLine}. Se ha modelado el circuito con una línea de salida, la carretera, paredes para evitar que el robot se salga del recorrido, una grada pequeña y césped de adorno. Este modelo se puede observar en la Figura \ref{fig.nurburgrin}.\\
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.9\textwidth]{figures/Infraestructura/circuit_Nurburgrin.png}
 		\caption{Modelo nurburgrinLine}
@@ -85,7 +85,7 @@ El tercer modelo simula el circuito de carretas Nürburgring (Alemania) acortado
 El cuarto modelo de circuito, llamado \textit{curveGP}, simula un circuito que no tiene ninguna curva, solamente tiene curvas, tanto curvas leves como abruptas. Este circuito es de gran tamaño, y por este motivo únicamente simula el circuito, y paredes que rodean al mismo, no tiene ningún elemento de adorno. El modelo \textit{curveGP} se puede ver en la Figura \ref{fig.curveGP}.\\
 
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.9\textwidth]{figures/Infraestructura/circuit_CurveGP.png}
 		\caption{Modelo curveGP}
@@ -96,7 +96,7 @@ El cuarto modelo de circuito, llamado \textit{curveGP}, simula un circuito que n
 
 El quinto modelo de circuito se denomina \textit{ pista\_simple}. Este circuito es el más corto de todos, aunque únicamente simula el circuito, y paredes que rodean al mismo, no tiene ningún elemento de adorno. En la Figura \ref{fig.small} se puede ver el modelo \textit{pista\_simple}.\\
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.9\textwidth]{figures/Infraestructura/circuit_Small.png}
 		\caption{Modelo pista\_simple}
@@ -254,7 +254,7 @@ image_HSV_filtered = cv2.inRange(image_HSV, value_min_HSV, value_max_HSV)
 
 Si mostramos la imagen tras el filtrado vemos que aparecen puntos en negro que pertenecen a la línea roja y no debería ser así. Esto ocurre en la línea de salida del circuito, ya que se puede ver que la línea parpadea y por lo tanto no tiene siempre el tono de rojo habitual. Este problema lo podemos ver en la Figura \ref{fig.color}.\\
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.9\textwidth]{figures/Infraestructura/filtro_color.png}
 		\caption{Filtrado de color}
@@ -274,7 +274,7 @@ image_HSV_filtered = cv2.morphologyEx(image_HSV_filtered, cv2.MORPH_CLOSE,
 
 Se puede observar en la Figura \ref{fig.cierre} cómo después de aplicar el cierre morfológico no quedan huecos en la parte segmentada al filtrar la línea roja. \\
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.9\textwidth]{figures/Infraestructura/filtro_cierre.png}
 		\caption{Filtrado de color con cierre}
@@ -390,7 +390,7 @@ Cuando se comenzó el proyecto se creó un conjunto de datos que constaba de 500
 Con el objetivo de analizar los datos de los que disponíamos y solventar este problema se ha creado una gráfica de estadísticas de los datos. En cada imagen se han analizado dos fila y se ha calculado el centroide de la línea roja del circuiro para cada una de las filas (filas 350 y 260). En el eje \textit{x} de la gráfica, se representa el centroide de la fila 350 (L2), y el eje \textit{y} representa el centroide de la fila 260 (L1) de la imagen. En la Figura \ref{fig.L1_L2_dataset1} podemos ver la representación de esta estadística del conjunto de entrenamiento (círculos rojos) contra los datos de una conducción fallida (cruces azules).\\
 
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=1\textwidth]{figures/Infraestructura/L1_L2_dataset1_driving.png}
 		\caption{Representación pares L1-L2 (\textit{Dataset1} contra conducción)}
@@ -406,7 +406,7 @@ El nuevo conjunto de datos (denominado \textit{Dataset}) se ha grabado en tres c
 
 La misma gráfica estadística que se ha empleado para evaluar el dataset ``fallido'' se ha utilizado con el fin de evaluar los nuevos datos. En la Figura \ref{fig.L1_L2_dataset3} se puede ver cómo el nuevo conjunto de datos es muy representativo, ya que consigue abarcar la gran mayoría de los casos que eran desconocidos para el coche.\\
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=1\textwidth]{figures/Infraestructura/L1_L2_Dataset3.png}
 		\caption{Representación pares L1-L2 (nuevo \textit{Dataset} contra conducción)}
@@ -418,7 +418,7 @@ En los circuitos utilizados para grabar el nuevo conjunto de datos existen más 
 
 Este conjunto únicamente se ha añadido al entrenamiento de las redes neuronales recurrentes, ya que en las redes neuronales convolucionales ha sido suficiente con entrenar con el \textit{dataset} anterior. En la Figura \ref{fig.L1_L2_dataset_curves} se puede ver la gráfica estadística de este cojunto de datos (\textit{Dataset\_Curves}).\\
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=1\textwidth]{figures/Infraestructura/L1_L2_Dataset_Curves.png}
 		\caption{Representación pares L1-L2 (\textit{Dataset\_Curves} contra conducción)}
@@ -430,7 +430,7 @@ La gráfica estadística también se puede emplear para evaluar cómo se distrib
 
 En estas imágenes (Figuras \ref{fig.L1_L2_dataset_w} y \ref{fig.L1_L2_dataset_v}) se observa cómo los ejemplos quedan más o menos agrupados por clases entorno a un rango de valores de L1 y L2. \\
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=1\textwidth]{figures/Infraestructura/L1_L2_dataset3_w.png}
 		\caption{Análisis de pares L1-L2 (\textit{Dataset}) para w}
@@ -438,7 +438,7 @@ En estas imágenes (Figuras \ref{fig.L1_L2_dataset_w} y \ref{fig.L1_L2_dataset_v
 		\end{center}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=1\textwidth]{figures/Infraestructura/L1_L2_dataset3_v.png}
 		\caption{Análisis de pares L1-L2 (\textit{Dataset}) para v}
@@ -456,7 +456,7 @@ En ejecución, el piloto entrenado con las redes se ha probado en todos estos ci
 
 El nodo piloto (componente académico), creado para cargar y emplear redes neuronales de conducción, resuelve varias funcionalidades: (a) ofrece una interfaz gráfica al usuario que le ayuda a depurar el código; (b) ofrece acceso a sensores y actuadores en forma de métodos simples (oculta el \textit{middleware} de comunicaciones); (c) incluye código auxiliar para poder emplear las predicciones realizadas por las redes (bien de clasificación o de regresión). Lo deja todo atado para que el usuario sólo tenga que incluir su red y retoque el fichero \textit{MyAlgorithm.py}, donde se proporciona al vehículo las órdenes de velocidad predichas por el nodo. En la Figura \ref{fig.nodo_piloto} se puede observar la estructura que tiene este nodo piloto.\\
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.8\textwidth]{figures/Infraestructura/nodo_piloto.png}
 		\caption{Estructura del Nodo Piloto}
@@ -576,7 +576,7 @@ En la aplicación gráfica también hay cuatro botones importantes, dos que sirv
 
 Los otros dos botones se emplean para el manejo de un \textit{dataset}. Por un lado, tenemos el botón de la parte superior derecha, en el cual pone ``Save Dataset'', que sirve para crear un nuevo \textit{dataset} que guarde los datos tanto de velocidad como las imágenes que ve el coche durante la ejecución de su algoritmo. Este conjunto de datos se crea con la misma estructura que el conjunto de datos mencionado en la Sección \ref{dataset}, y se almacenará en el directorio ``Dataset''. Este conjunto de datos únicamente se crea si pulsamos este botón, de no ser así simplemente se ejecuta el algoritmo que permite navegar al vehículo. Por otra parte, el botón que se sitúa en la parte inferior derecha, permite borrar el \textit{dataset} creado.\\
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.7\textwidth]{figures/Infraestructura/gui.png}
 		\caption{Interfaz gráfica (\acrshort{gui})}
@@ -597,7 +597,7 @@ roslaunch /opt/jderobot/share/jderobot/gazebo/launch/f1.launch
 
 Si en vez de esta pista de carreras queremos ejecutar otra, será necesario lanzar el fichero de configuración correspondiente. Una vez hemos lanzado este fichero se abrirá Gazebo con el escenario que hemos elegido incluyendo circuito y coche (Figura \ref{fig.roslaunch}).\\
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.9\textwidth]{figures/Infraestructura/roslaunch.png}
 		\caption{Inicialización de \acrshort{ros} y Gazebo}
@@ -618,7 +618,7 @@ Una vez hemos ejecutado este comando, el nodo Piloto enlaza los sensores y actua
 
 Además, cuando ejecutamos este comando, se lanzará también la \acrfull{gui} en la que se pueden observar las imágenes obtenidas por la cámara del coche, así como los botones de control, los datos de velocidad, y el teleoperador (Figura \ref{fig.driver_node}).\\
 
-\begin{figure}[H]
+\begin{figure}
   \begin{center}
     \includegraphics[width=0.9\textwidth]{figures/Infraestructura/driver_node.png}
 		\caption{Inicialización del nodo Piloto y la \acrshort{gui}}
