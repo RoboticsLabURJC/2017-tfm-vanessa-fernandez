@@ -3,6 +3,7 @@ layout: default
 ---
 # Vanessa Fernández's TFM student
 
+* [Weeks 35, 36: Results](weeks/week35_36.md)
 * [Week 34: Reading information, Controlnet](weeks/week34.md)
 * [Week 33: Controlnet, Reading information](weeks/week33.md)
 * [Week 32: Controlnet](weeks/week32.md)
