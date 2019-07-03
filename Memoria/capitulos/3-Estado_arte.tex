@@ -131,7 +131,7 @@ La conducción autónoma no posible sin un algoritmo que tome decisiones. En alg
 
 El aprendizaje de extremo a extremo para conducción autónoma se ha explorado desde finales de los años ochenta. The Autonomous Land Vehicle in a Neural Network (ALVINN) \cite{alvinn} se desarrolló para aprender ángulos de dirección a partir de una cámara y las medidas proporcionadas por un láser mediante una red neuronal con una sola capa oculta. Basados en esta idea de redes de extremo a extremo (dada una imagen o imágenes se preciden ángulos de dirección), exiten mútiples aproximaciones \cite{road} \cite{end2end} \cite{interpretable} de las cuales veremos algunas a continuación.\\
 
-Un buen ejemplo de red de extremo a extremo es la red PilotNet \cite{end2end} \cite{explaining-end2end} creada por Nvidia. En ``End to end learning for self-drivingcars'' \cite{end2end} se describe dicha red con detalle. Es una red neuronal convolucional (CNN) que mapea píxeles en crudo de una sola cámara frontal a comandos de dirección directamente. El comando propuesto por la CNN se compara con el comando deseado para la imagen en concreto y los pesos de la red se van ajustando para aproximar la salida de la red a la salida deseada. El ajuste de los pesos se realiza empleando \textit{back propagation}.\\
+Un buen ejemplo de red de extremo a extremo es la red PilotNet \cite{end2end} \cite{explaining-end2end} creada por Nvidia. En ``End to end learning for self-driving cars'' \cite{end2end} se describe dicha red con detalle. Es una red neuronal convolucional (CNN) que mapea píxeles en crudo de una sola cámara frontal a comandos de dirección directamente. El comando propuesto por la CNN se compara con el comando deseado para la imagen en concreto y los pesos de la red se van ajustando para aproximar la salida de la red a la salida deseada. El ajuste de los pesos se realiza empleando \textit{back propagation}.\\
 
 La red PilotNet (Figura \ref{fig.pilotnet}) consta de 9 capas, que incluyen una capa de normalización, 5 capas convolucionales y 3 capas \textit{fully-connected}. La imagen de entrada se divide en planos YUV y se pasa a la red. Las capas convolucionales las diseñaron para realizar la extracción de características y las eligieron a través de experimentos que variaban las configuraciones de capas. Las dos primeras capas convolucionales usaban un \textit{stride} de 2x2 y un kernel 5x5, mientras que las 3 últimas capas usaban un \textit{non-stride} y un kernel 3x3. Las 3 capas \textit{fully-connected} fueron diseñadas para funcionar como un controlador de la dirección, pero no es posible saber exactamente qué partes de la red funcionan principalmente como extractor de características y cuáles sirven como controlador. El sistema aprende automáticamente las representaciones internas, como la detección de características útiles de la carretera.\\
 
@@ -583,6 +583,20 @@ Como hemos visto anteriormente, los modelos se componen de un conjunto de capas.
     
         \begin{itemize}
             \item \textit{units}: Número de celdas LSTM.
+            
+            \item \textit{return\_sequences}: Booleano que indica si se debe devolver la última salida en la secuencia de salida o la secuencia completa. Si se establece a \textit{True} se devuelve la secuencia completa.
+        \end{itemize}
+        
+     \item \textit{ConvLSTM2D layer}: Es similar a una capa \acrfull{lstm}, pero las transformaciones de entrada y las transformaciones recurrentes son convolucionales. Esta capa tiene algunos argumentos esenciales:
+    
+        \begin{itemize}
+             \item \textit{filters}: Número de filtros. 
+            
+            \item \textit{kernel\_size}: Especifica la anchura y altura de los filtros. Puede ser un solo entero para especificar el mismo valor para todas las dimensiones espaciales, o puede ser una tupla o lista de 2 enteros.
+            
+            \item \textit{strides}: Entero o tupla/lista de 2 enteros, que especifica cuántos píxeles debe desplazarse el filtro antes de aplicar la siguiente convolución.
+            
+            \item \textit{padding}: Puede ser \textit{valid} o \textit{same}. Si se emplea \textit{valid}, no se aplica relleno, dando lugar a una salida con una dimensión más pequeña que la entrada. Sin embargo, si empleamos \textit{same}, la entrada se rellenará con ceros para dar lugar a una salida que conserve las dimensiones de la entrada. El valor por defecto es \textit{valid}.
             
             \item \textit{return\_sequences}: Booleano que indica si se debe devolver la última salida en la secuencia de salida o la secuencia completa. Si se establece a \textit{True} se devuelve la secuencia completa.
         \end{itemize}
