@@ -1,8 +1,13 @@
 \chapter{Redes de regresión}\label{cap.regresion}
 
+En este capítulo se expondrá el uso de diferentes arquitecturas de redes de regresión. Además se dará una explicación acerca de los experimentos realizados con las imágenes de entrada y sus combinaciones, y se detallarán los resultados obtenidos.
+
 \section{Contexto}
 
 \section{Arquitecturas de red}
+
+En esta sección se explicarán con detalle las arquitecturas de red estudiadas en el problema de regresión y las experiencias que se han obtenido de cada arquitectura. Las redes neuronales empleadas para regresión son \acrshort{cnn} y \acrshort{rnn}.
+
 
 \subsection{PilotNet}
 
@@ -29,7 +34,7 @@
 
 \section{Experimentos}
 
-A continuación se explicaán todos los experimentos realizados durante el entrenamiento de redes de regresión, tanto los relacionados con las dimensiones y los tipos de las imágenes, preprocesado de los datos, etc. \\
+A continuación se explicarán todos los experimentos realizados durante el entrenamiento de redes de regresión, tanto los relacionados con las dimensiones como los tipos de las imágenes, el preprocesado de los datos, etc. \\
 
 \subsection{Preprocesado de los datos}
 
@@ -97,6 +102,8 @@ En la Figura \ref{fig.image_camera} se puede ver una imagen obtenida por la cám
 \multicolumn{1}{|c|}{TinyPilotNet}     & 0.653815      & 0.424191   \\ \hline
 \multicolumn{1}{|c|}{PilotNet (stacked)}   & 1.081069    & 0.489701   \\ \hline
 \multicolumn{1}{|c|}{PilotNet (stacked, dif)}     & 1.292020    & 0.551575        \\ \hline
+\multicolumn{1}{|c|}{LSTM-Tinypilotnet}     & 0.222569   & 0.358721        \\ \hline
+\multicolumn{1}{|c|}{DeepestLSTM-Tinypilotnet}     & 0.533944   & 0.385876        \\ \hline
 \end{tabular}
 \end{table}
 
@@ -112,6 +119,8 @@ En la Figura \ref{fig.image_camera} se puede ver una imagen obtenida por la cám
 \multicolumn{1}{|c|}{TinyPilotNet}     & 0.001290      & 0.023038   \\ \hline
 \multicolumn{1}{|c|}{PilotNet (stacked)}   & 0.006833    & 0.043313  \\ \hline
 \multicolumn{1}{|c|}{PilotNet (stacked, dif)}     & 0.002911    & 0.022799        \\ \hline
+\multicolumn{1}{|c|}{LSTM-Tinypilotnet}     & 0.002354    & 0.034283        \\ \hline
+\multicolumn{1}{|c|}{DeepestLSTM-Tinypilotnet}     & 0.020619   & 0.098509        \\ \hline
 \end{tabular}
 \end{table}
 
@@ -130,6 +139,8 @@ En la Figura \ref{fig.image_camera} se puede ver una imagen obtenida por la cám
 \multicolumn{1}{|c|}{PilotNet (stacked)}   & 1.084940    & 0.469273  \\ \hline
 \multicolumn{1}{|c|}{PilotNet (stacked, dif)}     & 1.889947    & 0.468693        \\ \hline
 \multicolumn{1}{|c|}{Temporal (dif)}      & 0.442861     & 0.316337   \\ \hline
+\multicolumn{1}{|c|}{LSTM-Tinypilotnet}     & 0.309642    & 0.414752        \\ \hline
+\multicolumn{1}{|c|}{DeepestLSTM-Tinypilotnet}     & 0.541856   & 0.391695    \\ \hline
 \end{tabular}
 \end{table}
 
@@ -145,6 +156,8 @@ En la Figura \ref{fig.image_camera} se puede ver una imagen obtenida por la cám
 \multicolumn{1}{|c|}{PilotNet (stacked)}   & 0.004471    & 0.034673   \\ \hline
 \multicolumn{1}{|c|}{PilotNet (stacked, dif)}     & 0.005292    & 0.031134        \\ \hline
 \multicolumn{1}{|c|}{Temporal (dif)}      & 0.002155     & 0.029771   \\ \hline
+\multicolumn{1}{|c|}{LSTM-Tinypilotnet}     & 0.000607    & 0.018625        \\ \hline
+\multicolumn{1}{|c|}{DeepestLSTM-Tinypilotnet}     & 0.000743  & 0.018208        \\ \hline
 \end{tabular}
 \end{table}
 
@@ -197,6 +210,26 @@ En la Figura \ref{fig.image_camera} se puede ver una imagen obtenida por la cám
 \end{table}
 
 
+\begin{table}[H]
+\centering
+\caption{Resultados de conducción con redes neuronales recurrentes de regresión (imagen recortada)}
+\label{resultados_regresion_recurrente_recortada}
+\begin{tabular}{c|c|c|c|c|c|c|c|}
+\cline{2-6}
+                          & \multicolumn{1}{c|}{Manual} & \multicolumn{2}{c|}{LSTM-Tinypilotnet} & \multicolumn{2}{c|}{DeepestLSTM-Tinypilotnet} \\ \cline{1-6} 
+                        \multicolumn{1}{|c|}{Circuitos}    & Tiempo       & \%       & Tiempo       & \%        & Tiempo      \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (h)}    & 1' 35''     &  100 \%   & 1' 40''    & 100 \%   & 1' 36''        \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (ah)}     & 1' 33''    & 100 \%    & 1' 38''   & 100 \%      & 1' 37''  \\ \hline
+\multicolumn{1}{|c|}{monacoLine (h)}      & 1' 15''     & 50 \%       &     & 100 \%      & 1' 21''            \\ \hline
+\multicolumn{1}{|c|}{monacoLine (ah)}       & 1' 15''     & 35 \%      &      & 100 \%        & 1' 19''         \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (h)}      & 1' 02''   & 40 \%    &       & 100 \%      & 1' 04''         \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (ah)}       & 1' 02''    & 50 \%     &        &  80 \%    &          \\ \hline
+\multicolumn{1}{|c|}{curveGP (h)}     & 2' 13''     & 100 \%     & 2' 17''    &  100 \%     & 2' 17''             \\ \hline
+\multicolumn{1}{|c|}{curveGP (ah)}       & 2' 09''   & 100 \%    & 2' 04''     &  100 \%      & 2' 19''      \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''       & 100 \%       & 1' 07''  &  100 \%     & 1' 05''    \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''    & 100 \%    & 1' 03''      &  100 \%     & 1' 08''         \\ \hline
+\end{tabular}
+\end{table}
 
 
 
@@ -242,6 +275,29 @@ En la Figura \ref{fig.image_camera} se puede ver una imagen obtenida por la cám
 \multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''      & 100 \%     & 1' 08''     & 100 \%       & 1' 02''    &       &                \\ \hline
 \end{tabular}
 \end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Resultados de conducción con redes neuronales recurrentes de regresión (imagen completa)}
+\label{resultados_regresion_recurrente_completa}
+\begin{tabular}{c|c|c|c|c|c|c|c|}
+\cline{2-6}
+                          & \multicolumn{1}{c|}{Manual} & \multicolumn{2}{c|}{LSTM-Tinypilotnet} & \multicolumn{2}{c|}{DeepestLSTM-Tinypilotnet} \\ \cline{1-6} 
+                        \multicolumn{1}{|c|}{Circuitos}    & Tiempo       & \%       & Tiempo       & \%        & Tiempo      \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (h)}    & 1' 35''     & 100 \%  & 1' 39''    & 100 \%  & 1' 38''         \\ \hline
+\multicolumn{1}{|c|}{pistaSimple (ah)}     & 1' 33''   & 100 \%        & 1' 40''        & 100 \%     & 1' 39''   \\ \hline
+\multicolumn{1}{|c|}{monacoLine (h)}      & 1' 15''      & 50 \%        &        & 100 \%       & 1' 22''           \\ \hline
+\multicolumn{1}{|c|}{monacoLine (ah)}       & 1' 15''       & 12 \%       &         & 100 \%          & 1' 21''        \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (h)}      & 1' 02''       & 20 \%     &       & 100 \%     & 1' 05''       \\ \hline
+\multicolumn{1}{|c|}{nurburgrinLine (ah)}       & 1' 02''     & 80 \%     &        & 100 \%     & 1' 08''         \\ \hline
+\multicolumn{1}{|c|}{curveGP (h)}     & 2' 13''     & 100 \%     & 2' 20''     & 100 \%      & 2' 19''             \\ \hline
+\multicolumn{1}{|c|}{curveGP (ah)}       & 2' 09''       & 100 \%    & 2' 25''     & 100 \%       & 2' 18''      \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''    & 100 \%      & 1' 11'      & 100 \%      & 1' 09''    \\ \hline
+\multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''    & 100 \%    & 1' 09''    &  100 \%      & 1' 08''          \\ \hline
+\end{tabular}
+\end{table}
+
 
 
 \section{Conclusiones}
