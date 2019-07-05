@@ -1,10 +1,72 @@
 \chapter{Conclusiones}\label{cap.conclusiones}
 
-En este capítlo se exponen las conclusiones finales obtenidas, así como los posibles trabajos futuros, tras analizar las diferentes redes neuronales empleadas (redes de regresión y clasificación), y algunos experimentos realizados con las mismas.
+En este capítulo se exponen las conclusiones finales obtenidas, así como los posibles trabajos futuros, tras analizar las diferentes redes neuronales empleadas (redes de regresión y clasificación), y algunos experimentos realizados con las mismas.
 
 \section{Conclusiones}
+
+En este proyecto se ha alcanzado satisfactoriamente el objetivo global de explorar diferentes redes neuronales de clasificación y regresión para controlar la conducción de un vehículo mediante control visual, así como realizar diferentes experimentos con las mismas. El objetivo era lograr que el coche fuera capaz de conducir en diferentes entornos en el simulador Gazebo. Para ello se ha creado un nodo Piloto que nos ha permitido evaluar las redes en el control del vehículo.\\
+
+En primer lugar, se ha experimentado con redes de clasificación, evaluando la influencia de la cuantización de las clases, es decir, tanto el número de clases como el rango de valores que abarca cada una de estas clases. Estudiando el efecto de estas cuantizaciones se ha conseguido que la red de clasificación 5v+7w sesgada (imagen recortada) fuera capaz de recorrer todos los circuitos de manera satisfactoria. Se han sacado algunas conclusiones acerca del entrenamiento de estas redes y de la cuantización de las clases:\\
+
+\begin{itemize}
+    \item El número de las clases y el rango de los valores que abarca cada clase tiene una gran influencia en el rendimiento de la conducción. El uso de 7 clases de velocidad de rotación y 5 clases de velocidad lineal es suficiente para lograr una buena conducción. En caso de tener menos clases el rendimiento sería deficiente, además de que es necesario ajustar el rango de valores de velocidad que abarca cada clase adecuadamente.
+    
+    \item El uso de una imagen recortada en este tipo de redes mejora el rendimiento, ya que la red no se distrae con información de la imagen que no es importante para la conducción.
+    
+    \item El entrenamiento más adecuado se realiza con redes sesgadas, es decir, ponderando las clases para dar más influencia a aquellas clases donde tenemos menor número de datos o clases que se corresponden con situaciones más difíciles para el coche.
+\end{itemize}
+
+El segundo subobjetivo era la experimentación con redes de regresión, evaluando el uso de diferentes arquitecturas, así como la influencia que tiene la imagen de entrada empleada. Experimentando con estos aspectos se ha logrado que las siguientes redes de regresión completen todos los circuitos: PilotNet (imagen recortada e imagen completa), TinyPilotNet (imagen completa) y DeepestLSTM-TinyPilotNet (imagen completa). Se han sacado algunas conclusiones acerca del entrenamiento de las redes con las que se ha experimentado, así como de la influencia de la imagen de entrada:\\
+
+\begin{itemize}
+    \item El uso de una imagen completa mejora el rendimiento de las redes de regresión, ya que estas imágenes disponen de información de las vallas que hay alrededor del circuito y que pueden dar idea de si el coche se está aproximando a ellas o no, por lo que debería disminuir la velocidad y girar en el sentido adecuado. En las imágenes recortadas no disponemos de esta información, aunque la red PilotNet si consigue lograr un resultado efectivo con este tipo de imágenes.
+    
+    \item El empleo de redes más profundas mejora el resultado de la conducción. Este es el caso de PilotNet y DeepestLSTM-TinyPilotNet frente a TinyPilotNet y LSTM-TinyPilotNet.
+    
+    \item Al introducir capas \textit{ConvLSTM2D} en las redes se observa un pilotaje más suave. Es el caso de la red DeepestLSTM-TinyPilotNet, donde vemos que el coche en casi todo momento intenta volver a situarse encima de la línea roja. Esto se debe al efecto de memoria introducido por la red, que permite que el vehículo tenga un mayor conocimiento acerca de la situación.
+    
+    \item Es complejo conseguir una imagen apilada perfecta para la conducción, ya que es necesario alcanzar un número de imágenes a apilar adecuado, así como un margen adecuado entre las mismas.
+    
+    \item Proporcionar una imagen diferencia con información relevante acerca de cómo ha variado la situación del vehículo o no ha cambiado (sigues en recta, entras en una curva, etc) es bastante complejo.
+    
+    \item Es difícil proporcionar información temporal a una red neuronal en una imagen, ya sea la imagen diferencia o la imagen apilada. El motivo es que no tenemos una idea de cómo interpreta esta información la red de forma interna, es decir, no sabemos qué partes de la imagen temporal considera relevantes y cuáles no. 
+\end{itemize}
+
+
+Además, a lo largo del proyecto se han extraído algunas conclusiones que sirven tanto para las redes de clasificación como para las redes de regresión empleadas para la conducción autónoma. Algunas de estas conclusiones son:\\
+
+\begin{itemize}
+    \item Los datos de entrenamiento que empleemos influirán ampliamente en la calidad de los resultados. Por este motivo es necesario disponer de un amplio conjunto de entreamiento que nos permita aprender de todas las situaciones a las que se pueda enfrentar el vehículo. En ocasiones es difícil disponer de muchos datos de situaciones más difíciles, por eso será necesario realizar algún procesado de los datos que nos permita balancear un poco los mismos. De esta forma las redes no aprenderán únicamente a conducir en situaciones simples.
+    
+    \item Buenos resultados en las métricas de evaluación no implican una buena conducción. Es posible que el empleo de redes con buenas métricas de como resultado que el vehículo choque contra la valla, y en cambio en otros casos donde se obtengan peores resultados el vehículo sea capaz de conducir.
+    
+    \item El entrenamiento de las redes neuronales de conducción autónoma es complejo y necesita mucha experimentación. Esto se debe a que debemos emplear una red de velocidad lineal y una red de velocidad angular para el pilotaje, y en algunas ocasiones esta relación puede fallar ya sea por parte de una red u otra. Además, en el pilotaje si predecimos un valor mal puede ser que no afecte mucho a la calidad de la conducción, pero si predecimos varios valores erroneamente de forma continua el coche se desviará de la línea roja chocando con la valla.
+    
+    \item Tanto en redes de clasificación como en redes de regresión se ha logrado que alguna red sea capaz de efectuar una conducción autónoma en todos los circuitos. Los tiempos de conducción conseguidos por todas las redes satisfactorias no se encuentran muy lejanos a los tiempos del piloto manual. Esto nos da una idea de que las redes están aprendiendo adecuadamente de los datos que poseen. Debido a esto se puede establecer que si el piloto manual en una situación difícil no actúa de forma exacta, la red tampoco predecirá un valor perfecto de conducción. Esta situación se puede dar en el proyecto, ya que el conjunto de datos está basado en un piloto manual que realiza una conducción autónoma basándose en visión, pero no es una ciencia exacta.
+    
+    \item Entrenar dos redes (velocidad de rotación y velocidad lineal) que conjuntamente sean efectivas en todos los entornos de los que se dispone es difícil, y por ello necesita bastante tiempo de experimentación. 
+\end{itemize}
+
+
+Además de alcanzar los dos subobjetivos, se han conseguido realizar otros requisitos implícitos en el uso de cada red, como emplear el simulador Gazebo y la creación del nodo Piloto, que permiten evaluar la conducción autónoma del vehículo mediante redes neuronales.\\
+
+En cuanto a los aportes personales, hemos aprendido a entrenar diferentes redes neuronales para conducción autónoma basada en información visual. Además, se ha aprendido a emplear la información obtenida por los resultados para la mejora de próximos entrenamientos. Este proyecto además ha servido para comprender las diferentes fases en las que se divide un trabajo de esta envergadura. Gracias a ello se ha aprendido a dividir un gran objetivo en subobjetivos de ingeniería, permitiendo facilitar una solución más rápida a los mismos. Además, durante el proyecto han surgido problemas habituales de ingeniería, más complejos o mas sencillos, pero ha sido necesario solventarlos bien mediante más pruebas y experimentos, bien cambiando la técnica que se estaba empleando al entrenar, o bien refinando los modelos de redes neuronales empleados hasta obtener los objetivos deseados.\\
+
 
 \section{Trabajos futuros}
 
 Debido a que éste es un Trabajo de Fin de Máster no ha sido posible alargarlo ad in-finitum para realizar más mejoras sobre el mismo. A continuación, se detallarán posibles líneas concretas en las que se puede mejorar cada una de las redes.\\
 
+En el proyecto se podrían llevar a cabo algunas mejoras, por eso se proponen las siguientes ideas:
+
+\begin{itemize}
+    \item Grabar una base de datos adicional de situaciones bastante complejas o situaciones que desconoce el vehículo. Algunos ejemplos podrían ser el vehículo ha perdido de vista la línea roja o se encuentra en una curva bastante abrupta que no ha vista con anterioridad. 
+    
+    \item Realizar un estudio más amplio de la cuantización de las clases (número de clases y rango de clase) permitiendo ajustar de forma más precisa el número de clases y el rango a los valores de los que disponemos en el conjunto de datos. Una posibilidad sería incluir un mayor número de clases para los ángulos de giro (de mayor valor) que se dan en las situaciones complejas (pérdida de carretera o curvas muy abruptas), ajustando de esta  forma más la conducción a este tipo de situaciones.
+    
+    \item Una dificultad encontrada en el proyecto ha sido cómo incorporar información temporal con imágenes apiladas. Una posible mejora es realizar un estudio más amplio que nos lleve a ajustar de manera más adecuada el número de imágenes que apilamos y el margen entre las mismas.
+    
+    \item Realizar un estudio más amplio de la imagen diferencia que nos permita introducir información temporal en una única imagen. El objetivo es buscar qué margen de tiempo entre las dos imágenes de las que se realiza la diferencia es el adecuado. Además, una posible mejora consiste en el estudio de la posibilidad de incluir algún preprocesado de imagen que nos permita resaltar la información que nos interasa en las imágenes. De esta forma las redes aprenderían la información que desde nuestro punto de vista es relevante.
+    
+    \item Crear un algoritmo que intente explicar lo que las redes aprenden y cómo toman sus decisiones. Este método fue desarrollado en el artículo ``Explaining  how  a  deep  neural network trained with end-to-end learning steers a car'' \cite{explaining-end2end} \cite{visual}, donde se intenta conocer cómo toma sus decisiones PilotNet. En este atículo se crea un método que determina qué elementos en la imagen influyen más en las decisiones de las velocidades de la red. A las secciones de la imagen con esta propiedad las denominan objetos salientes. La idea sería emplear este conocimiento de los objetos salientes de la imagen para poder ajustar parámetros de las redes y mejorar así la conducción. Además, esta idea nos podría ayudar a crear una imagen diferencia adecuada, ya que seríamos capaces de saber cuál es la información relevante para las redes.
+\end{itemize}
