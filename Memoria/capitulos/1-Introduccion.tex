@@ -79,7 +79,7 @@ La reducción de accidentes gracias a vehículos autónomos es una realidad grac
 
 La conducción autónoma pretende que un vehículo sea capaz de conducir sólo en base a los datos proporcionados por determinados sensores (cámaras, LIDAR, etc), es decir, es capaz de aprender las normas de circulación. La posibilidad de crear un sistema capaz de conducir un vehículo ya se había contemplado en el siglo pasado. Sin embargo, la tecnología disponible en ese momento no permitía resolver una tarea tan compleja. Después de los avances tecnológicos cambió este hecho.\\
 
-A finales del siglo pasado, algunos investigadores \cite{Dickmanns} \cite{alvinn} experimentaton con la creación de las primeras arquitecturas de conducción autónoma, desarrollando y probando algunos prototipos que podían conducir en calles reales. Estas pruebas se realizaron en áreas controladas y protegidas, y la conducción no fue lo suficientemente buena como para crear un producto de uso seguro. Estos experimentos dejaron claro que aún quedaba mucho para obtener una solución, pero al mismo tiempo, demostraron que la conducción autónoma podría convertirse en una perspectiva real.\\
+A finales del siglo pasado, algunos investigadores \cite{Dickmanns} \cite{alvinn} experimentaron con la creación de las primeras arquitecturas de conducción autónoma, desarrollando y probando algunos prototipos que podían conducir en calles reales. Estas pruebas se realizaron en áreas controladas y protegidas, y la conducción no fue lo suficientemente buena como para crear un producto de uso seguro. Estos experimentos dejaron claro que aún quedaba mucho para obtener una solución, pero al mismo tiempo, demostraron que la conducción autónoma podría convertirse en una perspectiva real.\\
 
 En los últimos años se ha hecho mayor incapié en la investigación de la conducción autónoma con el fin de solventar el incremento de la tasa de muerte por accidentes de tráfico. Aunque algunos de estos accidentes se producen por fallos mecánicos del vehículo, la mayoría de dichos accidentes se debe a imprudencias y distracciones humanas. La conducción autónoma eliminaría estas distracciones haciendo posible la disminución de accidentes.\\
 
@@ -90,7 +90,7 @@ Hoy en día, cada vez existen más fabricantes de vehículos que incorporan tecn
     
     \item Nivel 1: Asistencia al conductor. El vehículo posee algún sistema de automatización de la conducción (control de crucero, autoaparcamiento), ya sea para el control de movimiento longitudinal o el movimiento lateral, aunque no ambas cosas al mismo tiempo. El conductor realiza el resto de tareas de conducción, por lo que debe estar siempre atento.
     
-    \item Nivel 2: Automatización parcial. Considera que el conductor ya no tiene que conducir en todo momento y que el coche empieza a ser realmente autónomo, aunque con ciertos matices. El vehículo es capaz de actuar de manera independiente dentro de escenarios controlados y en situaciones específicas de conducción. El conductor debe seguir prestado atención a lo que ocurre a su alrededor para evitar posibles riesgos. Un buen ejemplo de Nivel 2 de conducción autónoma pueden ser los modelos BMW Serie 7 o el Mercedes Clase E, capaces de moverse solos durante un tiempo o con el sistema de asistente de atascos.
+    \item Nivel 2: Automatización parcial. Considera que el conductor ya no tiene que conducir en todo momento y que el coche empieza a ser realmente autónomo, aunque con ciertos matices. El vehículo es capaz de actuar de manera independiente dentro de escenarios controlados y en situaciones específicas de conducción. El conductor debe seguir prestando atención a lo que ocurre a su alrededor para evitar posibles riesgos. Un buen ejemplo de Nivel 2 de conducción autónoma pueden ser los modelos BMW Serie 7 o el Mercedes Clase E, capaces de moverse solos durante un tiempo o con el sistema de asistente de atascos.
     
     \item Nivel 3: Automatización condicional. En este nivel, el coche comienza a interactuar con el entorno que le rodea y es capaz de analizar posibles riesgos externos con el fin de evitarlos. Ya no se habla de conductor sino que hablamos de un usuario preparado para intervenir, es decir, el coche ya conduce completamente solo y el conductor es un simple vigilante de que todo funcione correctamente. El coche está preparado para ser conducido de manera habitual en cualquier momento.
     
@@ -173,7 +173,7 @@ Las \acrfull{rnn} aprenden a emplear la información pasada en los casos donde l
 Las redes \acrfull{lstm} \cite{lstm} son un tipo especial de \acrshort{rnn} capaz de aprender dependencias a largo plazo. Esta clase de redes fueron diseñadas para recordar información de periodos de tiempo largo. Se explicará más acerca de este tipo de red en las siguientes subsecciones.\\
 
 
-\subsection{Tipos de capas}
+\subsection{Tipos de capas}\label{tipos_capas}
 
 En las siguientes susbsecciones se explican los diferentes tipos de capas empleadas en las redes \acrshort{cnn} y \acrshort{lstm}.
 
@@ -212,7 +212,7 @@ La capa de \textit{pooling} o de agrupación se coloca normalmente detrás de la
 
 En ocasiones la operación que realiza la capa de \textit{pooling} se denomina reducción de muestreo debido a que la reducción de tamaño lleva a pérdidas de información. Aunque esta pérdida puede ser buena para la red por dos motivos: (1) trabaja en reducir el sobreajuste, (2) la disminución del tamaño produce un menor consumo de memoria durante el entrenamiento de las redes.\\
 
-El funcionamiento de esta capa se basa en una ventana deslizante que actua sobre el volumen de entrada. La operación realizad por esta ventana deslizante depende del tipo de \textit{pooling} elegido. Las clases de submuestreo más empleadas son:
+El funcionamiento de esta capa se basa en una ventana deslizante que actúa sobre el volumen de entrada. La operación realizada por esta ventana deslizante depende del tipo de \textit{pooling} elegido. Las clases de submuestreo más empleadas son:
 
 \begin{itemize}
     \item \textit{Max pooling}: Se queda con el valor máximo de los valores de la ventana deslizante. Se puede ver un ejemplo en la Figura \ref{fig.pooling}
@@ -236,7 +236,7 @@ Las capas completamente conectadas o \textit{fully connected} conectan cada neur
 
 \subsubsection{Capa LSTM}
 
-La unidad LSTM puede añadir o quitar información, lo cual lo hace mediante estructuras denominadas puertas. Estas puertas son como una especiede camino para dejar pasar información. Una unidada LSTM tiene tres puertas.
+La unidad LSTM puede añadir o quitar información, lo cual lo hace mediante estructuras denominadas puertas. Estas puertas son como una especiede camino para dejar pasar información. Una unidad LSTM tiene tres puertas.
 
 \begin{itemize}
     \item \textit{Forget gate}. Decide que información debe desechar. 
