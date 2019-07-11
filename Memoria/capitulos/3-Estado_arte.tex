@@ -265,15 +265,7 @@ El último paso de este método es un decodificador de grano fino en el que refi
 
 En ``From pixels to actions: Learning to drive a car with deep neural networks'' \cite{pixels} además de aprovechar la información temporal concatenando fotogramas se estudia la inclusión de capas recurrentes. Es decir, modifican su arquitectura para incluir capas LSTM, que permiten capturar información temporal entre entradas consecutivas. Las redes se entrenan con un vector de entrada que consiste en la imagen de entrada y una serie de imágenes anteriores, lo que se traduce en una ventana de tiempo. Comparan muchas variaciones de la arquitectura PilotNet \cite{end2end}: (1) se cambia una o dos capas densas a capas LSTM, (2) se agrega una capa LSTM después de las capas densas, y (3) se cambia la capa de salida a LSTM. Todos los experimentos que realizan con redes LSTM demostraron que la incorporación de capas LSTM no aumentó ni redujo el rendimiento de la red.\\
 
-\begin{figure}
-\begin{center}
-	\includegraphics[width=0.5\textwidth]{figures/Estado_arte/deepestlstm.png}
-   \caption{Arquitectura DeepestLSTM-TinyPilotnet.}
-	\label{fig.deepestlstm}
-\end{center}
-\end{figure}
-
-En ``Self-driving  a  Car  in  Simulation  Through  a  CNN'' \cite{self-driving} se propone una nueva arquitectura basada en la arquitectura TinyPilotNet (Figura \ref{fig.tinypilotnet}) para mejorar el rendimiento de la misma. Esta nueva red (Figura \ref{fig.deepestlstm}) está formada principalmente por 3 capas convolucionales de kernel 3x3, combinadas con capas \textit{maxpooling}, seguidas por 3 capas LSTM convolucionales 5x5 y 2 capas \textit{fully-connected}. Las capas LSTM producen un efecto de memoria, por lo que los ángulos de dirección y los valores de aceleración dados por la CNN están influenciados por los anteriores. \\
+En ``Self-driving  a  Car  in  Simulation  Through  a  CNN'' \cite{self-driving} se propone una nueva arquitectura basada en la arquitectura TinyPilotNet (Figura \ref{fig.tinypilotnet}) para mejorar el rendimiento de la misma. Esta nueva red, conocida como DeepestLSTM-TinyPilotNet, introduce capas LSTM que producen un efecto de memoria, por lo que los ángulos de dirección y los valores de aceleración dados por la CNN están influenciados por los anteriores. Esta red se explicará en mayor detalle en la Sección \ref{deeplstm}.\\
 
 
 \section{Infraestructura empleada}
