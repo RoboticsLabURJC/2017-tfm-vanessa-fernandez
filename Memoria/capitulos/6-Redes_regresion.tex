@@ -1,9 +1,5 @@
 \chapter{Redes de regresión}\label{cap.regresion}
 
-En este capítulo se expondrá el uso de diferentes arquitecturas de redes de regresión. Además se dará una explicación acerca de los experimentos realizados con las imágenes de entrada y sus combinaciones, y se detallarán los resultados obtenidos.
-
-\section{Contexto}
-
 Las redes neuronales son ampliamente empleadas en problemas de regresión. El objetivo de los problemas de regresión es predecir el valor de una variable numérica (variable dependiente) en base a los valores de una o varias variables independientes.\\
 
 En las redes neuronales, la regresión puede ayudar a modelar la relación entre una variable dependiente (que se está tratando de predecir) y una o más variables independientes (la entrada del modelo). El análisis de regresión puede mostrar si existe una relación significativa entre las variables independientes y la variable dependiente. La ecuación de regresión lineal más simple sigue la siguiente fórmula:
@@ -19,9 +15,8 @@ donde las variables son:
     \item \(\epsilon\): es el error, es decir, la distancia entre el valor predicho por el modelo y la variable dependiente real \(y\). Los métodos estadísticos pueden usarse para estimar y reducir el  error.
 \end{itemize}
 
-Las técnicas de regresión son utilizadas en gran medida para resolver tareas donde el objetivo es predecir valores continuos. Este problema es el que se plantea en este Capítulo, ya que debemos ser capaces de predecir un valor de velocidad continua para una entrada dada. En este proyecto se emplean redes de regresión con el fin de predecir las acciones de dirección y velocidad de tracción de un vehículo.\\
+Las técnicas de regresión son utilizadas en gran medida para resolver tareas donde el objetivo es predecir valores continuos. Este problema es el que se plantea en este Capítulo, ya que debemos ser capaces de predecir un valor de velocidad continua (de avance o de giro del coche) para una entrada visual dada. En este proyecto se emplean redes de regresión con el fin de predecir desde las imágenes las acciones adecuadas de dirección y velocidad de tracción de un vehículo autónomo.\\
 
-En las próximas secciones se detallarán las arquitecturas de red evaluadas, además de la influencia de emplear una imagen completa o una imagen recortada, así como la influencia que tiene el tipo de imagen empleada.\\
 
 \section{Arquitecturas de red}\label{arquitecturas_reg}
 
@@ -33,26 +28,27 @@ En esta sección se explicarán con detalle las arquitecturas de red estudiadas 
 La primera arquitectura de red de regresión estudiada es PilotNet, propuesta por Nvidia en los artículos ``End to end learning for self-driving cars'' \cite{end2end} y ``Explaining How a Deep Neural Network Trained with End-to-End Learning Steers a Car'' \cite{explaining-end2end}. Es una red neuronal convolucional (\acrshort{cnn}) que mapea píxeles en crudo de una sola cámara frontal a comandos de dirección.\\
 
 
-La red PilotNet (Figura \ref{fig.Pilotnet}) consta de 9 capas, que incluyen una capa de normalización, 5 capas convolucionales y 3 capas \textit{fully-connected}. Las capas convolucionales se diseñaron para realizar la extracción de características. Las dos primeras capas convolucionales emplean un \textit{stride} de tamaño 2x2 y un kernel de tamaño 5x5, donde la primera usa 24 filtros y la segunda 36. Mientras que las 3 últimas capas utilizan un \textit{non-stride} y un kernel de dimensiones 3x3, donde la primera de estas utiliza 48 filtros y la última 64. Las 3 capas \textit{fully-connected} fueron diseñadas para funcionar como un controlador de la dirección. El modelo de red aprende automáticamente las representaciones internas, como la detección de características útiles de la carretera.\\
+La red PilotNet (Figura \ref{fig.Pilotnet}) consta de 9 capas, que incluyen una capa de normalización, 5 capas convolucionales y 3 capas \textit{fully-connected}. Las capas convolucionales se diseñaron para realizar la extracción de características. Las dos primeras capas convolucionales emplean un \textit{stride} de tamaño 2x2 y un kernel de tamaño 5x5, donde la primera usa 24 filtros y la segunda 36. Mientras que las 3 últimas capas utilizan un \textit{non-stride} y un kernel de dimensiones 3x3, donde la primera de estas utiliza 48 filtros y la última 64. Las 3 capas \textit{fully-connected} fueron diseñadas para funcionar como un controlador de la dirección. El modelo de red aprende automáticamente las representaciones internas, como la detección de características útiles de la carretera.
 
 \begin{figure}
 \begin{center}
-	\includegraphics[width=0.5\textwidth]{figures/Regresion/pilotnet.png}
+	\includegraphics[width=0.4\textwidth]{figures/Regresion/pilotnet.png}
    \caption{Arquitectura PilotNet.}
 	\label{fig.Pilotnet}
 \end{center}
 \end{figure}
 
 
+
 \subsection{TinyPilotNet}
 
 La segunda arquitectura de red empleada se llama TinyPilotNet, que fue propuesta en el artículo ``Self-driving a Car in Simulation Through a CNN'' \cite{self-driving}. Esta red se deriva de la arquitectura PilotNet \cite{end2end} \cite{explaining-end2end} y es una reducción de la misma.\\
 
-La arquitectura TinyPilotnet (Figura \ref{fig.TinyPilotNet}) está formada por dos capas  convolucionales que emplean 8 filtros de kernel 3x3, seguidas por una capa \textit{dropout} configurada al 50\% de probabilidad para agilizar el entrenamiento. Finalmente, el tensor de información se convierte en un vector que es conectado a dos capas \textit{fully-connected} que conducen a un par de neuronas, cada una de ellas dedicada a predecir los valores de dirección y aceleración respectivamente. \\
+La arquitectura TinyPilotnet (Figura \ref{fig.TinyPilotNet}) está formada por dos capas  convolucionales que emplean 8 filtros de kernel 3x3, seguidas por una capa \textit{dropout} configurada al 50\% de probabilidad para agilizar el entrenamiento. Finalmente, el tensor de información se convierte en un vector que es conectado a dos capas \textit{fully-connected} que conducen a un par de neuronas, cada una de ellas dedicada a predecir los valores de dirección y aceleración respectivamente.
 
 \begin{figure}
 \begin{center}
-	\includegraphics[width=0.5\textwidth]{figures/Regresion/tinypilotnet.png}
+	\includegraphics[width=0.4\textwidth]{figures/Regresion/tinypilotnet.png}
    \caption{Arquitectura TinyPilotNet.}
 	\label{fig.TinyPilotNet}
 \end{center}
@@ -69,36 +65,36 @@ La red LSTM-TinyPilotNet está compuesta por 3 capas convolucionales que emplean
 
 \begin{figure}
 \begin{center}
-	\includegraphics[width=0.5\textwidth]{figures/Regresion/lstm_tinypilotnet.png}
+	\includegraphics[width=0.4\textwidth]{figures/Regresion/lstm_tinypilotnet.png}
    \caption{Arquitectura LSTM-TinyPilotNet.}
 	\label{fig.Lstm_TinyPilotNet}
 \end{center}
 \end{figure}
 
 
-\subsection{DeepestLSTM-TinyPilotNet}
+\subsection{DeepestLSTM-TinyPilotNet}\label{deeplstm}
 
 La cuarta arquitectura empleada se llama DeepestLSTM-TinyPilotNet, propuesta en el artículo ``Self-driving a Car in Simulation Through a CNN'' \cite{self-driving}. Esta arquitectura se basa en la red LSTM-TinyPilotNet (Figura \ref{fig.Lstm_TinyPilotNet}). Esta red tiene mayor profundidad, ya que busca aumentar el número de parámetros configurables de la red para poder conseguir unos resultados mejores en el aprendizaje de los datos.\\
 
-
-Esta red (Figura \ref{fig.DeepestLstm_TinyPilotNet}) está formada principalmente por 3 capas convolucionales que utilizan 8 filtros de kernel 3x3, combinadas con capas \textit{maxpooling}. Estas capas son seguidas por 3 capas \textit{ConvLSTM2D} que emplean 8 filtros con un kernel de 5x5 cada una. Estas capas aportan un efecto de memoria, y son seguidas por 2 capas \textit{fully-connected}.\\
-
-En la arquitectura empleada se ha modificado el número de filtros de las capas \textit{ConvLSTM2D}, empleando en nuestro caso 16 filtros en las primeras 2 capas y 12 en la última. Todos estos filtros son de kernel 3x3 en nuestro caso.\\
-
 \begin{figure}
 \begin{center}
-	\includegraphics[width=0.5\textwidth]{figures/Regresion/deepestlstm_tinypilotnet.png}
+	\includegraphics[width=0.4\textwidth]{figures/Regresion/deepestlstm_tinypilotnet.png}
    \caption{Arquitectura DeepestLSTM-TinyPilotNet.}
 	\label{fig.DeepestLstm_TinyPilotNet}
 \end{center}
 \end{figure}
 
+Esta red (Figura \ref{fig.DeepestLstm_TinyPilotNet}) está formada principalmente por 3 capas convolucionales que utilizan 8 filtros de kernel 3x3, combinadas con capas \textit{maxpooling}. Estas capas son seguidas por 3 capas \textit{ConvLSTM2D} que emplean 8 filtros con un kernel de 5x5 cada una. Estas capas aportan un efecto de memoria, y son seguidas por 2 capas \textit{fully-connected}.\\
+
+En la arquitectura empleada se ha modificado el número de filtros de las capas \textit{ConvLSTM2D}, empleando en nuestro caso 16 filtros en las primeras 2 capas y 12 en la última. Todos estos filtros son de kernel 3x3 en nuestro caso.\\
+
+
 
 \section{Experimentos}
 
-A continuación se explicarán todos los experimentos realizados durante el entrenamiento de redes de regresión, tanto los relacionados con las dimensiones como los tipos de las imágenes, el preprocesado de los datos, etc. \\
+A continuación se explicarán todos los experimentos realizados durante el entrenamiento de redes de regresión, tanto los relacionados con las dimensiones como los tipos de las imágenes, el aumentado de los datos, etc. \\
 
-\subsection{Preprocesado de los datos}
+\subsection{Aumentado de los datos}
 
 Los datos de entrenamiento son una parte fundamental del aprendizaje por parte de las redes neuronales. En algunas ocasiones es díficil extraer una gran cantidad de datos, por este motivo se suele hacer un aumentado de datos. El aumentado de datos consiste en aumentar la información de la red a partir del conjunto de datos.\\
 
@@ -146,7 +142,7 @@ Además, se han realizado pruebas empleando un recorte de imagen (\textit{image 
 \end{center}
 \end{figure}
 
-\subsection{Tipo de imagen}
+\subsection{Tipo de imagen de entrada}
 
 La imagen de entrada de la red PilotNet, en el artículo ``End to end learning for self-driving cars'' \cite{end2end}, se divide en planos YUV y se pasa a la red. En este proyecto la red PilotNet ha sido entrenada en el espacio de color BGR en vez de en YUV.\\
 
@@ -154,7 +150,7 @@ En el artículo ``Self-driving a Car in Simulation Through a CNN'' \cite{self-dr
 
 Con el fin de introducir temporalidad en una red de extremo a extremo (\acrshort{cnn}) se concatenan varias imágenes de entrada separadas por un margen para crear una imagen apilada. La entrada a la red es esta imagen apilada (para la imagen t se concatenan las imágenes t-1, t-2, etc). El tamaño de entrada es la única variable que se modica, es decir, no se modifica la red, que en nuestro caso será PilotNet. Por este motivo, las imágenes se concatenan en la dimensionalidad de profundidad, es decir, en el canal, y no en una nueva dimensión. De esta forma no hay que modificar la dimensionalidad de la red. Por ejemplo, si se apilan dos imágenes seguidas en el espacio de color RGB de tamaño (65, 160, 3) su tamaño se modificaría a (65, 160, 6). En este proyecto se ha estudiado este uso de imagen apilada, pero en vez de concatenar varias imágenes seguidas como sucede en el artículo ``From Pixels to Actions: Learning to Drive a Car with Deep Neural Networks'' \cite{pixels}, se han apilado 2 imágenes separadas por un margen de 10 imágenes. Las redes entrenadas con este concepto de imagen apilada las hemos llamado PilotNet (\textit{stacked}).\\
 
-Además, se han realizado otros experimentos con el fin de introducir temporalidad con una única imagen y una red extremo a extremo, como PilotNet en nuestro caso. Para ello se ha creado una imagen diferencia que aporte información temporal. Esta imagen nos dará información de los cambios que han sucedido entre un instante t y un instante t-10, ya que hemos empleado una diferencia de 10 \textit{frames}. La imagen diferencia se ha creado en escala de grises y entre un rango de -128 a 128 con el fin de introducir información en la imagen acerca de si estamos en una curva hacia la izquierda o hacia la derecha. Además, en esta imagen se ha realizado un filtrado para eliminar ruido no deseado en la misma. La imagen diferencia creada se puede ver en la Figura \ref{fig.diferencia_reg}. La red entrenada con este formato de imagen la llamaremos \textit{Temporal (dif)}.\\
+Además, se han realizado otros experimentos con el fin de introducir temporalidad con una única imagen y una red extremo a extremo, como PilotNet en nuestro caso. Para ello se ha creado una imagen diferencia que aporte información temporal. Esta imagen nos dará información de los cambios que han sucedido entre un instante t y un instante t-10, ya que hemos empleado una diferencia de 10 fotogramas. La imagen diferencia se ha creado en escala de grises y entre un rango de -128 a 128 con el fin de introducir información en la imagen acerca de si estamos en una curva hacia la izquierda o hacia la derecha. Además, en esta imagen se ha realizado un filtrado para eliminar ruido no deseado en la misma. La imagen diferencia creada se puede ver en la Figura \ref{fig.diferencia_reg}. La red entrenada con este formato de imagen la llamaremos \textit{Temporal (dif)}.\\
 
 \begin{figure}
 \begin{center}
@@ -164,7 +160,7 @@ Además, se han realizado otros experimentos con el fin de introducir temporalid
 \end{center}
 \end{figure}
 
-Aprovechando la imagen diferencia creada, se ha experimentado también con el concepto de imagen apilada. En este caso, en vez de apilar una imagen y otra imagen separada 10 \textit{frames}, se apilará la imagen actual y la imagen diferencia con el fin de ver si esta imagen aportará más información de temporalidad. Cuando apilamos una imagen BGR con la imagen diferencia en la dimensionalidad de profundidad (canal), las dimensiones ya no son (65, 160, 6) como cuando apilábamos dos imágenes BGR, sino que ahora las dimensiones serán (65, 160, 4). Las redes entrenadas con este tipo de imágenes apiladas se conocerán como PilotNet (\textit{stacked, dif}). \\
+Aprovechando la imagen diferencia creada, se ha experimentado también con el concepto de imagen apilada. En este caso, en vez de apilar una imagen y otra imagen separada 10 fotogramas, se apilará la imagen actual y la imagen diferencia con el fin de ver si esta imagen aportará más información de temporalidad. Cuando apilamos una imagen BGR con la imagen diferencia en la dimensionalidad de profundidad (canal), las dimensiones ya no son (65, 160, 6) como cuando apilábamos dos imágenes BGR, sino que ahora las dimensiones serán (65, 160, 4). Las redes entrenadas con este tipo de imágenes apiladas se conocerán como PilotNet (\textit{stacked, dif}). \\
 
 
 \subsection{Aspectos a tener en cuenta en el entrenamiento}
