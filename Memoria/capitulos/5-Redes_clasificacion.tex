@@ -1,19 +1,12 @@
 \chapter{Redes de clasificación}\label{cap.clasificacion}
 
-Una vez explicado el contexto, los objetivos y las herramientas empleadas en este proyecto, en este capítulo se detallarán las arquitecturas de redes de clasificación empleadas, así como la experimentación tanto con las dimensiones de la imagen como en el uso de diferentes conjuntos de datos y número de clases, y los resultados de los mismos.
+Las redes neuronales de extremo a extremo se han empleado ampliamente en problemas de clasificación, es decir, en problemas en los que el objetivo es determinar la clase a la que pertenece un elemento. En este proyecto se emplea este tipo de red con el fin de calcular las acciones de dirección y velocidad de tracción de un vehículo.\\
 
+Con esa finalidad se han cuantificado tanto las medidas de velocidad lineal como las medidas del ángulo de dirección en valores discretos, que representan las etiquetas de las clases. Se ha estudiado la influencia de las especificaciones de cuantización de clase en la conducción del vehículo. Las especificaciones son tanto el número de clases, como el rango de valores de estas clases.\\
 
-\section{Contexto}
+Las diferentes clasificaciones empleadas en función de los valores de los ángulos y las velocidades lineales se pueden ver en la creación del dataset (Sección \ref{dataset}), donde se especifican los rangos de valores que toma cada clase en cada clasificación. En los experimentos realizados se verán las combinaciones empleadas de cierto número de clases para la velocidad de tracción (v) y para la velocidad de rotación (w). Se han probado combinaciones de 4 clases de v con 7 u 9 clases de w (con mayor o menor rango de w), y la combinación de 5 clases de v con 7 clases de w.\\
 
-Las redes neuronales de extremo a extremo se han empleado ampliamente en problemas de clasificación, es decir, en problemas en los que el objetivo es determinar la clase a la que pertenece un elemento. En este proyecto se emplea este tipo de red con el fin de predecir las acciones de dirección y velocidad de tracción de un vehículo.\\
-
-En las redes de clasificación se han cuantificado tanto las medidas de velocidad lineal como las medidas del ángulo de dirección en valores discretos, que representan las etiquetas de las clases. Se ha estudiado la influencia de las especificaciones de cuantización de clase en la conducción del vehículo. Las especificaciones son tanto el número de clases, como el rango de valores de estas clases.\\
-
-Las diferentes clasificaciones empleadas en función de los valores de los ángulos y las velocidades lineales se pueden ver en la creación del dataset (Sección \ref{dataset}), donde se especifican los rangos de valores que toma cada clase en cada clasificación. En los experimentos realizados se verán las combinaciones empleadas de cierto número de clases para la velocidad de tracción (v) con cierto número de clases para la velocidad de rotación (w). En nuestro caso, se han probado combinaciones de 4 clases de v con 7 u 9 clases de w (con mayor o menor rango de w), y la combinación de 5 clases de v con 7 clases de w.\\
-
-En la conducción, la red predecirá una determinada clase tanto para v como para w, pero esta clase se debe traducir a órdenes de velocidad que se envía al coche. Debido a que las clases que predecimos se encuentran en un determinado rango lo que se hace es mandar como orden de velocidad a los motores del coche el resultado de la media del mínimo y el máximo valor de ese rango, o un valor próximo a dicha media ajustado experimentalmente. Es decir, si por ejemplo, la red predice la clase ``moderately\_right'' de w, que para una clasificación de 7 clases tiene un rango de valores entre -0.5 y -1, entonces le indicaremos al vehículo que tome una velocidad de rotación igual a -0.75.\\
-
-En las próximas secciones se detallarán las arquitecturas de red probadas, y además se detallará la influencia de emplear una imagen completa o una imagen recortada, así como la influencia que tiene el conjunto de entrenamiento en el rendimiento de las redes.
+En la conducción, la red predecirá una determinada clase tanto para v como para w, pero esta clase se debe traducir a órdenes de velocidad que se envía al coche. Debido a que las clases que predecimos se encuentran en un determinado rango lo que se hace es mandar como orden de velocidad a los motores del coche el resultado de la media del mínimo y el máximo valor de ese rango, o un valor próximo a dicha media ajustado experimentalmente. Si por ejemplo, la red predice la clase ``moderately\_right'' de w, que para una clasificación de 7 clases tiene un rango de valores entre -0.5 y -1, entonces le indicaremos al vehículo que tome una velocidad de rotación igual a -0.75.\\
 
 
 \section{Arquitecturas de red}
@@ -34,11 +27,11 @@ LeNet-5 es una red muy simple, que consta únicamente de 7 capas. Tres de estas 
 \end{center}
 \end{figure}
 
-Al comienzo del proyecto se empleó LeNet-5 para entrenar las redes de clasificación, pero pronto se vió que era un modelo muy simple y no era suficiente para que el coche fuera capaz de aprender a conducir de forma autónoma. Por este motivo se introdujo la siguiente arquitectura de red.
+Al comienzo del proyecto se empleó LeNet-5 para entrenar las redes de clasificación, pero pronto se vió que era un modelo demasiado simple y no era suficiente para que el coche fuera capaz de aprender a conducir de forma autónoma. 
 
 \subsection{SmallerVGGNet}
 
-La arquitectura de red empleada \cite{smallerVggNet} (Figura \ref{fig.SmallerVGGNet}) es una versión reducida del modelo VGGNet, que fue propuesto por Simonyan y Zisserman en el artículo ``Very Deep Convolutional Networks for Large Scale Image Recognition''. La arquitectura SmallerVGGNet empleada está diseñada para problemas multiclase, es decir, una clasificación con diversas clases. \\
+La arquitectura de red empleada \cite{smallerVggNet} (Figura \ref{fig.SmallerVGGNet}) es una versión reducida del modelo VGGNet, que fue propuesto por Simonyan y Zisserman en el artículo ``Very Deep Convolutional Networks for Large Scale Image Recognition'' \cite{vgg}. La arquitectura SmallerVGGNet empleada está diseñada para problemas multiclase. \\
 
 \begin{figure}
 \begin{center}
@@ -51,7 +44,7 @@ La arquitectura de red empleada \cite{smallerVggNet} (Figura \ref{fig.SmallerVGG
 En esta red inicialmente tenemos un bloque compuesto por una capa convolucional de 32 filtros de tamaño 3x3 y activación \textit{ReLU}, seguida de una capa de normalización del lote (\textit{BatchNormalization}), una capa de sumuestreo (\textit{pooling}), y una capa de \textit{dropout} del 25\%. A continuación, hay dos bloques compuestos por una capa convolucional seguida de una capa \textit{BatchNormalization}, una capa una capa convolucional, una capa \textit{BatchNormalization}, una capa de \textit{pooling}, y una capa de \textit{dropout} del 25\%. En el primero de estos dos bloques en las capas convolucionales se emplean 64 filtros de tamaño 3x3 y activación \textit{ReLU}; mientras que en el segundo bloque en las capas convolucionales se usan 128 filtros de tamaño 3x3 y activación \textit{ReLU}. Al final de la red tenemos un bloque de capas \textit{Fully connected}, donde en la última de estas capas se utiliza una función de activación sigmoide para la clasificación de múltiples etiquetas.\\
 
 
-Esta arquitectura es bastante más compleja que la arquitectura LeNet-5, permitiendo de esta forma a la red aprender situaciones más complejas. Este modelo se ha empleado en los diferentes experimentos realizados que veremos en la siguiente sección.
+Esta arquitectura es bastante más sofisticada que la arquitectura LeNet-5, permitiendo de esta forma a la red aprender situaciones más complejas. Este modelo se ha empleado en los diferentes experimentos realizados que veremos en la siguiente sección.
 
 
 \section{Experimentos}
