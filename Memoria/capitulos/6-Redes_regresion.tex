@@ -162,7 +162,7 @@ En las tablas anteriores se puede ver que tanto el valor de \acrshort{mse} como 
 
 En estas tablas se puede ver que los resultados en el conjunto de prueba en algunos casos parece que tienen un error bajo y se corresponde con el resultado de rendimiento logrado (Sección \ref{comparativa}). Este es el caso de las redes PilotNet y TinyPilotNet. Aunque en algunas ocasiones no sucede así, pero las métricas nos pueden dar una idea de cómo ajustar los parámetros durante el entrenamiento, ya que nuestro objetivo será obtener un error de 0.\\
 
-Se ha comprobado que los resultados de las métricas de evaluación buenos pueden dar una idea de que tenemos un buen entrenamiento. Sin embargo, es posible que en algunos casos redes con buenos resultados en las métricas de evalución, no sean capaces de evitar que el coche choque en algunas situaciones; mientras que redes con peores resultados pueden lograr una conducción efectiva. Este por ejemplo, es el caso de LSTM-TinyPilotNet, que aunque logre mejores resultados en las métricas que DeepestLSTM-TinyPilotNet no es capaz de recorrer todos los circuitos, mientras que DeepestLSTM-TinyPilotNet si. El motivo es que cuando estamos pilotando el coche es posible que si predecimos mal un valor no implique mucha desviación del coche de la línea roja. Sin embargo, si la red en un instante dado predice 3 o 4 valores seguidos mal, el coche se irá desviando cada vez más y no será capaz de volver a la línea recta. Por tanto, el entrenamiento de las redes de control visual es complejo, ya que necesitamos realizar mucha experimentación antes de conseguir un buen resultado. Un motivo de esta complejidad es que necesitamos entrenar bien una red para v y una red para w, en cuanto falle un poco una de ellas el coche no será capaz de completar el circuito completo.\\
+Se ha comprobado que los resultados de las métricas de evaluación buenos pueden dar una idea de que tenemos un buen entrenamiento. Sin embargo, es posible que en algunos casos redes con buenos resultados en las métricas de evalución, no sean capaces de evitar que el coche choque en algunas situaciones; mientras que redes con peores resultados pueden lograr una conducción efectiva. Este por ejemplo, es el caso de LSTM-TinyPilotNet, que aunque logre mejores resultados en las métricas que DeepestLSTM-TinyPilotNet no es capaz de recorrer todos los circuitos, mientras que DeepestLSTM-TinyPilotNet sí. El motivo es que cuando estamos pilotando el coche es posible que si predecimos mal un valor no implique mucha desviación del coche de la línea roja. Sin embargo, si la red en un instante dado predice 3 o 4 valores seguidos mal, el coche se irá desviando cada vez más y no será capaz de volver a la línea recta. Por tanto, el entrenamiento de las redes de control visual es complejo, ya que necesitamos realizar mucha experimentación antes de conseguir un buen resultado. Un motivo de esta complejidad es que necesitamos entrenar bien una red para v y una red para w, en cuanto falle un poco una de ellas el coche no será capaz de completar el circuito completo.\\
 
 
 
@@ -177,7 +177,7 @@ El entrenamiento de las redes LSTM-TinyPilotNet y DeepestLSTM-TinyPilotNet no se
 
 Además, es necesario mencionar que los datos están algo desbalanceados, como sucedía en las redes de clasificación. Esto se debe a que tenemos más ejemplos de conducción de rectas que de curvas, así mismo más datos de curvas leves que de curvas muy pronunciadas. Por este motivo, antes de realizar el entrenamiento se realiza un preprocesado de los datos donde los valores más atípicos se vuelven a introducir a la red un par de veces. De esta forma se consigue que el vehículo aprenda de ciertas situaciones difíciles de las cuales no podría aprender al tener un número reducido de datos. Algunos de estos datos de los que tenemos menor representación en el conjunto de datos son velocidades lineales negativas o velocidades de rotación con ángulos elevados.\\
 
-Las redes \textit{PilotNet} y \textit{TinyPilotNet} han sido entrenadas únicamente con el conjunto de datos propio \textit{Dataset}; mientras que las redes LSTM-TinyPilotNet y DeepestLSTM-TinyPilotNet han sido entrenadas con los conjuntos de datos propios \textit{Dataset} y \textit{Dataset\_Curve}. Se ha añadido este último conjunto de entrenamiento a las redes neuronales recurrentes puesto que necesitamos añadir más información de curvas, que es donde poseemos menos imágenes, y necesitamos introducir las imágenes de forma continua para que sean capaces de introducir el efecto de memoria que hemos mencionado anteriormente.\\
+Las redes PilotNet y TinyPilotNet han sido entrenadas únicamente con el conjunto de datos propio \textit{Dataset}; mientras que las redes LSTM-TinyPilotNet y DeepestLSTM-TinyPilotNet han sido entrenadas con los conjuntos de datos propios \textit{Dataset} y \textit{Dataset\_Curve}. Se ha añadido este último conjunto de entrenamiento a las redes neuronales recurrentes puesto que necesitamos añadir más información de curvas, que es donde poseemos menos imágenes, y necesitamos introducir las imágenes de forma continua para que sean capaces de introducir el efecto de memoria que hemos mencionado anteriormente.\\
 
 Las arquitecturas de red mencionadas en la Sección \ref{arquitecturas_reg} se han empleado para entrenar tanto la velocidad de tracción (v) del vehículo como la velocidad de rotación (w). Los resultados de los entrenamientos y las conclusiones se muestran en esta sección y en las próximas secciones.\\
 
@@ -228,30 +228,9 @@ En esta tabla se puede observar que tanto la red PilotNet como la red TinyPilotN
 
 
 
-En la Tabla \ref{resultados_regresion_recurrente_completa} se puede observar el resultado del uso de redes neuronales recurrentes con imágenes instantáneas de entrada. Como hemos visto ejemplos de estas redes son LSTM-Tinypilotnet, y DeepestLSTM-Tinypilotnet.\\
+En la Tabla \ref{resultados_regresion_recurrente_completa} se puede observar el resultado del uso de redes neuronales recurrentes con imágenes instantáneas de entrada. Como hemos visto ejemplos de estas redes son LSTM-TinyPilotNet, y DeepestLSTM-TinyPilotNet.\\
 
 En esta tabla se puede observar que la red DeepestLSTM-TinyPilotNet es capaz de completar todos los circuitos. Si nos fijamos en los resultados de los tiempos logrados por esta red y los comparamos con los que consigue el piloto programado no son muy dispares, aunque la conducción del vehículo mediante la red neuronal tarde un pelín más. Por lo que se puede decir que la conducción del vehículo mediante esta red es efectiva. El resultado de la conducción del vehículo se puede ver en las Figuras \ref{fig.curve_reg} y \ref{fig.small_reg}. Una ejecución típica de DeepestLSTM-TinyPilotNet se puede ver en este vídeo  \footnote{\url{https://www.youtube.com/watch?v=-tFzQp0984w}}.\\
-
-\begin{figure}
-\begin{center}
-	\includegraphics[width=0.6\textwidth]{figures/Regresion/deep_curve.png}
-   \caption{Pilotaje del coche en el circuito curveGP}
-	\label{fig.curve_reg}
-\end{center}
-\end{figure}
-
-\begin{figure}
-\begin{center}
-	\includegraphics[width=0.6\textwidth]{figures/Regresion/deep_small.png}
-   \caption{Pilotaje del coche en el circuito pista\_simple}
-	\label{fig.small_reg}
-\end{center}
-\end{figure}
-
-
-
-La red DeepestLSTM-TinyPilotNet logra mejores resultados que la red LSTM-TinyPilotNet. Esto se debe a que introducir mayor profundidad de red mejora la conducción, haciendo que la red sea capaz de aprender información temporal que ayuda a que la conducción sea más suave. De esta forma vemos que el coche tiende a volver a la línea roja constantemente, aunque en algunas situaciones sea complicado. \\
-
 
 \begin{table}[H]
 \centering
@@ -275,6 +254,28 @@ La red DeepestLSTM-TinyPilotNet logra mejores resultados que la red LSTM-TinyPil
 \end{table}
 
 
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{figures/Regresion/deep_curve.png}
+   \caption{Pilotaje del coche en el circuito curveGP}
+	\label{fig.curve_reg}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=0.6\textwidth]{figures/Regresion/deep_small.png}
+   \caption{Pilotaje del coche en el circuito pista\_simple}
+	\label{fig.small_reg}
+\end{center}
+\end{figure}
+
+
+
+La red DeepestLSTM-TinyPilotNet logra mejores resultados que la red LSTM-TinyPilotNet. Esto se debe a que introducir mayor profundidad de red mejora la conducción, haciendo que la red sea capaz de aprender información temporal que ayuda a que la conducción sea más suave. De esta forma vemos que el coche tiende a volver a la línea roja constantemente, aunque en algunas situaciones sea complicado. \\
+
+
+
 En primer lugar, se ha llegado a la conclusión de que los datos de entrenamiento tienen una gran influencia en el rendimiento del problema planteado, ya que si no poseemos de datos de todas las posibles situaciones en las que se puede encontrar el vehículo o suficientes datos, la red no podrá aprender y el coche se enfrentará a situaciones desconocidas, por lo que no sabrá que hacer. Por este motivo, si no disponemos de suficientes imágenes de curvas complejas frente a rectas tendremos un conjunto de entrenamiento desbalanceado y será necesario realizar algún procesado de datos para balancear los mismos o bien crear un nuevo conjunto adicional que conste de situaciones complejas. De esta forma, las redes serán capaces de aprender cualquier situación en la que se encuentren.\\
 
 
@@ -292,7 +293,7 @@ En el entrenamiento se ha realizado un preprocesado para aumentar los datos de l
 En la Figura \ref{fig.image_camera} se puede ver una imagen obtenida por la cámara del coche, mientras que en la Figura \ref{fig.image_flip} se puede observar la misma imagen tras aplicar la operación \textit{flip} de OpenCV.\\
 
 
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
 	\includegraphics[width=0.5\textwidth]{figures/Regresion/img_normal.png}
    \caption{Imagen de la cámara}
@@ -314,7 +315,7 @@ En la Figura \ref{fig.image_camera} se puede ver una imagen obtenida por la cám
 
 Se ha explorado el empleo de imágenes completas o imágenes recortadas como sucedía en las redes de clasificación. Las dimensiones de dichas imágenes son las mismas que en la Sección \ref{img_dimension}.\\
 
-A continuación se expondrá una comparativa entre los resultados obtenidos por las redes empleando imágenes de entrada completas e imágenes de entrada recortadas. Los resultados obtenidos al emplear imágenes de entrada completas se pueden observar en las Tablas \ref{resultados_regresion_completa} y 
+A continuación, se expondrá una comparativa entre los resultados obtenidos por las redes empleando imágenes de entrada completas e imágenes de entrada recortadas. Los resultados obtenidos al emplear imágenes de entrada completas se pueden observar en las Tablas \ref{resultados_regresion_completa} y 
 \ref{resultados_regresion_recurrente_completa} (Sección \ref{comparativa}); mientras que los resultados obtenidos al emplear imágenes recortadas como entrada se exponen a continuación.\\
 
 En la Tabla \ref{resultados_regresion_recortada} se muestran los resultados de las redes neuronales convolucionales entrenadas con imágenes recortadas. Estos son los casos de las redes PilotNet y TinyPilotNet.\\
@@ -352,7 +353,7 @@ En esta tabla se puede observar que la red PilotNet es capaz de completar el cir
 
 
 
-En la Tabla \ref{resultados_regresion_recurrente_recortada} se muestran los resultados de las redes neuronales recurrentes entrenadas con imágenes recortadas. Estas redes intentan introducir un efecto de memoria en la red con el fin de tener en cuenta los instantes anteriores y no únicamente los datos en un único instante. Para lograr este efecto añaden capas ConvLSTM2D. Ejemplos de este tipo de redes son las redes LSTM-Tinypilotnet, y DeepestLSTM-Tinypilotnet.\\
+En la Tabla \ref{resultados_regresion_recurrente_recortada} se muestran los resultados de las redes neuronales recurrentes entrenadas con imágenes recortadas. Estas redes intentan introducir un efecto de memoria en la red con el fin de tener en cuenta los instantes anteriores y no únicamente los datos en un único instante. Para lograr este efecto añaden capas ConvLSTM2D. Ejemplos de este tipo de redes son las redes LSTM-TinyPilotNet, y DeepestLSTM-TinyPilotNet.\\
 
 En esta tabla se puede observar que la red DeepestLSTM-TinyPilotNet (imagen recortada) casi logra completar todos los circuitos, únicamente choca en uno en una curva complicada. Este hecho refleja que es complicado lograr combinar una red de v y una red de w que logren un buen rendimiento conjuntamente. La red DeepestLSTM-TinyPilotNet logra conseguir mejores resultados que la red LSTM-TinyPilotNet. Esto se debe a que introducir mayor profundidad de red mejora la conducción. \\
 
@@ -439,7 +440,7 @@ En la Tabla \ref{resultados_regresion_temporal_completa} se muestran los resulta
 En esta tabla se puede observar que en ninguna de las tres redes conseguimos completar todos los circuitos, aunque se puede ver que las redes PilotNet \textit{(stacked)} y \textit{(stacked, dif)} consiguen completar varios circuitos, mientras que la red Temporal (\textit{dif}) no consigue completar ninguno. Esto se debe a que apilar dos imágenes proporciona más información que únicamente emplear la imagen diferencia. Esto se debe también a que es bastante complejo crear una imagen que proporcione información a la red acerca de cómo ha variado la situación del vehículo o no, ya que si estábamos en recta y seguimos en recta la imagen diferencia prácticamente tendrá valor 0 en todos sus píxeles, lo que no aportará mucha información al vehículo acerca de su situación. Sin embargo, si la situación ha cambiado mucho en un periodo de tiempo muy corto esta imagen poseerá mucha información acerca de la nueva situación. Además, otra complejidad es saber qué instante de tiempo debemos tomar para lograr una conducción efectiva, es decir, en los experimentos se ha tomado la diferencia entre dos imágenes separadas por 10 \textit{frames} (mejor resultado obtenido en los experimentos), pero es bastante complicado saber qué margen debemos tomar entre las dos imágenes para aportar información a la red en todas las situaciones.\\
 
 
-Otra conclusión que se puede sacar de esta tabla es la dificultad de lograr una imagen apilada que proporcione un buen rendimiento en la conducción. El motivo es la dificultad saber cuál es la imagen apilada perfecta, es decir, es posible que la red necesite 2, 3, 4, ... N imágenes, y que estas imágenes se encuentren seguidas en espacio del tiempo o separadas por un número de fotogramas. La dificultad de conocer estos parámetros se debe a que no tenemos siempre la misma situación (recta, curva leve o curva pronunciada), y lograr una combinación de imágenes apiladas que consiga proporcionar información a la red sobre todas las situaciones será una tarea difícil. Inicialmente, las pruebas se hicieron apilando 3 imágenes separadas por 2 fotogramas, es decir, que para la imagen en el momento t concatenamos la imagen t, t-3 y t-6. Pero esta combinación de imágenes daba peor resultado que emplear 2 imágenes apiladas separadas por 10 fotogramas, que es el caso de los resultados de la tabla.\\
+Otra conclusión que se puede sacar de esta tabla es la dificultad de lograr una imagen apilada que proporcione un buen rendimiento en la conducción. El motivo es la dificultad de saber cuál es la imagen apilada perfecta, es decir, es posible que la red necesite 2, 3, 4, ... N imágenes, y que estas imágenes se encuentren seguidas en espacio del tiempo o separadas por un número de fotogramas. La dificultad de conocer estos parámetros se debe a que no tenemos siempre la misma situación (recta, curva leve o curva pronunciada), y lograr una combinación de imágenes apiladas que consiga proporcionar información a la red sobre todas las situaciones será una tarea difícil. Inicialmente, las pruebas se hicieron apilando 3 imágenes separadas por 2 fotogramas, es decir, que para la imagen en el momento t concatenamos la imagen t, t-3 y t-6. Pero esta combinación de imágenes daba peor resultado que emplear 2 imágenes apiladas separadas por 10 fotogramas, que es el caso de los resultados de la tabla.\\
 
 
 Además, se han obtenido las métricas promedio (Sección \ref{metricas_reg}) para las redes PilotNet (\textit{stacked}), PilotNet (\textit{stacked dif}), y Temporal (\textit{dif}). Estas métricas se han calculado para las redes de velocidad lineal y velocidad de rotación con imágenes completas. Los resultados se muestran en las Tabas \ref{metricas_regresion_temporal_completa_v} y \ref{metricas_regresion_temporal_completa_w}.\\
