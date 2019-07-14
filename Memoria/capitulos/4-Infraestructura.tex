@@ -10,7 +10,7 @@ Además se explica la infraestructura software en la que nos hemos apoyado  para
 
 El objetivo de este proyecto es que nuestro Fórmula 1 sea capaz de conducir de forma autónoma por un circuito, por lo que tendremos que crear diferentes entornos (circuitos) donde se moverá. Para facilitar el algoritmo del piloto autónomo explícito y del piloto autónomo basado en redes neuronales, los circuitos tienen una línea roja pintada en el suelo.\\
 
-Los modelos de circuitos fueron creados con una herrramienta de modelado 3D (Blender, SketchUp, etc). La mayoría de los circcuitos se corresponden con circuitos de grandes dimensiones. En estos circuitos no veremos muchas gradas alrededor, ni público u otros elementos habituales de los circuitos reales, sino que se ha simplificado su creación para que sea rápido en la ejecución del simulador. Los mundos que tienen muchos detalles son más costosos computacionalmente de simular. Lo que podremos ver en estos circuitos son elementos propios de carreteras como son rectas, curvas simples o pronunciadas, una línea de salida, paredes que evitan que el coche se salga del recorrido, y en algunos casos una grada y césped de adorno.\\
+Los modelos de circuitos fueron creados con una herrramienta de modelado 3D (Blender, SketchUp, etc). La mayoría de los circuitos se corresponden con circuitos de grandes dimensiones. En estos circuitos no veremos muchas gradas alrededor, ni público u otros elementos habituales de los circuitos reales, sino que se ha simplificado su creación para que sea rápido en la ejecución del simulador. Los mundos que tienen muchos detalles son más costosos computacionalmente de simular. Lo que podremos ver en estos circuitos son elementos propios de carreteras como son rectas, curvas simples o pronunciadas, una línea de salida, paredes que evitan que el coche se salga del recorrido, y en algunos casos una grada y césped de adorno.\\
 
 El primer modelo de circuito empleado se llama \textit{pistaSimple}. Es un circuito de carreras de gran tamaño, que consta de una carretera con una línea roja en el suelo, una línea de salida, y las paredes para evitar que el coche se salga del circuito. Este circuito no posee ningún elemento de adorno, ya que haría que la simulación fuera muy lenta. Este modelo se puede observar en la Figura \ref{fig.simple}.\\
 
@@ -43,7 +43,7 @@ El tercer modelo simula el circuito de carretas Nürburgring (Alemania) acortado
 		\end{center}
 \end{figure}
 
-El cuarto modelo de circuito, llamado \textit{curveGP}, simula un circuito que no tiene ninguna curva, solamente tiene curvas, tanto curvas leves como abruptas. Este circuito es de gran tamaño, y por este motivo únicamente simula el circuito, y paredes que rodean al mismo, no tiene ningún elemento de adorno. El modelo \textit{curveGP} se puede ver en la Figura \ref{fig.curveGP}.\\
+El cuarto modelo de circuito, llamado \textit{curveGP}, simula un circuito que no tiene ninguna recta, solamente tiene curvas, tanto curvas leves como abruptas. Este circuito es de gran tamaño, y por este motivo únicamente simula el circuito, y paredes que rodean al mismo, no tiene ningún elemento de adorno. El modelo \textit{curveGP} se puede ver en la Figura \ref{fig.curveGP}.\\
 
 
 \begin{figure}
@@ -54,9 +54,6 @@ El cuarto modelo de circuito, llamado \textit{curveGP}, simula un circuito que n
 		\end{center}
 \end{figure}
 
-
-El quinto modelo de circuito se denomina \textit{ pista\_simple}. Este circuito es el más corto de todos, aunque únicamente simula el circuito, y paredes que rodean al mismo, no tiene ningún elemento de adorno. En la Figura \ref{fig.small} se puede ver el modelo \textit{pista\_simple}.\\
-
 \begin{figure}
   \begin{center}
     \includegraphics[width=0.9\textwidth]{figures/Infraestructura/circuit_Small.png}
@@ -64,6 +61,9 @@ El quinto modelo de circuito se denomina \textit{ pista\_simple}. Este circuito 
 		\label{fig.small}
 		\end{center}
 \end{figure}
+
+El quinto modelo de circuito se denomina \textit{pista\_simple}. Este circuito es el más corto de todos, aunque únicamente simula el circuito, y paredes que rodean al mismo, no tiene ningún elemento de adorno. En la Figura \ref{fig.small} se puede ver el modelo \textit{pista\_simple}.\\
+
 
 Los mundos que se simulan con Gazebo son mundos 3D. Estos mundos se cargan en ficheros con extensión .world, que no son más que ficheros \acrshort{xml} definidos en el lenguaje \acrshort{sdf}. Este lenguaje contiene una descripción completa de todos los elementos que tiene el mundo y los robots.\\
 
@@ -145,13 +145,13 @@ Los modelos de circuitos \textit{pistaSimple}, \textit{monacoLine}, \textit{nurb
 
 \section{Piloto autónomo explícito}\label{piloto}
 
-Como hemos mencionado el objetivo del proyecto es que un vehículo sea capaz de aprender determiandas acciones que le permitan conducir de forma autónoma. Para lograr este objetivo es necesario disponer de una serie de datos, por lo que se ha creado un conjunto de datos (Sección \ref{dataset}). Con el fin de grabar este conjunto de datos se ha creado un piloto autónomo basado en visión que es capaz de dar vueltas alrededor del circuito de forma autónoma. \\
+Como hemos mencionado el objetivo del proyecto es que un vehículo sea capaz de aprender determinadas acciones que le permitan conducir de forma autónoma. Para lograr este objetivo es necesario disponer de una serie de datos, por lo que se ha creado un conjunto de datos (Sección \ref{dataset}). Con el fin de grabar este conjunto de datos se ha creado un piloto autónomo basado en visión que es capaz de dar vueltas alrededor del circuito de forma autónoma. \\
 
 El piloto autónomo creado debe ser capaz de navegar rápidamente por un circuito de Fórmula 1 siguiendo una línea roja pintada en el suelo. Para ello, el coche dispone de una cámara en la parte frontal izquierda y unos motores a los que se envían órdenes de velocidad (velocidad de tracción y velocidad de rotación).\\
 
 El coche tendrá una parte perceptiva y una parte de control. En la parte perceptiva el vehícuo deberá extraer la información relevante de las imágenes: dónde está la línea roja, si está en una recta o en una curva, si ha perdido la línea roja, etc. En la parte de control, el coche deberá hacer un control reactivo PID o bien un control PD, que sea capaz de corregir la velocidad de giro para mantener al coche por encima de la línea.\\ 
 
-Antes de explicar la solución del piloto, es necesario saber qué es un control PID. Un control PID consta de tres parámetros distintos: el proporcional, el integral y el derivativo. Para explicar mejor cada una de las partes tomaremos como ejemplo una calefacción con termómetro, que es un ejemplo clásico de control PID.  En este ejemplo el sensor es el termómetro y el objetivo es obtener una determinada temperatura, por lo que tendremos un error que será la desviación entre la temperatura observada y la temperatura deseada. El error tendrá magnitud y signo, y el controlado PID deberá dar órdenes a la calefacción o el aire acondicionado para conseguir minimizar el error y obtener la temperatura deseada.\\
+Antes de explicar la solución del piloto, es necesario saber qué es un control PID. Un control PID consta de tres parámetros distintos: el proporcional, el integral y el derivativo. Para explicar mejor cada una de las partes tomaremos como ejemplo una calefacción con termómetro, que es un ejemplo clásico de control PID.  En este ejemplo el sensor es el termómetro y el objetivo es obtener una determinada temperatura, por lo que tendremos un error que será la desviación entre la temperatura observada y la temperatura deseada. El error tendrá magnitud y signo, y el controlador PID deberá dar órdenes a la calefacción o el aire acondicionado para conseguir minimizar el error y obtener la temperatura deseada.\\
 
 La parte proporcional (P) manda a los actuadores una corrección proporcional al error, de forma que si el error es pequeño se corrige suavemente y si es grande la corrección es mayor. De no existir desviación no se modifica la temperatura. El control P tiende a conseguir que el sistema obtenga la situación deseada, pero a veces lo logra con muchas oscilaciones. Una posibilidad para suavizar las oscilaciones es emplear la parte Derivativa (D), que realiza una corrección proporcional a la derivada del error. Si el error está creciendo el control D aumenta la corrección, y si por el contrario está disminuyendo, suaviza la corrección. En algunos casos no es suficiente con un control PD, ya que puede que se estabilice en una situación no deseada a pesar de las correcciones. Para poder eliminar estos \textit{offsets} se puede emplear la parte Integral (I). Este tipo de control actúa en función de la acumulación del error, es decir, si ha pasado bastante tiempo sin que el error tienda a cero, entonces aumenta la corrección por parte del control.\\
 
@@ -164,7 +164,7 @@ El coche posee una cámara situada en la parte frontal izquierda como hemos vist
 
 Tras realizar la transformación a HSV, se ha realizado una umbralización de la imagen empleando la función \textit{cv2.inRange} de OpenCV. Este filtrado se hace en función al rango de valores de rojo de la línea de la carretera.\\
 
-Si mostramos la imagen tras el filtrado vemos que aparecen puntos en negro que pertenecen a la línea roja y no debería ser así. Esto ocurre en la línea de salida del circuito, ya que se puede ver que la línea parpadea y por lo tanto no tiene siempre el tono de rojo habitual. Este problema lo podemos ver en la Figura \ref{fig.color}. Para solventar este problema, se ha aplicado un cierre morfológico (primero hace una dilatación y después una erosión). Esta operación hace que los pixeles que aparecían en negro en la línea filtrada ahora pertenezcan a la línea filtrada, es decir, que aparezcan en blanco. Se puede observar en la Figura \ref{fig.cierre} cómo después de aplicar el cierre morfológico no quedan huecos en la parte segmentada al filtrar la línea roja.\\
+Si mostramos la imagen tras el filtrado vemos que aparecen puntos en negro que pertenecen a la línea roja y no debería ser así. Esto ocurre en la línea de salida del circuito, ya que se puede ver que la línea parpadea y por lo tanto no tiene siempre el tono de rojo habitual. Este problema lo podemos ver en la Figura \ref{fig.color}. Para solventar este problema, se ha aplicado un cierre morfológico (primero hace una dilatación y después una erosión). Esta operación hace que los píxeles que aparecían en negro en la línea filtrada ahora pertenezcan a la línea filtrada, es decir, que aparezcan en blanco. Se puede observar en la Figura \ref{fig.cierre} cómo después de aplicar el cierre morfológico no quedan huecos en la parte segmentada al filtrar la línea roja.\\
 
 \begin{figure}
   \begin{center}
@@ -220,13 +220,13 @@ Otro caso que evaluaremos es si nos situamos en recta o curva. Si estamos en rec
         \[ (310 - 350) (x\_arriba - x\_abajo) / (-90) = (x - x\_abajo)  \]
         \[ x = (310 - 350) (x\_arriba - x\_abajo) / (-90) + x\_abajo  \]
         
-    \item  Una vez tenemos el punto x que pasa por la recta calculada a partir de y1 e y3, podemos calcular la desviación de x respecto al centro de y2. Si esta desviación es mayor a un umbral es que estamos en curva y si no es que estamos en recta. Como hemos mencinado antes, aplicamos unas situaciones de PD para recta y otras situaciones para curva.
+    \item  Una vez tenemos el punto x que pasa por la recta calculada a partir de y1 e y3, podemos calcular la desviación de x respecto al centro de y2. Si esta desviación es mayor a un umbral es que estamos en curva y si no es que estamos en recta. Como hemos mencionado antes, aplicamos unas situaciones de PD para recta y otras situaciones para curva.
     
 \end{enumerate}
 
 A la hora de probar el piloto autónomo explícito se han hecho pruebas para ver su robustez. Una de estas pruebas consiste en modificar la posición del Fórmula 1 en la línea de salida para que no esté situado el coche justamente encima de la línea roja. En este caso el coche es capaz de volver encima de la línea roja. Otra prueba ha sido mover el vehículo mediante el teleoperador durante la ejecución del piloto programado. El coche es capaz de volver otra vez encima de la línea roja a pesar de intentar girar el coche con el teleoperador.\\
 
-El piloto se ha ejecutado en los diferentes circuitos, tanto en sentido horario como en sentido anti-horario. Se ha medido los tiempos de simulación que tarda el vehículo en dar una vuelta al circuito en ambos sentidos. En la tabla \ref{tabla_piloto} se muestran los resultados de este piloto.\\
+El piloto se ha ejecutado en los diferentes circuitos, tanto en sentido horario como en sentido anti-horario. Se han medido los tiempos de simulación que tarda el vehículo en dar una vuelta al circuito en ambos sentidos. En la tabla \ref{tabla_piloto} se muestran los resultados de este piloto.\\
 
 
 \begin{table}[]
@@ -355,7 +355,7 @@ En ejecución, el piloto entrenado con las redes se ha probado en todos estos ci
 
 \section{Piloto autónomo basado en redes neuronales}
 
-Se ha creado una aplicación de control visual con la infraestructura necesaria que se comunica con el simulador Gazebo. Además, esta aplicación ha sido creada para cargar y emplear redes neuronales de conducción, resuelve varias funcionalidades: (a) ofrece una interfaz gráfica al usuario que le ayuda a depurar el código; (b) ofrece acceso a sensores y actuadores en forma de métodos simples (oculta el \textit{middleware} de comunicaciones); (c) incluye código auxiliar para poder emplear las predicciones realizadas por las redes (bien de clasificación o de regresión). Lo deja todo atado para que el usuario sólo tenga que incluir su red y retoque unfichero donde se proporciona al vehículo las órdenes de velocidad predichas por la red. En la Figura \ref{fig.nodo_piloto} se puede observar la estructura que tiene esta aplicación.\\
+Se ha creado una aplicación de control visual con la infraestructura necesaria que se comunica con el simulador Gazebo. Además, esta aplicación ha sido creada para cargar y emplear redes neuronales de conducción, resuelve varias funcionalidades: (a) ofrece una interfaz gráfica al usuario que le ayuda a depurar el código; (b) ofrece acceso a sensores y actuadores en forma de métodos simples (oculta el \textit{middleware} de comunicaciones); (c) incluye código auxiliar para poder emplear las predicciones realizadas por las redes (bien de clasificación o de regresión). Lo deja todo atado para que el usuario sólo tenga que incluir su red y retoque un fichero donde se proporciona al vehículo las órdenes de velocidad predichas por la red. En la Figura \ref{fig.nodo_piloto} se puede observar la estructura que tiene esta aplicación.\\
 
 \begin{figure}
   \begin{center}
@@ -365,7 +365,7 @@ Se ha creado una aplicación de control visual con la infraestructura necesaria 
 		\end{center}
 \end{figure}
 
-Este nodo ofrece al programador un \acrfull{api} de sensores y actuadores, y de predicciones de la red. A cotinuación se puede observar el \acrshort{api} concreto de este proyecto:
+Esta aplicación ofrece al programador un \acrfull{api} de sensores y actuadores, y de predicciones de la red. A cotinuación se puede observar el \acrshort{api} concreto de este proyecto:
 
 \begin{itemize}
     \item \textit{camera.getImage}: Permite obtener la imagen de la cámara del coche.
@@ -436,7 +436,11 @@ La intergaz gráfica (\acrshort{gui}) del proyecto es una ayuda para proporciona
 
 La \acrshort{gui} del proyecto (Figura \ref{fig.gui}) contiene la imagen que captura la cámara del vehículo. Esta imagen está situada en la parte superior izquierda de la \acrshort{gui}. Gracias a ella, el usuario puede tener una idea de la visión del coche y emplear estas imágenes como datos de entrada a las redes entrenadas.\\
 
-\begin{figure}
+En la parte derecha de la imagen mostrada en la \acrshort{gui} hay 4 leds que se corresponden con diferentes rangos de velocidades lineales; mientras que en la parte inferior hay 7 leds que se corresponden con velocidades angulares del coche. En función del valor predicho por la red se encenderá un led verde de la parte inferior y un led azul de la parte derecha. De esta forma, es más fácil obtener una visualización de las órdenes de velocidad aproximadas que está recibiendo el coche. \\
+
+Si denotamos los leds (velocidad angular) que aparecen debajo de la imagen con los números de 1 a 7 empezando por la izquierda, se encenderá cada uno de los leds en el siguiente caso:
+
+\begin{figure}[H]
   \begin{center}
     \includegraphics[width=0.7\textwidth]{figures/Infraestructura/gui.png}
 		\caption{Interfaz gráfica (\acrshort{gui})}
@@ -444,9 +448,7 @@ La \acrshort{gui} del proyecto (Figura \ref{fig.gui}) contiene la imagen que cap
 		\end{center}
 \end{figure}
 
-En la parte derecha de la imagen mostrada en la \acrshort{gui} hay 4 leds que se corresponden con diferentes rangos de velocidades lineales; mientras que en la parte inferior hay 7 leds que se corresponden con velocidades angulares del coche. En función del valor predicho por la red se encenderá un led verde de la parte inferior y un led azul de la parte derecha. De esta forma, es más fácil obtener una visualización de las órdenes de velocidad aproximadas que está recibiendo el coche. \\
 
-Si denotamos los leds (velocidad angular) que aparecen debajo de la imagen con los números de 1 a 7 empezando por la izquierda, se encenderá cada uno de los leds en el siguiente caso:
 
 \begin{itemize}
     \item Led 1: La velocidad angular del vehículo es mayor o igual a 1, es decir, el coche gira bruscamente a la izquierda.
@@ -464,7 +466,7 @@ Si denotamos los leds (velocidad angular) que aparecen debajo de la imagen con l
      \item Led 7: La velocidad angular del coche es menor o igual que -1, el coche gira bruscamente a la derecha.
 \end{itemize}
 
-Si denotamos los leds (velocidad lineal) que a la derecha de la imagen con los números de 1 a 4 empezando por abajo, se encenderá cada uno de estos leds en el siguiente caso:
+Si denotamos los leds (velocidad lineal) que aparecen a la derecha de la imagen con los números de 1 a 4 empezando por abajo, se encenderá cada uno de estos leds en el siguiente caso:
 
 \begin{itemize}
     \item Led 1: La velocidad es menor o igual que 7. Esta situación se corresponde con los casos donde el coche se encuentra en una curva y necesita reducir la velocidad o incluso dar marcha atrás en algún caso.
@@ -479,9 +481,9 @@ Si denotamos los leds (velocidad lineal) que a la derecha de la imagen con los n
 
 Además, para añadir más información de velocidad que le permita al usuario depurar fallos, a la derecha de los leds que indican la velocidad lineal se han añadido las órdenes de velocidades que se envían a los motores del coche. Por un lado, tenemos el valor de la velocidad lineal, que aparece indicado con una v; mientras que el valor de la velocidad angular se indica con una letra w.\\
 
-Esta interfaz gráfica además muestra un teleoperador justo debajo del botón ``Play Code''. Mediante este teleoperador se puede mover manualmente el coche en el mundo de Gazebo si se desea. En la esquina superior derecha, donde se muestra las órdenes de velocidad del coche, aparecerán los valores de velocidad que tiene el mismo cuando se teledirige. La velocidad lineal del coche se puede controlar moviendo el \textit{joystick} en sentido vertical. Cuanto más subamos el \textit{joystick} más velocidad tendrá el coche hacia delante, y si lo bajamos del todo más velocidad lineal tendrá hacia atrás. La velocidad angular del vehículo se controla moviendo el \textit{joystick} en sentido horizontal, según lo movamos a izquierda o a la derecha, el robot girará en un sentido u otro.\\
+Esta interfaz gráfica además muestra un teleoperador justo debajo del botón ``Play Code''. Mediante este teleoperador se puede mover manualmente el coche en el mundo de Gazebo si se desea. En la esquina superior derecha, donde se muestran las órdenes de velocidad del coche, aparecerán los valores de velocidad que tiene el mismo cuando se teledirige. La velocidad lineal del coche se puede controlar moviendo el \textit{joystick} en sentido vertical. Cuanto más subamos el \textit{joystick} más velocidad tendrá el coche hacia delante, y si lo bajamos del todo más velocidad lineal tendrá hacia atrás. La velocidad angular del vehículo se controla moviendo el \textit{joystick} en sentido horizontal, según lo movamos a izquierda o a la derecha, el robot girará en un sentido u otro.\\
 
-En la aplicación gráfica también hay cuatro botones importantes, dos que sirven para controlar lo que  sucede con el algoritmo que controla al coche, y otros dos que se emplean en el manejo del un \textit{dataset}. El botón inferior  izquierdo, en el que aparece un símbolo de STOP, es el que emplearemos cuando teledirigimos el coche y queremos que pare en un punto y no siga navegando. El botón que se encuentra entre la imagen y el teleoperador, en el cual pone ``Play Code'', es el botón con el que le ordenamos al componente que comience a ejecutar el código del fichero donde le damos órdenes a los motores del coche. Este botón cambia de color al pulsarlo. Si queremos que este código pare en un determinado momento, pulsaremos el mismo botón haciendo que pare; y si queremos reanudar su comportamiento lo volveremos a pulsar.\\
+En la aplicación gráfica también hay cuatro botones importantes, dos que sirven para controlar lo que  sucede con el algoritmo que controla al coche, y otros dos que se emplean en el manejo de un \textit{dataset}. El botón inferior  izquierdo, en el que aparece un símbolo de STOP, es el que emplearemos cuando teledirigimos el coche y queremos que pare en un punto y no siga navegando. El botón que se encuentra entre la imagen y el teleoperador, en el cual pone ``Play Code'', es el botón con el que le ordenamos al componente que comience a ejecutar el código del fichero donde le damos órdenes a los motores del coche. Este botón cambia de color al pulsarlo. Si queremos que este código pare en un determinado momento, pulsaremos el mismo botón haciendo que pare; y si queremos reanudar su comportamiento lo volveremos a pulsar.\\
 
 Los otros dos botones se emplean para el manejo de un \textit{dataset}. Por un lado, tenemos el botón de la parte superior derecha, en el cual pone ``Save Dataset'', que sirve para crear un nuevo \textit{dataset} que guarde los datos tanto de velocidad como las imágenes que ve el coche durante la ejecución de su algoritmo. Este conjunto de datos se crea con la misma estructura que el conjunto de datos mencionado en la Sección \ref{dataset}, y se almacenará en el directorio ``Dataset''. Este conjunto de datos únicamente se crea si pulsamos este botón, de no ser así simplemente se ejecuta el algoritmo que permite navegar al vehículo. Por otra parte, el botón que se sitúa en la parte inferior derecha, permite borrar el \textit{dataset} creado.\\
 
