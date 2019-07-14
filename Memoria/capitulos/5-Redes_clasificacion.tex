@@ -41,7 +41,7 @@ La arquitectura de red empleada \cite{smallerVggNet} (Figura \ref{fig.SmallerVGG
 \end{center}
 \end{figure}
 
-En esta red inicialmente tenemos un bloque compuesto por una capa convolucional de 32 filtros de tamaño 3x3 y activación \textit{ReLU}, seguida de una capa de normalización del lote (\textit{BatchNormalization}), una capa de sumuestreo (\textit{pooling}), y una capa de \textit{dropout} del 25\%. A continuación, hay dos bloques compuestos por una capa convolucional seguida de una capa \textit{BatchNormalization}, una capa una capa convolucional, una capa \textit{BatchNormalization}, una capa de \textit{pooling}, y una capa de \textit{dropout} del 25\%. En el primero de estos dos bloques en las capas convolucionales se emplean 64 filtros de tamaño 3x3 y activación \textit{ReLU}; mientras que en el segundo bloque en las capas convolucionales se usan 128 filtros de tamaño 3x3 y activación \textit{ReLU}. Al final de la red tenemos un bloque de capas \textit{Fully connected}, donde en la última de estas capas se utiliza una función de activación sigmoide para la clasificación de múltiples etiquetas.\\
+En esta red inicialmente tenemos un bloque compuesto por una capa convolucional de 32 filtros de tamaño 3x3 y activación \textit{ReLU}, seguida de una capa de normalización del lote (\textit{BatchNormalization}), una capa de sumuestreo (\textit{pooling}), y una capa de \textit{dropout} del 25\%. A continuación, hay dos bloques compuestos por una capa convolucional seguida de una capa \textit{BatchNormalization}, una capa convolucional, una capa \textit{BatchNormalization}, una capa de \textit{pooling}, y una capa de \textit{dropout} del 25\%. En el primero de estos dos bloques en las capas convolucionales se emplean 64 filtros de tamaño 3x3 y activación \textit{ReLU}; mientras que en el segundo bloque en las capas convolucionales se usan 128 filtros de tamaño 3x3 y activación \textit{ReLU}. Al final de la red tenemos un bloque de capas \textit{Fully connected}, donde en la última de estas capas se utiliza una función de activación sigmoide para la clasificación de múltiples etiquetas.\\
 
 
 Esta arquitectura es bastante más sofisticada que la arquitectura LeNet-5, permitiendo de esta forma a la red aprender situaciones más complejas. Este modelo se ha empleado en los diferentes experimentos realizados que veremos en la siguiente sección.
@@ -103,7 +103,7 @@ En la Tabla \ref{metricas_classificacion_recortada_w} se pueden ver los resultad
 \label{metricas_classificacion_recortada_w}
 \begin{tabular}{c|c|c|c|c|c|}
 \cline{1-6}
-                        \multicolumn{1}{|c|}{Red}    & Acuracy       & Accuracy top 2      & Precision       & Recall        & F1-Score        \\ \hline
+                        \multicolumn{1}{|c|}{Red}    & Accuracy       & Accuracy top 2      & Precision       & Recall        & F1-Score        \\ \hline
 \multicolumn{1}{|c|}{7w sesgada}    & 94 \%             & 99 \%         & 95 \%            & 95 \%          & 95 \%       \\ \hline
 \multicolumn{1}{|c|}{7w balanceada}     & 93 \%             & 99 \%          &  94 \%              &  94 \%            &  94 \%             \\ \hline
 \multicolumn{1}{|c|}{7w desbalanceada}      &  95 \%             & 99 \%           &  95 \%            & 95 \%        &  95 \%            \\ \hline
@@ -121,7 +121,7 @@ En la Tabla \ref{metricas_classificacion_recortada_v} se pueden observar los res
 \label{metricas_classificacion_recortada_v}
 \begin{tabular}{c|c|c|c|c|c|}
 \cline{1-6}
-                        \multicolumn{1}{|c|}{Red}    & Acuracy       & Accuracy top 2      & Precision       & Recall        & F1-Score        \\ \hline
+                        \multicolumn{1}{|c|}{Red}    & Accuracy       & Accuracy top 2      & Precision       & Recall        & F1-Score        \\ \hline
 \multicolumn{1}{|c|}{4v sesgada}    & 95 \%     & 98 \%         & 95 \%            & 95 \%          & 95 \%       \\ \hline
 \multicolumn{1}{|c|}{4v balanceada}     & 92 \%        & 96 \%          &  94 \%              &  93 \%            &  93 \%             \\ \hline
 \multicolumn{1}{|c|}{4v desbalanceada}      &  95 \%        & 97 \%           &  95 \%            & 95 \%        &  95 \%            \\ \hline
@@ -152,7 +152,7 @@ Las imágenes capturadas por la cámara del vehículo tienen unas dimensiones de
 Además se han realizado pruebas empleando un recorte de imagen (\textit{image cropping}), que consiste en extraer una zona concreta de la imagen donde se considera que se almacena la parte relevante de información. Es decir, esta imagen (Figura \ref{fig.imgs_class}) contiene información acerca de la carretera, eliminando de esta forma la parte del cielo de la imagen. Esta imagen tiene unas dimensiones de 240 x 640 píxeles, aunque antes de entrenar la red se reducen las dimensiones 1/4 en horizontal y 1/4 en vertical, siendo las dimensiones de la imagen de (160, 60, 3) al entrar a la red.\\
 
 
-Se han llevado a cabo diferentes pruebas en función de las dimensiones de las imágenes (completa y recortada. En la Tabla \ref{resultados_completa_recortada} se recogen los resultados de la comparativa del empleo de una imagen con unas dimensiones u otras como entrada a la red. Esta tabla compara los resultados de la combinación de redes 5v+7w (5 clases para v y 7 para w) sesgadas, ya que la red 5v+7w sesgada (imagen recortada) es la que mejor resultados obtiene, siendo capaz de recorrer todos los circuitos en los dos sentidos.\\
+Se han llevado a cabo diferentes pruebas en función de las dimensiones de las imágenes (completa y recortada). En la Tabla \ref{resultados_completa_recortada} se recogen los resultados de la comparativa del empleo de una imagen con unas dimensiones u otras como entrada a la red. Esta tabla compara los resultados de la combinación de redes 5v+7w (5 clases para v y 7 para w) sesgadas (Sección \ref{influencia_datos}), ya que la red 5v+7w sesgada (imagen recortada) es la que mejor resultados obtiene, siendo capaz de recorrer todos los circuitos en los dos sentidos.\\
 
 
 \begin{table}[H]
@@ -245,25 +245,12 @@ En la clasificación de 5 clases de velocidad de tracción, las clases se divide
 
 
 
-Al comienzo de los experimentos se contempló la combinación del empleo de 4 clases de velocidad lineal y 7 clases de velocidad de rotación. Pronto se compobó que las redes entrenadas con estos números de clases no eran capaces de completar todos los circuitos. Esto se debe a que estos dos circuitos poseen curvas más abruptas, donde o bien el vehículo deberá aplicar una velocidad de rotación mayor o una velocidad de tracción menor.\\
+Al comienzo de los experimentos se contempló la combinación del empleo de 4 clases de velocidad lineal y 7 clases de velocidad de rotación. Pronto se comprobó que las redes entrenadas con estos números de clases no eran capaces de completar todos los circuitos. Esto se debe a que estos dos circuitos poseen curvas más abruptas, donde o bien el vehículo deberá aplicar una velocidad de rotación mayor o una velocidad de tracción menor.\\
 
-Para solventar este problema se optó por realizar una combinación de 4 clases de velocidad lineal y 9 clases de velocidad de rotación. En los resultados del pilotaje basado en estas redes se observó que el vehículo tampoco era capz de recorrer todos los circuitos en ambos sentidos. Llegamos a la conclusión de que aunque empleemos un mayor número de clases para la velocidad de rotación, no es suficiente para un buen rendimiento en la conducción.\\
+Para solventar este problema se optó por realizar una combinación de 4 clases de velocidad lineal y 9 clases de velocidad de rotación. En los resultados del pilotaje basado en estas redes se observó que el vehículo tampoco era capaz de recorrer todos los circuitos en ambos sentidos. Llegamos a la conclusión de que aunque empleemos un mayor número de clases para la velocidad de rotación, no es suficiente para un buen rendimiento en la conducción.\\
 
 La conclusión obtenida de los resultados anteriores es que este fallo se produce debido a que en los datos hay casos donde la velocidad es negativa, es decir, el vehículo da marcha atrás para poder girar sin chocar con la valla. Por este motivo se ha estudiado la combinación de 7 clases de velocidad de rotación y 5 clases de velocidad de tracción, donde se contemplan valores negativos.\\
 
-
-Estos resultados se muestran en las Tablas
-
-\ref{resultados_classificacion_recortada_4v_7w}, \ref{resultados_classificacion_normal_4v_7w}. En estas tablas se muestran los resultados para una combinación de redes sesgadas, otra combinación de redes balanceadas y otra de redes desbalanceadas (según el entrenamiento realizado). En la Tabla \ref{resultados_classificacion_recortada_4v_7w} se muestran los resultados de las redes entrenadas con imágenes de entrada recortadas. En la Tabla \ref{resultados_classificacion_normal_4v_7w} las redes han sido entrenadas con las imágenes de entrada completas (sin recortar).\\
-
-
-En los resultados de estas tablas se puede observar que los resultados obtenidos para las imágenes de entrada recortadas son bastante mejores que para las imágenes completas para cada una de las redes. Aún así vemos que ninguna de estas redes es capaz de completar todos los circuitos, aunque la red sesgada es la que mejor resultado obtiene. En el caso de la red 4v+7w sesgada de imagen recortada, se puede observar que completa 3 de los circuitos en ambos sentidos, pero los otros 2 no es capaz de completarlos. Esto se debe a que estos dos circuitos poseen curvas más abruptas, donde o bien el vehículo deberá aplicar una velocidad de rotación mayor o una velocidad de tracción menor.\\
-
-Al estudiar los resultados anteriores se contempló realizar una combinación de 4 clases de velocidad lineal y 9 clases de velocidad de rotación. Los resultados se muestran en las Tablas \ref{resultados_classificacion_recortada_4v_9w} (imagen recortada) y \ref{resultados_classificacion_completa_4v_9w} (imagen completa) para cada una de las redes entrenadas.\\
-
-En los resultados obtenidos para las redes 4v+9w se puede observar de nuevo que los resultados son mucho mejores para las redes entrenadas con la imagen recortada que con la imagen completa. Además, se puede ver que los mejores resultados se logran con la red 4v+9w sesgada, aunque aún así no se ha conseguido completar todos los circuitos en ambos sentidos. Llegamos a la conclusión de que aunque empleemos un mayor número de clases para la velocidad de rotación, no es suficiente para un buen rendimiento en la conducción.\\
-
-La conclusión obtenida de los resultados anteriores es que este fallo se produce debido a que en los datos hay casos donde la velocidad es negativa, es decir, el vehículo da marcha atrás para poder girar sin chocar con la valla. Por este motivo se ha estudiado la combinación de 7 clases de velocidad de rotación y 5 clases de velocidad de tracción, donde se contemplan valores negativos. Empleando este tipo de combinación de clases el vehículo es capaz de recorrer todos los circuitos en ambos sentidos empleando una imagen de entrada recortada y una red sesgada.\\
 
 Los resultados de las redes 4v+7w, 4v+9w, y 5v+7w, con redes sesgadas e imágenes recortadas como entrada, se pueden ver en la Tabla \ref{resultados_classificacion_recortada}. Se ha empleado este tipo de redes (sesgadas) y de imágenes porque con la red 5v+7w somos capaces de recorrer todos los circuitos.\\
 
@@ -295,7 +282,7 @@ Se ha llegado a la conclusión de que tanto el número de clases como el rango d
 
 
 
-\subsection{Influencia de los datos de entrenamiento}
+\subsection{Influencia de los datos de entrenamiento}\label{influencia_datos}
 
 Los resultados de las redes neuronales no solamente tienen que ver con la arquitectura de red empleada o con la forma de entrenar, sino que el conjunto de entrenamiento tiene una gran influencia sobre el mismo. En el entrenamiento se ha empleado la base de datos propia \textit{Dataset} (Sección \ref{dataset}), donde se tienen datos de todas las clasificacions mencionadas en la sección anterior. \\
 
@@ -328,7 +315,7 @@ En este conjunto de datos disponemos de un total de 17341 pares de imágenes-dat
     Numero de datos de "radically_left": 80 
     Numero de datos de "strongly_left": 745
     Numero de datos de "moderately_left": 2054
-    Numero de datos de "slightly\left": 2882
+    Numero de datos de "slightly_left": 2882
     Numero de datos de "slight": 4030
     Numero de datos de "slightly_right": 2606
     Numero de datos de "moderately_right": 2907
@@ -370,11 +357,11 @@ Si evaluamos el conjunto de entrenamiento (12138 pares de datos) con el fin de s
 Como se puede ver tanto en el conjunto de datos completo como en el conjunto de entrenamiento existe un desbalanceo de los datos, lo que influirá en el entrenamiento. Por este motivo, se han realizado 3 experimentos basándonos en la base de datos:\\
 
 \begin{itemize}
-    \item El primer experimento consiste en entrenar la red con el conjunto de entrenamiento sin ninguna modificación. A las redes neuronales entrenadas de esta forma se les llamará desbalanceadas.
+    \item El primer experimento consiste en entrenar la red con el conjunto de entrenamiento sin ninguna modificación. A las redes neuronales entrenadas de esta forma se las llamará desbalanceadas.
     
     \item El segundo experimento consiste en crear una nueva base de datos de entrenamiento balancedada, es decir, donde exista el mismo número de ejemplos por cada clase. Para lograr este objetivo se parte de la clase con el menor número de ejemplos, y se selecciona el mismo número de datos aleatoriamente para cada una de las otras clases. Por ejemplo, en la base de datos balanceada de 4 clases de velocidad lineal tendremos 1162 ejemplos por cada clase. A las redes entrenadas con estos conjuntos las llamaremos balanceadas.
     
-    \item El tercer experimento consiste en entrenar las redes con el conjunto de entrenamiento por completo, pero al entrenar se emplea el parámetro \textit{class\_weight} de Keras que nos permite dar pesos a cada clase. Este parámetro es un diccionario donde se indican las etiquetas (clases) y los pesos que le damos a cada etiqueta. De esta forma aunque dispongamos de menos datos para alguna de las clases le daremos más peso durante el entrenamiento. A las redes entrenadas de esta manera les llamaremos sesgadas.
+    \item El tercer experimento consiste en entrenar las redes con el conjunto de entrenamiento por completo, pero al entrenar se emplea el parámetro \textit{class\_weight} de Keras que nos permite dar pesos a cada clase. Este parámetro es un diccionario donde se indican las etiquetas (clases) y los pesos que le damos a cada etiqueta. De esta forma aunque dispongamos de menos datos para alguna de las clases le daremos más peso durante el entrenamiento. A las redes entrenadas de esta manera las llamaremos sesgadas.
 \end{itemize}
 
 
@@ -405,7 +392,9 @@ En la Tabla \ref{resultados_classificacion_bases_datos} se muestran los resultad
 Se concluye que son muy importantes los datos de entrenamiento para conseguir una red efectiva. En los resultados se ha podido observar que el mejor entrenamiento es con las redes sesgadas, es decir, donde le damos pesos a las clases. De esta forma podemos darle más importancia a las clases pertenecientes a curvas más abruptas que a las rectas. Así nuestro vehículo aprende mejor las relaciones visuales con las clases. Por otra parte con las redes entrenadas con el conjunto de datos desbalanceado es normal que no consigamos el mejor resultado debido a que tenemos muchos más datos para algunas clases que para otras. Sin embargo, aunque podría parecer que las redes entrenadas con el \textit{dataset} balanceado podrían dar el mejor resultado, esto no sucede así. La razón de este problema es que aunque poseeamos el mismo número de datos para cada una de las clases, no tenemos un gran número de imágenes por cada clase, lo que hace que el vehículo no sea capaz de aprender a conducir. Es decir, es necesario tener un amplio conjunto de entrenamiento que nos permita aprender las relaciones que deseamos.\\
 
 
-\begin{figure}
+Un dato a tener en cuenta es que si nos fijamos en la columna ``Programado'' se pueden ver los tiempos realizados por el piloto programado, mientras que si nos fijamos en la columna de tiempo de la red 5v+7w sesgada se ven los tiempos logrados con esta red. Los tiempos obtenidos del pilotaje mediante esta red no se encuentran muy lejanos a los resultados del piloto programado. Esto permite concluir que esta red aprende de forma correcta a conducir de forma autónoma. El resultado de la conducción del vehículo de forma satisfactoria se puede ver en las Figuras \ref{fig.nurburgrin_class} y \ref{fig.monaco_class}. Una ejecución típica de 5v+7w sesgada (imagen recortada) se puede ver en este vídeo  \footnote{\url{https://www.youtube.com/watch?v=3Wk6J5kirRY}}. En las Figuras \ref{fig.simple_frame1} y \ref{fig.simple_frame2} se pueden ver dos fotogramas de este vídeo. \\
+
+\begin{figure}[H]
 \begin{center}
 	\includegraphics[width=0.8\textwidth]{figures/Clasificacion/nurburgrin_class.png}
    \caption{Pilotaje del coche en el circuito nurburgrinLine}
@@ -413,7 +402,7 @@ Se concluye que son muy importantes los datos de entrenamiento para conseguir un
 \end{center}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
 	\includegraphics[width=0.8\textwidth]{figures/Clasificacion/monaco_class.png}
    \caption{Pilotaje del coche en el circuito monacoLine}
@@ -421,10 +410,8 @@ Se concluye que son muy importantes los datos de entrenamiento para conseguir un
 \end{center}
 \end{figure}
 
-Un dato a tener en cuenta es que si nos fijamos en la columna ``Programado'' se pueden ver los tiempos realizados por el piloto programado, mientras que si nos fijamos en la columna de tiempo de la red 5v+7w sesgada se ven los tiempos logrados con esta red. Los tiempos obtenidos del pilotaje mediante esta red no se encuentran muy lejanos a los resultados del piloto programado. Esto permite concluir que esta red aprende de forma correcta a conducir de forma autónoma. El resultado de la conducción del vehículo de forma satisfactoria se puede ver en las Figuras \ref{fig.nurburgrin_class} y \ref{fig.monaco_class}. Una ejecución típica de 5v+7w sesgada (imagen recortada) se puede ver en este vídeo  \footnote{\url{https://www.youtube.com/watch?v=3Wk6J5kirRY}}. En las Figuras \ref{fig.simple_frame1} y \ref{fig.simple_frame2} se pueden ver dos fotogramas de este vídeo. \\
 
-
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
 	\includegraphics[width=0.8\textwidth]{figures/Clasificacion/frame1.png}
    \caption{Pilotaje del coche en el circuito pistaSimple}
@@ -432,7 +419,7 @@ Un dato a tener en cuenta es que si nos fijamos en la columna ``Programado'' se 
 \end{center}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \begin{center}
 	\includegraphics[width=0.8\textwidth]{figures/Clasificacion/frame2.png}
    \caption{Pilotaje del coche en el circuito pistaSimple}
