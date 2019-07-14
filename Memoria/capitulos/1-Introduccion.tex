@@ -8,7 +8,7 @@ Desde la antigüedad el ser humano ha soñado con crear máquinas capaces de pen
 
 En \acrshort{ia} existen diversos desafíos muy interesantes; sin embargo, en la mayoría de ellos es extremadamente difícil alcanzar el rendimiento y la eficiencia del cerebro humano. Las máquinas nos superan en tareas como procesamiento de gran cantidad de datos, almacenamiento de información o tareas de razonamiento como el juego de ajedrez. Sin embargo, algunas habilidades que el ser humano realiza inconscientemente, como caminar o ver, son aún muy complejas para las máquinas.\\
 
-La \acrshort{ia} comprende diferentes campos: \textit{Machine Learning}, \textit{Knowledge Engineering}, Lingüística computacional, \acrfull{rna}~\cite{rna}, Procesamiento del lenguaje natural, Minería de datos, \acrfull{va}, etc. Este proyecto se enfoca en la \acrshort{va}, que trata de analizar y procesar imágenes de tal forma que un ordenador sea capaz de interpretar dichas imágenes. La \acrshort{ia} intenta conseguir que una máquina realice el mismo proceso que el Sistema Visual Humano de tal forma que sea capaz de tomar decisiones y actuar en función de la situación en que se encuentre.\\
+La \acrshort{ia} comprende diferentes campos: \textit{Machine Learning}, \textit{Knowledge Engineering}, Lingüística computacional, \acrfull{rna}~\cite{rna}, Procesamiento del lenguaje natural, Minería de datos, \acrfull{va}, etc. Este proyecto se enfoca en la \acrshort{va}, que trata de analizar y procesar imágenes de tal forma que un ordenador sea capaz de interpretar dichas imágenes. La \acrshort{va} intenta conseguir que una máquina realice el mismo proceso que el Sistema Visual Humano de tal forma que sea capaz de tomar decisiones y actuar en función de la situación en que se encuentre.\\
 
 El aprendizaje de las máquinas es un punto de encuentro de diferentes disciplinas que engloba a la estadística, la geometría, la programación y la optimización, entre otras. La \acrshort{va} intenta simular las capacidades del ojo y el cerebro humanos, empleando los conceptos de estas disciplinas.\\
 
@@ -36,7 +36,7 @@ Otro ejemplo donde la \acrshort{va} supone un gran avance es en la comunidad mé
 \end{figure}
 
 
-Una posible aplicación es el mantenimiento e inventariado urbano. Es posible identificar problemas en intalaciones y mobiliario urbano (averías, mal estado de contenedores (Figura \ref{fig.contenedor}), socavones en la vía pública, etc) mediante cámaras ubicadas por ejemplo en autobuses. Los mantenimientos de infraestructuras de transporte, como vías y cables ferroviarios, pueden programarse automáticamente implantando sistemas de \acrshort{va} en los propios trenes. 
+Una posible aplicación es el mantenimiento e inventariado urbano. Es posible identificar problemas en instalaciones y mobiliario urbano (averías, mal estado de contenedores (Figura \ref{fig.contenedor}), socavones en la vía pública, etc) mediante cámaras ubicadas por ejemplo en autobuses. Los mantenimientos de infraestructuras de transporte, como vías y cables ferroviarios, pueden programarse automáticamente implantando sistemas de \acrshort{va} en los propios trenes. 
 
 
 \begin{figure}[H]
@@ -100,7 +100,7 @@ Hoy en día el principal obstáculo para la conducción autónoma no se deriva d
 
 Una Red Neuronal Artificial \acrshort{rna} es un modelo matemático inspirado en el comportamiento biológico de las neuronas y en cómo se organizan dichas neuronas en el cerebro. Estas redes intentan imitar ciertas  características propias de los seres humanos, como pueden ser la capacidad de memorizar y de asociar hechos. Estas neuronas se organizan por capas.\\
 
-En este proyecto emplearemos la red multicapa, que consta de dos o más capas de neuronas interconectdas. Cada una de las capas puede hacer un tipo de transformación en su entrada, donde las señales atraviesan todas las capas. Cuando existen más de dos capas, hablamos de que la red posee capas ocultas. En esta red normalmente las capas iniciales realizan generalizaciones simples, y en capas más profundas se hacen las generalizaciones más complejas.\\
+En este proyecto emplearemos la red multicapa, que consta de dos o más capas de neuronas interconectadas. Cada una de las capas puede hacer un tipo de transformación en su entrada, donde las señales atraviesan todas las capas. Cuando existen más de dos capas, hablamos de que la red posee capas ocultas. En esta red normalmente las capas iniciales realizan generalizaciones simples, y en capas más profundas se hacen las generalizaciones más complejas.\\
 
 La característica más especial del aprendizaje con redes neuronales es la capacidad de aprender y generalizar gracias a una base de datos específica para el problema que se debe tratar. Una vez esta red es entrenada es capaz de generar resultados satisfactorios para ejemplos que no ha visto anteriormente.\\
 
@@ -124,7 +124,7 @@ Las \acrshort{cnn} siguen el esquema de la Figura \ref{fig.arquitectura_cnn} \ci
 		\end{center}
 \end{figure}
 
-Además, en este tipo de redes es importante tener en cuenta tanto las dimensiones de entrada como las dimensiones de las distintas capas. Las imágenes de entrada normalmente tienen dimensiones W x H x C, donde W es el ancho de la imagen, H es la altura, y C es el número de canales de la imagen. Cuando la información va atravesando las capas, normalmente se disminuye los valores W x H, mientras que la profundidad de la red aumenta. Las primeras capas proporcionan una información localizada, es decir, el donde; mientras que las capas finales proporcionan información acerca del contenido de la imagen.
+Además, en este tipo de redes es importante tener en cuenta tanto las dimensiones de entrada como las dimensiones de las distintas capas. Las imágenes de entrada normalmente tienen dimensiones W x H x C, donde W es el ancho de la imagen, H es la altura, y C es el número de canales de la imagen. Cuando la información va atravesando las capas, normalmente se disminuyen los valores W x H, mientras que la profundidad de la red aumenta. Las primeras capas proporcionan una información localizada, es decir, el donde; mientras que las capas finales proporcionan información acerca del contenido de la imagen.
 
 
 \subsection{Redes neuronales recurrentes}
@@ -195,7 +195,7 @@ El funcionamiento de esta capa se basa en una ventana deslizante que actúa sobr
 
 \begin{figure}[H]
   \begin{center}
-    \includegraphics[width=0.5\textwidth]{figures/Introduccion/pooling.png}
+    \includegraphics[scale=0.4]{figures/Introduccion/pooling.png}
 		\caption{Ejemplo de capa \textit{max pooling}}
 		\label{fig.pooling}
 		\end{center}
@@ -209,7 +209,7 @@ Las capas completamente conectadas o \textit{fully connected} conectan cada neur
 
 \subsubsection{Capa LSTM}
 
-La unidad LSTM puede añadir o quitar información, lo cual lo hace mediante estructuras denominadas puertas. Estas puertas son como una especiede camino para dejar pasar información. Una unidad LSTM tiene tres puertas.
+La unidad LSTM puede añadir o quitar información, lo cual lo hace mediante estructuras denominadas puertas. Estas puertas son como una especie de camino para dejar pasar información. Una unidad LSTM tiene tres puertas.
 
 \begin{itemize}
     \item \textit{Forget gate}. Decide que información debe desechar. 
