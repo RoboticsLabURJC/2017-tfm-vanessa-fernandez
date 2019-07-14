@@ -40,7 +40,7 @@ En la grabación del conjunto de datos se incluyen tres conductores para evitar 
 
 \section{Simuladores para conducción autónoma}
 
-Un vehículo es caro, lo que implica que muchas investigaciones sobre conducción autónoma solamente estén disponibles para centros de investigacón y corporaciones. Cuando se emplea un vehículo puede que algo falle al probarlo, pudiendo incluso romperse el vehículo. Hoy en día existen numerosos simuladores, lo que permite a cualquier persona crear, programar y probar infinidad de vehículos y escenarios de forma segura y económica. Algunos de los simuladores más empleados se explican a continuación.
+Un vehículo es caro, lo que implica que muchas investigaciones sobre conducción autónoma solamente estén disponibles para centros de investigación y corporaciones. Cuando se emplea un vehículo puede que algo falle al probarlo, pudiendo incluso romperse el vehículo. Hoy en día existen numerosos simuladores, lo que permite a cualquier persona crear, programar y probar infinidad de vehículos y escenarios de forma segura y económica. Algunos de los simuladores más empleados se explican a continuación.
 
 \subsection{CARLA}
 
@@ -103,7 +103,7 @@ Técnicamente, el simulador actúa como un servidor al cual el programa puede co
 
 \subsection{Deepdrive 2.0}
 
-Deepdrive 2.0 \cite{deepdrive} es un simulador de código abierto para Linux y Windows. Los simuladores actuales parecen vincularse a un \textit{hardware} específico o no tienen forma de vincularse a vehículos físicos. Para conseguir este propóstio Deepdrive (Figura \ref{fig.deepdrive}) incluye una amplia gama de sensores, automóviles y entornos, y facilita la transferencia a vehículos reales. Esto permitirá que un mayor número de personas utilice únicamente el simulador para hacer pruebas constantes.\\
+Deepdrive 2.0 \cite{deepdrive} es un simulador de código abierto para Linux y Windows. Los simuladores actuales parecen vincularse a un \textit{hardware} específico o no tienen forma de vincularse a vehículos físicos. Para conseguir este propósito Deepdrive (Figura \ref{fig.deepdrive}) incluye una amplia gama de sensores, automóviles y entornos, y facilita la transferencia a vehículos reales. Esto permitirá que un mayor número de personas utilice únicamente el simulador para hacer pruebas constantes.\\
 
 Presenta algunas características únicas respecto a otros simuladores de código abierto:
 
@@ -170,7 +170,7 @@ Esta máscara de visualización muestra qué regiones de la imagen de entrada co
 Los resultados muestran que PilotNet aprende a reconocer objetos relevantes en la carretera y que es capaz de mantener el vehículo en el carril con éxito en una amplia variedad de condiciones, independientemente de si las marcas del carril están presentes en la carretera o no.\\
 
 
-En ``Self-driving a Car in Simulation Through a CNN'' \cite{self-driving} se propone una nueva arquitectura de red, llamada TinyPilotnet, que se deriva de la red Pilotnet \cite{end2end} \cite{explaining-end2end}. La red TinyPilotnet (Figura \ref{fig.tinypilotnet}) está compuesta por una capa de entrada, en la que se introducirán imágenes de resolución 16x32 y un único canal, seguida por dos capas convolucionales de kernel 3x3, y una capa \textit{dropout} configurada al 50\% de probabilidad para agilizar el entrenamiento. Finalmente, el tensor de información se convierte en un vector que es conectado a dos capas \textit{fully-connected} que conducen a un par de neuronas, cada una de ellas dedicada a predecir los valores de dirección y aceleración respectivamente. La imagen de entrada tiene un solo canal formado por el canal de saturación del espacio de color HSV.\\
+En ``Self-driving a Car in Simulation Through a CNN'' \cite{self-driving} se propone una nueva arquitectura de red, llamada TinyPilotNet, que se deriva de la red PilotNet \cite{end2end} \cite{explaining-end2end}. La red TinyPilotNet (Figura \ref{fig.tinypilotnet}) está compuesta por una capa de entrada, en la que se introducirán imágenes de resolución 16x32 y un único canal, seguida por dos capas convolucionales de kernel 3x3, y una capa \textit{dropout} configurada al 50\% de probabilidad para agilizar el entrenamiento. Finalmente, el tensor de información se convierte en un vector que es conectado a dos capas \textit{fully-connected} que conducen a un par de neuronas, cada una de ellas dedicada a predecir los valores de dirección y aceleración respectivamente. La imagen de entrada tiene un solo canal formado por el canal de saturación del espacio de color HSV.\\
 
 \begin{figure}
 \begin{center}
@@ -180,7 +180,7 @@ En ``Self-driving a Car in Simulation Through a CNN'' \cite{self-driving} se pro
 \end{center}
 \end{figure}
 
-En ``Event-based  vision  meets  deep  learning  on  steering  prediction  forself-driving  cars'' \cite{event} se presenta un enfoque de red neuronal profunda que emplea cámaras de eventos (sensores de inspiración biológica que no adquieren imágenes completas a una velocidad de \textit{frames} fija, sino que tienen píxeles independientes que sólo producen cambios de intensidad de forma asíncrona en el momento en el que ocurren) para predecir el ángulo de giro de un vehículo. Los eventos se convierten en fotogramas de eventos por acumulación de píxeles en un intervalo de tiempo constante. Posteriormente, una red neuronal profunda los asigna a los ángulos de dirección.\\
+En ``Event-based  vision  meets  deep  learning  on  steering  prediction  for self-driving  cars'' \cite{event} se presenta un enfoque de red neuronal profunda que emplea cámaras de eventos (sensores de inspiración biológica que no adquieren imágenes completas a una velocidad de \textit{frames} fija, sino que tienen píxeles independientes que sólo producen cambios de intensidad de forma asíncrona en el momento en el que ocurren) para predecir el ángulo de giro de un vehículo. Los eventos se convierten en fotogramas de eventos por acumulación de píxeles en un intervalo de tiempo constante. Posteriormente, una red neuronal profunda los asigna a los ángulos de dirección.\\
 
 En este artículo inicialmente apilan los fotogramas de eventos de diferente polaridad, creando una imagen de eventos 2D. Después, implementan una serie de arquitecturas ResNet, es decir, ResNet18 y ResNet50. Estas redes son utilizadas como extractores de características para el problema de regresión, considerando solo las capas convolucionales. Para codificar las características de la imagen extraídas de la última capa convolucional en un descriptor vectorizado, se emplea una capa \textit{global average pooling} que devuelve la media del canal de las características. Después se agrega una capa \textit{fully-connected} (con dimensionalidad 256 para ResNet18 y 1024 para ResNet50), seguida de una ReLU no lineal y una capa \textit{fully-connected} unidimensional para generar el ángulo.\\
 
@@ -203,7 +203,7 @@ Además, en este artículo se demuestra cualitativamente que las métricas está
 \subsection{Redes neuronales recurrentes}
 
 
-Las redes neuronales recurrentes (RNNs) representan una clase de redes neuronales artificiales que utilizan células de memoria para modelar la relación temporal entre los datos de entrada y, por lo tanto, aprender la dinámica subyacente. Con la introducción de las Long Short-Term Memory (LSTM), el modelado de relaciones a largo plazo se hizo posible dentro de RNN.\\
+Las \acrfull{rnn} representan una clase de redes neuronales artificiales que utilizan células de memoria para modelar la relación temporal entre los datos de entrada y, por lo tanto, aprender la dinámica subyacente. Con la introducción de las \acrfull{lstm}, el modelado de relaciones a largo plazo se hizo posible dentro de RNN.\\
 
 En múltiples investigaciones sobre conducción autónoma se ha aprovechado la capacidad de estas redes para aprovechar la información de imágenes consecutivas. Algunas de estas investigaciones las veremos a continuación.\\
 
@@ -306,7 +306,9 @@ Los modelos de robots que se emplean en la simulación son creados mediante alg�
 
 \acrfull{ros} \footnote{https://www.ros.org/} \cite{middleware1} es una plataforma de software libre para el desarrollo de software de robots, que provee servicios estándar de un sistema operativo como la abstracción del harware, el control de dispositivos de bajo nivel, mecanismos de intercambio de mensajes entre procesos y un conjunto de herramientas ampliamente utilizadas en robótica. Esta plataforma es de código abierto y se distribuye bajo licencia BSD.\\
 
-Uno de los grandes beneficios del uso de \acrshort{ros} es la integración con el simulador Gazebo. Para realizar esta comunicación se hace uso de un conjunto de paquetes de \textit{ros} llamado gazebo\_ros\_pkgs \footnote{http://wiki.ros.org/gazebo\_ros\_pkgs} \cite{ros_integration}. Gazebo se integra con \acrshort{ros} mediante \textit{ROS Messages}, servicios y reconfiguración dinámica. En la Figura \ref{fig.ros} se puede observar una visión general de la interfaz gazebo\_ros\_pkgs.\\
+Uno de los grandes beneficios del uso de \acrshort{ros} es la integración con el simulador Gazebo. Para realizar esta comunicación se hace uso de un conjunto de paquetes de \acrshort{ros} llamado gazebo\_ros\_pkgs \footnote{http://wiki.ros.org/gazebo\_ros\_pkgs} \cite{ros_integration}. Gazebo se integra con \acrshort{ros} mediante \textit{ROS Messages}, servicios y reconfiguración dinámica. En la Figura \ref{fig.ros} se puede observar una visión general de la interfaz gazebo\_ros\_pkgs.\\
+
+\acrshort{ros} está formado por una colección de nodos o procesos que se combinan en un gráfico, y se comunican entre ellos mediante \textit{topics} de transimisón, servicios \acrshort{rpc}, y el Servidor de Parámetros. El sistema de control de un robot se compone de diferentes nodos, siendo mayor el número de nodos cuanta mayor sea la funcionalidad del robot. En \acrshort{ros} existen distintos nodos que controlan un láser, cámaras, motores de ruedas, odometría, etc. El uso de nodos de \acrshort{ros} en el robot permite localizar más fácilmente los fallos que puedan surgir, ya que cada fallo se concentra únicamente en un nodo.\\
 
 
 \begin{figure}[H]
@@ -317,8 +319,6 @@ Uno de los grandes beneficios del uso de \acrshort{ros} es la integración con e
 		\end{center}
 \end{figure}
 
-
-\acrshort{ros} está formado por una colección de nodos o procesos que se combinan en un gráfico, y se comunican entre ellos mediante \textit{topics} de transimisón, servicios \acrshort{rpc}, y el Servidor de Parámetros. El sistema de control de un robot se compone de diferentes nodos, siendo mayor el número de nodos cuanta mayor sea la funcionalidad del robot. En \acrshort{ros} existen distintos nodos que controlan un láser, cámaras, motores de ruedas, odometría, etc. El uso de nodos de \acrshort{ros} en el robot permite localizar más fácilmente los fallos que puedan surgir, ya que cada fallo se concentra únicamente en un nodo.\\
 
 Los \textit{topics} de \acrshort{ros} \footnote{http://wiki.ros.org/Topics} \cite{ros_book} son una forma de comunicación de los nodos. Los \textit{topics} también se conocen como buses sobre los cuales los nodos intercambian mensajes. Los \textit{topics} implementan un mencanismo de comunicación de publicación y/o suscripción. La semántica de publicación y/o suscripción de los \textit{topics} es anónima, lo que desacopla la producción de información de consumo. De esta forma los nodos no saben con quien se están comunicando. Además, los nodos que desean recibir mensajes sobre un \textit{topic} se deben suscribir a él para obtener la información que publique dicho \textit{topic}. Después de suscribirse, todos los mensajes sobre el \textit{topic} se envían al nodo que realizó la solicitud. Es posible que existan varios suscriptores del mismo \textit{topic}.\\
 
@@ -357,6 +357,8 @@ OpenCV \footnote{\url{http://opencv.org/}} es una librería de código abierto d
 
 Esta librería puede ser usada en MacOS, Windows, Android y Linux, y existen versiones para C\#, Python y Java, a pesar de que originalmente era una librería en C/C++. Además, hay interfaces en desarrollo para Ruby, Matlab y otros lenguajes.\\
 
+OpenCV está compuesto por numerosas librerías con las cuales podemos manejar estructuras de datos, detectar bordes y esquinas, escalar o rotar imágenes, modificar el espacio de color de una imagen, realizar emparejamiento, detectar líneas y círculos, tratar objetos en 3D, crear ventanas y asociar eventos a dichas ventanas, etc. Incorpora funciones básicas para modelar el fondo, sustraer dicho fondo, generar imágenes de movimiento MHI (Motion History Images), etc. Además, incluye funciones para determinar dónde hubo movimiento y en qué dirección. \\
+
 \begin{figure}[H]
   \begin{center}
     \includegraphics[width=0.6\textwidth]{figures/Estado_arte/opencv.png}
@@ -365,7 +367,6 @@ Esta librería puede ser usada en MacOS, Windows, Android y Linux, y existen ver
 		\end{center}
 \end{figure}
 
-OpenCV está compuesto por numerosas librerías con las cuales podemos manejar estructuras de datos, detectar bordes y esquinas, escalar o rotar imágenes, modificar el espacio de color de una imagen, realizar emparejamiento, detectar líneas y círculos, tratar objetos en 3D, crear ventanas y asociar eventos a dichas ventanas, etc. Incorpora funciones básicas para modelar el fondo, sustraer dicho fondo, generar imágenes de movimiento MHI (Motion History Images), etc. Además, incluye funciones para determinar dónde hubo movimiento y en qué dirección. \\
 
 Desde su aparición OpenCV ha sido usado en numerosas aplicaciones. Hay una gran cantidad de empresas y centros de investigación que emplean estas técnicas como IBM, Microsoft, Intel, SONY, Siemens, Google, Stanford, MIT, CMU, Cambridge e INRIA.\\
 
