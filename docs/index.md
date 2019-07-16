@@ -3,6 +3,8 @@ layout: default
 ---
 # Vanessa Fernández's TFM student
 
+* [Week 38: Final Videos](weeks/week38.md)
+* [Week 37: Videos](weeks/week37.md)
 * [Weeks 35, 36: Results](weeks/week35_36.md)
 * [Week 34: Reading information, Controlnet](weeks/week34.md)
 * [Week 33: Controlnet, Reading information](weeks/week33.md)
