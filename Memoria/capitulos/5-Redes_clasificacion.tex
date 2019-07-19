@@ -11,13 +11,13 @@ En la conducción, la red predecirá una determinada clase tanto para v como par
 
 \section{Arquitecturas de red}
 
-En esta sección se explicarán las arquitecturas de red que se han estudiado en redes de clasificación y las experiencias que se han obtenido de cada arquitectura. Las redes neuronales empleadas para clasificación son \acrshort{cnn}.
+En esta sección se explicarán las arquitecturas de red de clasificación que se han estudiado y parte de las experiencias recabadas con ellas. Las redes neuronales empleadas para clasificación son todas \acrshort{cnn}.
 
 \subsection{LeNet-5}
 
 En el momento inicial se empleó la arquitentura de red LeNet-5 \cite{LeCunGradient} (Figura \ref{fig.Lenet}), propuesta por Yann LeCun, Leon Bottou, Yosuha Bengio y Patrick Haffner para el reconocimiento de carácteres.\\
 
-LeNet-5 es una red muy simple, que consta únicamente de 7 capas. Tres de estas capas son capas convolucionales (C1, C3 y C5), las cuales emplean un filtro de tamaño 5x5 y un \textit{stride} de 1. Entre las capas convolucionales se aplica una capas de submuestreo (\textit{pooling}), es decir, en total dos capas de \textit{pooling} (S2 y S4) con un tamaño de filtro de 2x2. La capa 6 es una \textit{fully-connected} (F6), seguida por la capa de salida.\\
+LeNet-5 es una red muy simple que consta únicamente de 7 capas. Tres de estas capas son capas convolucionales (C1, C3 y C5), las cuales emplean un filtro de tamaño 5x5 y un \textit{stride} de 1. Entre las capas convolucionales se aplica una capa de submuestreo (\textit{pooling}), es decir, en total dos capas de \textit{pooling} (S2 y S4) con un tamaño de filtro de 2x2. La capa 6 es una \textit{fully-connected} (F6), seguida por la capa de salida.\\
 
 \begin{figure}
 \begin{center}
@@ -27,11 +27,12 @@ LeNet-5 es una red muy simple, que consta únicamente de 7 capas. Tres de estas 
 \end{center}
 \end{figure}
 
-Al comienzo del proyecto se empleó LeNet-5 para entrenar las redes de clasificación, pero pronto se vió que era un modelo demasiado simple y no era suficiente para que el coche fuera capaz de aprender a conducir de forma autónoma. 
+Al comienzo del proyecto se empleó LeNet-5 para entrenar las redes de clasificación, pero pronto se vió que era un modelo demasiado simple y no era suficiente para que el coche aprendiera a conducir de forma autónoma. 
+
 
 \subsection{SmallerVGGNet}
 
-La arquitectura de red empleada \cite{smallerVggNet} (Figura \ref{fig.SmallerVGGNet}) es una versión reducida del modelo VGGNet, que fue propuesto por Simonyan y Zisserman en el artículo ``Very Deep Convolutional Networks for Large Scale Image Recognition'' \cite{vgg}. La arquitectura SmallerVGGNet empleada está diseñada para problemas multiclase. \\
+La arquitectura de red finalmente empleada \cite{smallerVggNet} (Figura \ref{fig.SmallerVGGNet}) es una versión reducida del modelo VGGNet, que fue propuesto por Simonyan y Zisserman en el artículo ``Very Deep Convolutional Networks for Large Scale Image Recognition'' \cite{vgg}. La arquitectura SmallerVGGNet empleada está diseñada para problemas multiclase. \\
 
 \begin{figure}
 \begin{center}
@@ -48,15 +49,14 @@ Esta arquitectura es bastante más sofisticada que la arquitectura LeNet-5, perm
 
 
 \section{Experimentos}
-Se han realizado numerosas pruebas y experimentos con estas redes sobre la influencia de los datos
-de entrenamiento, imágenes completas o recortadas, el número de clases y su combinación, etc.\\
+Se han realizado numerosas pruebas y experimentos con estas redes para caracterizar la influencia de los datos de entrenamiento, el uso de imágenes completas o recortadas, el número de clases y su combinación, etc.\\
 
 
 \subsection{Métricas de evaluación}\label{metrica_clasificacion}
 
-Con el fin de evaluar los resultados obtenidos tras el entrenamiento se calculan ciertas métricas de evaluación en el conjunto de \textit{test}. En las redes de clasificación las métricas que se han evaluado son: \textit{Accuracy}, \textit{Accuracy Top 2}, \textit{Precision}, \textit{Recall}, y \textit{F1-Score}.\\
+Con el fin de evaluar objetivamente cada red entrenada se calculan ciertas métricas de evaluación en el conjunto de \textit{test}. En las redes de clasificación las métricas neuronales que se han evaluado son: \textit{Accuracy}, \textit{Accuracy Top 2}, \textit{Precision}, \textit{Recall}, y \textit{F1-Score}.\\
 
-En los problemas de clasificación, \textit{Accuracy} es el número de predicciones correctas realizadas por el modelo sobre todo tipo de predicciones realizadas. El \textit{Accuracy} se puede calcular con la siguiente fórmula:
+En los problemas de clasificación, \textit{Accuracy} es el número de predicciones correctas realizadas por el modelo sobre todo tipo de predicciones realizadas. Se puede calcular con la siguiente fórmula:
 
 $$\frac{1}{N} \sum\limits_{n=1}^N \delta\{ \hat{p}_n = p_n \}$$
 \vspace{10pt}
@@ -90,11 +90,11 @@ La métrica \textit{F1-Score} es una puntuación única que representa tanto a P
 \[F1-Score =  \frac{2 * Precision * Recall}{Precision + Recall} \]
 \vspace{10pt}
 
-Las métricas más importantes que usaremos para evaluar el rendimiento de las redes son el porcentaje recorrido por el piloto autónomo basado en las redes, así como el tiempo por vuelta al circuito. Estas métricas nos darán una idea real del funcionamiento de las redes en ejecución.\\
+Adicionalmente, las métricas operativas más importantes que usaremos para evaluar el rendimiento de las redes son el porcentaje del circuito recorrido por el piloto autónomo basado en las redes, así como el tiempo por vuelta al circuito. Estas métricas nos darán una idea real del funcionamiento de las redes en ejecución.\\
 
 Estas métricas calculadas en el conjunto de \textit{test} nos dan una idea de cómo de bien ha ido el entrenamiento. Cada una de las medidas se calculará para cada una de las redes entrenadas para v y w.\\
 
-En la Tabla \ref{metricas_classificacion_recortada_w} se pueden ver los resultados de las métricas promedio para las redes de velocidad de rotación (w) con imágenes recortadas. En este caso vemos 3 redes de 7 clases de w en función de cómo entrenamos según los datos, y 3 redes con 9 clases para w.\\
+En la Tabla \ref{metricas_classificacion_recortada_w} se pueden ver los resultados de las métricas promedio para las redes de velocidad de rotación (w) con imágenes recortadas. En este caso vemos tres redes de 7 clases de w en función de cómo entrenamos según los datos, y tres redes con 9 clases para w.\\
 
 
 \begin{table}[H]
@@ -132,14 +132,14 @@ En la Tabla \ref{metricas_classificacion_recortada_v} se pueden observar los res
 \end{table}
 
 
-En estas tablas se pueden ver que los resultados en el conjunto de prueba en la mayoría de casos superan el 90\%, pero esto no implica que la conducción vaya a tener éxito como veremos en las proximas secciones, ya que el resultado de las métricas es un promedio de todas las clases. Esto quiere decir que por ejemplo en una clase nos puede dar un resultado de \textit{Accuracy} del 100\% mientras que en otra clase nos da un resultado mucho menor, pero al hacer un promedio nos hace intuir que los resultados serán buenos. Aún así nos pueden dar una idea de cómo ajustar los parámetros durante el entrenamiento.\\
+En estas tablas se pueden ver que los resultados en el conjunto de prueba en la mayoría de casos superan el 90\%, pero esto no implica que la conducción vaya a tener éxito, ya que el resultado de las métricas es un promedio de todas las clases. Por ejemplo en una clase nos puede dar un resultado de \textit{Accuracy} del 100\% mientras que en otra clase nos da un resultado mucho menor, pero al hacer un promedio nos hace intuir que los resultados serán buenos. Aún así dan una idea de cómo ajustar los parámetros durante el entrenamiento.\\
 
-En las pruebas realizadas se han obtenido los mejores resultados en cuanto a porcentaje recorrido y tiempo por vuelta de circuito empleando la red sesgada con 5 clases de v y 7 de w. Sin embargo, como vemos las Tablas \ref{metricas_classificacion_recortada_w} y \ref{metricas_classificacion_recortada_v}, hay alguna otra red que obtiene mejores resultados en las métricas de evaluación en cuanto a accuracy, recall, precision y F1-Score se refiere. Por lo que, se ha comprobado que aunque obtengamos buenos resultados en las métricas de evaluación para cada una de las clases, es posible que en algunos casos con estas redes el vehículo choque contra la valla, y en cambio en otros casos donde se obtengan peores resultados el vehículo será capaz de completar el circuito. Esto se debe a que cuando estamos pilotando el coche, puede ser que si predecimos mal un valor no implique mucha desviación del coche de la línea roja. Pero, sin embargo, si la red en un instante dado predice 3 o 4 valores seguidos mal, el coche se irá desviando cada vez más y no será capaz de rectificar para volver a la recta. Esto indica que el entrenaminto de redes neuronales para conducción autónoma sea algo complejo y necesite mucha experimentación antes de lograr un buen resultado.
+En las pruebas realizadas se han obtenido los mejores resultados operativos en cuanto a porcentaje recorrido y tiempo por vuelta de circuito empleando la red sesgada con 5 clases de v y 7 de w. Sin embargo, como vemos las Tablas \ref{metricas_classificacion_recortada_w} y \ref{metricas_classificacion_recortada_v}, hay alguna otra red que obtiene mejores resultados en las métricas de evaluación en cuanto a accuracy, recall, precision y F1-Score se refiere. Se comprueba con ello que aunque obtengamos buenos resultados en las métricas neuronales para cada una de las clases, es posible que en algunos casos con estas redes el vehículo choque contra la valla, y en cambio en otros casos donde se obtengan peores resultados neuronales el vehículo será capaz de completar el circuito. Esto se debe a que cuando estamos pilotando el coche, puede ser que si predecimos mal un valor no implique mucha desviación del coche de la línea roja. Pero, sin embargo, si la red en un instante dado predice 3 o 4 valores seguidos mal, el coche se irá desviando cada vez más y no será capaz de rectificar para volver a la recta. Esto indica que el entrenaminto de redes neuronales para conducción autónoma es algo complejo y se necesita mucha experimentación antes de lograr un buen resultado.
 
 
 \subsection{Imágenes de distintas dimensiones}\label{img_dimension}
 
-Las imágenes capturadas por la cámara del vehículo tienen unas dimensiones de 640 x 480 píxeles. Algunas pruebas consisten en emplear las imágenes completas (Figura \ref{fig.imgs_class}) y entrenar las redes de clasificación con las mismas en formato BGR. Antes de entrenar las redes con estas imágenes, se reducen las dimensiones de las mismas por un factor de escala de 1/4 en horizontal y 1/4 en vertical en total para aliviar la carga del entrenamiento. Por lo que las imágenes a la entrada de la red tienen unas dimensiones de (160, 120, 3).\\
+Las imágenes capturadas por la cámara del vehículo tienen unas dimensiones de 640 x 480 píxeles. Algunas pruebas emplean las imágenes completas (Figura \ref{fig.imgs_class}) y se entrenan las redes de clasificación con las mismas en formato BGR. Antes de entrenar las redes con estas imágenes, se reducen las dimensiones de las mismas por un factor de escala de 1/4 en horizontal y 1/4 en vertical en total para aliviar la carga del entrenamiento. Por lo que las imágenes a la entrada de la red tienen unas dimensiones de (160, 120, 3).\\
 
 \begin{figure}
 \begin{center}
@@ -149,20 +149,21 @@ Las imágenes capturadas por la cámara del vehículo tienen unas dimensiones de
 \end{center}
 \end{figure}
 
-Además se han realizado pruebas empleando un recorte de imagen (\textit{image cropping}), que consiste en extraer una zona concreta de la imagen donde se considera que se almacena la parte relevante de información. Es decir, esta imagen (Figura \ref{fig.imgs_class}) contiene información acerca de la carretera, eliminando de esta forma la parte del cielo de la imagen. Esta imagen tiene unas dimensiones de 240 x 640 píxeles, aunque antes de entrenar la red se reducen las dimensiones 1/4 en horizontal y 1/4 en vertical, siendo las dimensiones de la imagen de (160, 60, 3) al entrar a la red.\\
+Además, se han realizado pruebas empleando un recorte de imagen (\textit{image cropping}), que consiste en extraer una zona concreta de la imagen donde se considera que se almacena la parte relevante de información. La imagen recortada (Figura \ref{fig.imgs_class}) contiene información acerca de la carretera, eliminando de esta forma la parte del cielo de la imagen. Esta imagen tiene unas dimensiones de 240 x 640 píxeles, aunque antes de entrenar la red se reducen las dimensiones 1/4 en horizontal y 1/4 en vertical, siendo las dimensiones de la imagen de (160, 60, 3) al entrar a la red.\\
 
 
-Se han llevado a cabo diferentes pruebas en función de las dimensiones de las imágenes (completa y recortada). En la Tabla \ref{resultados_completa_recortada} se recogen los resultados de la comparativa del empleo de una imagen con unas dimensiones u otras como entrada a la red. Esta tabla compara los resultados de la combinación de redes 5v+7w (5 clases para v y 7 para w) sesgadas (Sección \ref{influencia_datos}), ya que la red 5v+7w sesgada (imagen recortada) es la que mejor resultados obtiene, siendo capaz de recorrer todos los circuitos en los dos sentidos.\\
+Se han llevado a cabo diferentes pruebas en función de las dimensiones de las imágenes (completa y recortada). En la Tabla \ref{resultados_completa_recortada} se recogen los resultados de la comparativa. Esta tabla compara los resultados de la combinación de redes 5v+7w (5 clases para v y 7 para w) sesgadas (Sección \ref{influencia_datos}), ya que la red 5v+7w sesgada (imagen recortada) es la que mejor resultados obtiene, siendo capaz de recorrer todos los circuitos en los dos sentidos.\\
 
 
 \begin{table}[H]
 \centering
 \caption{Resultados de conducción con redes de clasificación (imagen completa e imagen recortada)}
 \label{resultados_completa_recortada}
-\begin{tabular}{c|c|c|c|c|c||}
+\resizebox{16cm}{!} {
+\begin{tabular}{c|c|c|c|c|c|}
 \cline{2-6}
                           & \multicolumn{1}{c|}{Programado} & \multicolumn{2}{c|}{5v+7w sesgada recortada} & \multicolumn{2}{c|}{5v+7w sesgada completa} \\ \cline{1-6} 
-                        \multicolumn{1}{|c|}{Circuitos}    & Tiempo       & \%       & Tiempo       & \%        & Tiempo       \\ \hline
+                        \multicolumn{1}{|c|}{Circuitos}    & Tiempo       & \%       & Tiempo       & \%        & Tiempo       \\ \hline 
 \multicolumn{1}{|c|}{pistaSimple (h)}    & 1' 35''           & 100 \%         & 1' 41''            & 35 \%           &                 \\ \hline
 \multicolumn{1}{|c|}{pistaSimple (ah)}     & 1' 33''           & 100 \%          & 1' 39''            & 100 \%           & 1' 49''               \\ \hline
 \multicolumn{1}{|c|}{monacoLine (h)}      & 1' 15''           & 100 \%           & 1' 20''            & 100 \%       & 1' 24''             \\ \hline
@@ -174,6 +175,7 @@ Se han llevado a cabo diferentes pruebas en función de las dimensiones de las i
 \multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''           & 100 \%          & 1' 02''            & 8\%        &              \\ \hline
 \multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''            & 100 \%          & 1' 03''          & 12 \%        &                  \\ \hline
 \end{tabular}
+}
 \end{table}
 
 
@@ -183,7 +185,7 @@ Los resultados muestran que es mejor emplear una imagen de entrada recortada a u
 
 \subsection{Número de clases}
 
-Es necesario entrenar una red para la velocidad lineal (v) y una red para la velocidad de rotación, siendo ambas empleadas durante la conducción. El número de clases, así como el rango de valores de velocidad de cada clase influirá en el rendimiento de la conducción. \\
+Para pilotar al coche es necesario entrenar una red para la velocidad lineal (v) y una red para la velocidad de rotación, siendo ambas empleadas durante la conducción. El número de clases, así como el rango de valores de velocidad de cada clase influirá en el rendimiento de la conducción. \\
 
 En el proyecto se han estudiado varias combinaciones de clases de v y clases de w, sabiendo que los datos de velocidad de rotación se encuentran en un rango de (-2.9269; 3.1138) en \textit{rad/s} y los datos de velocidad de tracción se encuentran en el rango (-0.6; 13) en \textit{m/s}. En un primer momento se ha estudiado la combinación de 7 clases para w y 4 para v. Como segundo experimento se han empleado 9 clases para w y 4 clases para v. Finalmente, se ha experimentado con 7 clases de velocidad de rotación y 5 clases de velocidad de tracción.\\
 
@@ -245,20 +247,21 @@ En la clasificación de 5 clases de velocidad de tracción, las clases se divide
 
 
 
-Al comienzo de los experimentos se contempló la combinación del empleo de 4 clases de velocidad lineal y 7 clases de velocidad de rotación. Pronto se comprobó que las redes entrenadas con estos números de clases no eran capaces de completar todos los circuitos. Esto se debe a que estos dos circuitos poseen curvas más abruptas, donde o bien el vehículo deberá aplicar una velocidad de rotación mayor o una velocidad de tracción menor.\\
+Al comienzo de los experimentos se contempló la combinación del empleo de 4 clases de velocidad lineal y 7 clases de velocidad de rotación. Pronto se comprobó que las redes entrenadas con estos números de clases no eran capaces de completar todos los circuitos. Esto se debe a que dos circuitos poseen curvas abruptas, donde o bien el vehículo deberá aplicar una velocidad de rotación mayor o una velocidad de tracción menor.\\
 
 Para solventar este problema se optó por realizar una combinación de 4 clases de velocidad lineal y 9 clases de velocidad de rotación. En los resultados del pilotaje basado en estas redes se observó que el vehículo tampoco era capaz de recorrer todos los circuitos en ambos sentidos. Llegamos a la conclusión de que aunque empleemos un mayor número de clases para la velocidad de rotación, no es suficiente para un buen rendimiento en la conducción.\\
 
 La conclusión obtenida de los resultados anteriores es que este fallo se produce debido a que en los datos hay casos donde la velocidad es negativa, es decir, el vehículo da marcha atrás para poder girar sin chocar con la valla. Por este motivo se ha estudiado la combinación de 7 clases de velocidad de rotación y 5 clases de velocidad de tracción, donde se contemplan valores negativos.\\
 
 
-Los resultados de las redes 4v+7w, 4v+9w, y 5v+7w, con redes sesgadas e imágenes recortadas como entrada, se pueden ver en la Tabla \ref{resultados_classificacion_recortada}. Se ha empleado este tipo de redes (sesgadas) y de imágenes porque con la red 5v+7w somos capaces de recorrer todos los circuitos.\\
+Los resultados de las redes 4v+7w, 4v+9w, y 5v+7w, con redes sesgadas e imágenes recortadas como entrada, se pueden ver en la Tabla \ref{resultados_classificacion_recortada}. Se ha empleado este tipo de redes (sesgadas) porque son las que ofrecen mejores prestaciones, como se explicará más adelante.\\
 
 
 \begin{table}[H]
 \centering
 \caption{Resultados de conducción con redes de clasificación modificando la combinación del número de clases (imagen recortada)}
 \label{resultados_classificacion_recortada}
+\resizebox{16cm}{!} {
 \begin{tabular}{c|c|c|c|c|c|c|c|}
 \cline{2-8}
                           & \multicolumn{1}{c|}{Programado} & \multicolumn{2}{c|}{4v+7w sesgada} & \multicolumn{2}{c|}{4v+9w sesgada} & \multicolumn{2}{c|}{5v+7w sesgada} \\ \cline{1-8} 
@@ -274,23 +277,24 @@ Los resultados de las redes 4v+7w, 4v+9w, y 5v+7w, con redes sesgadas e imágene
 \multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''           & 100 \%          & 1' 04''            & 100 \%        & 1' 04''             & 100 \%      & 1' 02''       \\ \hline
 \multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''            & 100 \%          & 1' 04''          & 100 \%        & 1' 02''             & 100 \%      & 1' 03''        \\ \hline
 \end{tabular}
+}
 \end{table}
 
 
 
-Se ha llegado a la conclusión de que tanto el número de clases como el rango de valores que abarca cada una de las clases tiene una gran influencia en el rendimiento del problema planteado. Se establece que con 7 clases de velocidad de rotación es suficiente para lograr una buena conducción, y que no es necesario emplear 9 clases para conseguir el objetivo. Sin embargo, en el caso de las clases de velocidad lineal, no es suficiente con emplear 4 clases, hay que añadir una quinta clase para que el coche sea capaz de tomar la velocidad necesaria en cada caso.\\
+Se ha llegado a la conclusión de que tanto el número de clases como el rango de valores que abarca cada una de las clases tienen una gran influencia en el rendimiento del problema planteado. Se establece que con 7 clases de velocidad de rotación es suficiente para lograr una buena conducción, y que no es necesario emplear 9 clases para conseguir el objetivo. Sin embargo, en el caso de las clases de velocidad lineal, no es suficiente con emplear 4 clases, hay que añadir una quinta clase para que el coche sea capaz de tomar la velocidad necesaria en cada caso.\\
 
 
 
 \subsection{Influencia de los datos de entrenamiento}\label{influencia_datos}
 
-Los resultados de las redes neuronales no solamente tienen que ver con la arquitectura de red empleada o con la forma de entrenar, sino que el conjunto de entrenamiento tiene una gran influencia sobre el mismo. En el entrenamiento se ha empleado la base de datos propia \textit{Dataset} (Sección \ref{dataset}), donde se tienen datos de todas las clasificacions mencionadas en la sección anterior. \\
+Los resultados de las redes neuronales no solamente tienen que ver con la arquitectura de red empleada o con la forma de entrenar, sino que el conjunto de entrenamiento tiene una gran influencia sobre el mismo. En el entrenamiento se ha empleado la base de datos propia \textit{Dataset} (Sección \ref{dataset}). \\
 
-Uno de los problemas de los datos en las redes de clasificación es que normalmente no se dispone del mismo número de datos por cada clase. Este problema implica que en algunas ocasiones haya muchos datos de una determinada clase y muy pocos de otra, haciendo que la red aprenda las situaciones donde hay muchos datos y no aprenda las clases donde tenemos menos datos.\\
+Uno de los problemas de los datos en las redes de clasificación es que normalmente no se dispone del mismo número de datos por cada clase. Este problema implica que en algunas ocasiones hay muchos datos de una determinada clase y muy pocos de otra, haciendo que la red aprenda las situaciones donde hay muchos datos y no aprenda las clases donde tenemos menos datos.\\
 
-En el conjunto de datos empleado justo sucede este inconveniente, ya que hay algunas clases de las que disponemos de muchos datos (como en la clase \textit{slight}) y de otras de muy pocos (como en la clase \textit{radically\_left}), desequilibrando de esta forma el aprendizaje de la red.\\
+En el conjunto de datos empleado justo sucede este inconveniente, ya que hay algunas clases de las que disponemos de muchos datos (como en la clase \textit{slight} para w) y de otras de muy pocos (como en la clase \textit{radically\_left}), desequilibrando de esta forma el aprendizaje de la red.\\
 
-En este conjunto de datos disponemos de un total de 17341 pares de imágenes-datos, de los cuales se emplean para entrenamiento únicamente 12138 pares. Si empleamos el conjunto de datos entero para ver de cuántos datos disponemos en función de las clases nos encontramos con lo siguiente:\\
+En este conjunto de datos disponemos de un total de 17341 pares de imágenes-actuaciones, de los cuales se emplean para entrenamiento únicamente 12138 pares. Si empleamos el conjunto de datos entero para ver de cuántos datos disponemos en función de las clases nos encontramos con:\\
 
 \begin{itemize}
     \item En la clasificación de 7 clases de velocidad de rotación (w), el número de datos por cada clase es:
@@ -351,15 +355,12 @@ En este conjunto de datos disponemos de un total de 17341 pares de imágenes-dat
 \end{itemize}
 
 
-Si evaluamos el conjunto de entrenamiento (12138 pares de datos) con el fin de saber de cuántos datos disponemos en función de las clases, obtenemos un conjunto que sigue más o menos las mismas proporciones que hay en los datos completos.\\
-
-
-Como se puede ver tanto en el conjunto de datos completo como en el conjunto de entrenamiento existe un desbalanceo de los datos, lo que influirá en el entrenamiento. Por este motivo, se han realizado 3 experimentos basándonos en la base de datos:\\
+El conjunto de entrenamiento (12138 pares de datos) sigue más o menos las mismas proporciones que hay en los datos completos. Como se puede ver, tanto en el conjunto de datos completo como en el conjunto de entrenamiento existe un desbalanceo de los datos, lo que influirá en el entrenamiento. Por este motivo, se han realizado 3 experimentos:\\
 
 \begin{itemize}
     \item El primer experimento consiste en entrenar la red con el conjunto de entrenamiento sin ninguna modificación. A las redes neuronales entrenadas de esta forma se las llamará desbalanceadas.
     
-    \item El segundo experimento consiste en crear una nueva base de datos de entrenamiento balancedada, es decir, donde exista el mismo número de ejemplos por cada clase. Para lograr este objetivo se parte de la clase con el menor número de ejemplos, y se selecciona el mismo número de datos aleatoriamente para cada una de las otras clases. Por ejemplo, en la base de datos balanceada de 4 clases de velocidad lineal tendremos 1162 ejemplos por cada clase. A las redes entrenadas con estos conjuntos las llamaremos balanceadas.
+    \item El segundo experimento consiste en crear una nueva base de datos de entrenamiento balanceada, es decir, donde exista el mismo número de ejemplos por cada clase. Para lograr este objetivo se parte de la clase con el menor número de ejemplos, y se selecciona el mismo número de datos aleatoriamente para cada una de las otras clases. Por ejemplo, en la base de datos balanceada de 4 clases de velocidad lineal tendremos 1162 ejemplos por cada clase. A las redes entrenadas con estos conjuntos las llamaremos balanceadas.
     
     \item El tercer experimento consiste en entrenar las redes con el conjunto de entrenamiento por completo, pero al entrenar se emplea el parámetro \textit{class\_weight} de Keras que nos permite dar pesos a cada clase. Este parámetro es un diccionario donde se indican las etiquetas (clases) y los pesos que le damos a cada etiqueta. De esta forma aunque dispongamos de menos datos para alguna de las clases le daremos más peso durante el entrenamiento. A las redes entrenadas de esta manera las llamaremos sesgadas.
 \end{itemize}
@@ -371,6 +372,7 @@ En la Tabla \ref{resultados_classificacion_bases_datos} se muestran los resultad
 \centering
 \caption{Resultados de conducción con redes de clasificación (estudio de la influencia de los datos de entrenamiento)}
 \label{resultados_classificacion_bases_datos}
+\resizebox{16cm}{!} {
 \begin{tabular}{c|c|c|c|c|c|c|c|}
 \cline{2-8}
                           & \multicolumn{1}{c|}{Programado} & \multicolumn{2}{c|}{5v+7w sesgada} & \multicolumn{2}{c|}{5v+7w balanceada} & \multicolumn{2}{c|}{5v+7w desbalanceada} \\ \cline{1-8} 
@@ -386,10 +388,13 @@ En la Tabla \ref{resultados_classificacion_bases_datos} se muestran los resultad
 \multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''           & 100 \%          & 1' 02''            & 100 \%        & 1' 02''             & 100 \%      & 1' 01''       \\ \hline
 \multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''            & 100 \%          & 1' 03''          & 100 \%        & 1' 03''             & 100 \%      & 1' 04''        \\ \hline
 \end{tabular}
+}
 \end{table}
 
 
-Se concluye que son muy importantes los datos de entrenamiento para conseguir una red efectiva. En los resultados se ha podido observar que el mejor entrenamiento es con las redes sesgadas, es decir, donde le damos pesos a las clases. De esta forma podemos darle más importancia a las clases pertenecientes a curvas más abruptas que a las rectas. Así nuestro vehículo aprende mejor las relaciones visuales con las clases. Por otra parte con las redes entrenadas con el conjunto de datos desbalanceado es normal que no consigamos el mejor resultado debido a que tenemos muchos más datos para algunas clases que para otras. Sin embargo, aunque podría parecer que las redes entrenadas con el \textit{dataset} balanceado podrían dar el mejor resultado, esto no sucede así. La razón de este problema es que aunque poseeamos el mismo número de datos para cada una de las clases, no tenemos un gran número de imágenes por cada clase, lo que hace que el vehículo no sea capaz de aprender a conducir. Es decir, es necesario tener un amplio conjunto de entrenamiento que nos permita aprender las relaciones que deseamos.\\
+Se concluye que son muy importantes los datos de entrenamiento para conseguir una red eficaz. En los resultados se ha podido observar que el mejor entrenamiento es con las redes sesgadas, es decir, donde le damos pesos a las clases. De esta forma podemos darle más importancia a las clases pertenecientes a curvas más abruptas que a las rectas. Así nuestro vehículo aprende mejor las relaciones visuales con las clases. \\
+
+Por otra parte con las redes entrenadas con el conjunto de datos desbalanceado es normal que no consigamos el mejor resultado debido a que tenemos muchos más datos para algunas clases que para otras. Sin embargo, aunque podría parecer que las redes entrenadas con el \textit{dataset} balanceado podrían dar el mejor resultado, no sucede así. La razón de este problema es que aunque poseeamos el mismo número de datos para cada una de las clases, no tenemos un gran número de imágenes por cada clase, lo que hace que el vehículo no sea capaz de aprender a conducir. Es decir, es necesario tener un amplio conjunto de entrenamiento que nos permita aprender las relaciones que deseamos.\\
 
 
 Un dato a tener en cuenta es que si nos fijamos en la columna ``Programado'' se pueden ver los tiempos realizados por el piloto programado, mientras que si nos fijamos en la columna de tiempo de la red 5v+7w sesgada se ven los tiempos logrados con esta red. Los tiempos obtenidos del pilotaje mediante esta red no se encuentran muy lejanos a los resultados del piloto programado. Esto permite concluir que esta red aprende de forma correcta a conducir de forma autónoma. El resultado de la conducción del vehículo de forma satisfactoria se puede ver en las Figuras \ref{fig.nurburgrin_class} y \ref{fig.monaco_class}. Una ejecución típica de 5v+7w sesgada (imagen recortada) se puede ver en este vídeo  \footnote{\url{https://www.youtube.com/watch?v=3Wk6J5kirRY}}. En las Figuras \ref{fig.simple_frame1} y \ref{fig.simple_frame2} se pueden ver dos fotogramas de este vídeo. \\
