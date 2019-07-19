@@ -1,18 +1,18 @@
 \chapter{Infraestructura desarrollada}\label{cap.infraestructura}
 
-El propósito de este proyecto es que un coche autónomo sea capaz de conducir en diferentes circuitos mediante distintas redes neuronales que son capaces de aprender control visual. El coche dispondrá de una cámara que le proporciona información de su entorno, permiténdole tomar decisiones.\\
+El propósito de este proyecto es que un coche autónomo sea capaz de conducir en diferentes circuitos mediante distintas redes neuronales que aprenden control visual. El coche dispondrá de una cámara que le proporciona información de su entorno, permiténdole tomar decisiones.\\
 
-El vehículo, como hemos mencionado, debe ser capaz de aprender determiandas acciones. Para que el coche pueda aprender es necesario disponer de una serie de datos, por lo que se ha creado un conjunto de entrenamiento que se verá en la Sección \ref{dataset}. Con el fin de grabar este conjunto de datos se ha creado un piloto basado en visión (Sección \ref{piloto}) que es capaz de dar vueltas alrededor del circuito de forma autónoma.\\
+El vehículo, como hemos mencionado, debe ser capaz de aprender determinadas acciones. Para que el coche pueda aprender es necesario disponer de una serie de datos, por lo que se ha creado un conjunto de entrenamiento que se describirá en la Sección \ref{dataset}. Con el fin de generar este conjunto de datos se ha programado un piloto autónomo basado en visión (Sección \ref{piloto}) que es capaz de dar vueltas alrededor del circuito sin intervención humana.\\
 
-Además se explica la infraestructura software en la que nos hemos apoyado  para desarrollar el proyecto. Se definirán los circuitos de carreras empleados tanto para el entrenamiento de las redes como para el \textit{test}. 
+Además se definirán los circuitos de carreras empleados tanto para el entrenamiento de las redes como para el \textit{test}. 
 
 \section{Circuitos de carreras en Gazebo}\label{modelos_circuitos}
 
-El objetivo de este proyecto es que nuestro Fórmula 1 sea capaz de conducir de forma autónoma por un circuito, por lo que tendremos que crear diferentes entornos (circuitos) donde se moverá. Para facilitar el algoritmo del piloto autónomo explícito y del piloto autónomo basado en redes neuronales, los circuitos tienen una línea roja pintada en el suelo.\\
+El objetivo de este proyecto es que un Fórmula 1 sea capaz de conducir de forma autónoma por un circuito de carreras, por lo que tendremos que crear diferentes entornos (circuitos) donde se moverá. Para facilitar el algoritmo del piloto autónomo programado y del piloto autónomo basado en redes neuronales, los circuitos tienen una línea roja pintada en el suelo.\\
 
-Los modelos de circuitos fueron creados con una herrramienta de modelado 3D (Blender, SketchUp, etc). La mayoría de los circuitos se corresponden con circuitos de grandes dimensiones. En estos circuitos no veremos muchas gradas alrededor, ni público u otros elementos habituales de los circuitos reales, sino que se ha simplificado su creación para que sea rápido en la ejecución del simulador. Los mundos que tienen muchos detalles son más costosos computacionalmente de simular. Lo que podremos ver en estos circuitos son elementos propios de carreteras como son rectas, curvas simples o pronunciadas, una línea de salida, paredes que evitan que el coche se salga del recorrido, y en algunos casos una grada y césped de adorno.\\
+Los modelos de circuitos fueron creados con una herrramienta de modelado 3D (Blender, SketchUp, etc). La mayoría de los circuitos son de grandes dimensiones. En estos circuitos no veremos muchas gradas alrededor, ni público ni otros elementos habituales de los circuitos reales, sino que se ha simplificado para que sea rápida la ejecución del simulador. Los mundos que tienen muchos detalles son más costosos computacionalmente de simular. Lo que podremos ver en estos circuitos son elementos propios de carreteras como rectas, curvas simples o pronunciadas, una línea de salida, paredes que evitan que el coche se salga del recorrido, y en algunos casos una grada y césped de adorno.\\
 
-El primer modelo de circuito empleado se llama \textit{pistaSimple}. Es un circuito de carreras de gran tamaño, que consta de una carretera con una línea roja en el suelo, una línea de salida, y las paredes para evitar que el coche se salga del circuito. Este circuito no posee ningún elemento de adorno, ya que haría que la simulación fuera muy lenta. Este modelo se puede observar en la Figura \ref{fig.simple}.\\
+El primer modelo de circuito empleado se llama \textit{pistaSimple}. Es un circuito de carreras de gran tamaño, que consta de una carretera con una línea roja en el suelo, una línea de salida, y las paredes para evitar que el coche se salga del circuito. Este modelo se puede observar en la Figura \ref{fig.simple}.\\
 
 \begin{figure}
   \begin{center}
@@ -22,7 +22,7 @@ El primer modelo de circuito empleado se llama \textit{pistaSimple}. Es un circu
 		\end{center}
 \end{figure}
 
-El segundo modelo de circuito se denomina \textit{monacoLine} y simula el circuito de carreras de Mónaco (Principado de Mónaco), también conocido como Montecarlo. Este modelo consta del circuito en sí mismo, así como línea de salida, paredes que rodean el circuito, césped de adorno, y una grada pequeña. El modelo \textit{monacoLine} se puede ver en la Figura \ref{fig.monaco}.\\
+El segundo modelo de circuito se denomina \textit{monacoLine} y simula el circuito de carreras de Mónaco, también conocido como Montecarlo. Este modelo consta del circuito en sí mismo, así como línea de salida, paredes que rodean el circuito, césped de adorno, y una grada pequeña. El modelo \textit{monacoLine} se puede ver en la Figura \ref{fig.monaco}.\\
 
 
 \begin{figure}
@@ -43,10 +43,12 @@ El tercer modelo simula el circuito de carretas Nürburgring (Alemania) acortado
 		\end{center}
 \end{figure}
 
-El cuarto modelo de circuito, llamado \textit{curveGP}, simula un circuito que no tiene ninguna recta, solamente tiene curvas, tanto curvas leves como abruptas. Este circuito es de gran tamaño, y por este motivo únicamente simula el circuito, y paredes que rodean al mismo, no tiene ningún elemento de adorno. El modelo \textit{curveGP} se puede ver en la Figura \ref{fig.curveGP}.\\
+El cuarto modelo de circuito, llamado \textit{curveGP}, simula un circuito que no tiene ninguna recta, solamente tiene curvas, tanto curvas leves como abruptas. Este circuito es de gran tamaño, y no tiene ningún elemento de adorno. Se puede ver en la Figura \ref{fig.curveGP}.\\
+
+El quinto modelo de circuito se denomina \textit{pista\_simple}. Este circuito es el más corto de todos, no tiene ningún elemento de adorno. Se puede ver en la Figura \ref{fig.small}.\\
 
 
-\begin{figure}
+\begin{figure}[H]
   \begin{center}
     \includegraphics[width=0.9\textwidth]{figures/Infraestructura/circuit_CurveGP.png}
 		\caption{Modelo curveGP}
@@ -54,7 +56,7 @@ El cuarto modelo de circuito, llamado \textit{curveGP}, simula un circuito que n
 		\end{center}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
   \begin{center}
     \includegraphics[width=0.9\textwidth]{figures/Infraestructura/circuit_Small.png}
 		\caption{Modelo pista\_simple}
@@ -62,12 +64,10 @@ El cuarto modelo de circuito, llamado \textit{curveGP}, simula un circuito que n
 		\end{center}
 \end{figure}
 
-El quinto modelo de circuito se denomina \textit{pista\_simple}. Este circuito es el más corto de todos, aunque únicamente simula el circuito, y paredes que rodean al mismo, no tiene ningún elemento de adorno. En la Figura \ref{fig.small} se puede ver el modelo \textit{pista\_simple}.\\
-
 
 Los mundos que se simulan con Gazebo son mundos 3D. Estos mundos se cargan en ficheros con extensión .world, que no son más que ficheros \acrshort{xml} definidos en el lenguaje \acrshort{sdf}. Este lenguaje contiene una descripción completa de todos los elementos que tiene el mundo y los robots.\\
 
-Se ha creado un mundo en Gazebo para cada circuito compuesto por uno de los cinco modelos de circuito y el modelo del coche (\textit{f1ROS}). Los archivos del mundo de cada circuito son iguales en todos los casos, las únicas diferencias son que el nombre del modelo de circuito cambia, y además la posición del modelo del coche también cambia, ya que en cada circuito la línea de salida está en un lugar diferente. Por ejemplo, el archivo f1-simple-circuit.world (mundo del circuito \textit{pistaSimple}) tiene el
+Se ha creado un mundo en Gazebo para cada circuito, compuesto por uno de los cinco modelos de circuito y el modelo del coche (\textit{f1ROS}). Los archivos del mundo de cada circuito son iguales en todos los casos, las únicas diferencias son que el nombre del modelo de circuito cambia, y la posición del modelo del coche también, ya que en cada circuito la línea de salida está en un lugar diferente. Por ejemplo, el archivo f1-simple-circuit.world (mundo del circuito \textit{pistaSimple}) tiene el
 siguiente aspecto:
 
 \vspace{20pt}
@@ -117,7 +117,7 @@ siguiente aspecto:
 
 \end{lstlisting}
 
-Además de este fichero de configuración, es necesario crear un archivo con extensión .launch, que arranca los \textit{plugins} y \textit{drivers} de ROS-Kinetic. En este fichero es necesario indicar a Gazebo algunos argumentos como el nombre del fichero de configuración con el escenario (archivo del mundo), se establece el tiempo que empleará el escenario (como por ejemplo tiempo simulado), la posibilidad de lanzar una \acrshort{gui}, y algunas opciones de depuración. Es necesario crear un archivo .launch por cada modelo de circuito o escenario. Todos estos archivos serán iguales, excepto que en el argumento ``world\_name'' se modificará el valor del archivo .world empleado. Por ejemplo, para emplear el archivo de configuración \textit{f1-simple-circuit.world}, se ha creado el archivo \textit{f1.launch} que se puede ver a continuación:\\
+Además de este fichero de configuración, es necesario crear un archivo con extensión .launch, que arranca los \textit{plugins} y \textit{drivers} de ROS-Kinetic. En este fichero es necesario indicar a Gazebo algunos argumentos como el nombre del fichero de configuración con el escenario (archivo del mundo), la posibilidad de lanzar una \acrshort{gui}, y algunas opciones de depuración. Es necesario crear un archivo .launch por cada modelo de circuito o escenario. Todos estos archivos serán iguales, excepto que en el argumento ``world\_name'' se modificará el valor del archivo .world empleado. Por ejemplo, para emplear el archivo de configuración \textit{f1-simple-circuit.world}, se ha creado el archivo \textit{f1.launch} que se puede ver a continuación:\\
 
 \vspace{20pt}
 \begin{lstlisting}[frame=single]
@@ -143,30 +143,20 @@ Los modelos de circuitos \textit{pistaSimple}, \textit{monacoLine}, \textit{nurb
 
 
 
-\section{Piloto autónomo explícito}\label{piloto}
+\section{Piloto autónomo programado}\label{piloto}
 
-Como hemos mencionado el objetivo del proyecto es que un vehículo sea capaz de aprender determinadas acciones que le permitan conducir de forma autónoma. Para lograr este objetivo es necesario disponer de una serie de datos, por lo que se ha creado un conjunto de datos (Sección \ref{dataset}). Con el fin de grabar este conjunto de datos se ha creado un piloto autónomo basado en visión que es capaz de dar vueltas alrededor del circuito de forma autónoma. \\
+Para entrenar las redes neuronales es necesario disponer de una serie de datos supervisados de conducción autónoma. Con el fin de grabar este conjunto de datos se ha programado un piloto autónomo basado en visión que es capaz de dar vueltas alrededor del circuito de forma autónoma y generar ese conjunto de datos supervisados. \\
 
-El piloto autónomo creado debe ser capaz de navegar rápidamente por un circuito de Fórmula 1 siguiendo una línea roja pintada en el suelo. Para ello, el coche dispone de una cámara en la parte frontal izquierda y unos motores a los que se envían órdenes de velocidad (velocidad de tracción y velocidad de rotación).\\
+El piloto autónomo creado es capaz de navegar rápidamente por un circuito de Fórmula 1 siguiendo una línea roja pintada en el suelo. Para ello, el coche dispone de una cámara en la parte frontal izquierda y unos motores a los que se envían órdenes de velocidad (velocidad de tracción y velocidad de rotación).\\
 
-El coche tendrá una parte perceptiva y una parte de control. En la parte perceptiva el vehícuo deberá extraer la información relevante de las imágenes: dónde está la línea roja, si está en una recta o en una curva, si ha perdido la línea roja, etc. En la parte de control, el coche deberá hacer un control reactivo PID o bien un control PD, que sea capaz de corregir la velocidad de giro para mantener al coche por encima de la línea.\\ 
-
-Antes de explicar la solución del piloto, es necesario saber qué es un control PID. Un control PID consta de tres parámetros distintos: el proporcional, el integral y el derivativo. Para explicar mejor cada una de las partes tomaremos como ejemplo una calefacción con termómetro, que es un ejemplo clásico de control PID.  En este ejemplo el sensor es el termómetro y el objetivo es obtener una determinada temperatura, por lo que tendremos un error que será la desviación entre la temperatura observada y la temperatura deseada. El error tendrá magnitud y signo, y el controlador PID deberá dar órdenes a la calefacción o el aire acondicionado para conseguir minimizar el error y obtener la temperatura deseada.\\
-
-La parte proporcional (P) manda a los actuadores una corrección proporcional al error, de forma que si el error es pequeño se corrige suavemente y si es grande la corrección es mayor. De no existir desviación no se modifica la temperatura. El control P tiende a conseguir que el sistema obtenga la situación deseada, pero a veces lo logra con muchas oscilaciones. Una posibilidad para suavizar las oscilaciones es emplear la parte Derivativa (D), que realiza una corrección proporcional a la derivada del error. Si el error está creciendo el control D aumenta la corrección, y si por el contrario está disminuyendo, suaviza la corrección. En algunos casos no es suficiente con un control PD, ya que puede que se estabilice en una situación no deseada a pesar de las correcciones. Para poder eliminar estos \textit{offsets} se puede emplear la parte Integral (I). Este tipo de control actúa en función de la acumulación del error, es decir, si ha pasado bastante tiempo sin que el error tienda a cero, entonces aumenta la corrección por parte del control.\\
-
-El control Proporcional-Integral-Derivativo (PID) permite anular un determinado error de manera reactiva. Dependiendo de la aplicación concreta podremos denominar error a una cosa u otra. En nuestro caso podemos considerar error (desviación) a la diferencia horizontal en píxeles entre el centro de la línea cuando el robot está realmente recto sobre ella (este es el valor objetivo) y el centro de la línea observado en el instante actual. En el caso de que el error sea cero, es que el coche estará completamente centrado sobre la línea.\\
+El coche programado tendrá una parte perceptiva y una parte de control. En la parte perceptiva el vehículo extrae la información relevante de las imágenes: dónde está la línea roja, si está en una recta o en una curva, si ha perdido la línea roja, etc. En la parte de control, el coche implementa un control reactivo PD, que es capaz de corregir la velocidad de giro para mantener al coche por encima de la línea.\\ 
 
 
-Una vez que ya se ha explicado de forma general la parte perceptiva y la parte de control PID, ya podemos hablar del procesado de imagen empleado en el piloto, así como el control realizado y las herramientas necesarias.\\
+Lo primero que hace el piloto es acceder a las imágenes de la cámara. Es conveniente detectar la línea roja que está en el centro de la carretera, es decir, será necesario realizar una umbralización de esta línea. Para ello, primero transformamos las imágenes al espacio de color HSV, ya que HSV es más robusto que RGB ante cambios de iluminación. Después, se ha realizado una umbralización de la imagen empleando la función \textit{cv2.inRange} de OpenCV. Este filtrado se hace en función al rango de valores de rojo de la línea de la carretera.\\
 
-El coche posee una cámara situada en la parte frontal izquierda como hemos visto anteriormente. Por lo tanto, lo primero que hace el piloto es acceder a las imágenes de dicha cámara. Como hemos mencionado antes, el piloto automático debe dar una vuelta al circuito. Para ello, será necesario detectar la línea roja que está en el centro de la carretera, es decir, será necesario realizar una umbralización de esta línea. Para realizar esta umbralización, primero debemos transformar las imágenes al espacio de color HSV, ya que HSV es más robusto que RGB ante cambios de iluminación. \\
+Si mostramos la imagen tras el filtrado vemos que aparecen puntos en negro que pertenecen a la línea roja y no debería ser así. Esto ocurre en la línea de salida del circuito, ya que se puede ver que la línea parpadea y por lo tanto no tiene siempre el tono de rojo habitual. Este problema lo podemos ver en la Figura \ref{fig.color}. Para solventar este problema se ha aplicado un cierre morfológico (primero hace una dilatación y después una erosión). Esta operación hace que los píxeles que aparecían en negro en la línea filtrada ahora pertenezcan a la línea filtrada, es decir, que aparezcan en blanco. Se puede observar en la Figura \ref{fig.cierre} cómo después de aplicar el cierre morfológico no quedan huecos en la parte segmentada al filtrar la línea roja.\\
 
-Tras realizar la transformación a HSV, se ha realizado una umbralización de la imagen empleando la función \textit{cv2.inRange} de OpenCV. Este filtrado se hace en función al rango de valores de rojo de la línea de la carretera.\\
-
-Si mostramos la imagen tras el filtrado vemos que aparecen puntos en negro que pertenecen a la línea roja y no debería ser así. Esto ocurre en la línea de salida del circuito, ya que se puede ver que la línea parpadea y por lo tanto no tiene siempre el tono de rojo habitual. Este problema lo podemos ver en la Figura \ref{fig.color}. Para solventar este problema, se ha aplicado un cierre morfológico (primero hace una dilatación y después una erosión). Esta operación hace que los píxeles que aparecían en negro en la línea filtrada ahora pertenezcan a la línea filtrada, es decir, que aparezcan en blanco. Se puede observar en la Figura \ref{fig.cierre} cómo después de aplicar el cierre morfológico no quedan huecos en la parte segmentada al filtrar la línea roja.\\
-
-\begin{figure}
+\begin{figure}[H]
   \begin{center}
     \includegraphics[width=0.9\textwidth]{figures/Infraestructura/filtro_color.png}
 		\caption{Filtrado de color}
@@ -175,7 +165,7 @@ Si mostramos la imagen tras el filtrado vemos que aparecen puntos en negro que p
 \end{figure}
 
 
-\begin{figure}
+\begin{figure}[H]
   \begin{center}
     \includegraphics[width=0.9\textwidth]{figures/Infraestructura/filtro_cierre.png}
 		\caption{Filtrado de color con cierre}
@@ -183,13 +173,13 @@ Si mostramos la imagen tras el filtrado vemos que aparecen puntos en negro que p
 		\end{center}
 \end{figure}
 
-Tras obtener una imagen con la línea roja en blanco, se ha tenido en cuenta que si el coche circula sobre la carretera correctamente la línea debería aparecer más o menos centrada en la imagen. Si por el contrario, la línea aparece en la parte izquierda o derecha de la imagen, es debido a que el coche debería girar puesto que está un poco desviado de la línea roja. De esta forma se puede conocer el giro que debe realizar el coche.\\
+Tras obtener una imagen con la línea roja en blanco, se ha tenido en cuenta que si el coche circula sobre la carretera correctamente la línea debería aparecer más o menos centrada en la imagen. Si por el contrario, la línea aparece en la parte izquierda o derecha de la imagen, el coche debería girar puesto que está un poco desviado de la línea roja. De esta forma se puede conocer el giro que debe realizar el coche.\\
 
 Con el fin de analizar la información proporcionada por el filtrado de la imagen es necesario analizar alguna fila de la imagen filtrada. En el caso de que solamente analicemos una única fila de la imagen, no obtendremos suficiente información para saber si nos encontramos en recta o en curva. Por este motivo, se han analizado tres filas de la imagen con el fin de saber si el coche está situado encima de una recta o una curva, o si por otro caso se ha salido el coche de la línea. En nuestro caso analizamos las filas situadas en las posiciones y1 = 260, y2 = 310, e y3 = 350. En estas líneas se calcula el centro de la línea roja, para lo cual se comprueban los valores de la imagen filtrada. Con estos centros (centro de cada fila) podremos saber si nos encontramos en recta o curva.\\
 
-El siguiente paso es procesar esta información. El centro de la línea roja situado en la fila y1 (260) será el único que no perderemos siempre que nos encontremos cerca de la línea roja, ya que es la posición que está situada más arriba. Los centros de la línea roja situados en las filas y2 (310) e y3 (350) es posible que se pierdan al llegar a una curva grande. Si no encontramos la línea roja en la posición y1 es debido a que nos hemos salido de la línea roja. En esta situación el coche deberá ir hacia atrás y girar hacia el circuito para continuar su recorrido. Si la última vez que se ha visto la línea estaba a la izquierda de la imagen, quiere decir que el coche se ha salido hacia la derecha, y por tanto tendrá que girar a la izquierda y viceversa. Este caso se ha tenido en cuenta al elaborar el piloto.\\
+El siguiente paso es procesar esta información. El centro de la línea roja situado en la fila y1 (260) será el único que no perderemos siempre que nos encontremos cerca de la línea roja, ya que es la posición que está situada más arriba. Los centros de la línea roja situados en las filas y2 (310) e y3 (350) es posible que se pierdan al llegar a una curva grande. Si no encontramos la línea roja en la posición y1 es debido a que nos hemos salido de la línea roja. En esta situación el coche deberá ir hacia atrás y girar hacia el centro para continuar su recorrido. Si la última vez que se ha visto la línea estaba a la izquierda de la imagen, quiere decir que el coche se ha salido hacia la derecha, y por tanto tendrá que girar a la izquierda y viceversa. \\
 
-La desviación o error que tenemos en cada instante se calcula respecto a la posición ideal. Esta posición ideal o de referencia puede no ser el centro de la imagen, ya que la cámara no está centrada en el vehículo y mirando exactamente la recta. En este caso, hay que analizar las imágenes cuando el coche está en recta y ver cuál es el centro de referencia (posición ideal). Haciendo algunas pruebas se ha determinado que la posición ideal es x = 326. Las desviaciones se calcularán respecto a este valor objetivo. En nuestro caso calculamos la diferencia entre la posición x de y1 (260) y la posición ideal. Esta es la desviación que tendremos en cuenta a la hora de hacer los diferentes controles PD que se llevan a cabo. Además, como hemos mencionado anteriormente, se tiene en cuenta un caso por si el coche se ha salido del circuito.\\
+La desviación o error que tenemos en cada instante se calcula respecto a la posición ideal. Esta posición ideal o de referencia puede no ser el centro de la imagen, ya que la cámara no está centrada en el vehículo y mirando exactamente la recta. En este caso, hay que analizar las imágenes cuando el coche está en recta y ver cuál es el centro de referencia (posición ideal). Haciendo algunas pruebas se ha determinado que la posición ideal es x = 326. Las desviaciones se calcularán respecto a este valor objetivo. En nuestro caso calculamos la diferencia entre la posición x de y1 (260) y la posición ideal. Esta es la desviación que tendremos en cuenta a la hora de hacer los diferentes controles PD que se llevan a cabo. Además, se tiene en cuenta un caso por si el coche se ha salido del circuito.\\
 
 Otro de los casos que se han tenido en cuenta en el piloto es si el centro situado en la fila situada más abajo (y3 = 350) se ha perdido. Esto puede ocurrir si estamos en una curva grande. Si se da este caso se realizará un control PD adaptado a esta excepción. En función de la desviación que hay entre el centro situado en la fila de arriba (y1) y el centro situado en la fila de en medio (y2), se darán diferentes situaciones en las que se ajustará un PD diferente.\\
 
@@ -203,30 +193,10 @@ Correccion = kp error + kd (error - errorAnterior)
 
 Los valores de las constantes kp y kd se han ajustado experimentalmente. En función de la desviación obtenida se tienen diferentes controladores PD para controlar la velocidad de rotación, y se mantienen diferentes velocidades constantes en función de cada caso para la velocidad de tracción.\\
 
-Otro caso que evaluaremos es si nos situamos en recta o curva. Si estamos en recta se aplicarán unas situaciones de control PD y si estamos en curva otras. Para diferenciar si nos encontramos en recta o en curva se empleará la diferencia entre la posición x de y3 (350) y de y1 (260). Lo que se hace exactamente es calcular la recta que pasa por el centro de y1 e y3, y después se mira la posición de x que se encuentra en esta recta para la fila y2 (310). De este modo conociendo el centro de la fila y2 y el punto x que se encuentra en la recta calculada, podemos saber si estamos en curva o recta. Esto se explica mejor a continuación. Para saber si es curva o recta se siguen los siguientes pasos:\\
+Otro caso que evaluaremos es si nos situamos en recta o curva. Si estamos en recta se aplicarán unas constantes de control PD y si estamos en curva otras. Para diferenciar si nos encontramos en recta o en curva se empleará la diferencia entre la posición x de y3 (350) y de y1 (260). Lo que se hace exactamente es calcular la recta que pasa por el centro de y1 e y3, y después se mira la posición de x que se encuentra en esta recta para la fila y2 (310). De este modo conociendo el centro de la fila y2 y el punto x que se encuentra en la recta calculada, podemos saber si estamos en curva o recta. \\
 
-\begin{enumerate}
-    \item Conociendo la ecuación de una recta (y = m (x - x1) + y1) podemos calcular la pendiente de la recta del siguiente modo:
-    
-        \[ y = m (x - x1) + y1 \]
-        \[ 260 - 350 = m (x\_arriba - x\_abajo) \]
-        \[ m = -90 / (x\_arriba - x\_abajo) \]
-        
-     Donde x\_arriba es el centro de la fila y1 (arriba) y x\_abajo es el centro de la fila y3 (abajo).
-        
-    \item Una vez conocida la ecuación de la recta que pasa por estos dos puntos, se calcula el punto x de la fila de en medio (y2) que pasaría por esta recta. Este valor de x lo calculamos del siguiente modo:
-        
-        \[ y2 - y3 = m (x - x\_abajo) \]
-        \[ (310 - 350) (x\_arriba - x\_abajo) / (-90) = (x - x\_abajo)  \]
-        \[ x = (310 - 350) (x\_arriba - x\_abajo) / (-90) + x\_abajo  \]
-        
-    \item  Una vez tenemos el punto x que pasa por la recta calculada a partir de y1 e y3, podemos calcular la desviación de x respecto al centro de y2. Si esta desviación es mayor a un umbral es que estamos en curva y si no es que estamos en recta. Como hemos mencionado antes, aplicamos unas situaciones de PD para recta y otras situaciones para curva.
-    
-\end{enumerate}
 
-A la hora de probar el piloto autónomo explícito se han hecho pruebas para ver su robustez. Una de estas pruebas consiste en modificar la posición del Fórmula 1 en la línea de salida para que no esté situado el coche justamente encima de la línea roja. En este caso el coche es capaz de volver encima de la línea roja. Otra prueba ha sido mover el vehículo mediante el teleoperador durante la ejecución del piloto programado. El coche es capaz de volver otra vez encima de la línea roja a pesar de intentar girar el coche con el teleoperador.\\
-
-El piloto se ha ejecutado en los diferentes circuitos, tanto en sentido horario como en sentido anti-horario. Se han medido los tiempos de simulación que tarda el vehículo en dar una vuelta al circuito en ambos sentidos. En la tabla \ref{tabla_piloto} se muestran los resultados de este piloto.\\
+El piloto programado es eficaz y consigue completar el recorrido en todos los circuitos creados. Se ha ejecutado en los diferentes circuitos, tanto en sentido horario como en sentido anti-horario. Se han medido los tiempos de simulación que tarda el vehículo en dar una vuelta al circuito en ambos sentidos. En la tabla \ref{tabla_piloto} se muestran los resultados de este piloto.\\
 
 
 \begin{table}[]
@@ -253,17 +223,13 @@ pista\_simple (anti-horario) & 59 seg \\ \hline
 
 \section{Creación de conjunto de datos para entrenamiento neuronal}\label{dataset}
 
-En este proyecto el objetivo es que un vehículo sea capaz de conducir bajo diferentes circunstancias, es decir, en diferentes entornos y diferentes iluminaciones. Además, el objetivo es emplear diferentes redes neuronales con este fin. Para que las redes neuronales sean capaces de aprender es necesario crear un conjunto de datos.\\
-
-Como se menciona en el libro ``Deep Learning, Introducción práctica con Keras'' \cite{Jordi_torres}, el conjunto de datos se debe dividir para poder configurar y evaluar el modelo de forma correcta. En \textit{Deep Learning} estos datos se dividen en tres conjuntos: datos de entrenamiento (\textit{training}), datos de validación (\textit{validation}) y datos de prueba (\textit{test}).\\
+Para que las redes neuronales sean capaces de aprender es necesario crear un conjunto de datos. Como se menciona en el libro ``Deep Learning, Introducción práctica con Keras'' \cite{Jordi_torres}, el conjunto de datos se debe dividir para poder configurar y evaluar el modelo de forma correcta. En \textit{Deep Learning} estos datos se dividen en tres conjuntos: datos de entrenamiento (\textit{training}), datos de validación (\textit{validation}) y datos de prueba (\textit{test}).\\
 
 Los datos de entrenamiento son aquellos que se utilizan para que la red obtenga los parámetros del modelo. Cuando entrenamos un modelo con un conjunto de entrada lo que ocurre es que hacemos que el modelo sea capaz de aprender de forma general un concepto. De esta forma cuando le consultamos por nuevos datos el modelo será capaz de comprender estos nuevos datos y devolver un resultado fiable en función de su capacidad de generalización. Sin embargo, si este modelo no es capaz de adaptarse a los datos de entrada (por ejemplo se produce \textit{underfitting} u \textit{overfitting}), en este caso modificaremos los hiperparámetros del modelo, y después de entrenar el modelo de nuevo con los datos de entrenamiento evaluaremos el modelo con los datos de validación.\\
 
 Los hiperparámetros se pueden ir ajustando guiados por los datos de validación hasta obtener unos resultados de validación que consideremos apropiados. Si hemos seguido este método, lo que ha sucedido es que el modelo se ha ajustado también a los datos de validación. Por este motivo, es necesario reservar un conjunto de \textit{test} que solamente emplearemos al evaluar el modelo cuando consideremos que ya hemos terminado de ajustar los hiperparámetros.\\
 
-Como hemos visto para realizar el entrenamiento y la evaluación de las redes neuronales es necesario disponer de bases de datos donde el contenido se corresponda con el estímulo del problema. Por este motivo es necesario crear una conjunto de datos para conducción autónoma en el simulador Gazebo. Esta base de datos se ha creado a partir del piloto autónomo explícito que se ha explicado en la Sección \ref{piloto}. Como se mencionó en esta Sección, este piloto es capaz de conducir de forma autónoma mediante una solución basada en visión que calculaba las órdenes de velocidad que hay que enviar al vehículo.\\
-
-El conjunto de datos creado es un \textit{dataset} ``casero'' donde se han almacenado las imágenes de la cámara del piloto en cada instante, así como los datos de velocidad necesarios. Los datos de velocidades se han guardado en un archivo \textit{.json}. En este fichero se han guardado diferentes datos relacionados con la velocidad. Por un lado, se han almacenado en un diccionario los datos númericos de v y w con las claves \textit{v} y \textit{w}. Por otro lado se han almacenado datos que servirán para entrenar las redes de clasificación. Para almacenar estos datos se han creado diferentes claves con sus valores en función de diferentes clasificaciones. Se han creado diferentes clasificaciones para ver el efecto que tienen en las redes neuronales. A continuación, se puede observar cómo se almacenan los datos de velocidad correspondientes a la primera imagen del \textit{dataset}:\\
+Ha sido necesario crear una conjunto de datos para conducción autónoma en el simulador Gazebo. Esta base de datos se ha creado a partir del piloto autónomo programado que se ha explicado en la Sección \ref{piloto}. El conjunto de datos creado es un \textit{dataset} ``casero'' donde se han almacenado las imágenes de la cámara en cada instante, así como los datos de velocidad generados por el piloto programado. Los datos de velocidades se han guardado en un archivo \textit{.json}. En este fichero se han guardado diferentes datos adicionales relacionados con la velocidad. Por un lado, se han almacenado en un diccionario los datos númericos de v y w con las claves \textit{v} y \textit{w}. Por otro lado se han almacenado datos que servirán para entrenar las redes de clasificación. Para almacenar estos datos se han creado diferentes claves con sus valores en función de diferentes clasificaciones. Se han creado diferentes clasificaciones para ver el efecto que tienen en las redes neuronales. A continuación, se puede observar cómo se almacenan los datos de velocidad correspondientes a la primera imagen del \textit{dataset}:\\
 
 \begin{lstlisting}
 {"class_v_5": very_fast, "class_w_9": slight, 
@@ -286,9 +252,9 @@ En este ejemplo, se puede observar que hay diferentes claves con su valor como h
     \item \textit{class\_w\_9}: Se dividen los datos de velocidad angular en 9 clases. Las clases son: ``radically\_left'' si la velocidad de rotación (w) es mayor o igual a 2; ``strongly\_left'' si w es menor que 2 y mayor o igual que 1; ``moderately\_left'' si w es menor que 1 y mayor o igual que 0.5; ``slightly\_left'' si w es menor que 0.5 y mayor o igual que 0.1; ``slight'' si w es menor que 0.1 y mayor a -0.1; ``slightly\_right'' si w es menor o igual que -0.1 y mayor que -0.5; ``moderately\_right''  si w es menor o igual que -0.5 y mayor que -1; ``strongly\_right'' si w es menor o igual que -1 y mayor a -2; y ``radically\_right'' si la velocidad de rotación es menor que -2.
 \end{itemize}
 
-Cuando se comenzó el proyecto se creó un conjunto de datos que constaba de 5006 pares de datos, de los cuales 2803 pares eran datos de entrenamiento, 701 eran datos de validación, y 1502 eran datos de \textit{test}. Este conjunto fue grabado gracias al piloto autónomo programado que conducía de forma autónoma únicamente por el circuito \textit{pistaSimple} en un mismo sentido. Este conjunto tenía un problema y es que únicamente el vehículo poseía datos de un circuito, por lo que no era capaz de generalizar y aprender a conducir en otros entornos.\\
+Cuando se comenzó el proyecto se creó un conjunto de datos que constaba de 5006 pares de datos, de los cuales 2803 pares eran datos de entrenamiento, 701 eran datos de validación, y 1502 eran datos de \textit{test}. Este conjunto fue grabado gracias al piloto autónomo programado que conducía de forma autónoma únicamente por el circuito \textit{pistaSimple} en un mismo sentido. Este conjunto tenía un problema y es que el vehículo únicamente poseía datos de un circuito, por lo que no era capaz de generalizar y aprender a conducir en otros entornos.\\
 
-Con el objetivo de analizar los datos de los que disponíamos y solventar este problema se ha creado una gráfica de estadísticas de los datos. En cada imagen se han analizado dos fila y se ha calculado el centroide de la línea roja del circuito para cada una de las filas (filas 350 y 260). En el eje \textit{x} de la gráfica, se representa el centroide de la fila 350 (L2), y el eje \textit{y} representa el centroide de la fila 260 (L1) de la imagen. En la Figura \ref{fig.L1_L2_dataset1} podemos ver la representación de esta estadística del conjunto de entrenamiento (círculos rojos) contra los datos de una conducción fallida (cruces azules).\\
+Con el objetivo de analizar los datos de los que disponíamos se ha creado una gráfica de estadísticas (Figura \ref{fig.L1_L2_dataset1}) del conjunto de entrenamiento (círculos rojos) contra los datos de una conducción fallida en \textit{test} (cruces azules). En cada imagen se han analizado dos filas y se ha calculado el centroide de la línea roja del circuito para cada una de las filas (filas 350 y 260). En el eje \textit{x} de la gráfica, se representa el centroide de la fila 350 (L2), y el eje \textit{y} representa el centroide de la fila 260 (L1) de la imagen.\\
 
 
 \begin{figure}
@@ -299,13 +265,11 @@ Con el objetivo de analizar los datos de los que disponíamos y solventar este p
 		\end{center}
 \end{figure}
 
-En la Imagen \ref{fig.L1_L2_dataset1} se puede observar que hay bastantes casos conocidos para el coche, como pueden ser probablemente situaciones donde se encuentra en recta el coche; pero sin embargo hay zonas de la gráfica donde se representan cruces azules (conducción fallida) y no hay ningún círculo rojo (conjunto de entrenamiento) alrededor. Esto quiere decir que el coche está ante situaciones desconocidas, y por tanto, no sabe que hacer. \\
+Se puede observar que hay bastantes casos conocidos para el coche, por ejemplo situaciones donde se encuentra en recta el coche. Pero también hay zonas de la gráfica donde se representan cruces azules (conducción fallida) y no hay ningún círculo rojo (conjunto de entrenamiento) alrededor. Esto quiere decir que el coche está ante situaciones desconocidas en las que no sabe qué hacer. \\
 
-La gráfica \ref{fig.L1_L2_dataset1} nos hace pensar que es necesario entrenar el modelo con un conjunto de imágenes bastante más representativo. Por este motivo se ha creado un nuevo conjunto de datos que trata de solventar este inconveniente.\\
+La gráfica \ref{fig.L1_L2_dataset1} nos hace pensar que es necesario entrenar el modelo con un conjunto de imágenes más representativo de las situaciones en las que el coche se puede encontrar. Por este motivo se creó un nuevo conjunto de datos. El nuevo conjunto de datos (denominado \textit{Dataset}) se ha grabado en tres circuitos diferentes: \textit{pistaSimple}, \textit{monacoLine}, \textit{nurburgrinLine}. El piloto programado ha dado varias vueltas a los 3 circuitos en ambos sentidos para grabar este conjunto. Este \textit{dataset} consta de 17341 pares de imágenes-acciones. Se han dividido los datos obteniendo 9710 pares de entrenamiento, 2428 pares de validación, y 5203 pares para \textit{test}.\\
 
-El nuevo conjunto de datos (denominado \textit{Dataset}) se ha grabado en tres circuitos diferentes: \textit{pistaSimple}, \textit{monacoLine}, \textit{nurburgrinLine}. El piloto ha dado varias vueltas a los 3 circuitos en ambos sentidos para poder grabar este conjunto. Este \textit{dataset} consta de 17341 pares de imágenes-datos. Se han dividido los datos obteniendo 9710 pares de datos de entrenamiento, 2428 pares de validación, y 5203 pares para \textit{test}.\\
-
-La misma gráfica estadística que se ha empleado para evaluar el dataset ``fallido'' se ha utilizado con el fin de evaluar los nuevos datos. En la Figura \ref{fig.L1_L2_dataset3} se puede ver cómo el nuevo conjunto de datos es muy representativo, ya que consigue abarcar la gran mayoría de los casos que eran desconocidos para el coche.\\
+La misma gráfica estadística que se ha empleado para evaluar el dataset inicial ``fallido'' se ha utilizado con el fin de evaluar el nuevo. En la Figura \ref{fig.L1_L2_dataset3} se puede ver cómo el nuevo conjunto de datos es muy representativo, ya que consigue abarcar la gran mayoría de los casos que eran desconocidos para el coche.\\
 
 \begin{figure}
   \begin{center}
@@ -315,9 +279,9 @@ La misma gráfica estadística que se ha empleado para evaluar el dataset ``fall
 		\end{center}
 \end{figure}
 
-En los circuitos utilizados para grabar el nuevo conjunto de datos existen más datos de rectas que de curvas, por este motivo se ha grabado un \textit{dataset} complementario al anterior de un circuito que solamente posee curvas (\textit{curveGP}). Este conjunto consta de 5268 pares de imágenes datos.\\
+En los circuitos utilizados para grabar el nuevo conjunto de datos existen más datos de rectas que de curvas, por este motivo se ha grabado también un \textit{dataset} \textit{complementario} al anterior de un circuito que solamente posee curvas (\textit{curveGP}). Este conjunto extendido  consta de 5268 pares de imágenes datos.\\
 
-Este conjunto únicamente se ha añadido al entrenamiento de las redes neuronales recurrentes, ya que en las redes neuronales convolucionales ha sido suficiente con entrenar con el \textit{dataset} anterior. En la Figura \ref{fig.L1_L2_dataset_curves} se puede ver la gráfica estadística de este cojunto de datos (\textit{Dataset\_Curves}).\\
+Este conjunto únicamente se ha añadido al entrenamiento de las redes neuronales recurrentes, ya que en las redes neuronales convolucionales ha sido suficiente con entrenar con el \textit{dataset} normal. En la Figura \ref{fig.L1_L2_dataset_curves} se puede ver la gráfica estadística de esta extensión del conjunto de datos (\textit{Dataset\_Curves}).\\
 
 \begin{figure}
   \begin{center}
@@ -327,9 +291,7 @@ Este conjunto únicamente se ha añadido al entrenamiento de las redes neuronale
 		\end{center}
 \end{figure}
 
-La gráfica estadística también se puede emplear para evaluar cómo se distribuyen los datos de las clases, tanto para la velocidad lineal (v) como para la velocidad de rotación (w). En la Figura \ref{fig.L1_L2_dataset_w} se representa el análisis de los pares L1-L2 (centroides de las filas 260 y 350) para 7 clases de w (``radically\_left'', ``moderately\_left'', ``slightly\_left'', ``slight'', ``slightly\_right'', ``moderately\_right'', ``radically\_right''). En la Figura \ref{fig.L1_L2_dataset_v} se representa el análisis de los pares L1-L2 para 5 clases de v (``negative'', ``slow'', ``moderate'', ``fast'', ``very\_fast''). \\
-
-En estas imágenes (Figuras \ref{fig.L1_L2_dataset_w} y \ref{fig.L1_L2_dataset_v}) se observa cómo los ejemplos quedan más o menos agrupados por clases entorno a un rango de valores de L1 y L2. \\
+La gráfica también se puede emplear para evaluar cómo se distribuyen los datos de las clases, tanto para la velocidad lineal (v) como para la velocidad de rotación (w). En la Figura \ref{fig.L1_L2_dataset_w} se representa el análisis de los pares L1-L2 (centroides de las filas 260 y 350) para 7 clases de w (``radically\_left'', ``moderately\_left'', ``slightly\_left'', ``slight'', ``slightly\_right'', ``moderately\_right'', ``radically\_right''). En la Figura \ref{fig.L1_L2_dataset_v} se representa el análisis de los pares L1-L2 para 5 clases de v (``negative'', ``slow'', ``moderate'', ``fast'', ``very\_fast''). En estas imágenes se observa cómo los ejemplos quedan más o menos agrupados por clases entorno a un rango de valores de L1 y L2. \\
 
 \begin{figure}
   \begin{center}
@@ -350,12 +312,12 @@ En estas imágenes (Figuras \ref{fig.L1_L2_dataset_w} y \ref{fig.L1_L2_dataset_v
 
 En el entrenamiento de las redes neuronales convolucionales se ha empleado el conjunto de datos \textit{Dataset}; mientras que en el entrenamiento de las redes neuronales recurrentes se ha utilizado dicho conjunto, y adicionalmente el conjunto \textit{Dataset\_Curves}.\\
 
-En ejecución, el piloto entrenado con las redes se ha probado en todos estos circuitos mencionados (\textit{pistaSimple}, \textit{monacoLine}, \textit{nurburgrinLine}, \textit{curveGP}) en la creación de los \textit{datasets}, y además se ha probado en un circuito que las redes no han empleado para entrenamiento. Este circuito se denomina \textit{pista\_simple} y se ha utilizado en ambos sentidos.
+En ejecución, el piloto entrenado con las redes se ha probado en todos estos circuitos mencionados (\textit{pistaSimple}, \textit{monacoLine}, \textit{nurburgrinLine}, \textit{curveGP}) en la creación de los \textit{datasets}, y además se ha probado en el circuito \textit{pista\_simple} en ambos sentidos que las redes no han empleado para entrenamiento.
 
 
 \section{Piloto autónomo basado en redes neuronales}
 
-Se ha creado una aplicación de control visual con la infraestructura necesaria que se comunica con el simulador Gazebo. Además, esta aplicación ha sido creada para cargar y emplear redes neuronales de conducción, resuelve varias funcionalidades: (a) ofrece una interfaz gráfica al usuario que le ayuda a depurar el código; (b) ofrece acceso a sensores y actuadores en forma de métodos simples (oculta el \textit{middleware} de comunicaciones); (c) incluye código auxiliar para poder emplear las predicciones realizadas por las redes (bien de clasificación o de regresión). Lo deja todo atado para que el usuario sólo tenga que incluir su red y retoque un fichero donde se proporciona al vehículo las órdenes de velocidad predichas por la red. En la Figura \ref{fig.nodo_piloto} se puede observar la estructura que tiene esta aplicación.\\
+Se ha programado una aplicación de control visual con la infraestructura necesaria para cargar y emplear redes neuronales de conducción. Resuelve varias funcionalidades: (a) ofrece una interfaz gráfica al usuario que le ayuda a depurar el código; (b) ofrece acceso a sensores y actuadores en forma de métodos simples (oculta el \textit{middleware} de comunicaciones); (c) incluye código auxiliar para enviar a los motores las órdenes estimadas por las redes (bien de clasificación o de regresión). Lo deja todo atado para que el usuario sólo tenga que incluir su red y retoque un fichero donde se proporciona al vehículo las órdenes de velocidad predichas por la red. En la Figura \ref{fig.nodo_piloto} se puede observar la estructura que tiene esta aplicación.\\
 
 \begin{figure}
   \begin{center}
@@ -379,13 +341,12 @@ Esta aplicación ofrece al programador un \acrfull{api} de sensores y actuadores
     \item \textit{network.prediction\_w}: Para obtener la predicción de velocidad de giro de la red.
 \end{itemize}
 
-Es necesario emplear la bliblioteca \textit{comm} para realizar la comunicaciones entre distintos componentes. Podemos usar esta librería empleando \acrshort{ros}, o a través de un proxy de \acrshort{ice} (protocolo de comunicaciones). Para poder crear un comunicador con \textit{comm} es necesario emplear el archivo de configuración YML \footnote{YAML Ain't Markup Language format}.\\
 
-En el archivo YML se indican los puertos de los \textit{plugins} que emplea el coche de carreras. Además, tenemos que indicar el \textit{framework} de redes neuronales que emplearemos (Keras o Tensorflow), así como los pesos de modelos de redes neuronales que ya hemos entrenado y que cargaremos para poder predecir datos de velocidad. Este fichero (driver.yml) en el proyecto tiene el siguiente aspecto:\\
+En el archivo YML \footnote{YAML Ain't Markup Language format} se indican los puertos de los \textit{plugins} que emplea el coche de carreras. Además, tenemos que indicar el \textit{framework} de redes neuronales que emplearemos (Keras o Tensorflow), así como los pesos de modelos de redes neuronales que ya hemos entrenado y que cargaremos para poder predecir datos de velocidad. Este fichero (driver.yml) en el proyecto tiene el siguiente aspecto:\\
 
 
 \vspace{10pt}
-\begin{lstlisting}
+\begin{lstlisting}[basicstyle=\small]
 
 Driver:
 
@@ -419,16 +380,19 @@ Podemos ver que los motores emplean el Puerto 9999, mientras que la cámara empl
 
 Se han creado dos clases que permiten cargar los modelos de v y w indicados en el archivo de configuración \textit{.yml}, así como predecir los valores de v y w, y almacenarlos en las variables \textit{self.network.prediction\_v} y \textit{self.network.prediction\_w}. La clase de Python creada para las redes neuronales de clasificación es ClassificationNetwork, y para redes de regresión es RegressionNetwork. En el archivo principal (driver.py) se indicará cuál de estas dos clases queremos emplear al ejecutar el nodo Piloto. De esta forma desde un fichero podremos emplear las velocidades predichas por la red e indicar las órdenes de velocidad al vehículo.\\
 
-Se ha dividido la aplicación piloto en diferentes partes, por lo que emplearemos hilos de ejecución para llevar a cabo diferentes tareas de forma simultánea. En este proyecto existen tres procesos diferenciados:
+Se ha dividido la aplicación piloto en diferentes partes e hilos de ejecución para llevar a cabo diferentes tareas de forma simultánea. En este proyecto existen tres procesos diferenciados:
 
 \begin{itemize}
     \item Hilo de percepción y control: Es el encargado de actualizar los datos de los sensores y los actuadores. El tiempo de refresco de este hilo es muy importante, y debe ser un periodo de tiempo muy corto, ya que se encarga de establecer la velocidad y la dirección del vehículo en todo momento. Si este intervalo de tiempo fuera muy grande, las decisiones que modifican la trayectoria del coche podrían ser incorrectas. Este hilo (\textit{ThreadPublisher}) se utiliza para actualizar los datos de la cámara y enviar órdenes a los motores. Se actualiza cada 80 milisegundos.
     
-    \item Hilo de la interfaz gráfica de usuario (\acrshort{gui}): Se encarga de actualizar la \acrshort{gui}. El intervalo de actualización de este hilo es muy importante, ya que tenemos que mostrar la imagen que ve el coche en tiempo real. Por lo que el intervalo de tiempo debe ser pequeño. El hilo de ejecución de la \acrshort{gui} (\textit{ThreadGUI}) se actualizará cada 50 ms.
+    \item Hilo de la interfaz gráfica de usuario (\acrshort{gui}): Se encarga de actualizar la \acrshort{gui}. El intervalo de actualización de este hilo es importante, ya que tenemos que mostrar la imagen que ve el coche en tiempo real. El intervalo de tiempo debe ser pequeño, se actualizará cada 50 ms.
     
-    \item Hilo de la red: Es el encargado de inferir valores a partir la última imagen recibida, de forma asíncrona. Cuando termina la inferencia, se almacena el valor dentro del elemento de red. Cuando el vehículo necesita los últimos datos de inferencia, solamente toma estos datos sin bloquear ningún proceso ni llamda. Este hilo (\textit{ThreadNetwork}) se debe actualizar en intervalos de tiempo pequeños para que el coche sea capaz de conducir. Este hilo se actualiza cada 50 ms.
+    \item Hilo de la red neuronal: Es el encargado de inferir valores a partir la última imagen recibida, de forma asíncrona. Cuando termina la inferencia, se almacena el valor dentro del elemento de red. Cuando el vehículo necesita los últimos datos de inferencia, solamente toma estos datos sin bloquear ningún proceso ni llamada. Este hilo (\textit{ThreadNetwork}) se debe actualizar en intervalos de tiempo pequeños para que el coche sea capaz de conducir. Se actualiza cada 50 ms.
 
 \end{itemize}
+
+En el proyecto es muy importante el tiempo de ejecución, ya que este tiempo influye en las decisiones que toma el vehículo, y cuanto más rápido sea el algoritmo mejor. En el tiempo que tarda en tomar decisiones el coche influirá el ordenador que empleemos. \\
+
 
 \subsection{Interfaz gráfica}
 
@@ -438,7 +402,10 @@ La \acrshort{gui} del proyecto (Figura \ref{fig.gui}) contiene la imagen que cap
 
 En la parte derecha de la imagen mostrada en la \acrshort{gui} hay 4 leds que se corresponden con diferentes rangos de velocidades lineales; mientras que en la parte inferior hay 7 leds que se corresponden con velocidades angulares del coche. En función del valor predicho por la red se encenderá un led verde de la parte inferior y un led azul de la parte derecha. De esta forma, es más fácil obtener una visualización de las órdenes de velocidad aproximadas que está recibiendo el coche. \\
 
-Si denotamos los leds (velocidad angular) que aparecen debajo de la imagen con los números de 1 a 7 empezando por la izquierda, se encenderá cada uno de los leds en el siguiente caso:
+Además, para añadir más información de velocidad que le permita al usuario depurar fallos, a la derecha de los leds que indican la velocidad lineal se han añadido las órdenes de velocidades que se envían a los motores del coche. Por un lado, tenemos el valor de la velocidad lineal, que aparece indicado con una v; mientras que el valor de la velocidad angular se indica con una letra w.\\
+
+Esta interfaz gráfica además muestra un teleoperador justo debajo del botón ``Play Code''. Mediante este teleoperador se puede mover manualmente el coche en el mundo de Gazebo si se desea. En la esquina superior derecha, donde se muestran las órdenes de velocidad del coche, aparecerán los valores de velocidad que tiene el mismo cuando se teledirige. La velocidad lineal del coche se puede controlar moviendo el \textit{joystick} en sentido vertical. La velocidad angular del vehículo se controla moviendo el \textit{joystick} en sentido horizontal.\\
+
 
 \begin{figure}[H]
   \begin{center}
@@ -449,50 +416,8 @@ Si denotamos los leds (velocidad angular) que aparecen debajo de la imagen con l
 \end{figure}
 
 
-
-\begin{itemize}
-    \item Led 1: La velocidad angular del vehículo es mayor o igual a 1, es decir, el coche gira bruscamente a la izquierda.
-    
-    \item Led 2: La velocidad angular del vehículo está en el rango [0.5, 1), es decir, el coche gira moderadamente a la izquierda.
-    
-    \item Led 3:  La velocidad angular del coche se encuentra en el rango [0.1, 0.5), es decir, el coche gira ligeramente a la izquierda.
-    
-    \item Led 4: La velocidad angular del coche está en el rango (-0.1, 0.1), el coche está en recta.
-    
-    \item Led 5: La velocidad angular del vehículo se encuentra en el rango (-0.5, -0.1],  el coche gira ligeramente a la derecha.
-    
-     \item Led 6: La velocidad angular del vehículo está en el rango (-1, -0.5], el coche gira moderadamente a la derecha.
-     
-     \item Led 7: La velocidad angular del coche es menor o igual que -1, el coche gira bruscamente a la derecha.
-\end{itemize}
-
-Si denotamos los leds (velocidad lineal) que aparecen a la derecha de la imagen con los números de 1 a 4 empezando por abajo, se encenderá cada uno de estos leds en el siguiente caso:
-
-\begin{itemize}
-    \item Led 1: La velocidad es menor o igual que 7. Esta situación se corresponde con los casos donde el coche se encuentra en una curva y necesita reducir la velocidad o incluso dar marcha atrás en algún caso.
-    
-    \item Led 2: La velocidad se encuentra en el rango (7, 9], es decir, o bien estamos en recta y nos encontramos algo desviados o estamos en una curva muy leve.
-    
-    \item Led 3: La velocidad se encuentra en el rango (9, 11], es decir, estamos en recta y nos encontramos un ``pelín'' desviados del centro de la línea roja.
-    
-    \item Led 4: La velocidad es mayor que 11. En esta situación nos encontramos en una recta y el coche va a mucha velocidad.
-\end{itemize}
-
-
-Además, para añadir más información de velocidad que le permita al usuario depurar fallos, a la derecha de los leds que indican la velocidad lineal se han añadido las órdenes de velocidades que se envían a los motores del coche. Por un lado, tenemos el valor de la velocidad lineal, que aparece indicado con una v; mientras que el valor de la velocidad angular se indica con una letra w.\\
-
-Esta interfaz gráfica además muestra un teleoperador justo debajo del botón ``Play Code''. Mediante este teleoperador se puede mover manualmente el coche en el mundo de Gazebo si se desea. En la esquina superior derecha, donde se muestran las órdenes de velocidad del coche, aparecerán los valores de velocidad que tiene el mismo cuando se teledirige. La velocidad lineal del coche se puede controlar moviendo el \textit{joystick} en sentido vertical. Cuanto más subamos el \textit{joystick} más velocidad tendrá el coche hacia delante, y si lo bajamos del todo más velocidad lineal tendrá hacia atrás. La velocidad angular del vehículo se controla moviendo el \textit{joystick} en sentido horizontal, según lo movamos a izquierda o a la derecha, el robot girará en un sentido u otro.\\
-
-En la aplicación gráfica también hay cuatro botones importantes, dos que sirven para controlar lo que  sucede con el algoritmo que controla al coche, y otros dos que se emplean en el manejo de un \textit{dataset}. El botón inferior  izquierdo, en el que aparece un símbolo de STOP, es el que emplearemos cuando teledirigimos el coche y queremos que pare en un punto y no siga navegando. El botón que se encuentra entre la imagen y el teleoperador, en el cual pone ``Play Code'', es el botón con el que le ordenamos al componente que comience a ejecutar el código del fichero donde le damos órdenes a los motores del coche. Este botón cambia de color al pulsarlo. Si queremos que este código pare en un determinado momento, pulsaremos el mismo botón haciendo que pare; y si queremos reanudar su comportamiento lo volveremos a pulsar.\\
+En la aplicación gráfica también hay cuatro botones importantes. El botón inferior  izquierdo, en el que aparece un símbolo de STOP, es el que emplearemos cuando teledirigimos el coche y queremos que pare en un punto y no siga navegando. El botón que se encuentra entre la imagen y el teleoperador, en el cual pone ``Play Code'', es el botón con el que le ordenamos al componente que comience a ejecutar el código del fichero donde le damos órdenes a los motores del coche. Este botón cambia de color al pulsarlo. Si queremos que este código pare en un determinado momento, pulsaremos el mismo botón haciendo que pare; y si queremos reanudar su comportamiento lo volveremos a pulsar.\\
 
 Los otros dos botones se emplean para el manejo de un \textit{dataset}. Por un lado, tenemos el botón de la parte superior derecha, en el cual pone ``Save Dataset'', que sirve para crear un nuevo \textit{dataset} que guarde los datos tanto de velocidad como las imágenes que ve el coche durante la ejecución de su algoritmo. Este conjunto de datos se crea con la misma estructura que el conjunto de datos mencionado en la Sección \ref{dataset}, y se almacenará en el directorio ``Dataset''. Este conjunto de datos únicamente se crea si pulsamos este botón, de no ser así simplemente se ejecuta el algoritmo que permite navegar al vehículo. Por otra parte, el botón que se sitúa en la parte inferior derecha, permite borrar el \textit{dataset} creado.\\
 
 
-
-\subsection{Tiempo de ejecución}
-
-En el proyecto es muy importante el tiempo de ejecución, ya que este tiempo influye en las decisiones que toma el vehículo, y cuanto más rápido sea el algoritmo mejor. En el tiempo que tarda en tomar decisiones el coche influirá el ordenador que empleemos. Este es un inconveniente, ya que quien posea mejor ordenador obtendrá tiempos de ejecución menores que quien tenga un ordenador sin tantas capacidades. La ejecución de Gazebo consume muchos recursos del ordenador haciendo que el coche sea más lento.\\
-
-En la parte inferior de Gazebo se puede ver el \textit{Real Time}, el \textit{Sim. Time} (tiempo simulado) y el \textit{Real Time Factor}, los cuales tienen mucho que ver en el tiempo de ejecución de Gazebo. El parámetro \textit{Real Time} expresa el tiempo real en ejecución. El factor \textit{Sim. Time} expresa el tiempo simulado. Si empleáramos un ordenador con grandes capacidades entonces el \textit{Sim. Time} debería estar próximo al \textit{Real Time}. Mientras que si utilizamos un ordenador con menos capacidades veremos que el \textit{Sim. Time} es mucho menor que el \textit{Real Time}. Por su parte, el factor \textit{Real Time Factor} es un producto de la tasa de actualización y el tamaño del paso. Si queremos obtener un tiempo de simulación bajo, este factor tendrá que tener un valor entorno a 1. Si este parámetro es menor que 1 veremos que la ejecución es más lenta, y cuando se aproxima a 0.2 o menos es demasiado lenta.\\
-
-En el caso del ordenador que se ha empleado el \textit{Real Time Factor} es muy bajo en algunas ocasiones durante el pilotaje, lo que hace que el \textit{Real Time} sea mucho mayor que el \textit{Sim. Time}. En este ordenador el \textit{Real Time Factor} normalmente oscila entre 0.15 y 0.6, siendo en grandes ocasiones cercano a 0.15.
