@@ -1,12 +1,19 @@
 \chapter{Conclusiones}\label{cap.conclusiones}
 
-En este capítulo se exponen las conclusiones finales obtenidas, así como los posibles trabajos futuros, tras analizar las diferentes redes neuronales empleadas (redes de regresión y clasificación) para conducción autónoma basada en visión, y algunos experimentos realizados con las mismas.
+En este capítulo se exponen las conclusiones finales obtenidas, así como los posibles trabajos futuros, tras analizar las diferentes redes neuronales empleadas (redes de regresión y clasificación) para conducción autónoma basada en visión, y algunos experimentos realizados con las mismas.\\
+
+Además, se detallarán los cuatro subobjetivos logrados: (1) creación de una aplicación de pilotaje neuronal, (2) programación de un piloto autónomo basado en visión y generación de bases de datos supervisadas, (3) estudio de redes neuronales convolucionales de clasificación para conducción autónoma, (4) estudio de redes neuronales convolucionales y recurrentes de regresión para conducción autónoma.\\
 
 \section{Conclusiones}
 
-En este trabajo se ha alcanzado satisfactoriamente el objetivo global de explorar diferentes redes neuronales de clasificación y regresión para la conducción de un vehículo mediante control visual, así como realizar diferentes experimentos con las mismas. El objetivo era lograr que el coche fuera capaz de conducir en diferentes entornos en el simulador Gazebo. Para ello se ha diseñado y programado una aplicación ROS, llamada Piloto, que nos ha permitido evaluar las redes en el control del vehículo.\\
+En este trabajo se ha alcanzado satisfactoriamente el objetivo global de explorar diferentes redes neuronales de clasificación y regresión para la conducción de un vehículo mediante control visual, así como realizar diferentes experimentos con las mismas. El objetivo era lograr que el coche fuera capaz de conducir en diferentes entornos en el simulador Gazebo y se ha conseguido. \\
 
-En primer lugar, se ha experimentado con redes de clasificación, evaluando la influencia de la cuantización de las clases, es decir, tanto el número de clases como el rango de valores que abarca cada una de estas clases. Estudiando el efecto de estas cuantizaciones se ha conseguido que la red de clasificación 5v+7w sesgada (imagen recortada) fuera capaz de recorrer todos los circuitos de manera satisfactoria. Se han sacado algunas conclusiones acerca del entrenamiento de estas redes y de la cuantización de las clases:\\
+Primero, se ha diseñado y programado una aplicación ROS, llamada Piloto, que nos ha permitido la conducción autónoma neuronal del coche de carreras y evaluar el rendimiento operativo de las redes en el control del vehículo. Esta aplicación realiza las conexiones de los sensores y actuadores del vehículo, y además, permite cargar  y emplear diferentes redes neuronales. La aplicación consta de una interfaz gráfica que proporciona datos durante el pilotaje del coche. \\
+
+Segundo, se ha programado un piloto autónomo basado en visión y control PD con el que se han generado varias bases de datos supervisadas con las que realizar los entrenamientos neuronales. La primera base de datos, llamada \textit{Dataset}, posee datos de rectas y de curvas más o menos abruptas. El segundo conjunto de datos, \textit{Dataset\_Curves}, solamente posee curvas.\\
+
+
+En tercer lugar, se ha experimentado con redes de clasificación, evaluando la influencia de la cuantización de las clases, es decir, tanto el número de clases como el rango de valores que abarca cada una de estas clases. Estudiando el efecto de estas cuantizaciones se ha conseguido que la red de clasificación 5v+7w sesgada (imagen recortada) fuera capaz de recorrer todos los circuitos de manera satisfactoria. Se han sacado algunas conclusiones acerca del entrenamiento de estas redes y de la cuantización de las clases:\\
 
 \begin{itemize}
     \item El número de las clases y el rango de los valores que abarca cada clase tiene una gran influencia en el rendimiento de la conducción. El uso de 7 clases de velocidad de rotación y 5 clases de velocidad lineal es suficiente para lograr una buena conducción. En caso de tener menos clases el rendimiento sería deficiente, además de que es necesario ajustar el rango de valores de velocidad que abarca cada clase adecuadamente.
@@ -48,26 +55,22 @@ Además, a lo largo del proyecto se han extraído algunas conclusiones que sirve
 \end{itemize}
 
 
-Además de alcanzar los dos subobjetivos anteriores, se han conseguido satisfacer otros requisitos implícitos en el entrenamiento y en el uso de cada red, como crear una base de datos para entrenar redes neuronales en control visual, emplear el simulador Gazebo y la creación de la aplicación de control visual, que permiten evaluar la conducción autónoma del vehículo mediante redes neuronales.\\
-
-En cuanto a los aportes personales, hemos aprendido a entrenar diferentes redes neuronales para conducción autónoma basada en información visual. Además, se ha aprendido a emplear la información obtenida por los resultados para la mejora de próximos entrenamientos. Este proyecto además ha servido para comprender las diferentes fases en las que se divide un trabajo de esta envergadura. Gracias a ello se ha aprendido a dividir un gran objetivo en subobjetivos de ingeniería, permitiendo facilitar una solución más rápida a los mismos. Además, durante el proyecto han surgido problemas habituales de ingeniería, más complejos o más sencillos, pero ha sido necesario solventarlos bien mediante más pruebas y experimentos, bien cambiando la técnica que se estaba empleando al entrenar, o bien refinando los modelos de redes neuronales empleados hasta obtener los objetivos deseados.\\
-
 
 \section{Trabajos futuros}
 
-Debido a que éste es un Trabajo de Fin de Máster no ha sido posible alargarlo ad in-finitum para realizar más mejoras sobre el mismo. A continuación, se detallarán posibles líneas concretas en las que se puede mejorar cada una de las redes.\\
+A continuación, se detallarán posibles líneas concretas en las que se puede mejorar cada una de las redes.\\
 
 \begin{itemize}
 
-    \item Probar la conducción autónoma basado en redes neuronales en un robot real. De esta forma se podría ver el rendimiento de cada red y comprobar cuál es la más efectiva en una situación real.
+    \item Probar la conducción autónoma basada en redes neuronales en un robot real. De esta forma se podría ver el rendimiento de cada red y comprobar cuál es la más efectiva en una situación real.
     
     \item Grabar una base de datos adicional de situaciones bastante complejas o situaciones que desconoce el vehículo. Algunos ejemplos podrían ser el vehículo ha perdido de vista la línea roja o se encuentra en una curva bastante abrupta que no ha visto con anterioridad. 
     
-    \item Realizar un estudio más amplio de la cuantización de las clases (número de clases y rango de clase) permitiendo ajustar de forma más precisa el número de clases y el rango a los valores de los que disponemos en el conjunto de datos. Una posibilidad sería incluir un mayor número de clases para los ángulos de giro (de mayor valor) que se dan en las situaciones complejas (pérdida de carretera o curvas muy abruptas), ajustando de esta  forma más la conducción a este tipo de situaciones.
+    \item Realizar un estudio más amplio de la cuantización de las clases (número de clases y rango) permitiendo ajustar de forma más precisa el número de clases y el rango a los valores de los que disponemos en el conjunto de datos. Una posibilidad sería incluir un mayor número de clases para los ángulos de giro (de mayor valor) que se dan en las situaciones complejas (pérdida de carretera o curvas muy abruptas), ajustando de esta  forma más la conducción a este tipo de situaciones.
     
     \item Una dificultad encontrada en el proyecto ha sido cómo incorporar información temporal con imágenes apiladas. Una posible mejora es realizar un estudio más amplio que nos lleve a ajustar de manera más adecuada el número de imágenes que apilamos y el margen entre las mismas.
     
-    \item Realizar un estudio más amplio de la imagen diferencia que nos permita introducir información temporal en una única imagen. El objetivo es buscar qué margen de tiempo entre las dos imágenes de las que se realiza la diferencia es el adecuado. Además, una posible mejora consiste en el estudio de la posibilidad de incluir algún preprocesado de imagen que nos permita resaltar la información que nos interasa en las imágenes.
+    \item Realizar un estudio más amplio de la imagen diferencia que nos permita introducir información temporal en una única imagen. El objetivo es buscar qué margen de tiempo entre las dos imágenes de las que se realiza la diferencia es el adecuado. Además, una posible mejora consiste en el estudio de la posibilidad de incluir algún preprocesado de imagen que nos permita resaltar la información que nos interesa en las imágenes.
     
     \item Crear un algoritmo que intente explicar lo que las redes aprenden y cómo toman sus decisiones. Este método fue desarrollado en el artículo ``Explaining  how  a  deep  neural network trained with end-to-end learning steers a car'' \cite{explaining-end2end} \cite{visual}, donde se intenta conocer cómo toma sus decisiones PilotNet. En este atículo se crea un método que determina qué elementos en la imagen influyen más en las decisiones de las velocidades de la red. A las secciones de la imagen con esta propiedad las denominan objetos salientes. La idea sería emplear este conocimiento de los objetos salientes de la imagen para ajustar parámetros de las redes y mejorar así la conducción. Además, esta idea nos podría ayudar a crear una imagen diferencia adecuada, ya que seríamos capaces de saber cuál es la información relevante para las redes.
 \end{itemize}
