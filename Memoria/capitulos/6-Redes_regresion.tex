@@ -416,6 +416,7 @@ En la Tabla \ref{resultados_regresion_temporal_completa} se muestran los resulta
 \centering
 \caption{Resultados de conducción con redes neuronales de regresión introduciendo temporalidad (imagen completa)}
 \label{resultados_regresion_temporal_completa}
+\resizebox{16cm}{!} {
 \begin{tabular}{c|c|c|c|c|c|c|c|}
 \cline{2-8}
                           & \multicolumn{1}{c|}{Programado} & \multicolumn{2}{c|}{PilotNet (stacked)} & \multicolumn{2}{c|}{PilotNet (stacked, dif)} & \multicolumn{2}{c|}{Temporal (dif)} \\ \cline{1-8} 
@@ -431,6 +432,7 @@ En la Tabla \ref{resultados_regresion_temporal_completa} se muestran los resulta
 \multicolumn{1}{|c|}{pista\_simple (h)}       & 1' 00''           & 100 \%     & 1' 11'      & 100 \%       & 1' 03''    & 25 \%      &         \\ \hline
 \multicolumn{1}{|c|}{pista\_simple (ah)}     & 59''      & 100 \%     & 1' 08''     & 100 \%       & 1' 02''    & 15 \%      &                \\ \hline
 \end{tabular}
+}
 \end{table}
 
 En esta tabla se puede observar que en ninguna de las tres redes conseguimos completar todos los circuitos, aunque se puede ver que las redes PilotNet \textit{(stacked)} y \textit{(stacked, dif)} consiguen completar varios circuitos, mientras que la red Temporal (\textit{dif}) no consigue completar ninguno. Esto se debe a que apilar dos imágenes proporciona más información que únicamente emplear la imagen diferencia. También a que es bastante complejo crear una imagen que proporcione información a la red acerca de cómo ha variado la situación del vehículo o no, ya que si estábamos en recta y seguimos en recta la imagen diferencia prácticamente tendrá valor 0 en todos sus píxeles, lo que no aportará mucha información al vehículo acerca de su situación. Sin embargo, si la situación ha cambiado mucho en un periodo de tiempo muy corto esta imagen poseerá mucha información acerca de la nueva situación. Además, otra complejidad es saber qué instante de tiempo debemos tomar para lograr una conducción efectiva, es decir, en los experimentos se ha tomado la diferencia entre dos imágenes separadas por 10 \textit{frames} (mejor resultado obtenido en los experimentos), pero es bastante complicado saber qué margen debemos tomar entre las dos imágenes para aportar información a la red en todas las situaciones.\\
