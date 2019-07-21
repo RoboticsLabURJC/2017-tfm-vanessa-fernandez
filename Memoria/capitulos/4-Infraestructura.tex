@@ -387,7 +387,7 @@ Se ha dividido la aplicación piloto en diferentes partes e hilos de ejecución 
     
     \item Hilo de la interfaz gráfica de usuario (\acrshort{gui}): Se encarga de actualizar la \acrshort{gui}. El intervalo de actualización de este hilo es importante, ya que tenemos que mostrar la imagen que ve el coche en tiempo real. El intervalo de tiempo debe ser pequeño, se actualizará cada 50 ms.
     
-    \item Hilo de la red neuronal: Es el encargado de inferir valores a partir la última imagen recibida, de forma asíncrona. Cuando termina la inferencia, se almacena el valor dentro del elemento de red. Cuando el vehículo necesita los últimos datos de inferencia, solamente toma estos datos sin bloquear ningún proceso ni llamada. Este hilo (\textit{ThreadNetwork}) se debe actualizar en intervalos de tiempo pequeños para que el coche sea capaz de conducir. Se actualiza cada 50 ms.
+    \item Hilo de la red neuronal: Es el encargado de inferir valores a partir de la última imagen recibida, de forma asíncrona. Cuando termina la inferencia, se almacena el valor dentro del elemento de red. Cuando el vehículo necesita los últimos datos de inferencia, solamente toma estos datos sin bloquear ningún proceso ni llamada. Este hilo (\textit{ThreadNetwork}) se debe actualizar en intervalos de tiempo pequeños para que el coche sea capaz de conducir. Se actualiza cada 50 ms.
 
 \end{itemize}
 
