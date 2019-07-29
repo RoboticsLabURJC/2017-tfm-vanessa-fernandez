@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-# Vanessa Fernández's TFM student
+# Vanessa Fernández's TFM student: Visual Control with DeepLearning
 
 * [Week 38: Final Videos](weeks/week38.md)
 * [Week 37: Videos](weeks/week37.md)
