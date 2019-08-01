@@ -31,9 +31,9 @@ else:
 
 I've used a margin of 10 images between the 2 images. The result is: 
 
-![dif_gray_128](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/dif_gray_128.png)
+![dif_gray_128](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/dif_gray_128.png)
 
-[![Follow line with Temporal difference network](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=XkQwENb-K-Q)
+[![Follow line with Temporal difference network](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=XkQwENb-K-Q)
 
 
 
