@@ -11,15 +11,15 @@ This week, I've retrained the models with the new dataset. This new dataset is d
 
 I've used the predictions of the classification network according to w (7 classes) and v (4 classes) to driving a formula 1: 
 
-[![Follow line with classification network (7 classes for w and 4 classes for v, dataset2)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/follow_blue.png)](https://www.youtube.com/watch?v=mTQYu0gdxNY)
+[![Follow line with classification network (7 classes for w and 4 classes for v, dataset2)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/follow_blue.png)](https://www.youtube.com/watch?v=mTQYu0gdxNY)
 
 
 I've used the predictions of the regression network (223 epochs for v and 212 for w) to driving a formula 1:
 
-[![Follow line with regression network (dataset2 simpleCircuit.world)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/follow_blue.png)](https://www.youtube.com/watch?v=CxkbHCt1gaI)
+[![Follow line with regression network (dataset2 simpleCircuit.world)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/follow_blue.png)](https://www.youtube.com/watch?v=CxkbHCt1gaI)
 
 
-[![Follow line with regression network (dataset2 nurburgrinLineROS.world)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/follow_blue.png)](https://www.youtube.com/watch?v=XBYubp2SChA)
+[![Follow line with regression network (dataset2 nurburgrinLineROS.world)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/follow_blue.png)](https://www.youtube.com/watch?v=XBYubp2SChA)
 
 
 
@@ -27,7 +27,7 @@ I've used the predictions of the regression network (223 epochs for v and 212 fo
 
 To analyze the data, a new statistic was created (analysis_vectors.py). I've analyzed two lines of each image and calculated the centroids of the corresponding lines (row 250 and row 360). On the x-axis of the graph, the centroid of row 350 is represented and the y-axis represents the centroid of row 260 of the image. In the following image we can see the representation of this statistic of the training set (new dataset) (red circles) iagainst the driving data (blue crosses). 
 
-![L1_L2_dataset2](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/L1_L2_dataset2.png)
+![L1_L2_dataset2](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/L1_L2_dataset2.png)
 
 
 
@@ -52,9 +52,9 @@ I've read some information about self-driving. I've read about different archite
 
 I've retrained the classification network for w with the new dataset. The test results are: 
 
-![test_7_w_dataset2](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/test_7_w_dataset2.png)
+![test_7_w_dataset2](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/test_7_w_dataset2.png)
 
-![matrix_conf_7_w_dataset2](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/matrix_conf_7_w_dataset2.png)
+![matrix_conf_7_w_dataset2](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/matrix_conf_7_w_dataset2.png)
 
 
 
@@ -62,7 +62,7 @@ I've retrained the classification network for w with the new dataset. The test r
 
 I've retrained the classification network for v with the new dataset. The test results are: 
 
-![test_4_v_dataset2](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/test_4_v_dataset2.png)
+![test_4_v_dataset2](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/test_4_v_dataset2.png)
 
-![matrix_conf_4_v_dataset2](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/matrix_conf_4_v_dataset2.png)
+![matrix_conf_4_v_dataset2](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/matrix_conf_4_v_dataset2.png)
 
