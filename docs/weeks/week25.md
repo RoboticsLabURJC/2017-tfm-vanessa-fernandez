@@ -49,23 +49,23 @@ I've tried to create a difference image with only two channels: HV. First, I mad
 
 Straight line: 
 
-![straight_hs](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/straight_hs.png)
+![straight_hs](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/straight_hs.png)
 
 
 Curve: 
 
-![curve_hs](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/curve_hs.png)
+![curve_hs](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/curve_hs.png)
 
 
 I've create a sum image using numpy.add(x1, x2). The image result is:
 
-![add_imgs](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/add_imgs.png)
+![add_imgs](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/add_imgs.png)
 
 
 
 ## Controlnet
 
-![model_controlnet](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/model_controlnet.png)
+![model_controlnet](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/model_controlnet.png)
 
 
 |            Driving results (Controlnet network, whole image)             |||||
