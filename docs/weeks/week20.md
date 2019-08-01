@@ -9,7 +9,7 @@ layout: default
 
 I've used the predictions of the classification network according to w (7 classes) and constant v to driving a formula 1 (simulation time: 2min 17s): 
 
-[![Follow line with classification network for w and constant v (Dataset 3, test2, biased)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=gTTX6JdQaSU)
+[![Follow line with classification network for w and constant v (Dataset 3, test2, biased)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=gTTX6JdQaSU)
 
 
 
@@ -17,24 +17,24 @@ I've used the predictions of the classification network according to w (7 classe
 
 I've used the predictions of the classification network according to w (7 classes) and constant v to driving a formula 1: 
 
-[![Follow line with classification network for w and constant v (Dataset 3, test2, balanced)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=MeMq-IRBDT8)
+[![Follow line with classification network for w and constant v (Dataset 3, test2, balanced)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=MeMq-IRBDT8)
 
 
 ### Pilotnet network
 
 I've used the predictions of the pilotnet network (regression network) to driving a formula 1 (test1): 
 
-[![Follow line with Pilotnet network for w and v (Dataset 3, test1)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=BLS4rFDFImM)
+[![Follow line with Pilotnet network for w and v (Dataset 3, test1)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=BLS4rFDFImM)
 
 
 I've used the predictions of the pilotnet network (regression network) to driving a formula 1 (test2): 
 
-[![Follow line with Pilotnet network for w and v (Dataset 3, test2)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=QDmNB82tzoY)
+[![Follow line with Pilotnet network for w and v (Dataset 3, test2)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=QDmNB82tzoY)
 
 
 I've used the predictions of the pilotnet network (regression network) for w and constant v to driving a formula 1 (simulation time: 3min 46s):
 
-[![Follow line with Pilotnet network for w and constant v (Dataset 3, test1)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=O8ri6k-1ebo)
+[![Follow line with Pilotnet network for w and constant v (Dataset 3, test1)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=O8ri6k-1ebo)
 
 
 
