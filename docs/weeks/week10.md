@@ -23,23 +23,23 @@ I've followed this [blog](https://www.pyimagesearch.com/2018/05/07/multi-label-c
 
 The CNN architecture I am using is SmallerVGGNet, a simplified version of VGGNet. The VGGNet model was first introduced by Simonyan and Zisserman in their 2014 paper, [Very Deep Convolutional Networks for Large Scale Image Recognition](https://arxiv.org/pdf/1409.1556/). In this case we keep an image of the model with plot_model to see the architecture of the network. The model (classification_model.py) is as follows: 
 
-![model_smaller_vgg](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/model_smaller_vgg.png)
+![model_smaller_vgg](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/model_smaller_vgg.png)
 
 After training the network, we save the model (models/model_smaller_vgg_7classes_w.h5) and evaluate the model with the validation set: 
 
-![smaller_vgg_7_train](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/smaller_vgg_7_train.png)
+![smaller_vgg_7_train](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/smaller_vgg_7_train.png)
 
 We also show the graphs of loss and accuracy for training and validation according to the epochs: 
 
-![smaller_vgg_7_train_loss](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/smaller_vgg_7_train_loss.png)
+![smaller_vgg_7_train_loss](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/smaller_vgg_7_train_loss.png)
 
-![smaller_vgg_7_train_accuracy](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/smaller_vgg_7_train_accuracy.png)
+![smaller_vgg_7_train_accuracy](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/smaller_vgg_7_train_accuracy.png)
 
 
 
 In addition, we evaluate the accuracy, precision, recall, F1-score and we paint the confusion matrix. The results are the following: 
 
-![smaller_vgg_7_test](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/smaller_vgg_7_test.png)
+![smaller_vgg_7_test](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/smaller_vgg_7_test.png)
 
-![smaller_vgg_7_confusion_matrix](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/smaller_vgg_7_confusion_matrix.png)
+![smaller_vgg_7_confusion_matrix](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/smaller_vgg_7_confusion_matrix.png)
 
