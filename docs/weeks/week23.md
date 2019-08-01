@@ -11,33 +11,33 @@ I've used the predictions of the Pilotnet network (regression network) to drivin
 
 * Simple circuit clockwise (simulation time: 1min 41s):
 
-[![Follow line with Pilotnet network for w and v (Dataset 3, test3, Simple, Clockwise)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=ZgfYMtndDw8)
+[![Follow line with Pilotnet network for w and v (Dataset 3, test3, Simple, Clockwise)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=ZgfYMtndDw8)
 
 
 * Simple circuit anti-clockwise (simulation time: 1min 39s):
 
-[![Follow line with Pilotnet network for w and v (Dataset 3, test3, Simple, Anti-clockwise)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=KIHX-Jx9ONo)
+[![Follow line with Pilotnet network for w and v (Dataset 3, test3, Simple, Anti-clockwise)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=KIHX-Jx9ONo)
 
 
 * Monaco circuit clockwise (simulation time: 1min 21s):
 
-[![Follow line with Pilotnet network for w and v (Dataset 3, test3, Monaco, Clockwise)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_monaco.png)](https://www.youtube.com/watch?v=CAWNZV0S3S0)
+[![Follow line with Pilotnet network for w and v (Dataset 3, test3, Monaco, Clockwise)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_monaco.png)](https://www.youtube.com/watch?v=CAWNZV0S3S0)
 
 
 * Monaco circuit anti-clockwise (simulation time: 1min 23s):
 
-[![Follow line with Pilotnet network for w and v (Dataset 3, test3, Monaco, Anti-Clockwise)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_monaco.png)](https://www.youtube.com/watch?v=G1DzEB4t9WU)
+[![Follow line with Pilotnet network for w and v (Dataset 3, test3, Monaco, Anti-Clockwise)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_monaco.png)](https://www.youtube.com/watch?v=G1DzEB4t9WU)
 
 
 * Nurburgrin circuit clockwise (simulation time: 1min 03s):
 
 
-[![Follow line with Pilotnet network for w and v (Dataset 3, test3, Nurburgrin, Clockwise)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_nurburgrin.png)](https://www.youtube.com/watch?v=SUIyjtP817c)
+[![Follow line with Pilotnet network for w and v (Dataset 3, test3, Nurburgrin, Clockwise)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_nurburgrin.png)](https://www.youtube.com/watch?v=SUIyjtP817c)
 
 
 * Nurburgrin circuit anti-clockwise (simulation time: 1min 06s):
 
-[![Follow line with Pilotnet network for w and v (Dataset 3, test3, Nurburgrin, Anti-Clockwise)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_nurburgrin.png)](https://www.youtube.com/watch?v=8VaUJalm88I)
+[![Follow line with Pilotnet network for w and v (Dataset 3, test3, Nurburgrin, Anti-Clockwise)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_nurburgrin.png)](https://www.youtube.com/watch?v=8VaUJalm88I)
 
 
 
@@ -47,33 +47,33 @@ I've used the predictions of the Tinypilotnet network (regression network) to dr
 
 * Simple circuit clockwise (simulation time: 1min 39s):
 
-[![Follow line with Tinypilotnet network for w and v (Dataset 3, Simple, Clockwise)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=fIR6YScswm8)
+[![Follow line with Tinypilotnet network for w and v (Dataset 3, Simple, Clockwise)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=fIR6YScswm8)
 
 
 * Simple circuit anti-clockwise (simulation time: 1min 38s):
 
-[![Follow line with Tinypilotnet network for w and v (Dataset 3, Simple, Anti-clockwise)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=JftO2yy2rUw)
+[![Follow line with Tinypilotnet network for w and v (Dataset 3, Simple, Anti-clockwise)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=JftO2yy2rUw)
 
 
 * Monaco circuit clockwise (simulation time: 1min 19s):
 
-[![Follow line with Tinypilotnet network for w and v (Dataset 3, Monaco, Clockwise)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_monaco.png)](https://www.youtube.com/watch?v=CK0H9nSlK78)
+[![Follow line with Tinypilotnet network for w and v (Dataset 3, Monaco, Clockwise)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_monaco.png)](https://www.youtube.com/watch?v=CK0H9nSlK78)
 
 
 * Monaco circuit anti-clockwise (simulation time: 1min 20s):
 
-[![Follow line with Tinypilotnet network for w and v (Dataset 3, Monaco, Anti-Clockwise)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_monaco.png)](https://www.youtube.com/watch?v=rZ_vRTSzapE)
+[![Follow line with Tinypilotnet network for w and v (Dataset 3, Monaco, Anti-Clockwise)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_monaco.png)](https://www.youtube.com/watch?v=rZ_vRTSzapE)
 
 
 * Nurburgrin circuit clockwise (simulation time: 1min 05s):
 
 
-[![Follow line with Tinypilotnet network for w and v (Dataset 3, Nurburgrin, Clockwise)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_nurburgrin.png)](https://www.youtube.com/watch?v=0MvKywz55XU)
+[![Follow line with Tinypilotnet network for w and v (Dataset 3, Nurburgrin, Clockwise)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_nurburgrin.png)](https://www.youtube.com/watch?v=0MvKywz55XU)
 
 
 * Nurburgrin circuit anti-clockwise (simulation time: 1min 06s):
 
-[![Follow line with Tinypilotnet network for w and v (Dataset 3, Nurburgrin, Anti-Clockwise)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_nurburgrin.png)](https://www.youtube.com/watch?v=Ifjeq_e11ak)
+[![Follow line with Tinypilotnet network for w and v (Dataset 3, Nurburgrin, Anti-Clockwise)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_nurburgrin.png)](https://www.youtube.com/watch?v=Ifjeq_e11ak)
 
 
 
@@ -81,7 +81,7 @@ I've used the predictions of the Tinypilotnet network (regression network) to dr
 
 I've used the predictions of the classification network according to w (7 classes) and v (4 classes) to driving a formula 1 (simulation time: 1min 38s): 
 
-[![Follow line with classification network for w and v (Dataset 3, test3, biased, cropped image)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=pnzWSW8J_q0)
+[![Follow line with classification network for w and v (Dataset 3, test3, biased, cropped image)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=pnzWSW8J_q0)
 
 
 
