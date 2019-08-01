@@ -91,7 +91,7 @@ MAE: 0.21453057245415982
 </pre>
 
 
-![difference_controlnet_dataset_v](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/difference_controlnet_dataset_v.png)
+![difference_controlnet_dataset_v](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/difference_controlnet_dataset_v.png)
 
 
 * w:
@@ -105,7 +105,7 @@ MAE: 0.03184364641428021
 </pre>
 
 
-![difference_controlnet_dataset_w](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/difference_controlnet_dataset_w.png)
+![difference_controlnet_dataset_w](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/difference_controlnet_dataset_w.png)
 
 
 
@@ -122,7 +122,7 @@ MAE: 0.17399486924267757
 </pre>
 
 
-![difference_controlnet_dataset_curves_v](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/difference_controlnet_dataset_curves_v.png)
+![difference_controlnet_dataset_curves_v](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/difference_controlnet_dataset_curves_v.png)
 
 
 * w:
@@ -136,7 +136,7 @@ MSE: 0.001533648088125278
 MAE: 0.02667656092817528
 </pre>
 
-![difference_controlnet_dataset_curves_w](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/difference_controlnet_dataset_curves_w.png)
+![difference_controlnet_dataset_curves_w](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/difference_controlnet_dataset_curves_w.png)
 
 
 
@@ -144,6 +144,6 @@ MAE: 0.02667656092817528
 
 * CurveGP circuit:
 
-![curve_fixed](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/curve_fixed.png)
+![curve_fixed](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/curve_fixed.png)
 
 
