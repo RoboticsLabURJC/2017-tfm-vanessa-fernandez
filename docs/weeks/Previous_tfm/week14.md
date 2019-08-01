@@ -34,7 +34,7 @@ My appConfig.txt is:
 
  To check its operation, you have to select the following: 
 
-![detection](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/detection.png)
+![detection](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/detection.png)
 
 However, I have had some errors in execution width CUDA:
 
