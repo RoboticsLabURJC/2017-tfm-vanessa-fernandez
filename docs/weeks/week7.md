@@ -12,5 +12,5 @@ The final goal of the project is to make a follow-line using Deep Learning. For 
 
 In addition, I've created a driver node based on the objectdetector node, which allows to connect neural networks. For now the initial gui looks like this: 
 
-![GUI](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/gui_inicial.png)
+![GUI](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/gui_inicial.png)
 
