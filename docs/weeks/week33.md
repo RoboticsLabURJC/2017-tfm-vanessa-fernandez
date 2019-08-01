@@ -27,7 +27,7 @@ layout: default
 </pre>
 
 
-![controlnet_architecture](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/controlnet_architecture.png)
+![controlnet_architecture](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/controlnet_architecture.png)
 
 
 I've adapted the model to my data:
