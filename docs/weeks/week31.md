@@ -90,6 +90,6 @@ layout: default
 
 * Small circuit:
 
-![small_fixed](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/small_fixed.png)
+![small_fixed](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/small_fixed.png)
 
 
