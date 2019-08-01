@@ -141,6 +141,6 @@ v = 13             ===> 1670
 
 I've trained a new model: DeepestLSTM-Tinypilotnet: 
 
-![model_deepestlstm_tinypilotnet](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/model_deepestlstm_tinypilotnet.png)
+![model_deepestlstm_tinypilotnet](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/model_deepestlstm_tinypilotnet.png)
 
 
