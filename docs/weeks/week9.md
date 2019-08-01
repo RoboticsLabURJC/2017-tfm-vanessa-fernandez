@@ -47,20 +47,20 @@ In our case we will use a very small convnet with few layers and few filters per
 
 After training the network, we save the model (models/model_classification.h5) and evaluate the model with the validation set: 
 
-![terminal_classification](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/terminal_classification.png)
+![terminal_classification](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/terminal_classification.png)
 
 We also show the graphs of loss and accuracy for training and validation according to the epochs:
 
-![loss_classification](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/loss_classification.png)
+![loss_classification](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/loss_classification.png)
 
-![acc_classification](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/acc_classification.png)
+![acc_classification](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/acc_classification.png)
 
 
 In addition, the classification_test.py file has been created to evaluate the model in a data set that has not been seen by the network. In this file the test set is used and accuracy, precision, recall, F1-score are evaluated and the confusion matrix is ​​painted. The results are the following:
 
-![metrics_classification](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/metrics_classification.png)
+![metrics_classification](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/metrics_classification.png)
 
-![matrix_conf_classification](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/matrix_conf_classification.png)
+![matrix_conf_classification](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/matrix_conf_classification.png)
 
 
 ## Driver test
