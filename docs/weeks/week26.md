@@ -8,7 +8,7 @@ layout: default
 
 I've done tests with a circuit that hasn't been used for training. 
 
-![small_cirtuit](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/small_cirtuit.png)
+![small_cirtuit](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/small_cirtuit.png)
 
 
 
@@ -89,10 +89,10 @@ difference[:, :, 0] = cv2.morphologyEx(difference[:, :, 0], cv2.MORPH_CLOSE, ker
 
  I've used a margin of 10 images between the 2 images. The result is: 
 
-![dif_gray](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/dif_gray.png)
+![dif_gray](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/dif_gray.png)
 
 
-[![Follow line with Temporal difference network](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=E8Z50k3hRpw)
+[![Follow line with Temporal difference network](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=E8Z50k3hRpw)
 
 
 |        Driving results (Temporal difference network, whole image)        |||||
