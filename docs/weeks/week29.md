@@ -7,27 +7,27 @@ layout: default
 
 * Simple circuit:
 
-![simple](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/simple.png)
+![simple](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/simple.png)
 
 
 * Monaco circuit:
 
-![monaco](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/monaco.png)
+![monaco](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/monaco.png)
 
 
 * Nurburgrin circuit:
 
-![nurburgrin](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/nurburgrin.png)
+![nurburgrin](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/nurburgrin.png)
 
 
 * Small circuit:
 
-![small](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/small.png)
+![small](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/small.png)
 
 
 * CurveGP circuit:
 
-![curveGP](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/curve.png)
+![curveGP](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/curve.png)
 
 
 
@@ -82,7 +82,7 @@ I've done tests with a CurveGP circuit:
 
 * Train:
 
-![difference_controlnet_train_curves](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/difference_controlnet_train_curves.png)
+![difference_controlnet_train_curves](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/difference_controlnet_train_curves.png)
 
 
 <pre>
@@ -104,7 +104,7 @@ MAE: 0.053194
 
 * Test:
 
-![difference_controlnet_test_curves](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/difference_controlnet_test_curves.png)
+![difference_controlnet_test_curves](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/difference_controlnet_test_curves.png)
 
 
 <pre>
@@ -126,6 +126,6 @@ MAE: 0.173289
 
 ## Circuit
 
-![circuit_curves](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/circuit_curves.png)
+![circuit_curves](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/circuit_curves.png)
 
 
