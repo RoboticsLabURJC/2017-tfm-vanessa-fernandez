@@ -8,7 +8,7 @@ layout: default
 
 I've used the predictions of the classification network according to w (7 classes) and constant v to driving a formula 1: 
 
-[![Follow line with classification network (7 classes for w, Test4)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/follow_blue.png)](https://www.youtube.com/watch?v=o1QfHrzEHm4)
+[![Follow line with classification network (7 classes for w, Test4)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/follow_blue.png)](https://www.youtube.com/watch?v=o1QfHrzEHm4)
 
 
 
@@ -19,12 +19,12 @@ This week, I had problems with Ubutu, I had to reinstall it several times, and w
 
 * BGR:
 
-![bgr](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/bgr.png)
+![bgr](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/bgr.png)
 
 
 * HSV:
 
-![hsv](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/hsv.png)
+![hsv](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/hsv.png)
 
 
 
@@ -39,7 +39,7 @@ I've relabelled the images from [2](https://github.com/RoboticsURJC-students/201
 
 I've trained a new model: LSTM-Tinypilotnet: 
 
-![model_lstm_tinypilotnet](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/model_lstm_tinypilotnet.png)
+![model_lstm_tinypilotnet](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/model_lstm_tinypilotnet.png)
 
 
 
