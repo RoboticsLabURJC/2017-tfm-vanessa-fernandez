@@ -7,15 +7,15 @@ layout: default
 
 I've used the predictions of the classification network according to w (7 classes) to pilot a formula 1. Depending on the class of w, a different angle of rotation is given to the vehicle and the linear speed remains constant. With this network part of the circuit is achieved, but the car crashes when leaving a curve. Below, you can see an example: 
 
-[![Follow line with classification network (7 classes for w and constant v)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/follow_red.png)](https://www.youtube.com/watch?v=YN_w9Bn7q90)
+[![Follow line with classification network (7 classes for w and constant v)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/follow_red.png)](https://www.youtube.com/watch?v=YN_w9Bn7q90)
 
 I've used the predictions of the classification network according to w (7 classes) and v (4 classes) to pilot a formula 1. Depending on the class of w, a different angle of rotation is given to the vehicle and depending on the class of v, a different linear speed is given to the vehicle. With this network part of the circuit is achieved, but the car crashes when leaving a curve. Below, you can see an example:
 
-[![Follow line with classification network (7 classes for w and 4 classes for v)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/follow_red.png)](https://www.youtube.com/watch?v=GEig6_41EO4)
+[![Follow line with classification network (7 classes for w and 4 classes for v)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/follow_red.png)](https://www.youtube.com/watch?v=GEig6_41EO4)
 
 I've used the predictions of the regression network to drive a formula 1 (223 epochs for v and 212 epochs for w):
 
-[![Follow line with regression network (223 epochs for v and 212 epochs for w)](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/follow_red.png)](https://www.youtube.com/watch?v=1VvriU8GyUI)
+[![Follow line with regression network (223 epochs for v and 212 epochs for w)](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/follow_red.png)](https://www.youtube.com/watch?v=1VvriU8GyUI)
 
 
 
@@ -97,13 +97,13 @@ Tensorboard has different views which take inputs of different formats and displ
 
 If we see the graphs of the training we can check when our model is being overfitting. For example, in a training of a classification model (4 classes) with a batch_size of 32 and an epochs of 40 we can see the point where the training stops being efficient. In the graphs of the validation set we can see that from epochs 23 training is no longer efficient. 
 
-![tensorboard_40epoch_acc](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_40epoch_acc.png)
+![tensorboard_40epoch_acc](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_40epoch_acc.png)
 
-![tensorboard_40epoch_loss](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_40epoch_loss.png)
+![tensorboard_40epoch_loss](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_40epoch_loss.png)
 
-![tensorboard_40epoch_val_acc](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_40epoch_val_acc.png)
+![tensorboard_40epoch_val_acc](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_40epoch_val_acc.png)
 
-![tensorboard_40epoch_va_loss](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_40epoch_val_loss.png)
+![tensorboard_40epoch_va_loss](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_40epoch_val_loss.png)
 
 
 
@@ -120,20 +120,20 @@ very_fast: if the linear speed is v > 11.
 
 I've trained a model with the 4 classes mentioned above. The CNN architecture I am using is SmallerVGGNet, a simplified version of VGGNet. After training the network, we save the model (models/model_smaller_vgg_4classes_v.h5) and show the graphs of loss and accuracy for training and validation according to the epochs. For that, I've used Tensorboard: 
 
-![tensorboard_classification_4_v_acc](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_classification_4_v_acc.png)
+![tensorboard_classification_4_v_acc](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_classification_4_v_acc.png)
 
-![tensorboard_classification_4_v_loss](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_classification_4_v_loss.png)
+![tensorboard_classification_4_v_loss](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_classification_4_v_loss.png)
 
-![tensorboard_classification_4_v_val_acc](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_classification_4_v_val_acc.png)
+![tensorboard_classification_4_v_val_acc](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_classification_4_v_val_acc.png)
 
-![tensorboard_classification_4_v_val_loss](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_classification_4_v_val_loss.png)
+![tensorboard_classification_4_v_val_loss](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_classification_4_v_val_loss.png)
 
 
 In addition, I evaluate the accuracy, precision, recall, F1-score (in test set) and we paint the confusion matrix. The results are the following:
 
-![classification_4_v_results_test](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/classification_4_v_results_test.png)
+![classification_4_v_results_test](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/classification_4_v_results_test.png)
 
-![classification_4_v_matrix_confussion](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/classification_4_v_matrix_confussion.png)
+![classification_4_v_matrix_confussion](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/classification_4_v_matrix_confussion.png)
 
 
 
@@ -143,28 +143,28 @@ I've trained two regression networks (for v and for w) following the Pilotnet ar
 
 * Accuracy:
 
-![tensorboard_v_w_1000epoch_acc](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_acc.png)
+![tensorboard_v_w_1000epoch_acc](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_acc.png)
 
-![tensorboard_v_w_1000epoch_val_acc](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_val_acc.png)
+![tensorboard_v_w_1000epoch_val_acc](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_val_acc.png)
 
 
 * Loss:
 
-![tensorboard_v_w_1000epoch_loss](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_loss.png)
+![tensorboard_v_w_1000epoch_loss](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_loss.png)
 
-![tensorboard_v_w_1000epoch_val_loss](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_val_loss.png)
+![tensorboard_v_w_1000epoch_val_loss](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_val_loss.png)
 
 
 * Mean squared error:
 
-![tensorboard_v_w_1000epoch_mse](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_mse.png)
+![tensorboard_v_w_1000epoch_mse](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_mse.png)
 
-![tensorboard_v_w_1000epoch_val_mse](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_val_mse.png)
+![tensorboard_v_w_1000epoch_val_mse](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_val_mse.png)
 
 
 * Mean absolute error:
 
-![tensorboard_v_w_1000epoch_mae](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_mae.png)
+![tensorboard_v_w_1000epoch_mae](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_mae.png)
 
-![tensorboard_v_w_1000epoch_val_mae](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_val_mae.png)
+![tensorboard_v_w_1000epoch_val_mae](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/tensorboard_v_w_1000epoch_val_mae.png)
 
