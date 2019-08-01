@@ -82,6 +82,6 @@ In this method I test a new network with the difference image of it and it-5. Th
 
 Difference image: 
 
-![dif_im](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/dif_im.png)
+![dif_im](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/dif_im.png)
 
 
