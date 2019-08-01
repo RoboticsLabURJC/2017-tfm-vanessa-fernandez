@@ -72,12 +72,12 @@ I have created a synthetic dataset. To create this dataset I have created a back
 
 Background: 
 
-![Background](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/background.png)
+![Background](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/background.png)
 
 
 Image:
 
-![Image](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/1.png)
+![Image](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/1.png)
 
 
 ## Getting started with Neural Network for regression
@@ -124,6 +124,6 @@ We will train neural network by iterating it through each sample in dataset. Two
 
 So finally we completed our neural net in Tensorflow for predicting stock market price. The result can be seen in the following graph: 
 
-![yahoo](https://roboticsurjc-students.github.io/2017-tfm-vanessa-fernandez/images/yahoo.png)
+![yahoo](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/yahoo.png)
 
 
