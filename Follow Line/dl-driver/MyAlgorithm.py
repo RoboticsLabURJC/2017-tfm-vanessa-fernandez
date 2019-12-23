@@ -161,6 +161,35 @@ class MyAlgorithm(threading.Thread):
         # elif prediction_w == "radically_right":
         #     self.motors.sendW(-1.9)
 
+        # CLASSIFICATION NETWORK 9 CLASSES FOR W AND 4 FOR V
+        # if prediction_v == "slow":
+        #     self.motors.sendV(5)
+        # elif prediction_v == "moderate":
+        #     self.motors.sendV(8)
+        # elif prediction_v == "fast":
+        #     self.motors.sendV(10)
+        # elif prediction_v == "very_fast":
+        #     self.motors.sendV(13)
+        #
+        # if prediction_w == "radically_left":
+        #     self.motors.sendW(2.4)
+        # elif prediction_w == "strongly_left":
+        #     self.motors.sendW(1.7)
+        # elif prediction_w == "moderately_left":
+        #     self.motors.sendW(0.75)
+        # elif prediction_w == "slightly_left":
+        #     self.motors.sendW(0.25)
+        # elif prediction_w == "slight":
+        #     self.motors.sendW(0)
+        # elif prediction_w == "slightly_right":
+        #     self.motors.sendW(-0.25)
+        # elif prediction_w == "moderately_right":
+        #     self.motors.sendW(-0.75)
+        # elif prediction_w == "strongly_right":
+        #     self.motors.sendW(-1.7)
+        # elif prediction_w == "radically_right":
+        #     self.motors.sendW(-2.4)
+
 
 
         # CLASSIFICATION NETWORK 7 CLASSES FOR W AND 5 FOR V
