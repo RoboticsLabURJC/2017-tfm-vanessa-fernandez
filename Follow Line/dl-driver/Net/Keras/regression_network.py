@@ -26,14 +26,21 @@ class RegressionNetwork():
         #self.img_height = 65
         self.img_width = 160
 
-        self.prediction_v = ""
-        self.prediction_w = ""
+        self.prediction_v = 0
+        self.prediction_w = 0
 
         # Stack frames (stacked method)
         self.stacked_imgs = []
         self.margin = 10
-
         self.num_stacked_imgs = 2
+
+        # Controlnet frames
+        #self.num_frames = 5
+        #self.frames = []
+        self.num_frames_w = 5
+        self.num_frames_v = 30
+        self.frames_w = []
+        self.frames_v = []
 
     def setCamera(self, camera):
         self.camera = camera
@@ -50,10 +57,36 @@ class RegressionNetwork():
         input_image = self.camera.getImage()
 
         # Preprocessing
-        #img = cv2.cvtColor(input_image.data, cv2.COLOR_RGB2BGR)
-        img= cv2.cvtColor(input_image.data[220:480, 0:640], cv2.COLOR_RGB2BGR)
+        img = cv2.cvtColor(input_image.data, cv2.COLOR_RGB2BGR)
+        #img= cv2.cvtColor(input_image.data[220:480, 0:640], cv2.COLOR_RGB2BGR)
         if img is not None:
             img_resized = cv2.resize(img, (self.img_width, self.img_height))
+
+            # Controlnet
+            # if len(self.frames) == 0:
+            #     for i in range(0, self.num_frames):
+            #         self.frames.append(img_resized)
+            # else:
+            #     for i in range(0, self.num_frames-1):
+            #         self.frames[i] = self.frames[i+1]
+            #     self.frames[self.num_frames-1] = img_resized
+
+            #img_resized = self.frames
+
+            # if len(self.frames_w) == 0:
+            #     for i in range(0, self.num_frames_w):
+            #         self.frames_w.append(img_resized)
+            #
+            #     for i in range(0, self.num_frames_v):
+            #         self.frames_v.append(img_resized)
+            # else:
+            #     for i in range(0, self.num_frames_w-1):
+            #         self.frames_w[i] = self.frames_w[i+1]
+            #     self.frames_w[self.num_frames_w-1] = img_resized
+            #
+            #     for i in range(0, self.num_frames_v - 1):
+            #         self.frames_v[i] = self.frames_v[i + 1]
+            #     self.frames_v[self.num_frames_v - 1] = img_resized
 
             # Stack frames or temporal frames
             # if len(self.stacked_imgs) == 0:
@@ -126,15 +159,20 @@ class RegressionNetwork():
 
             # We adapt the image
             input_img = np.stack([img_resized], axis=0)
+            # input_img_w = np.stack([self.frames_w], axis=0)
+            # input_img_v = np.stack([self.frames_v], axis=0)
 
             # While predicting, use the same graph
             with self.graph.as_default():
                 # Make prediction
                 predictions_v = self.model_v.predict(input_img)
                 predictions_w = self.model_w.predict(input_img)
+                # predictions_v = self.model_v.predict(input_img_v)
+                # predictions_w = self.model_w.predict(input_img_w)
 
             y_pred_v = [float(prediction[0]) for prediction in predictions_v][0]
             y_pred_w = [float(prediction[0]) for prediction in predictions_w][0]
 
-            self.prediction_v = y_pred_v
-            self.prediction_w = y_pred_w
+            if y_pred_v and y_pred_w:
+                self.prediction_v = y_pred_v
+                self.prediction_w = y_pred_w
