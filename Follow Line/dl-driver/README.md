@@ -65,13 +65,13 @@ The models used in this repository are the following:
 
 | Model                     | Links                                                        | Image                                                       |
 | ------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
-| PilotNet                  | [Paper](https://arxiv.org/pdf/1704.07911.pdf). [Nvidia source.](https://devblogs.nvidia.com/explaining-deep-learning-self-driving-car/) | [Structure](/Follow Line/dl-driver/Net/Keras/models/model_pilotnet.png)                 |
+| PilotNet                  | [Paper](https://arxiv.org/pdf/1704.07911.pdf). [Nvidia source.](https://devblogs.nvidia.com/explaining-deep-learning-self-driving-car/) | [Structure](./Net/Keras/models/model_pilotnet.png)                 |
 | TinyPilotNet              | [Javier del Egido Sierra](https://ebuah.uah.es/dspace/bitstream/handle/10017/33946/TFG_Egido_Sierra_2018.pdf?sequence=1&isAllowed=y) TFG's. | -                                                           |
 | LSTM                      | [Info](https://colah.github.io/posts/2015-08-Understanding-LSTMs/) | -                                                           |
-| LSTM TinyPilotNet         | -                                                            | [Structure](/Follow Line/dl-driver/Net/Keras/models/model_lstm_tinypilotnet.png)        |
-| Deepest LSTM TinyPilotNet | [Javier del Egido Sierra](https://ebuah.uah.es/dspace/bitstream/handle/10017/33946/TFG_Egido_Sierra_2018.pdf?sequence=1&isAllowed=y) TFG's. | [Structure](//Follow Line/dl-driverNet/Keras/models/model_deepestlstm_tinypilotnet.png) |
-| ControlNet                | -                                                            | [Structure](/Follow Line/dl-driver/Net/Keras/models/model_controlnet.png)               |
-| Stacked                   | -                                                            | [Structure](/Follow Line/dl-driver/Net/Keras/models/model_stacked.png)                  |
+| LSTM TinyPilotNet         | -                                                            | [Structure](./Net/Keras/models/model_lstm_tinypilotnet.png)        |
+| Deepest LSTM TinyPilotNet | [Javier del Egido Sierra](https://ebuah.uah.es/dspace/bitstream/handle/10017/33946/TFG_Egido_Sierra_2018.pdf?sequence=1&isAllowed=y) TFG's. | [Structure](./Net/Keras/models/model_deepestlstm_tinypilotnet.png) |
+| ControlNet                | -                                                            | [Structure](./Net/Keras/models/model_controlnet.png)               |
+| Stacked                   | -                                                            | [Structure](./Net/Keras/models/model_stacked.png)                  |
 | Stacked Dif or Temporal   | -                                                            | -                                                           |
 
 The models are available in the [following repository](http://wiki.jderobot.org/store/jmplaza/uploads/deeplearning-models/models.zip).
