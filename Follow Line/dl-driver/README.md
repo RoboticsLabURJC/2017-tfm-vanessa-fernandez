@@ -7,9 +7,16 @@
 3. [Requirements](#requirements)
 4. [How to use](#how-to-use)
 5. [Framework choice](#framework-choice)
-6. [Classification Network](#classification-network)
+6. [Dataset](#dataset)
+7. [Models](#models)
+8. [Classification Network](#classification-network)
+9. [Regression Network](#regression-network)
+10. [Information](#info)
 
 ## Introduction
+
+Dl-driver is a visual control application with the necessary infrastructure to load and use self-driving neural networks. The system solves several functionalities: (1) it offers a graphical user interface that helps you debug the code; (b) it offers access to sensors and actuators with simple methods (it hides communications middleware); (c) it includes auxiliary code to send the estimated orders by the networks (either classification or regression) to the engines. Through this system, the user must only include his network and retouch a file where the predicted speed orders by the network are provided to the vehicle.
+
 
 ## Getting started
 
@@ -44,6 +51,30 @@ python2 driver.py driver.yml
 ```
 
 ## Framework choice
+
+## Datasets
+
+There are currently **two sets** of data to train the neural network that resolves the circuit. One contains **images of all types** such as straights and curves and the other contains **only the curves** of the circuit. The second one is smaller and the results are good enough to solve a lap of the circuit.
+
+- [Complete dataset](http://wiki.jderobot.org/store/jmplaza/uploads/deeplearning-datasets/vision-based-end2end-learning/complete_dataset.zip).
+- [Curve dataset](http://wiki.jderobot.org/store/jmplaza/uploads/deeplearning-datasets/vision-based-end2end-learning/curves_only.zip).
+
+## Models
+
+The models used in this repository are the following:
+
+| Model                     | Links                                                        | Image                                                       |
+| ------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
+| PilotNet                  | [Paper](https://arxiv.org/pdf/1704.07911.pdf). [Nvidia source.](https://devblogs.nvidia.com/explaining-deep-learning-self-driving-car/) | [Structure](/Net/Keras/models/model_pilotnet.png)                 |
+| TinyPilotNet              | [Javier del Egido Sierra](https://ebuah.uah.es/dspace/bitstream/handle/10017/33946/TFG_Egido_Sierra_2018.pdf?sequence=1&isAllowed=y) TFG's. | -                                                           |
+| LSTM                      | [Info](https://colah.github.io/posts/2015-08-Understanding-LSTMs/) | -                                                           |
+| LSTM TinyPilotNet         | -                                                            | [Structure](/Net/Keras/models/model_lstm_tinypilotnet.png)        |
+| Deepest LSTM TinyPilotNet | [Javier del Egido Sierra](https://ebuah.uah.es/dspace/bitstream/handle/10017/33946/TFG_Egido_Sierra_2018.pdf?sequence=1&isAllowed=y) TFG's. | [Structure](/Net/Keras/models/model_deepestlstm_tinypilotnet.png) |
+| ControlNet                | -                                                            | [Structure](/Net/Keras/models/model_controlnet.png)               |
+| Stacked                   | -                                                            | [Structure](/Net/Keras/models/model_stacked.png)                  |
+| Stacked Dif or Temporal   | -                                                            | -                                                           |
+
+The models are available in the [following repository](http://wiki.jderobot.org/store/jmplaza/uploads/deeplearning-models/models.zip).
 
 
 ## Classification Network
@@ -84,5 +115,15 @@ that worked best was that of 'biased'.
 5. **Choose the model you want to use:** lenet, smaller_vgg or other: Here you have to choose the model you want to train. The option that offers the best results is smaller_vgg . The lenet model
 gave very bad results because it was very basic. The other model loaded another model that gives worse results. The files containing the network models as such are in the folder models/ . For
 classification you have them in classification_model.py for regression in model_nvidia.py.
+
+
+
+## Regression Network
+
+
+## Information
+
+- More detailed info at my [Github-pages](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/).
+
 
 
