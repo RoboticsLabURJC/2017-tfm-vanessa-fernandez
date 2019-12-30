@@ -134,6 +134,7 @@ There is a circuit that has been used only for testing: **pista simple**.
 The autonomous pilot explicitly programmed to record the dataset takes a certain time to travel each circuit:
 
 |   Circuit                    |  Model   |   Time   |
+| ------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
 |   pistaSimple (clockwise)    |  [Gazebo's model](https://github.com/RoboticsLabURJC/2017-tfm-vanessa-fernandez/tree/master/Follow%20Line/circuit_models/pistaSimple)   |   1 min 35 sec   |
 |   pistaSimple (anti-clockwise)    |  [Gazebo's model](https://github.com/RoboticsLabURJC/2017-tfm-vanessa-fernandez/tree/master/Follow%20Line/circuit_models/pistaSimple)   |   1 min 33 sec   |
 |   monacoLine (clockwise)    |  [Gazebo's model](https://github.com/RoboticsLabURJC/2017-tfm-vanessa-fernandez/tree/master/Follow%20Line/circuit_models/monacoLine)   |   1 min 15 sec   |
