@@ -110,6 +110,14 @@ You will have to specify the neural network framework (Keras or Tensorflow) and 
 
 ## Framework choice
 
+The <code>driver.yml</code> configuration file allows you to choose which of the available frameworks (Keras, TensorFlow) you want to deploy on the component.
+
+Also, you will have to specify the model which you want to load. The fields <code>Model_Classification_w</code>, <code>Model_Classification_v</code>, <code>Model_Regression_v</code> and <code>Model_Regression_w</code> on the YML file musts contain the filename for the model:
+
+* TensorFlow: So far the tensorflow networks have not been implemented.
+
+* Keras: It requires a <code>.h5</code> file, which can contain the full model saved, or only the weights of the neural units. Save the models in ./Net/Keras/models/.
+
 <br /> 
 
 
@@ -117,9 +125,25 @@ You will have to specify the neural network framework (Keras or Tensorflow) and 
 
 There are currently **two sets** of data to train the neural network that resolves the circuit. One contains **images of all types** such as straights and curves and the other contains **only the curves** of the circuit. The second one is smaller and the results are good enough to solve a lap of the circuit.
 
-- [Complete dataset](http://wiki.jderobot.org/store/jmplaza/uploads/deeplearning-datasets/vision-based-end2end-learning/complete_dataset.zip).
-- [Curve dataset](http://wiki.jderobot.org/store/jmplaza/uploads/deeplearning-datasets/vision-based-end2end-learning/curves_only.zip).
+- [Complete dataset](http://wiki.jderobot.org/store/jmplaza/uploads/deeplearning-datasets/vision-based-end2end-learning/complete_dataset.zip). Different circuits have been used to record this dataset: **pistaSimple**, **monacoLine**, **nurburgrinLine**.
 
+- [Curve dataset](http://wiki.jderobot.org/store/jmplaza/uploads/deeplearning-datasets/vision-based-end2end-learning/curves_only.zip). A circuit has been used to record this dataset: **curveGP**.
+
+There is a circuit that has been used only for testing: **pista simple**.
+
+The autonomous pilot explicitly programmed to record the dataset takes a certain time to travel each circuit:
+
+|   Circuit                    |  Model   |   Time   |
+|   pistaSimple (clockwise)    |  [Gazebo's model](https://github.com/RoboticsLabURJC/2017-tfm-vanessa-fernandez/tree/master/Follow%20Line/circuit_models/pistaSimple)   |   1 min 35 sec   |
+|   pistaSimple (anti-clockwise)    |  [Gazebo's model](https://github.com/RoboticsLabURJC/2017-tfm-vanessa-fernandez/tree/master/Follow%20Line/circuit_models/pistaSimple)   |   1 min 33 sec   |
+|   monacoLine (clockwise)    |  [Gazebo's model](https://github.com/RoboticsLabURJC/2017-tfm-vanessa-fernandez/tree/master/Follow%20Line/circuit_models/monacoLine)   |   1 min 15 sec   |
+|   monacoLine (anti-clockwise)    |  [Gazebo's model](https://github.com/RoboticsLabURJC/2017-tfm-vanessa-fernandez/tree/master/Follow%20Line/circuit_models/monacoLine)   |   1 min 15 sec   |
+|   nurburgrinLine (clockwise)    |  [Gazebo's model](https://github.com/RoboticsLabURJC/2017-tfm-vanessa-fernandez/tree/master/Follow%20Line/circuit_models/nurburgrinLine)   |   1 min 02 sec   |
+|   nurburgrinLine (anti-clockwise)    |  [Gazebo's model](https://github.com/RoboticsLabURJC/2017-tfm-vanessa-fernandez/tree/master/Follow%20Line/circuit_models/nurburgrinLine)   |   1 min 02 sec   |
+|   curveGP (clockwise)    |  [Gazebo's model](https://github.com/RoboticsLabURJC/2017-tfm-vanessa-fernandez/tree/master/Follow%20Line/circuit_models/curveGP)   |   2 min 13 sec   |
+|   curveGP (anti-clockwise)    |  [Gazebo's model](https://github.com/RoboticsLabURJC/2017-tfm-vanessa-fernandez/tree/master/Follow%20Line/circuit_models/curveGP)   |   2 min 09 sec   |
+|   pista simple (clockwise)    |  [Gazebo's model](https://github.com/RoboticsLabURJC/2017-tfm-vanessa-fernandez/tree/master/Follow%20Line/circuit_models/pista_simple)   |   1 min 00 sec   |
+|   pista simple (anti-clockwise)    |  [Gazebo's model](https://github.com/RoboticsLabURJC/2017-tfm-vanessa-fernandez/tree/master/Follow%20Line/circuit_models/pista_simple)   |   59 sec   |
 
 <br /> 
 
