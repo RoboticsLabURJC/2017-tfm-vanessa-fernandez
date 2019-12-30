@@ -12,6 +12,7 @@
 8. [Classification Network](#classification-network)
 9. [Regression Network](#regression-network)
 10. [Information](#info)
+11. [References](#references)
 
 ## Introduction
 
@@ -65,12 +66,14 @@ The models used in this repository are the following:
 
 | Model                     | Links                                                        | Image                                                       |
 | ------------------------- | ------------------------------------------------------------ | ----------------------------------------------------------- |
+| Lenet-5                   | [Paper](http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf).  | [Structure](./Net/Keras/models/model_lenet.png)                 |
+| SmallerVGGNet             | [SmallerVGGNet](https://www.pyimagesearch.com/2018/05/07/multi-label-classification-with-keras/).  | [Structure](./Net/Keras/models/model_smaller_vgg.png)                 |
 | PilotNet                  | [Paper](https://arxiv.org/pdf/1704.07911.pdf). [Nvidia source.](https://devblogs.nvidia.com/explaining-deep-learning-self-driving-car/) | [Structure](./Net/Keras/models/model_pilotnet.png)                 |
 | TinyPilotNet              | [Javier del Egido Sierra](https://ebuah.uah.es/dspace/bitstream/handle/10017/33946/TFG_Egido_Sierra_2018.pdf?sequence=1&isAllowed=y) TFG's. | -                                                           |
 | LSTM                      | [Info](https://colah.github.io/posts/2015-08-Understanding-LSTMs/) | -                                                           |
-| LSTM TinyPilotNet         | -                                                            | [Structure](./Net/Keras/models/model_lstm_tinypilotnet.png)        |
+| LSTM TinyPilotNet         | [Javier del Egido Sierra](https://ebuah.uah.es/dspace/bitstream/handle/10017/33946/TFG_Egido_Sierra_2018.pdf?sequence=1&isAllowed=y) TFG's.                                                            | [Structure](./Net/Keras/models/model_lstm_tinypilotnet.png)        |
 | Deepest LSTM TinyPilotNet | [Javier del Egido Sierra](https://ebuah.uah.es/dspace/bitstream/handle/10017/33946/TFG_Egido_Sierra_2018.pdf?sequence=1&isAllowed=y) TFG's. | [Structure](./Net/Keras/models/model_deepestlstm_tinypilotnet.png) |
-| ControlNet                | -                                                            | [Structure](./Net/Keras/models/model_controlnet.png)               |
+| ControlNet                | -[Reactive Ground Vehicle Control via Deep Networks](http://juxi.net/workshop/deep-learning-rss-2017/papers/Sullivan.pdf)                                                           | [Structure](./Net/Keras/models/model_controlnet.png)               |
 | Stacked                   | -                                                            | [Structure](./Net/Keras/models/model_stacked.png)                  |
 | Stacked Dif or Temporal   | -                                                            | -                                                           |
 
@@ -124,6 +127,59 @@ classification you have them in classification_model.py for regression in model_
 ## Information
 
 - More detailed info at my [Github-pages](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/).
+
+
+## References
+
+- [ALVINN: An Autonomous Land Vehicle in a Neural Network](http://papers.nips.cc/paper/95-alvinn-an-autonomous-land-vehicle-in-a-neural-network.pdf)
+
+- [End to End Learning for Self-Driving Cars](https://arxiv.org/pdf/1604.07316.pdf)
+
+- [Explaining How a Deep Neural Network Trained with End-to-End Learning Steers a Car](https://arxiv.org/pdf/1704.07911.pdf)
+
+- [Interpretable Learning for Self-Driving Cars by Visualizing Causal Attention](https://arxiv.org/pdf/1703.10631.pdf)
+
+- [VisualBackProp: Efficient Visualization of CNNs for Autonomous Driving](https://arxiv.org/pdf/1611.05418.pdf)
+
+- [Self-driving a Car in Simulation Through a CNN](https://ebuah.uah.es/dspace/bitstream/handle/10017/33946/TFG_Egido_Sierra_2018.pdf?sequence=1&isAllowed=y)
+
+- [From Pixels to Actions: Learning to Drive a Car with Deep Neural Networks](http://homes.esat.kuleuven.be/~jheylen/FromPixelsToActions/FromPixelsToActionsPaper_Wacv18.pdf)
+
+- [Event-Based Vision Meets Deep Learning on Steering Prediction for Self-Driving Cars](https://arxiv.org/abs/1804.01310)
+
+- [End-to-end Multi-Modal Multi-Task Vehicle Control for Self-Driving Cars with Visual Perceptions](https://arxiv.org/pdf/1801.06734.pdf)
+
+- [End-to-End Deep Learning for Steering Autonomous Vehicles Considering Temporal Dependencies](https://arxiv.org/pdf/1710.03804.pdf)
+
+- [Agile Autonomous Driving using End-to-End Deep Imitation Learning](https://www.researchgate.net/publication/326739189_Agile_Autonomous_Driving_using_End-to-End_Deep_Imitation_Learning)
+
+- [Deep Steering: Learning End-to-End Driving Model from Spatial and Temporal Visual Cues](https://arxiv.org/pdf/1708.03798.pdf)
+
+- [Reactive Ground Vehicle Control via Deep Networks](http://juxi.net/workshop/deep-learning-rss-2017/papers/Sullivan.pdf)
+
+- [Off-Road Obstacle Avoidance through End-to-End Learning](http://papers.nips.cc/paper/2847-off-road-obstacle-avoidance-through-end-to-end-learning.pdf)
+
+- [DeepDriving: Learning Affordance for Direct Perception in Autonomous Driving](http://deepdriving.cs.princeton.edu/paper.pdf)
+
+- [Survey of neural networks in autonomous driving](https://www.researchgate.net/publication/324476862_Survey_of_neural_networks_in_autonomous_driving)
+
+- [Target-driven visual navigation in indoor scenes using deep reinforcement learning](https://arxiv.org/pdf/1609.05143.pdf)
+
+- [Going Deeper: Autonomous Steering with Neural Memory Networks](https://eprints.qut.edu.au/114117/1/12.pdf)
+
+- [Autonomous Vehicle Steering Wheel Estimation from a Video using Multichannel Convolutional Neural Networks](https://pdfs.semanticscholar.org/c0d4/4340d8233df9d1dc03a998a4c6c54cde4408.pdf)
+
+- [End-to-end Models for Lane Centering in Autonomous Driving](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=3&cad=rja&uact=8&ved=2ahUKEwikkPilzM3iAhUFzYUKHX-SCWcQFjACegQIARAC&url=https%3A%2F%2Fwww.politesi.polimi.it%2Fbitstream%2F10589%2F142911%2F1%2F2018_09_Paladini.pdf&usg=AOvVaw3c2oxig3qcOyZB24m_drFC)
+
+- [Autonomous vehicle control via deep reinforcement learning](https://pdfs.semanticscholar.org/0044/0fbe53b0b099a7fa1a4714caf401c8663019.pdf)
+
+- [DeepRCar: An Autonomous Car Model](https://dspace.cvut.cz/bitstream/handle/10467/76316/F8-DP-2018-Ungurean-David-thesis.pdf?sequence=-1)
+
+- [Estudio y simulación de un vehículo autopilotado en Unity 5 haciendo uso de algoritmos de aprendizaje automático](https://eprints.ucm.es/50223/1/032.pdf)
+
+- [Agentes de control de vehículos autónomos en entornos urbanos y autovías](https://eprints.ucm.es/15311/1/T33773.pdf)
+
+- [Visión Artificial aplicada a vehículos inteligentes](http://www.davidgeronimo.com/publications/geronimo_bscthesis.pdf)
 
 
 
