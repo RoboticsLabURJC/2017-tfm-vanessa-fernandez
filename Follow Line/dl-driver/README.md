@@ -14,9 +14,39 @@
 10. [Information](#info)
 11. [References](#references)
 
+
 ## Introduction
 
-Dl-driver is a visual control application with the necessary infrastructure to load and use self-driving neural networks. The system solves several functionalities: (1) it offers a graphical user interface that helps you debug the code; (b) it offers access to sensors and actuators with simple methods (it hides communications middleware); (c) it includes auxiliary code to send the estimated orders by the networks (either classification or regression) to the engines. Through this system, the user must only include his network and retouch a file where the predicted speed orders by the network are provided to the vehicle.
+The objective of this project is to **take images** from the camera on a circuit where the mission is to follow a red line to complete a lap of the circuit **using classification and regression neural networks**.
+
+**Dl-driver** is a **visual control application** with the necessary infrastructure to load and use **self-driving neural networks**. The system solves several functionalities: (1) it offers a graphical user interface that helps you debug the code; (b) it offers access to sensors and actuators with simple methods (it hides communications middleware); (c) it includes auxiliary code to send the estimated orders by the networks (either classification or regression) to the engines. Through this system, the user must only include his network and retouch a file where the predicted speed orders by the network are provided to the vehicle.
+ 
+The system consists of a ROS node (pilot) which has a camera that provides information about the car environment, allowing it to take decisions. The purpose is for the autonomous car to be able to drive on different circuits through different neural networks that learn visual control. Therefore, the ROS node obtains speed predictions (linear and angular) of a trained neural network model, which will be sent to the car's engines. In addition, the ROS node has a graphic interface (GUI) to provide user data during the piloting of the vehicle.
+
+**Dl-driver** offers the programmer an **Application Programming Interface (API)** of sensors and actuators, and network predictions:
+
+* **camera.getImage**: Get the camera image of the car. 
+
+* **motors.sendV**: Set the linear speed.
+
+* **motors.sendW**: Set the angular speed.
+
+* **network.prediction_v**: Obtain the linear speed prediction of network.
+
+* **network.prediction_w**: Obtain the angular speed prediction of network.
+
+
+Two classes have been created which allow loading the indicated velocity models (v and w), as well as predicting the values of v and w. The class for classification neural networks is `ClassificationNetwork`, and for regression networks is `RegressionNetwork`. It will be indicated in the main file (`driver.py`) which of these two classes we want to use when executing the ROS node.
+
+The application is divided into different threads to perform different tasks simultaneously:
+
+* Thread of perception and control (`ThreadPublisher`): update the sensor data and actuators. 
+
+* Graphical user interface (GUI) thread: Updates the GUI data.
+
+* Neural network thread (`ThreadNetwork`): infers values from the last image received, asynchronously. When the inference ends, the value is stored within the network element. When the vehicle needs the latest inference data, it only takes this data without blocking any process or call. 
+
+<br /> 
 
 
 ## Getting started
@@ -32,10 +62,31 @@ First of all, we need to install the JdeRobot packages, Python (2.7 for the mome
 
 * Create a virtual environment:
 
-`virtualenv -p python2.7 virtualenv --system-site-packages`
+`virtualenv -p python2.7 --system-site-packages neural_behavior_env`
+
+<br /> 
 
 
 ## Requirements
+
+We need to install JdeRobot, ROS, Python and a few Python packages. 
+
+* Python 2.7
+
+`sudo apt install python2`
+
+* JdeRobot ([installation guide](http://wiki.jderobot.org/Installation)). We need two JdeRobot packages: [JdeRobot-base](https://github.com/JdeRobot/base) and [JdeRobot-assets](https://github.com/JdeRobot/assets).
+
+* Install ROS plugins typing:
+
+`sudo apt install ros-melodic-gazebo-plugins`
+
+* Python packages (TensorFlow, Keras, etc.). Install `requirements`:
+
+`pip install -r requirements.txt`
+
+<br /> 
+
 
 ## How to Use
 
@@ -51,7 +102,16 @@ Then you have to execute the application, which will incorporate your code:
 python2 driver.py driver.yml
 ```
 
+You will have to specify the neural network framework (Keras or Tensorflow) and the weights of trained neural network models in the YML configuration file (`driver.yml`).
+
+
+<br /> 
+
+
 ## Framework choice
+
+<br /> 
+
 
 ## Datasets
 
@@ -59,6 +119,10 @@ There are currently **two sets** of data to train the neural network that resolv
 
 - [Complete dataset](http://wiki.jderobot.org/store/jmplaza/uploads/deeplearning-datasets/vision-based-end2end-learning/complete_dataset.zip).
 - [Curve dataset](http://wiki.jderobot.org/store/jmplaza/uploads/deeplearning-datasets/vision-based-end2end-learning/curves_only.zip).
+
+
+<br /> 
+
 
 ## Models
 
@@ -79,6 +143,10 @@ The models used in this repository are the following:
 | Temporal                  | -                                                            | [Structure](./Net/Keras/models/model_temporal.png)                                  |
 
 The models are available in the [following repository](http://wiki.jderobot.org/store/jmplaza/uploads/deeplearning-models/models.zip).
+
+
+<br /> 
+
 
 
 ## Classification Network
@@ -122,12 +190,35 @@ classification you have them in classification_model.py for regression in model_
 
 
 
+### Video
+
+* Classification neural network perfoms autonomous driving:
+
+[![Classification neural network perfoms autonomous driving](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_simple_circuit.png)](https://www.youtube.com/watch?v=7s4vpMGU2Mg)
+
+
+<br /> 
+
+
 ## Regression Network
+
+### Train Regression Network
+
+
+### Video
+
+* Regression neural network perfoms autonomous driving:
+
+[![Regression neural network perfoms autonomous driving](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/images/image_monaco.png)](https://www.youtube.com/watch?v=J6bDlE7TofE)
+
+<br /> 
 
 
 ## Information
 
 - More detailed info at my [Github-pages](https://roboticslaburjc.github.io/2017-tfm-vanessa-fernandez/).
+
+<br /> 
 
 
 ## References
