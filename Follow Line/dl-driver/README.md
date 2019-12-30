@@ -69,13 +69,14 @@ The models used in this repository are the following:
 | Lenet-5                   | [Paper](http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf).  | [Structure](./Net/Keras/models/model_lenet.png)                 |
 | SmallerVGGNet             | [SmallerVGGNet](https://www.pyimagesearch.com/2018/05/07/multi-label-classification-with-keras/).  | [Structure](./Net/Keras/models/model_smaller_vgg.png)                 |
 | PilotNet                  | [Paper](https://arxiv.org/pdf/1704.07911.pdf). [Nvidia source.](https://devblogs.nvidia.com/explaining-deep-learning-self-driving-car/) | [Structure](./Net/Keras/models/model_pilotnet.png)                 |
-| TinyPilotNet              | [Javier del Egido Sierra](https://ebuah.uah.es/dspace/bitstream/handle/10017/33946/TFG_Egido_Sierra_2018.pdf?sequence=1&isAllowed=y) TFG's. | -                                                           |
+| TinyPilotNet              | [Javier del Egido Sierra](https://ebuah.uah.es/dspace/bitstream/handle/10017/33946/TFG_Egido_Sierra_2018.pdf?sequence=1&isAllowed=y) TFG's. | [Structure](./Net/Keras/models/model_tinypilotnet.png)                                                           |
 | LSTM                      | [Info](https://colah.github.io/posts/2015-08-Understanding-LSTMs/) | -                                                           |
 | LSTM TinyPilotNet         | [Javier del Egido Sierra](https://ebuah.uah.es/dspace/bitstream/handle/10017/33946/TFG_Egido_Sierra_2018.pdf?sequence=1&isAllowed=y) TFG's.                                                            | [Structure](./Net/Keras/models/model_lstm_tinypilotnet.png)        |
 | Deepest LSTM TinyPilotNet | [Javier del Egido Sierra](https://ebuah.uah.es/dspace/bitstream/handle/10017/33946/TFG_Egido_Sierra_2018.pdf?sequence=1&isAllowed=y) TFG's. | [Structure](./Net/Keras/models/model_deepestlstm_tinypilotnet.png) |
-| ControlNet                | -[Reactive Ground Vehicle Control via Deep Networks](http://juxi.net/workshop/deep-learning-rss-2017/papers/Sullivan.pdf)                                                           | [Structure](./Net/Keras/models/model_controlnet.png)               |
-| Stacked                   | -                                                            | [Structure](./Net/Keras/models/model_stacked.png)                  |
-| Stacked Dif or Temporal   | -                                                            | -                                                           |
+| ControlNet                | [Paper](http://juxi.net/workshop/deep-learning-rss-2017/papers/Sullivan.pdf)          | [Structure](./Net/Keras/models/model_controlnet.png)               |
+| Stacked                   | [Paper](http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf)                          | [Structure](./Net/Keras/models/model_stacked.png)                  |
+| Stacked Dif               | [Paper](http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf)                 | [Structure](./Net/Keras/models/model_stacked.png)                  |
+| Temporal                  | -                                                            | [Structure](./Net/Keras/models/model_temporal.png)                                  |
 
 The models are available in the [following repository](http://wiki.jderobot.org/store/jmplaza/uploads/deeplearning-models/models.zip).
 
