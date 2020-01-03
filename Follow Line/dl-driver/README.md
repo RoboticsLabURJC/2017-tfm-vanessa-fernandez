@@ -217,15 +217,6 @@ classification you have them in classification_model.py for regression in model_
 ### Results
 
 
-| Nurburgrin (clockwise)    |    100%    | 1min 02s |    100%    | 1min 03s |    100%    | 1min 03s |    100%    | 1min 05s |
-|Nurburgrin (anti-clockwise)|    100%    | 1min 02s |    100%    | 1min 05s |     80%    |          |     80%    |          |
-|   CurveGP (clockwise)     |    100%    | 2min 13s |    100%    | 2min 06s |     97%    |          |    100%    | 2min 15s |
-| CurveGP (anti-clockwise)  |    100%    | 2min 09s |    100%    | 2min 11s |    100%    | 2min 05s |    100%    | 2min 15s |
-|   Small (clockwise)       |    100%    | 1min 00s |    100%    | 1min 02s |    100%    | 1min 02s |    100%    | 1min 01s |
-| Small (anti-clockwise)    |    100%    |    59s   |    100%    | 1min 03s |    100%    | 1min 03s |    100%    | 1min 04s |
-
-
-
 <table>
   <caption>
     Driving results (cropped image) 
@@ -293,29 +284,218 @@ classification you have them in classification_model.py for regression in model_
     <td>100%</td>
     <td>1min 18s</td>
     <td>8%</td>
-    <td>-<td>
+    <td>-</td>
     <td>100%</td>
     <td>1min 20s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Nurburgrin (clockwise)</th>
+    <td>100%</td>
+    <td>1min 02s</td>
+    <td>100%</td>
+    <td>1min 03s</td>
+    <td>100%</td>
+    <td>1min 03s</td>
+    <td>100%</td>
+    <td>1min 05s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Nurburgrin (anti-clockwise)</th>
+    <td>100%</td>
+    <td>1min 02s</td>
+    <td>100%</td>
+    <td>1min 05s</td>
+    <td>80%</td>
+    <td>-</td>
+    <td>80%</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <th scope="row"> CurveGP (clockwise)</th>
+    <td>100%</td>
+    <td>2min 13s</td>
+    <td>100%</td>
+    <td>2min 06s</td>
+    <td>97%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>2min 15s</td>
+  </tr>
+  <tr>
+    <th scope="row"> CurveGP (anti-clockwise)</th>
+    <td>100%</td>
+    <td>2min 09s</td>
+    <td>100%</td>
+    <td>2min 11s</td>
+    <td>100%</td>
+    <td>2min 05s</td>
+    <td>100%</td>
+    <td>2min 15s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Small (clockwise)</th>
+    <td>100%</td>
+    <td>1min 00s</td>
+    <td>100%</td>
+    <td>1min 02s</td>
+    <td>100%</td>
+    <td>1min 02s</td>
+    <td>100%</td>
+    <td>1min 01s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Small (anti-clockwise)</th>
+    <td>100%</td>
+    <td>59s</td>
+    <td>100%</td>
+    <td>1min 03s</td>
+    <td>100%</td>
+    <td>1min 03s</td>
+    <td>100%</td>
+    <td>1min 04s</td>
   </tr>
 </table>
 
 
 
-|                                                      Driving results (whole image)                             ||||||||
-|                           |        Manual        ||      5v+7w biased    ||     5v+7w balanced   ||   5v+7w unbalanced   || 
-|      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |
- -------------------------- | :--------: | -------: | ---------: | -------: | ---------: | -------: | ---------: | -------: |
-|  Simple (clockwise)       |    100%    | 1min 35s |     35%    |          |     10%    |          |     90%    |          |
-|Simple (anti-clockwise)    |    100%    | 1min 32s |    100%    | 1min 49s |    100%    | 1min 46s |     90%    |          |
-|  Monaco (clockwise)       |    100%    | 1min 15s |    100%    | 1min 24s |      5%    |          |    100%    | 1min 23s |
-|Monaco (anti-clockwise)    |    100%    | 1min 15s |    100%    | 1min 29s |      8%    |          |    100%    | 1min 24s |
-| Nurburgrin (clockwise)    |    100%    | 1min 02s |    100%    | 1min 10s |      8%    |          |     90%    |          |
-|Nurburgrin (anti-clockwise)|    100%    | 1min 02s |    100%    | 1min 07s |      8%    |          |    100%    | 1min 09s |
-|   CurveGP (clockwise)     |    100%    | 2min 13s |    95%     |          |     80%    |          |     25%    |          |
-| CurveGP (anti-clockwise)  |    100%    | 2min 09s |     7%     |          |      3%    |          |     20%    |          |
-|   Small (clockwise)       |    100%    | 1min 00s |     8%     |          |      8%    |          |    100%    | 1min 08s |
-| Small (anti-clockwise)    |    100%    |    59s   |     12%    |          |     12%    |          |    100%    | 1min 08s |
-
+<table>
+  <caption>
+    Driving results (whole image) 
+  </caption>
+  <col>
+  <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
+  <tr>
+    <td rowspan="1"></td>
+    <th colspan="2" scope="colgroup">Manual</th>
+    <th colspan="2" scope="colgroup">5v+7w biased</th>
+    <th colspan="2" scope="colgroup">5v+7w balanced</th>
+    <th colspan="2" scope="colgroup">5v+7w unbalanced</th>
+  </tr>
+  <tr>
+    <th scope="col">Circuits</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+  </tr>
+  <tr>
+    <th scope="row">Simple (clockwise)</th>
+    <td>100%</td>
+    <td>1min 35s</td>
+    <td>35%</td>
+    <td>-</td>
+    <td>10%</td>
+    <td>-</td>
+    <td>90%</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <th scope="row"> Simple (anti-clockwise)</th>
+    <td>100%</td>
+    <td>1min 32s</td>
+    <td>100%</td>
+    <td>1min 49s</td>
+    <td>100%</td>
+    <td>1min 46s</td>
+    <td>90%</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <th scope="row"> Monaco (clockwise)</th>
+    <td>100%</td>
+    <td>1min 15s</td>
+    <td>100%</td>
+    <td>1min 24s</td>
+    <td>5%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>1min 23s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Monaco (anti-clockwise)</th>
+    <td>100%</td>
+    <td>1min 15s</td>
+    <td>100%</td>
+    <td>1min 29s</td>
+    <td>8%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>1min 24s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Nurburgrin (clockwise)</th>
+    <td>100%</td>
+    <td>1min 02s</td>
+    <td>100%</td>
+    <td>1min 10s</td>
+    <td>8%</td>
+    <td>-</td>
+    <td>90%</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <th scope="row"> Nurburgrin (anti-clockwise)</th>
+    <td>100%</td>
+    <td>1min 02s</td>
+    <td>100%</td>
+    <td>1min 07s</td>
+    <td>8%</td>
+    <td>-</td> 
+    <td>100%</td>
+    <td>1min 09s</td>
+  </tr>
+  <tr>
+    <th scope="row"> CurveGP (clockwise)</th>
+    <td>100%</td>
+    <td>2min 13s</td>
+    <td>95%</td>
+    <td>-</td>
+    <td>80%</td>
+    <td>-</td>
+    <td>25%</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <th scope="row"> CurveGP (anti-clockwise)</th>
+    <td>100%</td>
+    <td>2min 09s</td>
+    <td>7%</td>
+    <td>-</td>
+    <td>3%</td>
+    <td>-</td>
+    <td>20%</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <th scope="row"> Small (clockwise)</th>
+    <td>100%</td>
+    <td>1min 00s</td>
+    <td>8%</td>
+    <td>-</td>
+    <td>8%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>1min 08s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Small (anti-clockwise)</th>
+    <td>100%</td>
+    <td>59s</td>
+    <td>12%</td>
+    <td>-</td>
+    <td>12%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>1min 08s</td>
+  </tr>
+</table>
 
 
 
