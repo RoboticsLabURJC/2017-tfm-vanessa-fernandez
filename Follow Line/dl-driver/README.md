@@ -499,6 +499,147 @@ classification you have them in classification_model.py for regression in model_
 
 
 
+<table>
+  <caption>
+    Driving results (cropped image, biased, different number combinations) 
+  </caption>
+  <col>
+  <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
+  <tr>
+    <td rowspan="1"></td>
+    <th colspan="2" scope="colgroup">Manual</th>
+    <th colspan="2" scope="colgroup">4v+7w biased</th>
+    <th colspan="2" scope="colgroup">4v+9w biased</th>
+    <th colspan="2" scope="colgroup">5v+7w biased</th>
+  </tr>
+  <tr>
+    <th scope="col">Circuits</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+  </tr>
+  <tr>
+    <th scope="row">Simple (clockwise)</th>
+    <td>100%</td>
+    <td>1min 35s</td>
+    <td>100%</td>
+    <td>1min 38s</td>
+    <td>100%</td>
+    <td>1min 42s</td>
+    <td>100%</td>
+    <td>1min 41s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Simple (anti-clockwise)</th>
+    <td>100%</td>
+    <td>1min 32s</td>
+    <td>100%</td>
+    <td>1min 38s</td>
+    <td>100%</td>
+    <td>1min 39s</td>
+    <td>100%</td>
+    <td>1min 39s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Monaco (clockwise)</th>
+    <td>100%</td>
+    <td>1min 15s</td>
+    <td>5%</td>
+    <td>-</td>
+    <td>5%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>1min 20s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Monaco (anti-clockwise)</th>
+    <td>100%</td>
+    <td>1min 15s</td>
+    <td>5%</td>
+    <td>-</td>
+    <td>12%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>1min 18s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Nurburgrin (clockwise)</th>
+    <td>100%</td>
+    <td>1min 02s</td>
+    <td>8%</td>
+    <td>-</td>
+    <td>8%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>1min 03s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Nurburgrin (anti-clockwise)</th>
+    <td>100%</td>
+    <td>1min 02s</td>
+    <td>90%</td>
+    <td>-</td>
+    <td>80%</td>
+    <td>-</td> 
+    <td>100%</td>
+    <td>1min 05s</td>
+  </tr>
+  <tr>
+    <th scope="row"> CurveGP (clockwise)</th>
+    <td>100%</td>
+    <td>2min 13s</td>
+    <td>100%</td>
+    <td>2min 19s</td>
+    <td>100%</td>
+    <td>2min 17s</td>
+    <td>100%</td>
+    <td>2min 06s</td>
+  </tr>
+  <tr>
+    <th scope="row"> CurveGP (anti-clockwise)</th>
+    <td>100%</td>
+    <td>2min 09s</td>
+    <td>100%</td>
+    <td>2min 12s/td>
+    <td>100%</td>
+    <td>2min 13s</td>
+    <td>100%</td>
+    <td>2min 11s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Small (clockwise)</th>
+    <td>100%</td>
+    <td>1min 00s</td>
+    <td>100%</td>
+    <td>1min 04s</td>
+    <td>100%</td>
+    <td>1min 04s</td>
+    <td>100%</td>
+    <td>1min 02s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Small (anti-clockwise)</th>
+    <td>100%</td>
+    <td>59s</td>
+    <td>100%</td>
+    <td>1min 04s</td>
+    <td>100%</td>
+    <td>1min 02s</td>
+    <td>100%</td>
+    <td>1min 03s</td>
+  </tr>
+</table>
+
+
+
 ### Video
 
 * Classification neural network perfoms autonomous driving:
