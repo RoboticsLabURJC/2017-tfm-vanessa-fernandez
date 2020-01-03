@@ -216,11 +216,12 @@ classification you have them in classification_model.py for regression in model_
 
 ### Results
 
-|                                                      Driving results (cropped image)                               ||||||||
+|                                                      Driving results (cropped image)                                      |
 | ------------------------------------------------------------------------------------------------------------------------- |
-|                           |        Manual        ||      5v+7w biased    ||    5v+7w balanced    ||   5v+7w unbalanced   || 
+|                           |        Manual         |      5v+7w biased     |    5v+7w balanced     |   5v+7w unbalanced    | 
 | ------------------------- | --------------------- | --------------------- | --------------------- | --------------------- |
 |      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |
+| ------------------------- | ---------- | -------- | ---------- | -------- | ---------- | -------- | ---------- | -------- |
 |  Simple (clockwise)       |    100%    | 1min 35s |    100%    | 1min 41s |     75%    |          |    100%    | 1min 42s |
 |Simple (anti-clockwise)    |    100%    | 1min 32s |    100%    | 1min 39s |    100%    | 1min 39s |    100%    | 1min 43s |
 |  Monaco (clockwise)       |    100%    | 1min 15s |    100%    | 1min 20s |     70%    |          |     85%    |          |
