@@ -233,7 +233,56 @@ classification you have them in classification_model.py for regression in model_
 
 
 
-|                                                      Driving results (completed image)                             ||||||||
+<table>
+  <caption>
+    Driving results (cropped image) 
+  </caption>
+  <col>
+  <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
+  <tr>
+    <td rowspan="2"></td>
+    <th colspan="2" scope="colgroup">Manual</th>
+    <th colspan="2" scope="colgroup">5v+7w biased</th>
+    <th colspan="2" scope="colgroup">5v+7w balanced</th>
+    <th colspan="2" scope="colgroup">5v+7w unbalanced</th>
+  </tr>
+  <tr>
+    <th scope="row">Circuits</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+  </tr>
+  <tr>
+    <th scope="row">Simple (clockwise)</th>
+    <td>100%</td>
+    <td>1min 35s</td>
+    <td>100%</td>
+    <td>1min 41s</td>
+    <td>75%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>1min 42s</td>
+  </tr>
+  <tr>
+    <th scope="row">Simple (anti-clockwise)</th>
+    <td>100%</td>
+    <td>1min 32s</td>
+    <td>100%</td>
+    <td>1min 39s</td>
+    <td>100%</td>
+    <td>1min 39s</td>
+    <td>100%</td>
+    <td>1min 43s</td>
+  </tr>
+</table>
+
+
+
+|                                                      Driving results (whole image)                             ||||||||
 |                           |        Manual        ||      5v+7w biased    ||     5v+7w balanced   ||   5v+7w unbalanced   || 
 |      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |
  -------------------------- | :--------: | -------: | ---------: | -------: | ---------: | -------: | ---------: | -------: |
