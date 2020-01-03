@@ -214,6 +214,40 @@ gave very bad results because it was very basic. The other model loaded another 
 classification you have them in classification_model.py for regression in model_nvidia.py.
 
 
+### Results
+
+|                                                      Driving results (cropped image)                               ||||||||
+|                           |        Manual        ||      5v+7w biased    ||    5v+7w balanced    ||   5v+7w unbalanced   || 
+|      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |
+|  Simple (clockwise)       |    100%    | 1min 35s |    100%    | 1min 41s |     75%    |          |    100%    | 1min 42s |
+|Simple (anti-clockwise)    |    100%    | 1min 32s |    100%    | 1min 39s |    100%    | 1min 39s |    100%    | 1min 43s |
+|  Monaco (clockwise)       |    100%    | 1min 15s |    100%    | 1min 20s |     70%    |          |     85%    |          |
+|Monaco (anti-clockwise)    |    100%    | 1min 15s |    100%    | 1min 18s |      8%    |          |    100%    | 1min 20s |
+| Nurburgrin (clockwise)    |    100%    | 1min 02s |    100%    | 1min 03s |    100%    | 1min 03s |    100%    | 1min 05s |
+|Nurburgrin (anti-clockwise)|    100%    | 1min 02s |    100%    | 1min 05s |     80%    |          |     80%    |          |
+|   CurveGP (clockwise)     |    100%    | 2min 13s |    100%    | 2min 06s |     97%    |          |    100%    | 2min 15s |
+| CurveGP (anti-clockwise)  |    100%    | 2min 09s |    100%    | 2min 11s |    100%    | 2min 05s |    100%    | 2min 15s |
+|   Small (clockwise)       |    100%    | 1min 00s |    100%    | 1min 02s |    100%    | 1min 02s |    100%    | 1min 01s |
+| Small (anti-clockwise)    |    100%    |    59s   |    100%    | 1min 03s |    100%    | 1min 03s |    100%    | 1min 04s |
+
+
+
+|                                                      Driving results (completed image)                             ||||||||
+|                           |        Manual        ||      5v+7w biased    ||     5v+7w balanced   ||   5v+7w unbalanced   || 
+|      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |
+|  Simple (clockwise)       |    100%    | 1min 35s |     35%    |          |     10%    |          |     90%    |          |
+|Simple (anti-clockwise)    |    100%    | 1min 32s |    100%    | 1min 49s |    100%    | 1min 46s |     90%    |          |
+|  Monaco (clockwise)       |    100%    | 1min 15s |    100%    | 1min 24s |      5%    |          |    100%    | 1min 23s |
+|Monaco (anti-clockwise)    |    100%    | 1min 15s |    100%    | 1min 29s |      8%    |          |    100%    | 1min 24s |
+| Nurburgrin (clockwise)    |    100%    | 1min 02s |    100%    | 1min 10s |      8%    |          |     90%    |          |
+|Nurburgrin (anti-clockwise)|    100%    | 1min 02s |    100%    | 1min 07s |      8%    |          |    100%    | 1min 09s |
+|   CurveGP (clockwise)     |    100%    | 2min 13s |    95%     |          |     80%    |          |     25%    |          |
+| CurveGP (anti-clockwise)  |    100%    | 2min 09s |     7%     |          |      3%    |          |     20%    |          |
+|   Small (clockwise)       |    100%    | 1min 00s |     8%     |          |      8%    |          |    100%    | 1min 08s |
+| Small (anti-clockwise)    |    100%    |    59s   |     12%    |          |     12%    |          |    100%    | 1min 08s |
+
+
+
 
 ### Video
 
@@ -227,7 +261,14 @@ classification you have them in classification_model.py for regression in model_
 
 ## Regression Network
 
+
+
 ### Train Regression Network
+
+
+### Results
+
+
 
 
 ### Video
