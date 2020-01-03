@@ -233,6 +233,8 @@ classification you have them in classification_model.py for regression in model_
   <col>
   <colgroup span="2"></colgroup>
   <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
   <tr>
     <td rowspan="2"></td>
     <th colspan="2" scope="colgroup">Manual</th>
