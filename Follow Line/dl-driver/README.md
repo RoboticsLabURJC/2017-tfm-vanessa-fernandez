@@ -660,6 +660,217 @@ classification you have them in classification_model.py for regression in model_
 ### Results
 
 
+<table>
+  <caption>
+    Driving results (cropped image) 
+  </caption>
+  <col>
+  <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
+  <colgroup span="2"></colgroup>
+  <tr>
+    <td rowspan="1"></td>
+    <th colspan="2" scope="colgroup">Manual</th>
+    <th colspan="2" scope="colgroup">Pilotnet</th>
+    <th colspan="2" scope="colgroup">TinyPilotnet</th>
+    <th colspan="2" scope="colgroup">Stacked</th>
+    <th colspan="2" scope="colgroup">Stacked (diff)</th>
+    <th colspan="2" scope="colgroup">LSTM-Tinypilotnet</th>
+    <th colspan="2" scope="colgroup">DeepestLSTM-Tinypilotnet</th>
+  </tr>
+  <tr>
+    <th scope="col">Circuits</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
+  </tr>
+  <tr>
+    <th scope="row"> Simple (clockwise)</th>
+    <td>100%</td>
+    <td>1min 35s</td>
+    <td>100%</td>
+    <td>1min 37s</td>
+    <td>100%</td>
+    <td>1min 41s</td>
+    <td>100%</td>
+    <td>1min 41s</td>
+    <td>100%</td>
+    <td>1min 39s</td>
+    <td>100%</td>
+    <td>1min 40s</td>
+    <td>100%</td>
+    <td>1min 36s</td> 
+  </tr>
+  <tr>
+    <th scope="row"> Simple (anti-clockwise)</th>
+    <td>100%</td>
+    <td>1min 32s</td>
+    <td>100%</td>
+    <td>1min 38s</td>
+    <td>100%</td>
+    <td>1min 41s</td>
+    <td>10%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>1min 38s</td>
+    <td>100%</td>
+    <td>1min 38s</td>
+    <td>100%</td>
+    <td>1min 37s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Monaco (clockwise)</th>
+    <td>100%</td>
+    <td>1min 15s</td>
+    <td>100%</td>
+    <td>1min 20s</td>
+    <td>100%</td>
+    <td>1min 19s</td>
+    <td>85%</td>
+    <td>-</td>
+    <td>45%</td>
+    <td>-</td>
+    <td>50%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>1min 21s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Monaco (anti-clockwise)</th>
+    <td>100%</td>
+    <td>1min 15s</td>
+    <td>100%</td>
+    <td>1min 19s</td>
+    <td>100%</td>
+    <td>1min 18s</td>
+    <td>15%</td>
+    <td>-</td>
+    <td>5%</td>
+    <td>-</td>
+    <td>35%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>1min 19s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Nurburgrin (clockwise)</th>
+    <td>100%</td>
+    <td>1min 02s</td>
+    <td>100%</td>
+    <td>1min 04s</td>
+    <td>100%</td>
+    <td>1min 04s</td>
+    <td>8%</td>
+    <td>-</td>
+    <td>8%</td>
+    <td>-</td>
+    <td>40%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>1min 04s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Nurburgrin (anti-clockwise)</th>
+    <td>100%</td>
+    <td>1min 02s</td>
+    <td>100%</td>
+    <td>1min 06s</td>
+    <td>100%</td>
+    <td>1min 05s</td>
+    <td>80%</td>
+    <td>-</td>
+    <td>50%</td>
+    <td>-</td>
+    <td>50%</td>
+    <td>-</td>
+    <td>80%</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <th scope="row"> CurveGP (clockwise)</th>
+    <td>100%</td>
+    <td>2min 13s</td>
+    <td>100%</td>
+    <td>2min 16s</td>
+    <td>25%</td>
+    <td>-</td>
+    <td>25%</td>
+    <td>-</td>
+    <td>25%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>2min 17s</td>
+    <td>100%</td>
+    <td>2min 17s</td> 
+  </tr>
+  <tr>
+    <th scope="row"> CurveGP  (anti-clockwise)</th>
+    <td>100%</td>
+    <td>2min 09s</td>
+    <td>100%</td>
+    <td>2min 12s</td>
+    <td>75%</td>
+    <td>-</td>
+    <td>75%</td>
+    <td>-</td>
+    <td>75%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>2min 04s</td>
+    <td>100%</td>
+    <td>2min 19s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Small (clockwise)</th>
+    <td>100%</td>
+    <td>1min 00s</td>
+    <td>100%</td>
+    <td>1min 04s</td>
+    <td>100%</td>
+    <td>59s</td>
+    <td>30%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>1min 06s</td>
+    <td>100%</td>
+    <td>1min 07s</td>
+    <td>100%</td>
+    <td>1min 05s</td> 
+  </tr>
+  <tr>
+    <th scope="row"> Small (anti-clockwise)</th>
+    <td>100%</td>
+    <td>59s</td>
+    <td>100%</td>
+    <td>1min 05s</td>
+    <td>100%</td>
+    <td>1min 00s</td>
+    <td>10%</td>
+    <td>-</td>
+    <td>100%</td>
+    <td>1min 05s</td>
+    <td>100%</td>
+    <td>1min 03s<td>
+    <td>100%</td>
+    <td>1min 08s</td>
+  </tr>
+</table>
+
 
 
 ### Video
