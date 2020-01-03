@@ -236,6 +236,7 @@ classification you have them in classification_model.py for regression in model_
 |                                                      Driving results (completed image)                             ||||||||
 |                           |        Manual        ||      5v+7w biased    ||     5v+7w balanced   ||   5v+7w unbalanced   || 
 |      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |
+ -------------------------- | :--------: | -------: | ---------: | -------: | ---------: | -------: | ---------: | -------: |
 |  Simple (clockwise)       |    100%    | 1min 35s |     35%    |          |     10%    |          |     90%    |          |
 |Simple (anti-clockwise)    |    100%    | 1min 32s |    100%    | 1min 49s |    100%    | 1min 46s |     90%    |          |
 |  Monaco (clockwise)       |    100%    | 1min 15s |    100%    | 1min 24s |      5%    |          |    100%    | 1min 23s |
