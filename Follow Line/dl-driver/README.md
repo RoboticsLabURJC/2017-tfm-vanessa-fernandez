@@ -250,6 +250,8 @@ classification you have them in classification_model.py for regression in model_
     <th scope="col">Time</th>
     <th scope="col">Percentage</th>
     <th scope="col">Time</th>
+    <th scope="col">Percentage</th>
+    <th scope="col">Time</th>
   </tr>
   <tr>
     <th scope="row">Simple (clockwise)</th>
