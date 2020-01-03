@@ -216,14 +216,7 @@ classification you have them in classification_model.py for regression in model_
 
 ### Results
 
-|                                        <td colspan=9>Driving results (cropped image)                                      |
-|                           |<td colspan=2>Manual   |<td colspan=2>5v+7w biased |<td colspan=2>5v+7w balanced |<td colspan=2>5v+7w unbalanced | 
-|      Circuits             | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   | Percentage |   Time   |
-| ------------------------- | ---------- | -------- | ---------- | -------- | ---------- | -------- | ---------- | -------- |
-|  Simple (clockwise)       |    100%    | 1min 35s |    100%    | 1min 41s |     75%    |          |    100%    | 1min 42s |
-|Simple (anti-clockwise)    |    100%    | 1min 32s |    100%    | 1min 39s |    100%    | 1min 39s |    100%    | 1min 43s |
-|  Monaco (clockwise)       |    100%    | 1min 15s |    100%    | 1min 20s |     70%    |          |     85%    |          |
-|Monaco (anti-clockwise)    |    100%    | 1min 15s |    100%    | 1min 18s |      8%    |          |    100%    | 1min 20s |
+
 | Nurburgrin (clockwise)    |    100%    | 1min 02s |    100%    | 1min 03s |    100%    | 1min 03s |    100%    | 1min 05s |
 |Nurburgrin (anti-clockwise)|    100%    | 1min 02s |    100%    | 1min 05s |     80%    |          |     80%    |          |
 |   CurveGP (clockwise)     |    100%    | 2min 13s |    100%    | 2min 06s |     97%    |          |    100%    | 2min 15s |
@@ -248,7 +241,7 @@ classification you have them in classification_model.py for regression in model_
     <th colspan="2" scope="colgroup">5v+7w unbalanced</th>
   </tr>
   <tr>
-    <th scope="row">Circuits</th>
+    <th scope="col">Circuits</th>
     <th scope="col">Percentage</th>
     <th scope="col">Time</th>
     <th scope="col">Percentage</th>
@@ -277,6 +270,28 @@ classification you have them in classification_model.py for regression in model_
     <td>1min 39s</td>
     <td>100%</td>
     <td>1min 43s</td>
+  </tr>
+  <tr>
+    <th scope="row"> Monaco (clockwise)</th>
+    <td>100%</td>
+    <td>1min 15s</td>
+    <td>100%</td>
+    <td>1min 20s</td>
+    <td>70%</td>
+    <td>-</td>
+    <td>85%</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <th scope="row"> Monaco (anti-clockwise)</th>
+    <td>100%</td>
+    <td>1min 15s</td>
+    <td>100%</td>
+    <td>1min 18s</td>
+    <td>8%</td>
+    <td>-<td>
+    <td>100%</td>
+    <td>1min 20s</td>
   </tr>
 </table>
 
