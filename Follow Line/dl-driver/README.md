@@ -236,7 +236,7 @@ classification you have them in classification_model.py for regression in model_
   <colgroup span="2"></colgroup>
   <colgroup span="2"></colgroup>
   <tr>
-    <td rowspan="2"></td>
+    <td rowspan="1"></td>
     <th colspan="2" scope="colgroup">Manual</th>
     <th colspan="2" scope="colgroup">5v+7w biased</th>
     <th colspan="2" scope="colgroup">5v+7w balanced</th>
